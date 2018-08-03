@@ -18,20 +18,29 @@ public class workDatabase {
         ArrayList<String> colomn = new ArrayList<>();
         ArrayList<String> date = new ArrayList<>();
         try {
-            SqlQuery query = Ebean.createSqlQuery("select column_name from information_schema.columns where table_name ='wine' and table_schema='public'");
+            String q = "SELECT pgd.description " +
+                   "from pg_catalog.pg_statio_all_tables as st " +
+                   "inner join pg_catalog.pg_description pgd on (pgd.objoid=st.relid) " +
+                    "right outer join information_schema.columns c on (pgd.objsubid=c.ordinal_position and  c.table_schema=st.schemaname and c.table_name=st.relname) " +
+                   "where table_schema = 'public' and table_name = '" + tablename+ "'";
+
+
+            SqlQuery query3 = Ebean.createSqlQuery(q);
+            List<SqlRow> rows3 = query3.findList();
+
             SqlQuery query2 = Ebean.createSqlQuery("select * from public.wine");
-            List<SqlRow> rows = query.findList();
+
             List<SqlRow> rows2 = query2.findList();
             //System.out.println(rows);
-            if(rows.isEmpty()){
+            if(rows3.isEmpty()){
                 return null;
             }
 
-            for (SqlRow row : rows) {
-                Set<String> keyset = row.keySet();
+            for (SqlRow row3 : rows3) {
+                Set<String> keyset = row3.keySet();
                 for (String s : keyset) {
-                    System.out.println(row.getString(s));
-                    colomn.add(row.getString(s));
+                    System.out.println(row3.getString(s));
+                    colomn.add(row3.getString(s));
 
                 }
 
@@ -50,12 +59,7 @@ public class workDatabase {
             e.printStackTrace();
             return null;
         }
-        for (int i = 0;i<colomn.size();++i) {
-            System.out.print(colomn.get(i)+"  ");
-        }
-        for (int i = 0;i<date.size();++i) {
-            System.out.print(date.get(i)+"  ");
-        }
+
         ArrayList<ArrayList<String>> stekAll = new ArrayList<>();
         stekAll.add(colomn);
         stekAll.add(date);
