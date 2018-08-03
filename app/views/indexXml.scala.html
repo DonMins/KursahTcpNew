@@ -1,0 +1,19 @@
+@(message: String)(list:Seq[String],list2:Seq[String])
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
+    </head>
+    <body>
+
+        @main("Реестр справочников"){
+        <h1>@message</h1>
+        @listviesXml(list,list2)
+    }
+
+    </body>
+</html>
+
+
+

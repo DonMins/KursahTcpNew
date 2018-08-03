@@ -1,0 +1,49 @@
+
+TABLE {
+    width: 600px; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    text-align: center;
+    margin: auto;
+    background: white;
+}
+TD, TH {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+    text-align: center;
+}
+
+TH {
+    background: #b0e0e6; /* Цвет фона */
+    text-align: center;
+    font-weight:bold
+}
+H1 {
+    font-size: 30px;
+    color: red;
+    text-align: center;
+
+}
+.buttons{
+    font-size: 15px;
+    text-align: center;
+    border-spacing: 5px;
+
+
+}
+a{
+    color: blue;
+}
+.link{
+    vertical-align:text-top;
+    color: yellow;
+}
+.table2{
+    border: 2px;
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+}
+.rigt{
+     font-size: 20px;
+     text-align: right;
+     color:white;
+ }
