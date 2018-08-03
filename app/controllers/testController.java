@@ -5,6 +5,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import scala.collection.JavaConverters;
 import views.html.indexCatalogPage;
+import views.html.indexContactPage;
+import views.html.indexProviderPage;
 import views.html.indexStartPage;
 
 import java.util.ArrayList;
