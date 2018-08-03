@@ -1,26 +1,34 @@
-
+body{
+    background: url("/assets/images/font.jpg");
+}
 TABLE {
+    margin-top: 100px;
+    margin-left: 10%;
+
     width: 600px; /* Ширина таблицы */
     border-collapse: collapse; /* Убираем двойные линии между ячейками */
     text-align: center;
-    margin: auto;
-    background: white;
+
+
 }
 TD, TH {
     padding: 3px; /* Поля вокруг содержимого таблицы */
-    border: 1px solid black; /* Параметры рамки */
+    border: 1px solid white; /* Параметры рамки */
     text-align: center;
+    color: white;
 }
 
 TH {
-    background: #b0e0e6; /* Цвет фона */
+
     text-align: center;
     font-weight:bold
 }
 H1 {
     font-size: 30px;
-    color: red;
+    color: white;
     text-align: center;
+    font-family: "Comic Sans MS";
+    font-style: italic;
 
 }
 .buttons{
@@ -37,13 +45,41 @@ a{
     vertical-align:text-top;
     color: yellow;
 }
-.table2{
-    border: 2px;
-    padding: 3px; /* Поля вокруг содержимого таблицы */
-    border: 1px solid black; /* Параметры рамки */
+
+H2{
+    font-family: "Comic Sans MS";
+    font-size: 70px;
+    font-style: italic;
+
+    color: white;
+    text-align: center;
+
 }
-.rigt{
-     font-size: 20px;
-     text-align: right;
-     color:white;
- }
+
+#nav {
+    width: 32%;
+    float: right;
+    position: relative;
+    left: -2%;
+    text-align: left;
+    margin: 0 0 3em 0;
+    padding: 0;
+    list-style: none;
+    background-color: black;
+    border-bottom: 1px solid #ccc;
+   }
+#nav li {
+
+    float: right;
+}
+#nav li a {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+
+}
+#nav li a:hover {
+    color: #c00;
+    background-color: #fff; }
