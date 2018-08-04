@@ -1,10 +1,10 @@
-@()
+@(items:Seq[String],items2:Seq[String])
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
 
     </head>
     <body>
@@ -15,17 +15,64 @@
             <p></p>
 
             <ul id="nav">
-                <li><a href="@routes.testController.contactPage()">Контакты </a ></li>
+                <li><a href="@routes.mainPageController.contactPage()">Контакты </a ></li>
+                <li><a href="@routes.mainPageController.providerPage()">Поставщики </a></li>
+                <li><a href="@routes.mainPageController.catalogPage()">Каталог </a></li>
+                <li><a href="@routes.mainPageController.projectPage()">О проекте </a></li>
 
-                <li><a href="@routes.testController.providerPage()">Поставщики </a></li>
-                <li><a href="@routes.testController.catalogPage()">Каталог </a></li>
-                <li><a href="@routes.testController.test()">О проекте </a></li>
 
             </ul>
+            <p></p>
+            <p></p>
+            <p></p>
+
+                @*вывод колонки*@
+            @colomn(i:Int)=@{
+                val it = items
+                it(i)
+            }
+                @*вывод строки*@
+            @display(i:Int)=@{
+                val it = items2
+                it(i)
+            }
+                @*всего колонок*@
+            @sizeItems()=@{
+                val sizeItems = items.length
+                sizeItems
+            }
+                @*количество страниц*@
+            @pages=@{
+
+                sizeItems2()/(sizeItems())
+
+            }
+                @*всего записываемых элементов*@
+            @sizeItems2()=@{
+                val sizeItems2 = items2.length
+                sizeItems2
+
+            }
+
+
             <table>
+
                 <tr>
-                    <th>Страница находится в разработке</th>
+
+                @for(j <- 1 to sizeItems) {
+                    <th>@colomn(j-1)</th>
+                }
                 </tr>
+                @for(i<-1 to sizeItems2) {
+
+                    <td>@display(i - 1)</td>
+                    @if(i%(sizeItems())==0){
+                        <tr></tr>
+                    }
+                }
+
             </table>
+            <br>
+            <p></p>
     </body>
 </html>

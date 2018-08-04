@@ -1,4 +1,4 @@
-@()
+@(list:Seq[String],list2:Seq[String])
 <html>
 
     <head>
@@ -9,7 +9,7 @@
     <body>
 
     @main("Поставщики"){
-        @providerrPage()
+        @providerrPage(list,list2)
     }
 
     </body>

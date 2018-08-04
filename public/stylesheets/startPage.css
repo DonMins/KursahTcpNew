@@ -12,7 +12,7 @@ H2{
 
 }
 #nav {
-    width: 32%;
+    width: 42%;
     float: right;
     position: relative;
     left: -2%;
@@ -23,6 +23,7 @@ H2{
     background-color: black;
     border-bottom: 1px solid #ccc;
      }
+
 #nav li {
 
     float: right;

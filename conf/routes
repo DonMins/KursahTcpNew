@@ -9,11 +9,10 @@
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
-GET     /                           controllers.testController.test
-GET     /catalog                        controllers.testController.catalogPage
-GET     /startPage                       controllers.testController.test
-GET     /provider                      controllers.testController.providerPage
-GET     /contact                  controllers.testController.contactPage
+GET     /                           controllers.mainPageController.projectPage
+GET     /catalog                        controllers.mainPageController.catalogPage
+GET     /provider                      controllers.mainPageController.providerPage
+GET     /contact                  controllers.mainPageController.contactPage
 
 
 # Map static resources from the /public folder to the /assets URL path

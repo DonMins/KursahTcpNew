@@ -6,25 +6,30 @@ import play.mvc.Result;
 import scala.collection.JavaConverters;
 import views.html.indexCatalogPage;
 import views.html.indexContactPage;
+import views.html.indexProjectPage;
 import views.html.indexProviderPage;
-import views.html.indexStartPage;
+
 
 import java.util.ArrayList;
 
-public class testController extends Controller {
-    public Result test(){
+public class mainPageController extends Controller {
+    public Result projectPage(){
 
-        return ok(indexStartPage.render());
+        return ok(indexProjectPage.render());
     }
     public Result catalogPage(){
-        ArrayList<ArrayList<String>> stek = workDatabase.getTableValues();
+        ArrayList<ArrayList<String>> stek = workDatabase.getTableValues("wine");
 
         return ok(indexCatalogPage.render(
                 JavaConverters.asScalaBuffer(stek.get(0)).toList(),
                 JavaConverters.asScalaBuffer(stek.get(1)).toList()));
     }
     public Result providerPage(){
-       return ok(indexProviderPage.render());
+        ArrayList<ArrayList<String>> stek = workDatabase.getTableValues("provider");
+
+        return ok(indexProviderPage.render(
+                JavaConverters.asScalaBuffer(stek.get(0)).toList(),
+                JavaConverters.asScalaBuffer(stek.get(1)).toList()));
     }
     public Result contactPage(){
         return ok(indexContactPage.render());
