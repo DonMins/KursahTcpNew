@@ -1,4 +1,4 @@
-@()
+@(login:String)
 <html>
 
     <head>
@@ -8,8 +8,7 @@
 
     </head>
     <body>
-
-        <div align="center">
+       <div align="center">
        <h2>Barton & Guestier</h2>
 
             <p></p>
@@ -17,8 +16,14 @@
             <ul class="menu" >
                 <li> <a href=#>Личный кабинет </a>
                     <ul class="submenu">
-                        <li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>
-                        <li><a href=#>Регистрация</a></li>
+                        @if(login.isEmpty) {
+                            <li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>
+                            <li><a href="@routes.UsersController.renderAddUserForm()">Регистрация</a></li>
+                        }
+                        @if(!(login.isEmpty)){
+                            <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                        }
+
                     </ul>
                 </li>
 
@@ -26,10 +31,22 @@
 
         <ul id="nav">
 
-            <li><a href="@routes.mainPageController.contactPage()">Контакты </a ></li>
-            <li><a href="@routes.mainPageController.providerPage()">Поставщики </a></li>
-            <li><a href="@routes.mainPageController.catalogPage()">Каталог </a></li>
-            <li><a href="@routes.mainPageController.projectPage()">О проекте </a></li>
+
+            @if(login.isEmpty) {
+
+                <li><a href="@routes.mainPageController.contactPage("")">Контакты </a ></li>
+                <li><a href="@routes.mainPageController.providerPage("")">Поставщики </a></li>
+                <li><a href="@routes.mainPageController.catalogPage("")">Каталог </a></li>
+                <li><a href="@routes.mainPageController.projectPage("")">О проекте </a></li>
+            }
+            @if(!(login.isEmpty)) {
+
+                <li><a href="@routes.mainPageController.contactPage(login)">Контакты </a ></li>
+                <li><a href="@routes.mainPageController.providerPage(login)">Поставщики </a></li>
+                <li><a href="@routes.mainPageController.catalogPage(login)">Каталог </a></li>
+                <li><a href="@routes.mainPageController.projectPage(login)">О проекте </a></li>
+            }
+
 
         </ul>
 

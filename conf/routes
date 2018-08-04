@@ -9,10 +9,12 @@
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
-GET     /                           controllers.mainPageController.projectPage
-GET     /catalog                        controllers.mainPageController.catalogPage
-GET     /provider                      controllers.mainPageController.providerPage
-GET     /contact                  controllers.mainPageController.contactPage
+GET     /log                           controllers.mainPageController.projectPage(login:String)
+GET     /                           controllers.mainPageController.test()
+
+GET     /catalog                        controllers.mainPageController.catalogPage(login:String)
+GET     /provider                      controllers.mainPageController.providerPage(login:String)
+GET     /contact                  controllers.mainPageController.contactPage(login:String)
 
 #Login page controllers
 GET     /login                           controllers.LoginController.renderLoginForm
@@ -23,4 +25,15 @@ GET     /logout                      controllers.LoginController.logout
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-      
+#controller for list of user
+GET     /users                      controllers.UsersController.usersList
+GET    /users/:id                     controllers.UsersController.deleteUser(id: Integer)
+GET     /adduser                    controllers.UsersController.renderAddUserForm
+GET     /addadmin                    controllers.UsersController.renderAdminForm()
++ nocsrf
+POST    /adduser                      controllers.UsersController.addingUser
++ nocsrf
+POST    /adduseradmin                      controllers.UsersController.addingUserAdmin
+GET     /updateuser:id                 controllers.UsersController.renderUpdateUserInfo(id: Integer)
++ nocsrf
+POST    /updateuser:id                  controllers.UsersController.updateUserInfo(id: Integer)

@@ -1,4 +1,4 @@
-@()
+@(login:String)
 <html>
 
     <head>
@@ -7,9 +7,16 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
     </head>
     <body>
+        @if(!(login.isEmpty)){
+            <div align="right">
 
+                Вы вошли как :@login
+
+                <br>
+            </div>
+        }
     @main("Контакты"){
-        @contactPage()
+        @contactPage(login)
     }
 
     </body>

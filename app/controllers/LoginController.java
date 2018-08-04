@@ -52,14 +52,15 @@ public class LoginController extends Controller {
             session().put("username", book.getLogin());
             if (user.getAdmin()) {
                 logger.info("Пользователь " + user.getLogin() + " авторизовался в роли администратора");
-                return redirect(routes.mainPageController.projectPage());
+                return redirect(routes.mainPageController.projectPage(book.getLogin()));
             } else {
                 logger.info("Пользователь " + user.getLogin() + " авторизовался в роли пользователя");
-                return redirect(routes.mainPageController.projectPage());
+                return redirect(routes.mainPageController.projectPage(book.getLogin()));
             }
         }
 
         session().remove("username");
+
         return redirect(routes.LoginController.renderLoginForm());
     }
 
@@ -70,7 +71,7 @@ public class LoginController extends Controller {
     public Result logout(){
         logger.info("Пользователь " + session().get("username") + " разлогинился");
         session().remove("username");
-        return redirect(routes.LoginController.renderLoginForm());
+        return redirect(routes.mainPageController.projectPage(""));
     }
 
 }
