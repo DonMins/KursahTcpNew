@@ -1,0 +1,24 @@
+@(bookForm : play.data.Form[LoginForm])
+<html>
+    <head>
+        <title>
+          Страница авторизации
+        </title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/style.css")">
+    </head>
+    <body>
+
+        @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login"){
+            <h1>Вход в личный кабинет </h1>
+            <br>
+            @helper.inputText(bookForm("login"),'_showConstraints ->false, 'placeholder -> "Логин")
+            @helper.inputPassword(bookForm("password"),'_showConstraints ->false, 'placeholder -> "Пароль")
+
+            <input type ="submit" value="Войти">
+
+            <a class="slick-login2">Регистрация</a>
+
+        }
+
+    </body>
+</html>

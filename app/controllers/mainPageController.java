@@ -34,4 +34,7 @@ public class mainPageController extends Controller {
     public Result contactPage(){
         return ok(indexContactPage.render());
     }
+    public Result personalKab(){
+        return ok(indexContactPage.render());
+    }
 }
