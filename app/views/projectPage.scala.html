@@ -14,16 +14,24 @@
 
             <p></p>
 
+            <ul class="menu" >
+                <li> <a href=#>Личный кабинет </a>
+                    <ul class="submenu">
+                        <li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>
+                        <li><a href=#>Регистрация</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
         <ul id="nav">
-            <li> <a href="@routes.LoginController.renderLoginForm()">Личный кабинет </a></li>
+
             <li><a href="@routes.mainPageController.contactPage()">Контакты </a ></li>
             <li><a href="@routes.mainPageController.providerPage()">Поставщики </a></li>
             <li><a href="@routes.mainPageController.catalogPage()">Каталог </a></li>
             <li><a href="@routes.mainPageController.projectPage()">О проекте </a></li>
 
         </ul>
-
-
 
             <table>
                 <tr>
@@ -39,9 +47,7 @@
                         Где можно приобрести, а главное научиться распознавать достойный напиток?
                         Есть такое место...
                         Таня сделает красивое оформление текста, лесенка
-                    к примеру, потом надо сделать чтобы при нажатии на личный кабинет выпадал список
-                    вход или регистрации, и при нажатии на соотвествующую кнопку выходила
-                    всплывающая форма  входа или регистрации</th>
+                    к примеру</th>
 
                 </tr>
             </table>
