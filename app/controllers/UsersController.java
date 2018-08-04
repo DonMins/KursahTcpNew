@@ -1,6 +1,8 @@
 package controllers;
 
 import io.ebean.Ebean;
+import io.ebean.SqlQuery;
+import io.ebean.SqlRow;
 import models.User;
 import models.UpdateForm;
 import play.Logger;
@@ -12,10 +14,7 @@ import play.mvc.Security;
 import scala.collection.JavaConverters;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static scala.collection.JavaConverters.asScalaBuffer;
 
@@ -98,7 +97,18 @@ public class UsersController extends Controller {
      */
     public Result addingUser(){
         logger.info("Регистрация регистрации нового пользователя");
+        Integer id=0;
         Form<User> userForm = formFactory.form(User.class).bindFromRequest();
+        SqlQuery maxId = Ebean.createSqlQuery("select max(id) from public.user"); // для вывода данных таблиц
+        List<SqlRow> mId = maxId.findList();
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+               id = Integer.parseInt(row2.getString(s));
+
+            }
+        }
+        System.out.print("EEEEEEEE"+id);
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
             return ok(views.html.createUser.render(userForm));
         }
@@ -107,6 +117,7 @@ public class UsersController extends Controller {
         Boolean isAdmin = Boolean.valueOf(String.valueOf(rawdata.get("isAdmin")));
         User user = new User();
         //User user = userForm.get();
+        user.setId((id+1));
         user.setLogin(rawdata.get("login"));
         user.setPassword(rawdata.get("password"));
         user.setAdmin(isAdmin);
