@@ -9,12 +9,12 @@
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
-GET     /log                           controllers.mainPageController.projectPage(login:String)
+GET     /log                           controllers.mainPageController.projectPage(login:String,isAdmin:Boolean)
 GET     /                           controllers.mainPageController.test()
 
-GET     /catalog                        controllers.mainPageController.catalogPage(login:String)
-GET     /provider                      controllers.mainPageController.providerPage(login:String)
-GET     /contact                  controllers.mainPageController.contactPage(login:String)
+GET     /catalog                        controllers.WineController.catalogPage(login:String,isAdmin:Boolean)
+GET     /provider                      controllers.mainPageController.providerPage(login:String,isAdmin:Boolean)
+GET     /contact                  controllers.mainPageController.contactPage(login:String,isAdmin:Boolean)
 
 #Login page controllers
 GET     /login                           controllers.LoginController.renderLoginForm
@@ -37,3 +37,7 @@ POST    /adduseradmin                      controllers.UsersController.addingUse
 GET     /updateuser:id                 controllers.UsersController.renderUpdateUserInfo(id: Integer)
 + nocsrf
 POST    /updateuser:id                  controllers.UsersController.updateUserInfo(id: Integer)
+
+#controller wine
+
+GET    /wine/:id                     controllers.WineController.deleteWine(id: Integer, login: String)

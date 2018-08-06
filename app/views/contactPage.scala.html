@@ -1,4 +1,4 @@
-@(login:String)
+@(login:String, isAdmin:Boolean)
 <html>
 
     <head>
@@ -31,17 +31,17 @@
             <ul id="nav">
                 @if(login.isEmpty) {
 
-                    <li><a href="@routes.mainPageController.contactPage("")">Контакты </a ></li>
-                    <li><a href="@routes.mainPageController.providerPage("")">Поставщики </a></li>
-                    <li><a href="@routes.mainPageController.catalogPage("")">Каталог </a></li>
-                    <li><a href="@routes.mainPageController.projectPage("")">О проекте </a></li>
+                    <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
+                    <li><a href="@routes.mainPageController.providerPage("",isAdmin)">Поставщики </a></li>
+                    <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
+                    <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
                 }
                 @if(!(login.isEmpty)){
 
-                    <li><a href="@routes.mainPageController.contactPage(login)">Контакты </a ></li>
-                    <li><a href="@routes.mainPageController.providerPage(login)">Поставщики </a></li>
-                    <li><a href="@routes.mainPageController.catalogPage(login)">Каталог </a></li>
-                    <li><a href="@routes.mainPageController.projectPage(login)">О проекте </a></li>
+                    <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
+                    <li><a href="@routes.mainPageController.providerPage(login,isAdmin)">Поставщики </a></li>
+                    <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
+                    <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
                 }
 
             </ul>

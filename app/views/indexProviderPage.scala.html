@@ -1,4 +1,4 @@
-@(list:Seq[String],list2:Seq[String],login:String)
+@(list:Seq[String],list2:Seq[String],login:String,isAdmin:Boolean)
 <html>
 
     <head>
@@ -16,7 +16,7 @@
             </div>
         }
     @main("Поставщики"){
-        @providerrPage(list,list2,login)
+        @providerrPage(list,list2,login,isAdmin)
     }
 
     </body>

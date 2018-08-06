@@ -1,13 +1,14 @@
-@(items:Seq[String],items2:Seq[String],login:String)
+@(nameColomn:Seq[String],win:Seq[wine],login:String,isAdmin:Boolean)
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
 
     </head>
     <body>
+
         <div align="center">
             <h2>Barton & Guestier</h2>
 
@@ -31,19 +32,21 @@
 
                 @if(login.isEmpty) {
 
-                    <li><a href="@routes.mainPageController.contactPage("")">Контакты </a ></li>
-                    <li><a href="@routes.mainPageController.providerPage("")">Поставщики </a></li>
-                    <li><a href="@routes.mainPageController.catalogPage("")">Каталог </a></li>
-                    <li><a href="@routes.mainPageController.projectPage("")">О проекте </a></li>
+                    <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
+                    <li><a href="@routes.mainPageController.providerPage("",isAdmin)">Поставщики </a></li>
+                    <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
+                    <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
                 }
                 @if(!(login.isEmpty)){
 
-                    <li><a href="@routes.mainPageController.contactPage(login)">Контакты </a ></li>
-                    <li><a href="@routes.mainPageController.providerPage(login)">Поставщики </a></li>
-                    <li><a href="@routes.mainPageController.catalogPage(login)">Каталог </a></li>
-                    <li><a href="@routes.mainPageController.projectPage(login)">О проекте </a></li>
+                    <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
+                    <li><a href="@routes.mainPageController.providerPage(login,isAdmin)">Поставщики </a></li>
+                    <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
+                    <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
+                   @if(isAdmin){
+                   <li><a href=#>Добавить товар </a></li>
+                    }
                 }
-
 
             </ul>
             <p></p>
@@ -52,17 +55,17 @@
 
             @*вывод колонки*@
             @colomn(i:Int)=@{
-                val it = items
+                val it =nameColomn
                 it(i)
             }
                 @*вывод строки*@
             @display(i:Int)=@{
-                val it = items2
+                val it = win
                 it(i)
             }
                 @*всего колонок*@
             @sizeItems()=@{
-                val sizeItems = items.length
+                val sizeItems = nameColomn.length
                 sizeItems
             }
                 @*количество страниц*@
@@ -73,7 +76,7 @@
             }
                 @*всего записываемых элементов*@
             @sizeItems2()=@{
-                val sizeItems2 = items2.length
+                val sizeItems2 = win.length
                 sizeItems2
 
             }
@@ -88,18 +91,31 @@
 
             <tr>
 
-            @for(j <- 1 to sizeItems) {
+            @for(j <- 2 to sizeItems) {
             <th>@colomn(j-1)</th>
             }
             </tr>
-            @for(i<-1 to sizeItems2) {
+                @win.map { item =>
+                    <th>@item.getName</th>
+                    <th>@item.getColour</th>
+                    <th>@item.getCountry</th>
+                    <th>@item.getBrand</th>
+                    <th>@item.getShelf_life</th>
+                    <th>@item.getSugar</th>
+                    <th>@item.getGrape_sort</th>
+                    <th>@item.getPrice</th>
+                    <th>@item.getValue</th>
+                    <th>@item.getDegree</th>
 
-                <td>@display(i - 1)</td>
-                @if(i%(sizeItems())==0){
-            <td> <img src="@routes.Assets.versioned("images/102_preview.jpg")"  width="100" height="100" alt="hello"></td>
-            <tr></tr>
-            }
-            }
+                        @if(isAdmin){
+                    <th><a href="@routes.WineController.deleteWine(item.getId,login)" > Удалить </a>
+                    <a href=#>Редактирвоать</a> </th>
+                }
+
+                    <tr></tr>
+                }
+
+
 
             </table>
             <br>
