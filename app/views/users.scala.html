@@ -1,0 +1,68 @@
+@(nameColomn:Seq[String] ,users :Seq[User],login:String)
+<html>
+    <title>Список пользователей</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
+    </head>
+    <body>
+        <div align="center">
+            <h2>Barton & Guestier</h2>
+
+            <p></p>
+            <ul class="menu" >
+                <li> <a href=#>Личный кабинет </a>
+                    <ul class="submenu">
+
+                        <li><a href="@routes.LoginController.logout()">Выход</a></li>
+
+
+                    </ul>
+                </li>
+
+            </ul>
+            <ul id="nav">
+
+                    <li><a href="@routes.mainPageController.contactPage(login,true)">Контакты </a ></li>
+                    <li><a href="@routes.mainPageController.providerPage(login,true)">Поставщики </a></li>
+                    <li><a href="@routes.WineController.catalogPage(login,true)">Каталог </a></li>
+                    <li><a href="@routes.mainPageController.projectPage(login,true)">О проекте </a></li>
+                    <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
+
+            </ul>
+            <p></p>
+            <p></p>
+            <p></p>
+
+
+            @sizeNameColomn()=@{
+            val sizeItems = nameColomn.length
+            sizeItems
+        }
+
+        @colomn(i:Int)=@{
+            val it = nameColomn
+            it(i)
+        }
+        <ul>
+            <table>
+                <tr>
+                @for(j <- 1 to sizeNameColomn) {
+                    <th>@colomn(j-1)</th>
+                }
+                </tr>
+                @users.map { item =>
+                    <th>@item.getId</th>
+                    <th>@item.getLogin</th>
+                    <th>@item.getPassword</th>
+                    <th>@item.getAdmin</th>
+
+                    <th><a href="@routes.UsersController.deleteUser(item.getId,login)" > Удалить </a></th>
+                    <tr></tr>
+                }
+
+            </table>
+        </ul>
+
+    </body>
+</html>

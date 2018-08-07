@@ -16,7 +16,8 @@ import java.util.List;
  * Class c user parameters (login, password id, admin rights)
  */
 public class User implements Constraints.Validatable<String> {
-
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "public.user_id_seq")
     private Integer id;
 
     @Constraints.Required

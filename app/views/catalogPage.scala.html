@@ -44,7 +44,8 @@
                     <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
                     <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
                    @if(isAdmin){
-                   <li><a href=#>Добавить товар </a></li>
+                   <li><a href="@routes.WineController.renderAddWine(login)">Добавить товар </a></li>
+                   <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                     }
                 }
 
@@ -107,9 +108,9 @@
                     <th>@item.getValue</th>
                     <th>@item.getDegree</th>
 
-                        @if(isAdmin){
-                    <th><a href="@routes.WineController.deleteWine(item.getId,login)" > Удалить </a>
-                    <a href=#>Редактирвоать</a> </th>
+                @if(isAdmin) {
+                    <th><a href="@routes.WineController.renderUpdateWineInfo(item.getId_product,login)">Редактировать</a>
+                        <a href="@routes.WineController.deleteWine(item.getId_product, login)" > Удалить </a><th>
                 }
 
                     <tr></tr>

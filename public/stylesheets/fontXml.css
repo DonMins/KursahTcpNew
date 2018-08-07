@@ -4,7 +4,7 @@ body{
 }
 TABLE {
     margin-top: 150px;
-    margin-left: 10%;
+    margin-left: -10%;
 
     width: 600px; /* Ширина таблицы */
     border-collapse: collapse; /* Убираем двойные линии между ячейками */

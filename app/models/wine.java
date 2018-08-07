@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class wine implements Constraints.Validatable<String> {
         @Id
-        @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "dictionary.user_id_seq")
+        @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "public.wine_id_seq")
         private Integer id_product;
 
         @Constraints.Required
@@ -29,17 +29,21 @@ public class wine implements Constraints.Validatable<String> {
         private String shelf_life;
         private String sugar;
         private String grape_sort;
+        @Constraints.Required
         private Double price;
+        @Constraints.Required
         private Double value;
+        @Constraints.Required
         private Double degree;
 
 
     public wine(){}
 
-    public wine(Integer id,String name, String colour,String country,String brand,
+    public wine(Integer id_product,String name, String colour,String country,String brand,
                 String shelf_life,String sugar,String grape_sort,Double price,
                 Double value,Double degree){
-           this.id_product = id;
+           this.id_product = id_product
+           ;
            this.name = name;
            this.colour=colour;
            this.brand = brand;
@@ -79,12 +83,12 @@ public class wine implements Constraints.Validatable<String> {
     public static Finder<Integer, wine> find = new Finder<>(wine.class);
 
 
-    public Integer getId() {
+    public Integer getId_product() {
         return id_product;
     }
 
-    public void setId(Integer id) {
-        this.id_product = id;
+    public void setId_product(Integer id_product) {
+        this.id_product = id_product;
     }
 
     public String getName() {
@@ -170,7 +174,7 @@ public class wine implements Constraints.Validatable<String> {
     @Override
         public String validate() {
             System.out.println("wine validate");
-            List<wine>win = Ebean.find(wine.class).where().eq("id", id_product).findList();
+            List<wine>win = Ebean.find(wine.class).where().eq("id_product", id_product).findList();
             if(win.isEmpty()){
                 return null;
             }

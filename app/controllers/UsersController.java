@@ -32,8 +32,7 @@ public class UsersController extends Controller {
      * @return Response with params to be displayed in table:
      * list of users and users fields names
      */
-      public Result usersList(){
-        logger.info("Пользователь " + session().get("username") + " переходит на страницу списка пользователей");
+      public Result usersList(String login){
 
         List<User> users = User.find.all();
         users.sort(new Comparator<User>() {
@@ -48,7 +47,8 @@ public class UsersController extends Controller {
         User us = new User();
         nameColomn = us.getNameColomn();
 
-        return ok();
+          return ok(views.html.users.render(JavaConverters.asScalaBuffer(nameColomn)
+                  ,asScalaBuffer(users),login));
     }
 
     /**
@@ -57,10 +57,9 @@ public class UsersController extends Controller {
      * @return Response with updated list of users
      */
 
-    public Result deleteUser(Integer id){
-        logger.info("Пользователь " + session().get("username") + " удаляет пользователя " + User.find.byId(id).getLogin());
+    public Result deleteUser(Integer id,String login){
         User.find.deleteById(id);
-        return redirect(routes.UsersController.usersList());
+        return redirect(routes.UsersController.usersList(login));
     }
 
     @Inject
@@ -72,7 +71,7 @@ public class UsersController extends Controller {
      * @return Response with registration form to registration page
      */
     public Result renderAddUserForm(){
-        logger.info("Пользователь переходит на страницу регистрации");
+
         Form<User> form = formFactory.form(User.class);
 
         return ok(views.html.createUser.render(form));
@@ -84,7 +83,7 @@ public class UsersController extends Controller {
      */
 
     public Result renderAdminForm(){
-        logger.info("Пользователь " + session().get("username") + " переходит на страницу добавления нового пользователя");
+
         Form<User> form = formFactory.form(User.class);
 
         return ok();
@@ -137,58 +136,12 @@ public class UsersController extends Controller {
         logger.info("Произошла какая-то неведома ошибка");
         return redirect(routes.UsersController.renderAddUserForm());
     }
-
-    /**
-     * Handle post request with form in it, parse it, and trying to add new user to database if user added by admin.
-     * After it redirects to userslist page or stays on current page if there were some errors.
-     * @return Redirects to other pages by calling theirs controllers.
-     */
-
-    public Result addingUserAdmin(){
-        logger.info("Пользователь " + session().get("username") + " добавляет нового пользователя");
-        Form<User> userForm = formFactory.form(User.class).bindFromRequest();
-        if(userForm.hasErrors() || userForm.hasGlobalErrors()){
-            return ok();
-        }
-        Map<String, String> rawdata = userForm.rawData();
-
-        Boolean isAdmin = Boolean.valueOf(String.valueOf(rawdata.get("isAdmin")));
-        User user = new User();
-        //User user = userForm.get();
-        user.setLogin(rawdata.get("login"));
-        user.setPassword(rawdata.get("password"));
-
-        user.setAdmin(isAdmin);
-        List<User> users = Ebean.find(User.class).where().eq("login", user.getLogin()).findList();
-        if(users.isEmpty()){
-            try{
-                Ebean.save(user);
-            }catch (Exception ex){
-                logger.info("Пользователь: " + session().get("username") + " -- при добавлении нового пользователя произошла ошибка");
-                return redirect(routes.UsersController.renderAdminForm());
-            }
-
-            logger.info("Пользователь " + user.getLogin()+ " успешно добавлен пользователем " + session().get("username"));
-            return redirect(routes.UsersController.usersList());
-
-        }
-
-
-        return redirect(routes.UsersController.renderAdminForm());
-    }
-
-    /**
-     * Render update form for updating user`s info as admin
-     * @param id identificator of user to be updated
-     * @return Response with form with data of user fill in it
-     */
-
     public Result renderUpdateUserInfo(Integer id){
         User user = User.find.byId(id);
         logger.info("Пользователь " + session().get("username") + " обновляет информацию о пользователе " + user.getLogin());
-        UpdateForm update = new UpdateForm(user.getPassword(),  user.getAdmin());
+        UpdateForm update = new UpdateForm(user.getPassword(), user.getRegion(), user.getAdmin());
         Form<UpdateForm> updateForm = formFactory.form(UpdateForm.class).fill(update);
-        return ok();
+        return ok(views.html.updateUser.render(updateForm, user));
 
     }
 
@@ -210,6 +163,7 @@ public class UsersController extends Controller {
 
         Boolean isAdmin = Boolean.valueOf((rawdata.get("isAdmin")));
         user.setPassword(rawdata.get("password"));
+
         user.setAdmin(isAdmin);
         System.out.println("some errors " + isAdmin);
         Ebean.update(user);
@@ -217,5 +171,4 @@ public class UsersController extends Controller {
         return redirect(routes.UsersController.usersList());
     }
 }
-
 

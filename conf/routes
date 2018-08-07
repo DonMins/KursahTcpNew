@@ -26,18 +26,19 @@ GET     /logout                      controllers.LoginController.logout
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 #controller for list of user
-GET     /users                      controllers.UsersController.usersList
-GET    /users/:id                     controllers.UsersController.deleteUser(id: Integer)
+GET     /users                      controllers.UsersController.usersList(login:String)
+GET    /users/:id                     controllers.UsersController.deleteUser(id: Integer,login:String)
 GET     /adduser                    controllers.UsersController.renderAddUserForm
 GET     /addadmin                    controllers.UsersController.renderAdminForm()
 + nocsrf
 POST    /adduser                      controllers.UsersController.addingUser
-+ nocsrf
-POST    /adduseradmin                      controllers.UsersController.addingUserAdmin
-GET     /updateuser:id                 controllers.UsersController.renderUpdateUserInfo(id: Integer)
-+ nocsrf
-POST    /updateuser:id                  controllers.UsersController.updateUserInfo(id: Integer)
+
 
 #controller wine
 
 GET    /wine/:id                     controllers.WineController.deleteWine(id: Integer, login: String)
+GET    /addWinecatalog/:login                     controllers.WineController.addingWine(login: String)
+GET     /addWine                   controllers.WineController.renderAddWine(login: String)
+GET     /updateWine                controllers.WineController.renderUpdateWineInfo(id: Integer,login:String)
++ nocsrf
+POST    /updateWine                  controllers.WineController.updateWineInfo(id: Integer,login:String)
