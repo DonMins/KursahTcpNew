@@ -18,7 +18,7 @@
                     <ul class="submenu">
                         @if(login.isEmpty) {
                             <li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>
-                            <li><a href="@routes.UsersController.renderAddUserForm()">Регистрация</a></li>
+                            <li><a href="@routes.UsersController.renderAddUserForm(isAdmin)">Регистрация</a></li>
                         }
                         @if(!(login.isEmpty)){
                             <li><a href="@routes.LoginController.logout()">Выход</a></li>

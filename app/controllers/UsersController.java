@@ -70,11 +70,11 @@ public class UsersController extends Controller {
      * Render registration page
      * @return Response with registration form to registration page
      */
-    public Result renderAddUserForm(){
+    public Result renderAddUserForm(boolean admin){
 
         Form<User> form = formFactory.form(User.class);
 
-        return ok(views.html.createUser.render(form));
+        return ok(views.html.createUser.render(form,admin));
     }
 
     /**
@@ -94,7 +94,7 @@ public class UsersController extends Controller {
      * After it redirects to login page or stays on current page if there was some errors.
      * @return Redirects to other pages by calling theirs controllers.
      */
-    public Result addingUser(){
+    public Result addingUser(boolean admin){
         logger.info("Регистрация регистрации нового пользователя");
         Integer id=0;
         Form<User> userForm = formFactory.form(User.class).bindFromRequest();
@@ -109,7 +109,7 @@ public class UsersController extends Controller {
         }
         System.out.print("EEEEEEEE"+id);
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
-            return ok(views.html.createUser.render(userForm));
+            return ok(views.html.createUser.render(userForm,admin));
         }
         Map<String, String> rawdata = userForm.rawData();
 
@@ -127,21 +127,25 @@ public class UsersController extends Controller {
             }catch (Exception ex){
                 logger.info("При регистрации пользователя произошла ошибка");
                 System.out.println("Something went wrong");
-                return redirect(routes.UsersController.renderAddUserForm());
+                return redirect(routes.UsersController.renderAddUserForm(admin));
             }
-            logger.info("Пользователь " + user.getLogin() + " успешно зарегистрирован");
+            if(admin){
+                return redirect(routes.UsersController.usersList(user.getLogin()));
+            }
+           else{
             return redirect(routes.LoginController.checkingLoginForm());
+           }
 
         }
         logger.info("Произошла какая-то неведома ошибка");
-        return redirect(routes.UsersController.renderAddUserForm());
+        return redirect(routes.UsersController.renderAddUserForm(admin));
     }
-    public Result renderUpdateUserInfo(Integer id){
+    public Result renderUpdateUserInfo(Integer id,String login){
         User user = User.find.byId(id);
-        logger.info("Пользователь " + session().get("username") + " обновляет информацию о пользователе " + user.getLogin());
-        UpdateForm update = new UpdateForm(user.getPassword(), user.getRegion(), user.getAdmin());
+
+        UpdateForm update = new UpdateForm(user.getPassword(), user.getAdmin());
         Form<UpdateForm> updateForm = formFactory.form(UpdateForm.class).fill(update);
-        return ok(views.html.updateUser.render(updateForm, user));
+        return ok(views.html.updateUser.render(updateForm, user,login));
 
     }
 
@@ -152,7 +156,7 @@ public class UsersController extends Controller {
      * @return redirects to o userslist page if its ok and stays on current page if there were some errors
      */
 
-    public Result updateUserInfo(Integer id){
+    public Result updateUserInfo(Integer id,String login){
         User user = User.find.byId(id);
         Form<UpdateForm> form = formFactory.form(UpdateForm.class).bindFromRequest();
         if(form.hasErrors() || form.hasGlobalErrors()){
@@ -168,7 +172,7 @@ public class UsersController extends Controller {
         System.out.println("some errors " + isAdmin);
         Ebean.update(user);
         logger.info("Пользователь: " + session().get("username") + " данные о пользователе " + user.getLogin() + " успешно обновлены");
-        return redirect(routes.UsersController.usersList());
+        return redirect(routes.UsersController.usersList(login));
     }
 }
 

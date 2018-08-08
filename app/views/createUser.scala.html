@@ -1,4 +1,4 @@
-@(form: play.data.Form[User])
+@(form: play.data.Form[User],admin:Boolean)
 <html>
     <head>
         <title>
@@ -10,9 +10,12 @@
         <a href="@routes.mainPageController.test()" class = "link">На главную страницу </a>
         <h1 class="g1">Регистрация</h1>
 
-        @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login"){
+        @helper.form(action = routes.UsersController.addingUser(admin), 'id -> "slick-login"){
             @helper.inputText(form("login"),'_showConstraints ->false,'placeholder -> "Логин")
             @helper.inputText(form("password"),'_showConstraints ->false,'placeholder -> "Ваш сложный пароль")
+            @if(admin){
+                Права администратора:@helper.checkbox(form("isAdmin"))
+            }
 
             <input type ="submit" value="Создать">
             }
