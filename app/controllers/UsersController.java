@@ -3,6 +3,7 @@ package controllers;
 import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
+import models.LoginForm;
 import models.User;
 import models.UpdateForm;
 import play.Logger;
@@ -66,15 +67,17 @@ public class UsersController extends Controller {
     FormFactory formFactory;
 
 
+
     /**
      * Render registration page
      * @return Response with registration form to registration page
      */
     public Result renderAddUserForm(boolean admin){
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
 
-        Form<User> form = formFactory.form(User.class);
+        Form<User> form2 = formFactory.form(User.class);
 
-        return ok(views.html.createUser.render(form,admin));
+        return ok(views.html.indexProjectPage.render("",admin,form,form2));
     }
 
     /**
@@ -98,6 +101,7 @@ public class UsersController extends Controller {
         logger.info("Регистрация регистрации нового пользователя");
         Integer id=0;
         Form<User> userForm = formFactory.form(User.class).bindFromRequest();
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
         SqlQuery maxId = Ebean.createSqlQuery("select max(id) from public.user"); // для вывода данных таблиц
         List<SqlRow> mId = maxId.findList();
         for (SqlRow row2 : mId) {
@@ -109,7 +113,7 @@ public class UsersController extends Controller {
         }
         System.out.print("EEEEEEEE"+id);
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
-            return ok(views.html.createUser.render(userForm,admin));
+            return ok(views.html.indexProjectPage.render("",admin,form,userForm));
         }
         Map<String, String> rawdata = userForm.rawData();
 
@@ -133,7 +137,7 @@ public class UsersController extends Controller {
                 return redirect(routes.UsersController.usersList(user.getLogin()));
             }
            else{
-            return redirect(routes.LoginController.checkingLoginForm());
+            return redirect(routes.mainPageController.test());
            }
 
         }

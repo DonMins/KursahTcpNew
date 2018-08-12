@@ -1,26 +1,39 @@
 package controllers;
 
+import models.LoginForm;
+import models.User;
 import models.workDatabase;
+import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.collection.JavaConverters;
 import views.html.*;
 
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 
 
 public class mainPageController extends Controller {
     public static String LOGIN ;
     public static boolean ADMIN;
+    @Inject
+    FormFactory formFactory;
+
     public Result test(){
-        return ok(indexProjectPage.render("",false));
+
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+        return ok(indexProjectPage.render("",false,form,form2));
     }
 
     public Result projectPage(String login,boolean isAdmin){
         LOGIN=login;
         ADMIN = isAdmin;
-        return ok(indexProjectPage.render(login,isAdmin));
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+        return ok(indexProjectPage.render(login,isAdmin,form,form2));
     }
 
 //    public Result catalogPage(String login,boolean isAdmin){
