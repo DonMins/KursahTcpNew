@@ -11,6 +11,7 @@ GET     /count                      controllers.CountController.count
 GET     /message                    controllers.AsyncController.message
 GET     /log                           controllers.mainPageController.projectPage(login:String,isAdmin:Boolean)
 GET     /                           controllers.mainPageController.test()
+GET     /ccs                           controllers.mainPageController.ccs()
 
 GET     /catalog                        controllers.WineController.catalogPage(login:String,isAdmin:Boolean)
 GET     /provider                      controllers.mainPageController.providerPage(login:String,isAdmin:Boolean)

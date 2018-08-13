@@ -56,5 +56,8 @@ public class mainPageController extends Controller {
     {
         return ok(indexContactPage.render(login,isAdmin));
     }
-
+    public Result ccs()
+    {
+        return ok(views.html.test.render());
+    }
 }
