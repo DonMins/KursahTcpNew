@@ -77,7 +77,7 @@ public class UsersController extends Controller {
 
         Form<User> form2 = formFactory.form(User.class);
 
-        return ok(views.html.indexProjectPage.render("",admin,form,form2));
+        return ok(views.html.indexProjectPage.render("",admin,form,form2,0));
     }
 
     /**
@@ -113,7 +113,7 @@ public class UsersController extends Controller {
         }
         System.out.print("EEEEEEEE"+id);
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
-            return ok(views.html.indexProjectPage.render("",admin,form,userForm));
+            return ok(views.html.indexProjectPage.render("",admin,form,userForm,2));
         }
         Map<String, String> rawdata = userForm.rawData();
 

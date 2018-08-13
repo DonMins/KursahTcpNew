@@ -35,12 +35,15 @@ public class LoginController extends Controller {
      * @return Responses with redirects to pages by calling their controllers.
      */
     public Result checkingLoginForm(){
+        Integer error;
         Form<LoginForm> bookForm = formFactory.form(LoginForm.class).bindFromRequest();
-        if(bookForm.hasErrors()){
-            return ok(views.html.login.render(bookForm));
-        }
-        if(bookForm.hasGlobalErrors()){
-            return ok(views.html.login.render(bookForm));
+
+        if(bookForm.hasGlobalErrors()||bookForm.hasErrors() ){
+            error = 1; // неверный логин или пароль
+
+            mainPageController.error=error;
+
+            return redirect(routes.mainPageController.test());
         }
         LoginForm book = bookForm.get();
         System.out.println(book.toString());
@@ -48,20 +51,22 @@ public class LoginController extends Controller {
 
         User user = users.get(0);
         if( user.getPassword().equals(book.getPassword())) {
+
+            error=0;
+            mainPageController.error=error; // все хорошо, ошибок нет
             logger.info("Пользователь " + user.getLogin() + " успешно авторизовался");
             session().put("username", book.getLogin());
-            if (user.getAdmin()) {
-                logger.info("Пользователь " + user.getLogin() + " авторизовался в роли администратора");
-                return redirect(routes.mainPageController.projectPage(book.getLogin(),user.getAdmin()));
-            } else {
-                logger.info("Пользователь " + user.getLogin() + " авторизовался в роли пользователя");
-                return redirect(routes.mainPageController.projectPage(book.getLogin(),user.getAdmin()));
-            }
+            logger.info("Пользователь " + user.getLogin() + " авторизовался ");
+            return redirect(routes.mainPageController.projectPage(book.getLogin(),user.getAdmin()));
+
         }
-
         session().remove("username");
+        error = 1; // неверный логин или пароль
 
-        return redirect(routes.LoginController.renderLoginForm());
+        mainPageController.error=error;
+
+
+        return redirect(routes.mainPageController.test());
     }
 
     /**

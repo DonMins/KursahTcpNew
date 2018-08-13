@@ -18,14 +18,16 @@ import java.util.ArrayList;
 public class mainPageController extends Controller {
     public static String LOGIN ;
     public static boolean ADMIN;
+    public static Integer error ;
     @Inject
     FormFactory formFactory;
 
-    public Result test(){
+        public Result test(){
 
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
-        return ok(indexProjectPage.render("",false,form,form2));
+        System.out.println("GGGGGGGGGGGGGGGG "+ error);
+        return ok(indexProjectPage.render("",false,form,form2,error));
     }
 
     public Result projectPage(String login,boolean isAdmin){
@@ -33,7 +35,7 @@ public class mainPageController extends Controller {
         ADMIN = isAdmin;
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
-        return ok(indexProjectPage.render(login,isAdmin,form,form2));
+        return ok(indexProjectPage.render(login,isAdmin,form,form2,error));
     }
 
 //    public Result catalogPage(String login,boolean isAdmin){
