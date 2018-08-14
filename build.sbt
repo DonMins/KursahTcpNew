@@ -17,7 +17,8 @@ libraryDependencies ++= Seq( jdbc , ehcache , ws , specs2 % Test , guice,
   "org.apache.cxf" % "cxf-rt-bindings-soap" % "3.1.2",
   "com.typesafe.play" %% "play-iteratees" % "2.6.1",
   "com.typesafe.play" %% "play-iteratees-reactive-streams" % "2.6.1",
-  "org.postgresql" % "postgresql" % "9.4.1211")
+  "org.postgresql" % "postgresql" % "9.4.1211",
+  "org.webjars" % "jquery" % "3.3.1-1")
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  
 
