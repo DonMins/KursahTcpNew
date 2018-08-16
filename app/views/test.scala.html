@@ -2,48 +2,39 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <script src="@routes.Assets.versioned("javascripts/test.js")"></script>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/test.css")">
-
-
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
     </head>
     <body>
 
-        <header>
-            <h1 style="text-align: center;">Всплывающее окно при загрузке сайта</h1>
-        </header>
-        <div class="info">
-            <h2 style="text-align: center;">Окно откроется после полной загрузки страницы по истечении 5 секунд.</h2>
-            <p style="text-align: center;">
-                <a class="back" href="http://dbmast.ru/sozdaem-vsplyvayushhee-okno-pri-zagruzke-sajta-s-pomoshhyu-css3-i-nemnogo-javascript">Изучить детали &rarr;</a>
-            </p>
-            <p style="text-align: center;">
-                сделано с любовью: <a class="back" href="http://twitter.com/dobrovoi"> @@dobrovoi</a>
-            </p>
-        </div>
-            <!-- Модальное Окно  -->
-        <div id="overlay">
-            <div class="popup">
-                <h2>Модальное Окно!</h2>
-                <p>
-                    Ширина модального окна задана в процентах, в зависимости от ширины родительского контейнера, в данном примере это фон затемнения.
-                </p>
-                <div class="pl-left">
-                    <img src="http://lorempixel.com/320/320/people/some-text">
-                </div>
-                <p>Предусмотрена возможность использования встроенных миниатюр, разположенных слева или справа, в отдельном div-контейнере с выделенным классом .pl-left и .pl-right соответственно.</p>
-                <div class="pl-right">
-                    <img src="http://lorempixel.com/320/320/people/some-text">
-                </div>
-                <p>Размер блока миниатюр так же определил в процентной записи (25%), тем самым обеспечив возможность пропорционального изменения, при просмотре на экранах различных пользовательских устройств.</p>
-                <p>
-                    Простейшая анимация появления с помощью изменения свойсва прозрачности (opacity) от 0 к 1
-                </p>
-                <button class="close" id="trog" title="Закрыть"></button>
+        <div class="container">
+                         <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
 
+                        <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">форма </h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Я сделал это говно спустя 3 дня ....ааааа</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-
-        <script src="@routes.Assets.versioned("lib/jquery/jquery.js")"></script>
+        <script>
+                $(document).ready(function () {
+                    $('#myModal').modal('show');
+                });
+        </script>
     </body>
 </html>

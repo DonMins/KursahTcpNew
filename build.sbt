@@ -20,6 +20,5 @@ libraryDependencies ++= Seq( jdbc , ehcache , ws , specs2 % Test , guice,
   "org.postgresql" % "postgresql" % "9.4.1211",
   "org.webjars" % "jquery" % "3.3.1-1")
 
-unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  
 
       
