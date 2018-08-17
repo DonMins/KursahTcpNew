@@ -45,13 +45,13 @@ public class mainPageController extends Controller {
 //                JavaConverters.asScalaBuffer(stek.get(0)).toList(),
 //                JavaConverters.asScalaBuffer(stek.get(1)).toList(),login,isAdmin));
 //    }
-    public Result providerPage(String login,boolean isAdmin){
-        ArrayList<ArrayList<String>> stek = workDatabase.getTableValues("provider");
-
-        return ok(indexProviderPage.render(
-                JavaConverters.asScalaBuffer(stek.get(0)).toList(),
-                JavaConverters.asScalaBuffer(stek.get(1)).toList(),login,isAdmin));
-    }
+//    public Result providerPage(String login,boolean isAdmin){
+//        ArrayList<ArrayList<String>> stek = workDatabase.getTableValues("provider");
+//
+//        return ok(indexProviderPage.render(
+//                JavaConverters.asScalaBuffer(stek.get(0)).toList(),
+//                JavaConverters.asScalaBuffer(stek.get(1)).toList(),login,isAdmin));
+//    }
     public Result contactPage(String login,boolean isAdmin)
     {
         return ok(indexContactPage.render(login,isAdmin));

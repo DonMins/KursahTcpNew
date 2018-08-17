@@ -51,12 +51,17 @@ public class WineController extends Controller {
         SqlQuery maxId = Ebean.createSqlQuery("select max(id_product) from public.wine");
         Integer id =0;
         List<SqlRow> mId = maxId.findList();
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                id = Integer.parseInt(row2.getString(s));
+        try {
+            for (SqlRow row2 : mId) {
+                Set<String> keyset2 = row2.keySet();
+                for (String s : keyset2) {
+                    id = Integer.parseInt(row2.getString(s));
 
+                }
             }
+        }
+        catch (NumberFormatException e){
+            id=0;
         }
 
 

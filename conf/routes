@@ -14,7 +14,7 @@ GET     /                           controllers.mainPageController.test()
 GET     /ccs                           controllers.mainPageController.ccs()
 
 GET     /catalog                        controllers.WineController.catalogPage(login:String,isAdmin:Boolean)
-GET     /provider                      controllers.mainPageController.providerPage(login:String,isAdmin:Boolean)
+GET     /provider                      controllers.ProviderController.providerPage(login:String,isAdmin:Boolean)
 GET     /contact                  controllers.mainPageController.contactPage(login:String,isAdmin:Boolean)
 
 #Login page controllers
@@ -49,3 +49,12 @@ GET     /addWine                   controllers.WineController.renderAddWine(logi
 GET     /updateWine                controllers.WineController.renderUpdateWineInfo(id: Integer,login:String)
 + nocsrf
 POST    /updateWine                  controllers.WineController.updateWineInfo(id: Integer,login:String)
+
+#controller provider
+
+GET    /provider/:id                     controllers.ProviderController.deleteProvider(id: Integer, login: String)
+GET    /addProvider/:login                     controllers.ProviderController.addingProvider(login: String)
+GET     /addProvider                  controllers.ProviderController.renderAddProvider(login: String)
+GET     /updateProvider             controllers.ProviderController.renderUpdateProviderInfo(id: Integer,login:String)
++ nocsrf
+POST    /updateProvider               controllers.ProviderController.updateProviderInfo(id: Integer,login:String)

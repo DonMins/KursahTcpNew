@@ -32,14 +32,14 @@
                 @if(login.isEmpty) {
 
                     <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
-                    <li><a href="@routes.mainPageController.providerPage("",isAdmin)">Поставщики </a></li>
+                    <li><a href="@routes.ProviderController.providerPage("",isAdmin)">Поставщики </a></li>
                     <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
                     <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
                 }
                 @if(!(login.isEmpty)){
 
                     <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
-                    <li><a href="@routes.mainPageController.providerPage(login,isAdmin)">Поставщики </a></li>
+                    <li><a href="@routes.ProviderController.providerPage(login,isAdmin)">Поставщики </a></li>
                     <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
                     <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
                     @if(isAdmin){
