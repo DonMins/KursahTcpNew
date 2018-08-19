@@ -1,4 +1,4 @@
-@(items:Seq[String],items2:Seq[provider],login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User], error: Integer)
+@(nameColomn:Seq[String],win:Seq[provider],login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User], error: Integer)
 <html>
 
     <head>
@@ -145,7 +145,7 @@
                     <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
                     <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
                     @if(isAdmin){
-                        <li><a href=#>Добавить поставщика </a></li>
+                        <li><a href="@routes.ProviderController.renderAddProvider(login)">Добавить поставщика </a></li>
                         <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                     }
                 }
@@ -158,17 +158,17 @@
 
                 @*вывод колонки*@
             @colomn(i:Int)=@{
-                val it = items
+                val it = nameColomn
                 it(i)
             }
                 @*вывод строки*@
             @display(i:Int)=@{
-                val it = items2
+                val it = win
                 it(i)
             }
                 @*всего колонок*@
             @sizeItems()=@{
-                val sizeItems = items.length
+                val sizeItems = nameColomn.length
                 sizeItems
             }
                 @*количество страниц*@
@@ -179,7 +179,7 @@
             }
                 @*всего записываемых элементов*@
             @sizeItems2()=@{
-                val sizeItems2 = items2.length
+                val sizeItems2 = win.length
                 sizeItems2
 
             }
@@ -193,14 +193,18 @@
                     <th>@colomn(j-1)</th>
                 }
                 </tr>
-                @for(i<-1 to sizeItems2) {
+                @win.map { item =>
+                    <th>@item.getName</th>
+                    <th>@item.getPhone</th>
+                    <th>@item.getAddress</th>
 
-                    <td>@display(i - 1)</td>
-                    @if(i%(sizeItems())==0){
-                        <tr></tr>
-                    }
+                    @if(isAdmin){
+                        <th><a href="@routes.ProviderController.renderUpdateProviderInfo(item.getId_provider,login)">Редактировать</a>
+                    <a href="@routes.ProviderController.deleteProvider(item.getId_provider, login)" > Удалить </a><th>
                 }
 
+                    <tr></tr>
+                }
             </table>
             <br>
             <p></p>
