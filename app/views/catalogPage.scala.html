@@ -1,4 +1,4 @@
-@(nameColomn:Seq[String],win:Seq[wine],login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User], error: Integer, wineForm : play.data.Form[wine])
+@(nameColomn:Seq[String],win:Seq[wine],login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User], error: Integer, wineForm : play.data.Form[wine],form: play.data.Form[UpdateWine],wine:wine)
 <html>
 
     <head>
@@ -111,9 +111,9 @@
 
 
                 <!-- Модальное окно №3 -->
-            <a href="#x" class="overlay" id="win3"></a>
-            <div class="popup"  style="overflow-y: scroll;max-height:50%;  margin-top: 50px; margin-bottom:50px;">
-                @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login"){
+            <a href="#x" class="overlay" id="win3" ></a>
+            <div class="popup"  style="overflow-y: scroll;max-height:100%;  margin-top: 0; margin-bottom:50px; top:0px ">
+
                     <div class="modal-header">
 
                         <h1 class="modal-title">Регистрация товара</h1>
@@ -144,9 +144,81 @@
                     <a href="@routes.UsersController.renderAddUserForm(false)" class="slick-login2">Регистрация</a>
 
                 }
-                }
+
             <a class="close"title="Закрыть" href="#close"></a>
             </div>
+
+
+
+
+
+
+                <!-- Модальное окно №4 - updateForm -->
+            <a href="#x" class="overlay" id="win4"></a>
+            <div class="popup"  style="overflow-y: scroll;max-height:100%;  margin-top: 0; margin-bottom:50px; top:0px ">
+
+                <div class="modal-header">
+
+                    <h1 class="modal-title">Редактирование товара</h1>
+                </div>
+
+                @*<br>*@
+                @helper.form(action = routes.WineController.updateWineInfo(wine.getId_product,login), 'id -> "slick-login"){
+
+                    <table>
+                        <tr>
+                            <td> Название:  </td> <td>@helper.inputText(form("name"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Цвет:  </td> <td> @helper.inputText(form("colour"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Страна:  </td> <td>@helper.inputText(form("country"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Бренд:  </td> <td>@helper.inputText(form("brand"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Срок годности:  </td> <td> @helper.inputText(form("shelf_life"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Сахар: </td> <td> @helper.inputText(form("sugar"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Сорт винограда: </td> <td>@helper.inputText(form("grape_sort"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Цена: </td> <td> @helper.inputText(form("price"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Объем: </td> <td>  @helper.inputText(form("value"),'_showConstraints ->false)</td>
+                        </tr>
+                        <tr>
+                            <td> Крепость: </td> <td>  @helper.inputText(form("degree"),'_showConstraints ->false)</td>
+                        </tr>
+                    </table>
+
+
+
+
+
+                    <div class="modal-footer">
+                        <input type ="submit" value="Применить">
+                    </div>
+                }
+
+
+                <a class="close"title="Закрыть" href="#close"></a>
+            </div>
+
+
+
+
+
+
+
+
+
 
 
             <p></p>
@@ -250,7 +322,9 @@
                     <th>@item.getDegree</th>
 
                 @if(isAdmin) {
-                    <th><a href="@routes.WineController.renderUpdateWineInfo(item.getId_product,login)">Редактировать</a>
+                    <th>
+                        <li><a href="#win4" class="button button-green">Редактировать</a></li>
+                        @*<a href="@routes.WineController.renderUpdateWineInfo(item.getId_product,login)">Редактировать</a>*@
                         <a href="@routes.WineController.deleteWine(item.getId_product, login)" > Удалить </a><th>
                 }
 

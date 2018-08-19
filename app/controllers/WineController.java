@@ -27,6 +27,7 @@ public class WineController extends Controller {
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
+        Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
 
         List<wine> winList = wine.find.all();
         ArrayList<String> nameColomn = new ArrayList<>();
@@ -34,7 +35,7 @@ public class WineController extends Controller {
         nameColomn = us.getNameColomn();
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm));
+                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us));
     }
     public Result deleteWine(Integer id,String login){
         wine.find.deleteById(id);
@@ -116,9 +117,17 @@ public class WineController extends Controller {
     }
     public Result updateWineInfo(Integer id,String login){
         wine Win = wine.find.byId(id);
-        Form<UpdateWine> form = formFactory.form(UpdateWine.class).bindFromRequest();
+        List<wine> winList = wine.find.all();
+        ArrayList<String> nameColomn = new ArrayList<>();
+        wine us = new wine();
+        nameColomn = us.getNameColomn();
+        Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+        Form<wine> wineForm = formFactory.form(wine.class);
         if(form.hasErrors() || form.hasGlobalErrors()){
-            return ok(views.html.updateWine.render(form, Win,login));
+            return ok(views.html.catalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
+                    ,asScalaBuffer(winList),login,isAdminn,form,form2,1,wineForm,updateform, Win));
         }
         Map<String, String> rawdata = form.rawData();
 
