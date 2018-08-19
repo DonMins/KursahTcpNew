@@ -1,4 +1,4 @@
-@(login:String,isAdmin:Boolean)
+@(login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User], error: Integer)
 <html>
 
     <head>
@@ -16,7 +16,7 @@
             </div>
         }
     @main("Контакты"){
-        @contactPage(login,isAdmin)
+        @contactPage(login,isAdmin,bookForm,registrationForm,error)
     }
 
     </body>

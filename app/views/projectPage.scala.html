@@ -5,8 +5,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
 
-        <script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>
+
+        @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
+        <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+
+
+
+
 
     </head>
     <body>
@@ -17,12 +25,19 @@
            <a href="#x" class="overlay" id="win1"></a>
            <div class="popup">
                @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login"){
-                   <h1>Вход в личный кабинет </h1>
+                   <div class="modal-header">
+
+                       <h1 class="modal-title">Вход в личный кабинет</h1>
+                   </div>
+
                    <br>
                    @helper.inputText(bookForm("login"),'_showConstraints ->false, 'placeholder -> "Логин",'required -> "required")
                    @helper.inputPassword(bookForm("password"),'_showConstraints ->false, 'placeholder -> "Пароль",'required -> "required")
 
-                   <input type ="submit" value="Войти">
+                   <div class="modal-footer">
+                       <input type ="submit" value="Войти">
+                   </div>
+
 
                    <a href="@routes.UsersController.renderAddUserForm(false)" class="slick-login2">Регистрация</a>
 
@@ -35,7 +50,10 @@
                <!-- Модальное окно №2 -->
            <a href="#x" class="overlay" id="win2"></a>
            <div class="popup">
-               <h1 class="g1">Регистрация</h1>
+               <div class="modal-header">
+
+                   <h1 class="modal-title">Регистрация </h1>
+               </div>
 
                @helper.form(action = routes.UsersController.addingUser(isAdmin), 'id -> "slick-login"){
 
@@ -46,16 +64,62 @@
                        Права администратора:@helper.checkbox(registrationForm("isAdmin"))
                    }
 
-                   <input type ="submit" value="Создать">
+                   <div class="modal-footer">
+                       <input type ="submit" value="Создать">
+                   </div>
+
+
 
                }
                <a class="close"title="Закрыть" href="#close"></a>
            </div>
 
-@*хочу чтобы здесь был код появляющийся в случае ошибки*@
-           @if(error == 1 || error ==2){
-               Неверный пароль или логин, упс(((
+
+
+
+
+
+
+           @if(error == 1 || error ==2) {
+                   <!-- Модальное окно при загрузке -->
+
+               <div class="container">
+                       <!-- Modal -->
+                   <div class="modal fade" id="myModal" role="dialog">
+                       <div class="modal-dialog">
+
+                               <!-- Modal content-->
+                           <div class="modal-content">
+                               <div class="modal-header">
+                                   <button type="button" class="close" data-dismiss="modal"></button>
+                                   <h4 class="modal-title">Ошибка! </h4>
+                               </div>
+                               <div class="modal-body">
+                                   <h4> Неверный пароль или логин!</h4>
+                               </div>
+
+                           </div>
+
+                       </div>
+                   </div>
+               </div>
+
+               <script>
+                       $(document).ready(function () {
+                           $('#myModal').modal('show');
+                       });
+               </script>
            }
+
+
+
+
+
+
+
+
+
+
             <p></p>
 
 
@@ -65,8 +129,8 @@
                         @if(login.isEmpty ) {
                             <li><a href="#win1" class="button button-green">Вход</a></li>
                             <li><a href="#win2" class="button button-green">Регистрация</a></li>
-                            <li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>
-                            <li><a href="@routes.UsersController.renderAddUserForm(isAdmin)">Регистрация</a></li>
+                            @*<li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>*@
+                            @*<li><a href="@routes.UsersController.renderAddUserForm(isAdmin)">Регистрация</a></li>*@
                         }
                         @if(!(login.isEmpty)){
                             <li><a href="@routes.LoginController.logout()">Выход</a></li>
@@ -101,12 +165,12 @@
 
         </ul>
 
-            <table>
+            <table class="start">
                 <tr>
                     <th>Дорогие Гости, добро пожаловать на сайт Винного Дома Barton & Guestier!</th>
                 </tr>
             </table>
-            <table cellpadding="5px">
+            <table cellpadding="5px" class="start">
 
                 <tr>
                     <th>      Умение разбираться в винах - это уже давно не роскошь,
@@ -119,6 +183,7 @@
 
                 </tr>
             </table>
+
 
     </body>
 

@@ -3,10 +3,7 @@ package controllers;
 import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
-import models.UpdateForm;
-import models.UpdateWine;
-import models.User;
-import models.wine;
+import models.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -22,8 +19,14 @@ import static scala.collection.JavaConverters.asScalaBuffer;
 public class WineController extends Controller {
     String loginn = mainPageController.LOGIN;
     boolean isAdminn = mainPageController.ADMIN;
+    public static Integer error ;
+    @Inject
+    FormFactory formFactory;
 
     public Result catalogPage(String login,boolean isAdmin){
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+        Form<wine> wineForm = formFactory.form(wine.class);
 
         List<wine> winList = wine.find.all();
         ArrayList<String> nameColomn = new ArrayList<>();
@@ -31,15 +34,14 @@ public class WineController extends Controller {
         nameColomn = us.getNameColomn();
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),login,isAdmin));
+                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm));
     }
     public Result deleteWine(Integer id,String login){
         wine.find.deleteById(id);
         return redirect(routes.WineController.catalogPage(login,true));
     }
 
-    @Inject
-    FormFactory formFactory;
+
     public Result renderAddWine(String login){
 
         Form<wine> form = formFactory.form(wine.class);

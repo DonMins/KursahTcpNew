@@ -193,7 +193,7 @@ td, th {
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
     *, :after, :before {
-        color: #000 !important;
+        color: white !important;
         text-shadow: none !important;
         background: 0 0 !important;
         -webkit-box-shadow: none !important;
@@ -713,9 +713,9 @@ td, th {
     content: "\e105"
 }
 
-.glyphicon-eye-close:before {
-    content: "\e106"
-}
+/*.glyphicon-eye-close:before {*/
+    /*content: "\e106"*/
+/*}*/
 
 .glyphicon-warning-sign:before {
     content: "\e107"
@@ -757,9 +757,9 @@ td, th {
     content: "\e116"
 }
 
-.glyphicon-folder-close:before {
-    content: "\e117"
-}
+/*.glyphicon-folder-close:before {*/
+    /*content: "\e117"*/
+/*}*/
 
 .glyphicon-folder-open:before {
     content: "\e118"
@@ -1354,7 +1354,7 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
-    color: #333;
+    color: white;
     background-color: #fff
 }
 
@@ -1446,12 +1446,12 @@ hr {
     cursor: pointer
 }
 
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    font-family: inherit;
-    font-weight: 500;
-    line-height: 1.1;
-    color: inherit
-}
+ /*, .h3, .h5, .h6, h3, h5, h6 {*/
+    /*font-family: inherit;*/
+    /*font-weight: 500;*/
+    /*line-height: 1.1;*/
+    /*color: inherit*/
+/*}*/
 
 .h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6 .small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5 small, h6 .small, h6 small {
     font-weight: 400;
@@ -3405,7 +3405,7 @@ select[multiple].input-lg, textarea.input-lg {
 }
 
 .btn.focus, .btn:focus, .btn:hover {
-    color: #333;
+    color:white;
     text-decoration: none
 }
 
@@ -4880,11 +4880,11 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 }
 
 .navbar-default .navbar-text {
-    color: #777
+    color: white;
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #777
+    color: white;
 }
 
 .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
@@ -5450,12 +5450,12 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
     padding-right: 35px
 }
 
-.alert-dismissable .close, .alert-dismissible .close {
-    position: relative;
-    top: -2px;
-    right: -21px;
-    color: inherit
-}
+/*.alert-dismissable .close, .alert-dismissible .close {*/
+    /*position: relative;*/
+    /*top: -2px;*/
+    /*right: -21px;*/
+    /*color: inherit*/
+/*}*/
 
 .alert-success {
     color: #3c763d;
@@ -6229,32 +6229,32 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
     border-radius: 3px
 }
 
-.close {
-    float: right;
-    font-size: 21px;
-    font-weight: 700;
-    line-height: 1;
-    color: #000;
-    text-shadow: 0 1px 0 #fff;
-    filter: alpha(opacity=20);
-    opacity: .2
-}
+/*.close {*/
+    /*float: right;*/
+    /*font-size: 21px;*/
+    /*font-weight: 700;*/
+    /*line-height: 1;*/
+    /*color: #000;*/
+    /*text-shadow: 0 1px 0 #fff;*/
+    /*filter: alpha(opacity=20);*/
+    /*opacity: .2*/
+/*}*/
 
-.close:focus, .close:hover {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-    filter: alpha(opacity=50);
-    opacity: .5
-}
+/*.close:focus, .close:hover {*/
+    /*color: #000;*/
+    /*text-decoration: none;*/
+    /*cursor: pointer;*/
+    /*filter: alpha(opacity=50);*/
+    /*opacity: .5*/
+/*}*/
 
-button.close {
-    -webkit-appearance: none;
-    padding: 0;
-    cursor: pointer;
-    background: 0 0;
-    border: 0
-}
+/*button.close {*/
+    /*-webkit-appearance: none;*/
+    /*padding: 0;*/
+    /*cursor: pointer;*/
+    /*background: 0 0;*/
+    /*border: 0*/
+/*}*/
 
 .modal-open {
     overflow: hidden
@@ -6303,7 +6303,7 @@ button.close {
 
 .modal-content {
     position: relative;
-    background-color: #fff;
+    background-color: #cc0000;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     border: 1px solid #999;
@@ -6339,9 +6339,9 @@ button.close {
     border-bottom: 1px solid #e5e5e5
 }
 
-.modal-header .close {
-    margin-top: -2px
-}
+/*.modal-header .close {*/
+    /*margin-top: -2px*/
+/*}*/
 
 .modal-title {
     margin: 0;

@@ -3,9 +3,7 @@ package controllers;
 import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
-import models.UpdateProvid;
-import models.UpdateWine;
-import models.provider;
+import models.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -24,6 +22,7 @@ public class ProviderController extends Controller {
 
     String loginn = mainPageController.LOGIN;
     boolean isAdminn = mainPageController.ADMIN;
+    Integer error ;
 
     public Result providerPage(String login, boolean isAdmin){
 
@@ -31,9 +30,12 @@ public class ProviderController extends Controller {
         ArrayList<String> nameColomn = new ArrayList<>();
         provider us = new provider();
         nameColomn = us.getNameColomn();
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+//        Form<wine> wineForm = formFactory.form(wine.class);
 
         return ok(views.html.indexProviderPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(providerList),login,isAdmin));
+                ,asScalaBuffer(providerList),login,isAdmin,form,form2,error));
     }
     public Result deleteProvider(Integer id,String login){
         provider.find.deleteById(id);

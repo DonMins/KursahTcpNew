@@ -1,3 +1,4 @@
+
 body{
     background: url("/assets/images/font.jpg");
     color: white;
@@ -11,6 +12,15 @@ H2{
     text-align: center;
 
 }
+H1 {
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    font-family: "Comic Sans MS";
+    font-style: italic;
+
+}
+
 #nav {
     width: 32%;
     float: right;
@@ -40,7 +50,7 @@ H2{
 #nav li a:hover {
     color: #c00;
     background-color: #fff; }
-table{
+.start{
     margin-top: 100px;
     margin-left: 40%;
     width: 600px;
@@ -400,3 +410,11 @@ h1 {
     color:#555;
     background:#1BA600;
     cursor:pointer;}
+
+
+
+
+
+
+
+

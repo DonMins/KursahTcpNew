@@ -1,4 +1,4 @@
-@(list:Seq[String],list2:Seq[provider],login:String,isAdmin:Boolean)
+@(list:Seq[String],list2:Seq[provider],login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm],registrationForm : play.data.Form[User],error:Integer)
 <html>
 
     <head>
@@ -16,7 +16,7 @@
             </div>
         }
     @main("Поставщики"){
-        @providerrPage(list,list2,login,isAdmin)
+        @providerrPage(list,list2,login,isAdmin,bookForm,registrationForm,error)
     }
 
     </body>

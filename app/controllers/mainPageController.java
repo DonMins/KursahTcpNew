@@ -54,7 +54,10 @@ public class mainPageController extends Controller {
 //    }
     public Result contactPage(String login,boolean isAdmin)
     {
-        return ok(indexContactPage.render(login,isAdmin));
+
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+        return ok(indexContactPage.render(login,isAdmin,form,form2,error));
     }
     public Result ccs()
     {
