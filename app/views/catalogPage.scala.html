@@ -112,7 +112,7 @@
 
                 <!-- Модальное окно №3 -->
             <a href="#x" class="overlay" id="win3"></a>
-            <div class="popup" overflow: scroll;>
+            <div class="popup"  style="overflow-y: scroll;max-height:50%;  margin-top: 50px; margin-bottom:50px;">
                 @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login"){
                     <div class="modal-header">
 
