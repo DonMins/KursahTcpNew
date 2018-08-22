@@ -56,6 +56,7 @@ public class WineController extends Controller {
 
 
 
+
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
                 ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us));
     }
