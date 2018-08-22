@@ -37,6 +37,28 @@ public class WineController extends Controller {
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
                 ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us));
     }
+
+    public Result searchCatalogPage(String login,boolean isAdmin){
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+
+        Form<UpdateWine> updateform = formFactory.form(UpdateWine.class);
+
+        Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
+        Map<String, String> rawdata = wineForm.rawData();
+        wine ein = wineForm.get();
+        List<wine> winList = Ebean.find(wine.class).where().eq("name",ein.getName()).eq("price",ein.getPrice()).findList();
+
+
+        ArrayList<String> nameColomn = new ArrayList<>();
+        wine us = new wine();
+        nameColomn = us.getNameColomn();
+
+
+
+        return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
+                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us));
+    }
     public Result deleteWine(Integer id,String login){
         wine.find.deleteById(id);
         return redirect(routes.WineController.catalogPage(login,true));
@@ -59,14 +81,12 @@ public class WineController extends Controller {
                 Set<String> keyset2 = row2.keySet();
                 for (String s : keyset2) {
                     id = Integer.parseInt(row2.getString(s));
-
                 }
             }
         }
         catch (NumberFormatException e){
             id=0;
         }
-
 
         Form<wine> win = formFactory.form(wine.class).bindFromRequest();
         if(win.hasErrors() || win.hasGlobalErrors()){

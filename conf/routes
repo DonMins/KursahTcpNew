@@ -13,7 +13,10 @@ GET     /log                           controllers.mainPageController.projectPag
 GET     /                           controllers.mainPageController.test()
 GET     /ccs                           controllers.mainPageController.ccs()
 
+
 GET     /catalog                        controllers.WineController.catalogPage(login:String,isAdmin:Boolean)
++ nocsrf
+POST    /catalogSearch   controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
 GET     /provider                      controllers.ProviderController.providerPage(login:String,isAdmin:Boolean)
 GET     /contact                  controllers.mainPageController.contactPage(login:String,isAdmin:Boolean)
 
