@@ -37,7 +37,7 @@ public class workDatabase {
             for (SqlRow row3 : rows3) {
                 Set<String> keyset = row3.keySet();
                 for (String s : keyset) {
-                    System.out.println(row3.getString(s));
+                    //System.out.println(row3.getString(s));
                     colomn.add(row3.getString(s));
                 }
             }

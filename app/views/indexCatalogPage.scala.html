@@ -1,4 +1,7 @@
-@(list:Seq[String],list2:Seq[wine],login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm],registrationForm : play.data.Form[User],error:Integer,wineForm:play.data.Form[wine],updateForm: play.data.Form[UpdateWine],win:wine)
+@(list:Seq[String],list2:Seq[wine],login:String,isAdmin:Boolean,
+        bookForm : play.data.Form[LoginForm],
+        registrationForm : play.data.Form[User],error:Integer,wineForm:play.data.Form[wine],
+        updateForm: play.data.Form[UpdateWine],win:wine,searchform: play.data.Form[search])
 <html>
 
     <head>
@@ -16,7 +19,8 @@
             </div>
         }
     @main("Каталог вина"){
-        @catalogPage(list,list2,login,isAdmin,bookForm,registrationForm,error,wineForm,updateForm,win)
+        @catalogPage(list,list2,login,isAdmin,bookForm,registrationForm,error,
+            wineForm,updateForm,win,searchform)
     }
 
     </body>

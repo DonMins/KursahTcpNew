@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import java.util.*;
 
 import static scala.collection.JavaConverters.asScalaBuffer;
+import static scala.collection.JavaConverters.seqAsJavaList;
 
 public class WineController extends Controller {
     String loginn = mainPageController.LOGIN;
@@ -27,15 +28,25 @@ public class WineController extends Controller {
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
+        Form<search> searchForm = formFactory.form(search.class);
+
         Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
 
         List<wine> winList = wine.find.all();
+//        winList.sort(new Comparator<wine>() {
+//            @Override
+//            public int compare(wine o1, wine o2) {
+//                if(o1.getPrice() <= o2.getPrice())
+//                    return -1;
+//                return 1;
+//            }
+//        });
         ArrayList<String> nameColomn = new ArrayList<>();
         wine us = new wine();
         nameColomn = us.getNameColomn();
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us));
+                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
     }
 
     public Result searchCatalogPage(String login,boolean isAdmin){
@@ -45,9 +56,34 @@ public class WineController extends Controller {
         Form<UpdateWine> updateform = formFactory.form(UpdateWine.class);
 
         Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
-        Map<String, String> rawdata = wineForm.rawData();
-        wine ein = wineForm.get();
-        List<wine> winList = Ebean.find(wine.class).where().eq("name",ein.getName()).eq("price",ein.getPrice()).findList();
+        Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
+        wine winParam= wineForm.get();
+        search searchParam = searchForm.get();
+
+        List<wine> winList = null;
+
+        if (searchParam.getMinprice() == null){
+            searchParam.setMinprice(0.0);
+        }
+        if (searchParam.getMaxprice() == null){
+            String sql = "select max(price) from public.wine";
+            searchParam.setMaxprice((Double)searchParametrs(sql));
+        }
+
+        if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null) {
+            winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    setDistinct(true).findList();
+                    }
+        if(winParam.getName().isEmpty()){
+            winList = Ebean.find(wine.class).where().
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    setDistinct(true).findList();
+        }
+
+
+
+
 
 
         ArrayList<String> nameColomn = new ArrayList<>();
@@ -58,7 +94,7 @@ public class WineController extends Controller {
 
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us));
+                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
     }
     public Result deleteWine(Integer id,String login){
         wine.find.deleteById(id);
@@ -73,17 +109,25 @@ public class WineController extends Controller {
         return ok(views.html.createWine.render(form,login));
     }
 
-    public Result addingWine(String login){
-        SqlQuery maxId = Ebean.createSqlQuery("select max(id_product) from public.wine");
-        Integer id =0;
+    public static Number searchParametrs(String sql){
+        Number parametrs = null;
+        SqlQuery maxId = Ebean.createSqlQuery(sql);
         List<SqlRow> mId = maxId.findList();
-        try {
-            for (SqlRow row2 : mId) {
-                Set<String> keyset2 = row2.keySet();
-                for (String s : keyset2) {
-                    id = Integer.parseInt(row2.getString(s));
-                }
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                parametrs = Double.parseDouble(row2.getString(s));
             }
+        }
+       return parametrs;
+
+    }
+    public Result addingWine(String login){
+        String sql = "select max(id_product) from public.wine";
+        Integer id;
+
+        try {
+         id = (Integer) searchParametrs(sql);
         }
         catch (NumberFormatException e){
             id=0;
@@ -146,9 +190,10 @@ public class WineController extends Controller {
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
+        Form<search> searchForm = formFactory.form(search.class);
         if(form.hasErrors() || form.hasGlobalErrors()){
             return ok(views.html.catalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                    ,asScalaBuffer(winList),login,isAdminn,form,form2,1,wineForm,updateform, Win));
+                    ,asScalaBuffer(winList),login,isAdminn,form,form2,1,wineForm,updateform, Win,searchForm));
         }
         Map<String, String> rawdata = form.rawData();
 

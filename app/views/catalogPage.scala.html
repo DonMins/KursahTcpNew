@@ -1,4 +1,8 @@
-@(nameColomn:Seq[String],win:Seq[wine],login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User], error: Integer, wineForm : play.data.Form[wine],form: play.data.Form[UpdateWine],wine:wine)
+@(nameColomn:Seq[String],win:Seq[wine],login:String,isAdmin:Boolean,
+        bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User],
+        error: Integer, wineForm : play.data.Form[wine],form: play.data.Form[UpdateWine],
+        wine:wine,searchform: play.data.Form[search])
+
 <html>
 
     <head>
@@ -19,12 +23,16 @@
         <div align="center">
             <h2>Barton & Guestier</h2>
 
+
                 <!--форма поиска -->
             <div class="search">
             @helper.form(action = routes.WineController.searchCatalogPage(login,isAdmin)){
 
-                @helper.inputText(wineForm("name"),'_showConstraints ->false, 'placeholder -> "Введите название",'required -> "required")
-                @helper.inputText(wineForm("price"),'_showConstraints ->false, 'placeholder -> "Цена",'required -> "required")
+                @helper.inputText(wineForm("name"),'_showConstraints ->false, 'placeholder -> "Введите название")
+                @helper.inputText(searchform("minprice"),'_showConstraints ->false, 'placeholder -> "Цена От ")
+                @helper.inputText(searchform("maxprice"),'_showConstraints ->false, 'placeholder -> "Цена До")
+
+
                 <button type="submit">Поиск</button>
 
             }
