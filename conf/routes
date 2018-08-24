@@ -15,6 +15,9 @@ GET     /ccs                           controllers.mainPageController.ccs()
 
 
 GET     /catalog                        controllers.WineController.catalogPage(login:String,isAdmin:Boolean)
+
++ nocsrf
+POST     /catalogSort                        controllers.WineController.sortCatalogPage(login:String,isAdmin:Boolean,sortCatalog:Integer)
 + nocsrf
 POST    /catalogSearch   controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
 GET     /provider                      controllers.ProviderController.providerPage(login:String,isAdmin:Boolean)

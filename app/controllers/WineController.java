@@ -21,6 +21,7 @@ public class WineController extends Controller {
     String loginn = mainPageController.LOGIN;
     boolean isAdminn = mainPageController.ADMIN;
     public static Integer error ;
+    public List<wine> searchList = null;
     @Inject
     FormFactory formFactory;
 
@@ -28,21 +29,62 @@ public class WineController extends Controller {
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
-        Form<search> searchForm = formFactory.form(search.class);
+        Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
+        search searchParam = searchForm.get();
+
 
         Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
 
         List<wine> winList = wine.find.all();
-//        winList.sort(new Comparator<wine>() {
-//            @Override
-//            public int compare(wine o1, wine o2) {
-//                if(o1.getPrice() <= o2.getPrice())
-//                    return -1;
-//                return 1;
-//            }
-//        });
+
         ArrayList<String> nameColomn = new ArrayList<>();
         wine us = new wine();
+
+        nameColomn = us.getNameColomn();
+
+        return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
+                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
+    }
+
+
+    public Result sortCatalogPage(String login,boolean isAdmin,int sortNumber){
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+        Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
+        Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
+
+        Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
+        List<wine> winList = null;
+        if (searchList!=null)
+            winList = searchList;
+        else {
+            winList = wine.find.all();
+        }
+        winList.sort(new Comparator<wine>() {
+            @Override
+            public int compare(wine o1, wine o2) {
+                if(sortNumber ==0){
+                    if(o1.getPrice() <= o2.getPrice())
+                        return -1;
+                    return 1;
+                }
+                if(sortNumber ==1){
+                    int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
+                    if (res == 0) {
+                        res = o1.getName().compareTo(o2.getName());
+                    }
+                    return res;
+                }
+                if (sortNumber ==2)
+                    return 0;
+
+                return -1;
+
+            }
+        });
+        ArrayList<String> nameColomn = new ArrayList<>();
+        wine us = new wine();
+
         nameColomn = us.getNameColomn();
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
@@ -67,7 +109,7 @@ public class WineController extends Controller {
         }
         if (searchParam.getMaxprice() == null){
             String sql = "select max(price) from public.wine";
-            searchParam.setMaxprice((Double)searchParametrs(sql));
+            searchParam.setMaxprice(Double.parseDouble(searchParametrs(sql)));
         }
 
         if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null) {
@@ -80,18 +122,12 @@ public class WineController extends Controller {
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
                     setDistinct(true).findList();
         }
-
-
-
-
-
+        searchList = winList;
 
         ArrayList<String> nameColomn = new ArrayList<>();
         wine us = new wine();
+
         nameColomn = us.getNameColomn();
-
-
-
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
                 ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
@@ -109,14 +145,14 @@ public class WineController extends Controller {
         return ok(views.html.createWine.render(form,login));
     }
 
-    public static Number searchParametrs(String sql){
-        Number parametrs = null;
+    public static String searchParametrs(String sql){
+        String parametrs = null;
         SqlQuery maxId = Ebean.createSqlQuery(sql);
         List<SqlRow> mId = maxId.findList();
         for (SqlRow row2 : mId) {
             Set<String> keyset2 = row2.keySet();
             for (String s : keyset2) {
-                parametrs = Double.parseDouble(row2.getString(s));
+                parametrs = row2.getString(s);
             }
         }
        return parametrs;
@@ -127,7 +163,8 @@ public class WineController extends Controller {
         Integer id;
 
         try {
-         id = (Integer) searchParametrs(sql);
+         id = Integer.parseInt(searchParametrs(sql));
+
         }
         catch (NumberFormatException e){
             id=0;
@@ -185,6 +222,7 @@ public class WineController extends Controller {
         List<wine> winList = wine.find.all();
         ArrayList<String> nameColomn = new ArrayList<>();
         wine us = new wine();
+
         nameColomn = us.getNameColomn();
         Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
         Form<LoginForm> form = formFactory.form(LoginForm.class);

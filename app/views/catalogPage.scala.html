@@ -36,7 +36,25 @@
                 <button type="submit">Поиск</button>
 
             }
+
             </div>
+
+                <!--сортировка
+                         0- по цене
+                         1 - по названию
+                         2 - по умолчанию-->
+
+                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,0)){
+
+                    <button type="submit">Cортировка по цене </button>
+
+                }
+                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,1)){
+                    <button type="submit">Cортировка по названию </button>
+                }
+                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,2)){
+                    <button type="submit">Cортировка по умолчанию </button>
+                }
 
                 <!-- Модальное окно №1 -->
             <a href="#x" class="overlay" id="win1"></a>

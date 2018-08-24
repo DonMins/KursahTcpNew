@@ -4,6 +4,9 @@ public class search {
     private  Double minprice;
     private  Double maxprice;
 
+
+    public search(){}
+
     public Double getMinprice() {
         return minprice;
     }
