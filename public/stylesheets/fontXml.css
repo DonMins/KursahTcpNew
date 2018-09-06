@@ -3,10 +3,10 @@ body{
     color: white;
 }
 TABLE {
-    margin-top: 150px;
-    margin-left: -10%;
+    margin-top: 0%;/*150*/
+    margin-left: 0%;/*-10*/
 
-    width: 600px; /* Ширина таблицы */
+    width: 350px; /* Ширина таблицы 600 */
     border-collapse: collapse; /* Убираем двойные линии между ячейками */
     text-align: center;
 
