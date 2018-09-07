@@ -307,10 +307,10 @@
 
 
 
-            <table style="border: 0px">
+            <table class="wine">
                 <tr>
                     <td>
-                        <table >
+                        <table class="wine1">
                             <tr>
                             @for(j <- 2 to sizeItems) {
                                 <th>@colomn(j-1)</th>
@@ -332,27 +332,30 @@
                                 <th>
                                     @*<li><a href="#win4" class="button button-green">Редактировать</a></li>*@
                                     <a href="@routes.WineController.renderUpdateWineInfo(item.getId_product, login)">
-                                        Редактировать</a>
+                                        Изменить</a>
                                     <a href="@routes.WineController.deleteWine(item.getId_product, login)" >
                                         Удалить </a></th>
                             }
                             <tr></tr>
                             }
-                            </tr>
+                @*</tr>*@
                         </table>
                     </td>
                     <td>
-                        <table>
+                        <table class="wine2">
+                            <tr>Фильтр</tr>
                             <tr> <!--форма поиска -->
                                 <div class="search">
                                 @helper.form(action = routes.WineController.searchCatalogPage(login,isAdmin)){
 
-                                    @helper.inputText(wineForm("name"),'_showConstraints ->false, 'placeholder -> "Введите название")
-                                    @helper.inputText(searchform("minprice"),'_showConstraints ->false, 'placeholder -> "Цена От ")
-                                    @helper.inputText(searchform("maxprice"),'_showConstraints ->false, 'placeholder -> "Цена До")
+                                    @helper.inputText(wineForm("name"),'_showConstraints ->false, 'placeholder -> "Введите название", '_label ->"")
+                                    @helper.inputText(searchform("minprice"),'_showConstraints ->false, 'placeholder -> "Цена От ", '_label ->"")
+                                    @helper.inputText(searchform("maxprice"),'_showConstraints ->false, 'placeholder -> "Цена До", '_label ->"")
 
 
                                     <button type="submit">Поиск</button>
+
+
 
                                 }
 

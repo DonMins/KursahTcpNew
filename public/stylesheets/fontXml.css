@@ -22,7 +22,8 @@ TD, TH {
 TH {
 
     text-align: center;
-    font-weight:bold
+    font-weight:bold;
+    font-size: 30px;
 }
 H1 {
     font-size: 30px;
@@ -140,4 +141,33 @@ ul.submenu > li > a:hover {
 
 ul.menu > li:hover > ul.submenu {
     display: block;
+}
+
+
+table.wine {
+    table-layout:fixed;
+    width: 98%;
+}
+/*table.wine td {*/
+    /*overflow:hidden;*/
+/*}*/
+/*table.wine1 td:nth-of-type(1) {*/
+    /*width:200px;*/
+/*}*/
+table.wine td:nth-of-type(2) {
+    width:200px;
+}
+/*table.wine1 th:nth-of-type(8) {*/
+    /*width:45px;*/
+/*}*/
+
+table.wine1 {
+
+    width: 100%;
+}
+table.wine2 {
+    /*table-layout:fixed;*/
+    width: 40%;
+    margin-top: 0%;/*150*/
+    margin-left: 0%;/*-10*/
 }
