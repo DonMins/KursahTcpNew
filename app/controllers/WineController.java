@@ -77,6 +77,11 @@ public class WineController extends Controller {
                 }
                 if (sortNumber ==2)
                     return 0;
+                if(sortNumber ==3){
+                    if(o1.getDegree() <= o2.getDegree())
+                        return -1;
+                    return 1;
+                }
 
                 return -1;
 
@@ -94,15 +99,25 @@ public class WineController extends Controller {
     public Result searchCatalogPage(String login,boolean isAdmin){
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
-
         Form<UpdateWine> updateform = formFactory.form(UpdateWine.class);
 
         Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
         Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
-        wine winParam= wineForm.get();
-        search searchParam = searchForm.get();
 
         List<wine> winList = null;
+        if(wineForm.hasErrors() || wineForm.hasGlobalErrors()||
+                searchForm.hasErrors() || searchForm.hasGlobalErrors()){
+            ArrayList<String> nameColomn = new ArrayList<>();
+            wine us = new wine();
+
+            nameColomn = us.getNameColomn();
+            winList = wine.find.all();
+
+            return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
+                    ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
+        }
+        wine winParam= wineForm.get();
+        search searchParam = searchForm.get();
 
         if (searchParam.getMinprice() == null){
             searchParam.setMinprice(0.0);
@@ -111,17 +126,69 @@ public class WineController extends Controller {
             String sql = "select max(price) from public.wine";
             searchParam.setMaxprice(Double.parseDouble(searchParametrs(sql)));
         }
+        // если все данные в фильтр введены
 
-        if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null) {
+        if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
+        && winParam.getDegree()!=null && (!(winParam.getCountry().isEmpty()))) {
             winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
-                    setDistinct(true).findList();
+                    eq("degree",winParam.getDegree()).eq("country",winParam.getCountry()).setDistinct(true).findList();
                     }
-        if(winParam.getName().isEmpty()){
+        // если все поля пустые
+        if((winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
+                (winParam.getCountry().isEmpty())){
             winList = Ebean.find(wine.class).where().
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
                     setDistinct(true).findList();
         }
+        // если введено только название
+        if(!(winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
+                winParam.getCountry().isEmpty()){
+            winList = Ebean.find(wine.class).where().
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    eq("name",winParam.getName()).setDistinct(true).findList();
+        }
+        // если введена только крепость
+        if((winParam.getName().isEmpty()) && (winParam.getDegree()!=null) &&
+                winParam.getCountry().isEmpty()){
+            winList = Ebean.find(wine.class).where().
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    eq("degree",winParam.getDegree()).setDistinct(true).findList();
+        }
+        //если введена только страна
+        if((winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
+                (!(winParam.getCountry().isEmpty()))){
+            winList = Ebean.find(wine.class).where().
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    eq("country",winParam.getCountry()).setDistinct(true).findList();
+        }
+        // если введены только страна и крепость
+        if((winParam.getName().isEmpty()) && (winParam.getDegree()!=null) &&
+                (!(winParam.getCountry().isEmpty()))){
+            winList = Ebean.find(wine.class).where().
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    eq("country",winParam.getCountry()).eq("degree",winParam.getDegree())
+                    .setDistinct(true).findList();
+        }
+        // если введено название и страна
+        if(!(winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
+                (!(winParam.getCountry().isEmpty()))){
+            winList = Ebean.find(wine.class).where().
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    eq("country",winParam.getCountry()).eq("name",winParam.getName())
+                    .setDistinct(true).findList();
+        }
+        // если введено название , крепость
+        if(!(winParam.getName().isEmpty()) && (winParam.getDegree()!=null) &&
+                ((winParam.getCountry().isEmpty()))){
+            winList = Ebean.find(wine.class).where().
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    eq("degree",winParam.getDegree()).eq("name",winParam.getName())
+                    .setDistinct(true).findList();
+        }
+
+
+
         searchList = winList;
 
         ArrayList<String> nameColomn = new ArrayList<>();
