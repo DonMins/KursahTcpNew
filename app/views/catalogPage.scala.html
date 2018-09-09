@@ -7,6 +7,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
@@ -23,10 +24,7 @@
         <div align="center">
             <h2>Barton & Guestier</h2>
 
-
-
-
-                <!-- Модальное окно №1 -->
+            <!-- Модальное окно №1 -->
             <a href="#x" class="overlay" id="win1"></a>
             <div class="popup">
                 @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login"){
@@ -360,28 +358,53 @@
                                 </div>
 
                                     <!--сортировка
-                         0- по цене
-                         1 - по названию
-                         2 - по умолчанию
-                         3 - по крепости-->
+                         0- по цене по возрастанию
+                         5 - по цене по убыванию
+                         1 - по названию по возрастанию
+                         2 - по названию по убыванию
+
+                         3 - по крепости по возрастанию
+                         4 - по крепости по убыванию-->
 
 
                                 @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,0)){
+                                    Cортировка по цене
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                </button>
+                            }
+                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,5)){
 
-                                    <button type="submit">Cортировка по цене </button>
-
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                                    </button>
                                 }
                             <p></p>
                                 @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,1)){
-                                    <button type="submit">Cортировка по названию </button>
+                                    Cортировка по названию
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                    </button>
+                                }
+                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,2)){
+
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                                    </button>
                                 }
                             <p></p>
-                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,2)){
-                                    <button type="submit">Cортировка по умолчанию </button>
-                                }
-                                <p></p>
+
                                 @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,3)){
-                                    <button type="submit">Cортировка по крепости </button>
+                                    Сортировка по крепости
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                                    </button>
+                                }
+                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,4)){
+
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                                    </button>
                                 }
                             </tr>
                             @*<tr colspan="2"></tr>*@

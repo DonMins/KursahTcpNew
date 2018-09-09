@@ -68,6 +68,11 @@ public class WineController extends Controller {
                         return -1;
                     return 1;
                 }
+                if(sortNumber ==5){
+                    if(o2.getPrice() <= o1.getPrice())
+                        return -1;
+                    return 1;
+                }
                 if(sortNumber ==1){
                     int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
                     if (res == 0) {
@@ -75,10 +80,20 @@ public class WineController extends Controller {
                     }
                     return res;
                 }
-                if (sortNumber ==2)
-                    return 0;
+                if(sortNumber ==2){
+                    int res = String.CASE_INSENSITIVE_ORDER.compare(o2.getName(), o1.getName());
+                    if (res == 0) {
+                        res = o2.getName().compareTo(o1.getName());
+                    }
+                    return res;
+                }
                 if(sortNumber ==3){
                     if(o1.getDegree() <= o2.getDegree())
+                        return -1;
+                    return 1;
+                }
+                if(sortNumber ==4) {
+                    if (o2.getDegree() <= o1.getDegree())
                         return -1;
                     return 1;
                 }
