@@ -77,7 +77,7 @@ public class UsersController extends Controller {
 
         Form<User> form2 = formFactory.form(User.class);
 
-        return ok(views.html.indexProjectPage.render("",admin,form,form2,0));
+        return ok(views.html.createUser.render(form2,true));
     }
 
     /**
