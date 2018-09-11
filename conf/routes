@@ -45,8 +45,8 @@ GET     /updateuser               controllers.UsersController.renderUpdateUserIn
 + nocsrf
 POST    /updateuser                 controllers.UsersController.updateUserInfo(id: Integer,login:String)
 
-
-
+#controller rating
+GET     /seeRating                   controllers.RatingController.ratingUserPage(login:String,isAdmin: Boolean)
 #controller wine
 
 GET    /wine/:id                     controllers.WineController.deleteWine(id: Integer, login: String)

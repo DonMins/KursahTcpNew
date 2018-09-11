@@ -134,6 +134,7 @@
                         }
                         @if(!(login.isEmpty)){
                             <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                            <li><a href="@routes.RatingController.ratingUserPage(login,isAdmin)">Действия</a></li>
                         }
 
                     </ul>

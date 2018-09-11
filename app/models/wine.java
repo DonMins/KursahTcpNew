@@ -80,9 +80,9 @@ public class wine implements Constraints.Validatable<String> {
             return nameColomn;
         }
 
+    public static Finder<String, wine> find1 = new Finder<>(wine.class);
+
     public static Finder<Integer, wine> find = new Finder<>(wine.class);
-
-
     public Integer getId_product() {
         return id_product;
     }
