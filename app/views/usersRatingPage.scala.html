@@ -1,0 +1,150 @@
+@(login:String,isAdmin:Boolean,nameColomn:Seq[String],win:Seq[rating])
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
+    <title>Личный кабинет</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/search.css")">
+    <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
+
+    @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
+    <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+</head>
+<body>
+    @if(!(login.isEmpty)){
+        <div align="right">
+
+            Вы вошли как :@login
+
+            <br>
+        </div>
+    }
+
+    <div align="center">
+        <h2>Barton & Guestier</h2>
+
+        <p></p>
+
+
+        <ul class="menu" >
+            <li> <a href=#>Личный кабинет </a>
+                <ul class="submenu">
+                    @if(login.isEmpty ) {
+                        <li><a href="#win1" class="button button-green">Вход</a></li>
+                        <li><a href="#win2" class="button button-green">Регистрация</a></li>
+
+                    }
+                    @if(!(login.isEmpty)){
+                        <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                        <li><a href="@routes.RatingController.ratingUserPage(login,isAdmin)">Действия</a></li>
+                    }
+
+                </ul>
+            </li>
+
+        </ul>
+
+        <ul id="nav">
+
+
+            @if(login.isEmpty) {
+
+                <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
+                <li><a href="@routes.ProviderController.providerPage("",isAdmin)">Поставщики </a></li>
+                <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
+                <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
+            }
+            @if(!(login.isEmpty)) {
+
+                <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
+                <li><a href="@routes.ProviderController.providerPage(login,isAdmin)">Поставщики </a></li>
+                <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
+                <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
+                @if(isAdmin){
+                    <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
+                }
+            }
+
+
+        </ul>
+
+        <p></p>
+
+            @*вывод колонки*@
+        @colomn(i:Int)=@{
+            val it = nameColomn
+            it(i)
+        }
+            @*вывод строки*@
+        @display(i:Int)=@{
+            val it = win
+            it(i)
+        }
+            @*всего колонок*@
+        @sizeItems()=@{
+            val sizeItems = nameColomn.length
+            sizeItems
+        }
+            @*количество страниц*@
+        @pages=@{
+
+            sizeItems2()/(sizeItems())
+
+        }
+            @*всего записываемых элементов*@
+        @sizeItems2()=@{
+            val sizeItems2 = win.length
+            sizeItems2
+
+        }
+
+
+
+        <br>
+        <p></p>
+
+        <table class="wine">
+            <tr>
+                <td>
+                    <table class="wine1">
+                        <tr>
+                        @for(j <- 1 to sizeItems) {
+                            <th>@colomn(j-1)</th>
+                        }
+                        </tr>
+                        <tr colspan="2"> @win.map { item =>
+                            <th>@item.getWine(item.getId_product)</th>
+                            <th>@item.getUser(item.getId_user)</th>
+                            <th>@item.getRating</th>
+
+
+                        @if(isAdmin) {
+                            <th>
+                                @*<li><a href="#win4" class="button button-green">Редактировать</a></li>*@
+                                <a href="@routes.WineController.renderUpdateWineInfo(item.getId_product, login)">
+                                    Изменить</a>
+                                <a href="@routes.WineController.deleteWine(item.getId_product, login)" >
+                                    Удалить </a></th>
+                        }
+                        <tr></tr>
+                        }
+                        @*</tr>*@
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+
+    </div>
+
+</body>
+</html>
