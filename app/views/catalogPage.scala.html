@@ -127,7 +127,6 @@
                     <br>
 
 
-
                     @helper.form(action = routes.WineController.addingWine(login), 'id -> "slick-login"){
                         @helper.inputText(wineForm("name"),'_showConstraints ->false,'placeholder -> "Название вина")
                         @helper.inputText(wineForm("colour"),'_showConstraints ->false,'placeholder -> "Цвет")
@@ -200,10 +199,6 @@
                         </tr>
                     </table>
 
-
-
-
-
                     <div class="modal-footer">
                         <input type ="submit" value="Применить">
                     </div>
@@ -212,12 +207,6 @@
 
                 <a class="close"title="Закрыть" href="#close"></a>
             </div>
-
-
-
-
-
-
 
 
 
@@ -302,9 +291,6 @@
                 cod(i)
             }
 
-
-
-
             <table class="wine">
                 <tr>
                     <td>
@@ -328,7 +314,7 @@
 
                             @if(isAdmin) {
                                 <th>
-                                    @*<li><a href="#win4" class="button button-green">Редактировать</a></li>*@
+                                    @*<li><a href="#win4" class="button button-green">Изменить</a></li>*@
                                     <a href="@routes.WineController.renderUpdateWineInfo(item.getId_product, login)">
                                         Изменить</a>
                                     <a href="@routes.WineController.deleteWine(item.getId_product, login)" >
@@ -347,15 +333,25 @@
                                 @helper.form(action = routes.WineController.searchCatalogPage(login,isAdmin)){
 
                                     @helper.inputText(wineForm("name"),'_showConstraints ->false, 'placeholder -> "Введите название", '_label ->"")
-                                    @helper.inputText(wineForm("degree"),'_showConstraints ->false, 'placeholder -> "Крепость", '_label ->"")
+                                    @helper.inputText(wineForm("colour"),'_showConstraints ->false, 'placeholder -> "Цвет", '_label ->"")
                                     @helper.inputText(wineForm("country"),'_showConstraints ->false, 'placeholder -> "Страна", '_label ->"")
                                     @helper.inputText(searchform("minprice"),'_showConstraints ->false, 'placeholder -> "Цена От ", '_label ->"")
                                     @helper.inputText(searchform("maxprice"),'_showConstraints ->false, 'placeholder -> "Цена До", '_label ->"")
+
+                                    <select class="selectpicker" >
+                                        <option value="Выберети цвет">Выберите Цвет</option>
+                                        <option value="Белое">Белое</option>
+                                        <option value="Красное">Красное</option>
+                                        <option value="Розовое">Розовое</option>
+                                    </select>
+                                            document.getElementById("set").value;
+
 
                                     <button type="submit">Поиск</button>
                                 }
 
                                 </div>
+
 
                                     <!--сортировка
                          0- по цене по возрастанию

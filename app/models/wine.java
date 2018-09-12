@@ -77,6 +77,7 @@ public class wine implements Constraints.Validatable<String> {
                     nameColomn.add(row3.getString(s));
                 }
             }
+            nameColomn.add("Рейтинг");
             return nameColomn;
         }
 

@@ -41,6 +41,7 @@ public class workDatabase {
                     colomn.add(row3.getString(s));
                 }
             }
+            colomn.add("Рейтинг");
             for (SqlRow row2 : rows2) {
                 Set<String> keyset2 = row2.keySet();
                 for (String s : keyset2) {

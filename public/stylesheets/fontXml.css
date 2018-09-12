@@ -1,6 +1,6 @@
 body{
     background: url("/assets/images/font.jpg");
-    color: white;
+    color: yellow;
 }
 TABLE {
     margin-top: 0%;/*150*/
@@ -16,14 +16,14 @@ TD, TH {
     padding: 3px; /* Поля вокруг содержимого таблицы */
     border: 1px solid white; /* Параметры рамки */
     text-align: center;
-    color: white;
+    color: yellow;
 }
 
 TH {
 
     text-align: center;
     font-weight:bold;
-    font-size: 30px;
+    font-size: 15px;
 }
 H1 {
     font-size: 30px;

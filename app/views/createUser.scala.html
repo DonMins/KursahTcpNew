@@ -7,7 +7,7 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/style.css")">
     </head>
     <body>
-        <a href="@routes.mainPageController.test()" class = "link">На главную страницу </a>
+        <a href="@routes.mainPageController.projectPage("",admin)" class = "link">На главную страницу </a>
         <h1 class="g1">Регистрация</h1>
 
         @helper.form(action = routes.UsersController.addingUser(admin), 'id -> "slick-login"){
