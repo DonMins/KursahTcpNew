@@ -70,9 +70,9 @@ public class rating {
         this.rating = rating;
     }
 
-    public String getWine(Integer id_product) {
+    public String getWine(Integer id_product,String login) {
         String parametrs= null;
-        String sql1="Select wine.name from wine, rating where wine.id_product=" + id_product;
+        String sql1 = "select wine.name from wine,public.rating, public.user where rating.id_user=id and login = '"+login+"' and rating.id_product=wine.id_product";
         SqlQuery maxId = Ebean.createSqlQuery(sql1);
 
         List<SqlRow> mId = maxId.findList();
@@ -80,29 +80,31 @@ public class rating {
             Set<String> keyset2 = row2.keySet();
             for (String s : keyset2) {
                 parametrs = row2.getString(s);
+                System.out.println("LOOOOK!"+parametrs);
 
             }
         }
+
         return parametrs;
 
     }
 
 
-    public String getUser(Integer id_user) {
-        String parametrs2= null;
-        String sql2="Select login from public.user, public.rating where id=" + id_user;
-        SqlQuery userId = Ebean.createSqlQuery(sql2);
-
-        List<SqlRow> mId = userId.findList();
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                parametrs2 = row2.getString(s);
-
-            }
-        }
-        return parametrs2;
-
-    }
+//    public String getUser(Integer id_user) {
+//        String parametrs2= null;
+//        String sql2="Select login from public.user, public.rating where id=" + id_user;
+//        SqlQuery userId = Ebean.createSqlQuery(sql2);
+//
+//        List<SqlRow> mId = userId.findList();
+//        for (SqlRow row2 : mId) {
+//            Set<String> keyset2 = row2.keySet();
+//            for (String s : keyset2) {
+//                parametrs2 = row2.getString(s);
+//
+//            }
+//        }
+//        return parametrs2;
+//
+//    }
 
 }
