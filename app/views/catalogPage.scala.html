@@ -306,7 +306,7 @@
                                 <th>@item.getCountry</th>
                                 <th>@item.getBrand</th>
                                 <th>@item.getShelf_life</th>
-                                <th>@item.getSugar</th> 
+                                <th>@item.getSugar</th>
                                 <th>@item.getGrape_sort</th>
                                 <th>@item.getPrice</th>
                                 <th>@item.getValue</th>
@@ -333,19 +333,14 @@
                                 @helper.form(action = routes.WineController.searchCatalogPage(login,isAdmin)){
 
                                     @helper.inputText(wineForm("name"),'_showConstraints ->false, 'placeholder -> "Введите название", '_label ->"")
-                                    @helper.inputText(wineForm("colour"),'_showConstraints ->false, 'placeholder -> "Цвет", '_label ->"")
+                                    <td> Белое</td> <td>@helper.checkbox(searchform("whiteColour"), '_label ->"")</td>
+                                    <tr></tr>
+                                    <td>Красное</td>  <td>@helper.checkbox(searchform("redColour"), '_label ->"")</td>
+                                    <tr></tr>
+                                    <td>Розовое</td>  <td>@helper.checkbox(searchform("pinkColour"), '_label ->"")</td>
                                     @helper.inputText(wineForm("country"),'_showConstraints ->false, 'placeholder -> "Страна", '_label ->"")
                                     @helper.inputText(searchform("minprice"),'_showConstraints ->false, 'placeholder -> "Цена От ", '_label ->"")
                                     @helper.inputText(searchform("maxprice"),'_showConstraints ->false, 'placeholder -> "Цена До", '_label ->"")
-
-                                    <select class="selectpicker" >
-                                        <option value="Выберети цвет">Выберите Цвет</option>
-                                        <option value="Белое">Белое</option>
-                                        <option value="Красное">Красное</option>
-                                        <option value="Розовое">Розовое</option>
-                                    </select>
-                                            document.getElementById("set").value;
-
 
                                     <button type="submit">Поиск</button>
                                 }

@@ -13,11 +13,11 @@ public class UpdateWine {
     private String shelf_life;
     private String sugar;
     private String grape_sort;
-    @Constraints.Required
+  //  @Constraints.Required
     private Double price;
-    @Constraints.Required
+    //@Constraints.Required
     private Double value;
-    @Constraints.Required
+   // @Constraints.Required
     private Double degree;
 
     public UpdateWine() {
@@ -25,8 +25,8 @@ public class UpdateWine {
 
     public UpdateWine(@Constraints.Required String name, @Constraints.Required String colour,
                       String country, String brand, String shelf_life, String sugar,
-                      String grape_sort, @Constraints.Required Double price,
-                      @Constraints.Required Double value, @Constraints.Required Double degree) {
+                      String grape_sort, Double price,
+                       Double value, Double degree) {
         this.name = name;
         this.colour = colour;
         this.country = country;

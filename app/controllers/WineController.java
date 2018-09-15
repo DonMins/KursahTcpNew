@@ -118,6 +118,8 @@ public class WineController extends Controller {
 
         Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
         Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
+        Map<String, String> rawdata = searchForm.rawData();
+
 
         List<wine> winList = null;
         if(wineForm.hasErrors() || wineForm.hasGlobalErrors()||
@@ -133,6 +135,17 @@ public class WineController extends Controller {
         }
         wine winParam= wineForm.get();
         search searchParam = searchForm.get();
+        if (rawdata.get("redColour")==null){
+            searchParam.setRedColour(false);
+        }
+        else {
+
+            Boolean redColour = Boolean.valueOf(String.valueOf(rawdata.get("redColour")));
+            System.out.print("ээээээээээээээээээээээээээээээй");
+
+            searchParam.setRedColour(redColour);
+        }
+        System.out.println("GQQQQQQ544444444444444444444444444444444QQQQ " + searchParam.isRedColour() );
 
         if (searchParam.getMinprice() == null){
             searchParam.setMinprice(0.0);
@@ -141,6 +154,16 @@ public class WineController extends Controller {
             String sql = "select max(price) from public.wine";
             searchParam.setMaxprice(Double.parseDouble(searchParametrs(sql)));
         }
+
+        // если вино красное и все пусто
+        if((winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
+                (winParam.getCountry().isEmpty()) && searchParam.isRedColour()){
+            winList = Ebean.find(wine.class).where().
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                    eq("colour","Красное").
+                    setDistinct(true).findList();
+        }
+
         // если все данные в фильтр введены
 
         if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
@@ -151,7 +174,7 @@ public class WineController extends Controller {
                     }
         // если все поля пустые
         if((winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
-                (winParam.getCountry().isEmpty())){
+                (winParam.getCountry().isEmpty())&& (!(searchParam.isRedColour()))){
             winList = Ebean.find(wine.class).where().
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
                     setDistinct(true).findList();
@@ -247,7 +270,9 @@ public class WineController extends Controller {
         try {
          id = Integer.parseInt(searchParametrs(sql));
 
+
         }
+
         catch (NumberFormatException e){
             id=0;
         }
@@ -258,9 +283,8 @@ public class WineController extends Controller {
         }
         Map<String, String> rawdata = win.rawData();
         wine Win = new wine();
-        //User user = userForm.get();
+
         Win.setId_product((id+1));
-        System.out.println("IDDDDDDDDD "+ Win.getId_product());
         Win.setName(rawdata.get("name"));
         Win.setColour(rawdata.get("colour"));
         Win.setCountry(rawdata.get("country"));
@@ -268,9 +292,25 @@ public class WineController extends Controller {
         Win.setShelf_life(rawdata.get("shelf_life"));
         Win.setSugar(rawdata.get("sugar"));
         Win.setGrape_sort(rawdata.get("grape_sort"));
-        Win.setPrice(Double.valueOf(rawdata.get("price")));
+        if ((rawdata.get("price").isEmpty())){
+                Win.setPrice(null);
+            }
+            else{
+                Win.setPrice(Double.valueOf(rawdata.get("price")));
+            }
+
+        if ((rawdata.get("value").isEmpty())){
+            Win.setValue(null);
+        }
+        else{
         Win.setValue(Double.valueOf(rawdata.get("value")));
-        Win.setDegree(Double.valueOf(rawdata.get("degree")));
+        }
+        if (rawdata.get("degree").isEmpty()){
+            Win.setDegree(null);
+        }
+        else {
+            Win.setDegree(Double.valueOf(rawdata.get("degree")));
+        }
 
         List<wine> winne = Ebean.find(wine.class).where().eq("id_product", Win.getId_product()).findList();
         if(winne.isEmpty()){
@@ -278,7 +318,7 @@ public class WineController extends Controller {
                 Ebean.save(Win);
             }catch (Exception ex){
 
-                System.out.println("ГОАНООООЭ");
+
 
                 return redirect(routes.WineController.renderAddWine(login));
             }
@@ -315,8 +355,7 @@ public class WineController extends Controller {
             return ok(views.html.catalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
                     ,asScalaBuffer(winList),login,isAdminn,form,form2,1,wineForm,updateform, Win,searchForm));
         }
-        Map<String, String> rawdata = form.rawData();
-
+        Map<String, String> rawdata = updateform.rawData();
         Win.setName(rawdata.get("name"));
         Win.setColour(rawdata.get("colour"));
         Win.setCountry(rawdata.get("country"));
@@ -324,9 +363,25 @@ public class WineController extends Controller {
         Win.setShelf_life(rawdata.get("shelf_life"));
         Win.setSugar(rawdata.get("sugar"));
         Win.setGrape_sort(rawdata.get("grape_sort"));
-        Win.setPrice(Double.valueOf(rawdata.get("price")));
-        Win.setValue(Double.valueOf(rawdata.get("value")));
-        Win.setDegree(Double.valueOf(rawdata.get("degree")));
+        if ((rawdata.get("value").isEmpty())){
+            Win.setValue(null);
+        }
+        else{
+            Win.setValue(Double.valueOf(rawdata.get("value")));
+        }
+        if (rawdata.get("degree").isEmpty()){
+            Win.setDegree(null);
+        }
+        else {
+            Win.setDegree(Double.valueOf(rawdata.get("degree")));
+        }
+
+         if ((rawdata.get("price").isEmpty())){
+                Win.setPrice(null);
+            }
+            else{
+                Win.setPrice(Double.valueOf(rawdata.get("price")));
+            }
         Ebean.update(Win);
 
         return redirect(routes.WineController.catalogPage(login,true));

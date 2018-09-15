@@ -20,16 +20,16 @@ public class wine implements Constraints.Validatable<String> {
         @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "public.wine_id_seq")
         private Integer id_product;
 
-//        @Constraints.Required
-        private String name;
-        //@Constraints.Required
+      //  @Constraints.Required
+      private String name;
+   //     @Constraints.Required
         private String colour;
         private String country;
         private String brand;
         private String shelf_life;
         private String sugar;
         private String grape_sort;
-        //@Constraints.Required
+       // @Constraints.Required
         private Double price;
         //@Constraints.Required
         private Double value;

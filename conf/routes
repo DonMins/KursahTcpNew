@@ -51,7 +51,7 @@ GET     /seeRating                   controllers.RatingController.ratingUserPage
 
 GET    /wine/:id                     controllers.WineController.deleteWine(id: Integer, login: String)
 GET    /addWinecatalog/:login                     controllers.WineController.addingWine(login: String)
-GET     /addWine                   controllers.WineController.renderAddWine(login: String)
+GET     /addWine/:login                  controllers.WineController.renderAddWine(login: String)
 GET     /updateWine                controllers.WineController.renderUpdateWineInfo(id: Integer,login:String)
 + nocsrf
 POST    /updateWine                  controllers.WineController.updateWineInfo(id: Integer,login:String)
