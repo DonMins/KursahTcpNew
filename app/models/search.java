@@ -6,8 +6,62 @@ public class search {
     private  boolean redColour = false;
     private  boolean whiteColour = false;
     private  boolean pinkColour = false;
+    private  boolean anyColour = false;
 
+    public boolean isAnyColour() {
+        return anyColour;
+    }
 
+    public void setAnyColour(boolean anyColour) {
+        this.anyColour = anyColour;
+    }
+
+    public boolean isAnySugar() {
+        return anySugar;
+    }
+
+    public void setAnySugar(boolean anySugar) {
+        this.anySugar = anySugar;
+    }
+
+    private  boolean anySugar = false;
+
+    private boolean semisweet = false; // полусладкое
+    private boolean sweet = false;// сладкое
+    private boolean semidry = false; // полусухое
+    private boolean dry = false; // cухое
+
+    public boolean isSemisweet() {
+        return semisweet;
+    }
+
+    public void setSemisweet(boolean semisweet) {
+        this.semisweet = semisweet;
+    }
+
+    public boolean isSweet() {
+        return sweet;
+    }
+
+    public void setSweet(boolean sweet) {
+        this.sweet = sweet;
+    }
+
+    public boolean isSemidry() {
+        return semidry;
+    }
+
+    public void setSemidry(boolean semidry) {
+        this.semidry = semidry;
+    }
+
+    public boolean isDry() {
+        return dry;
+    }
+
+    public void setDry(boolean dry) {
+        this.dry = dry;
+    }
 
     public search(){}
 

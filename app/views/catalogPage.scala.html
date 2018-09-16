@@ -330,25 +330,49 @@
                             <tr>Фильтр</tr>
                             <tr> <!--форма поиска -->
                                 <div class="search">
-                                @helper.form(action = routes.WineController.searchCatalogPage(login,isAdmin)){
+                            @helper.form(action = routes.WineController.searchCatalogPage(login, isAdmin)) {
+                                @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Введите название", '_label -> "")
+                                <tr>Цвет</tr>
+                                <div class="group">
+                                    Все цвета @helper.checkbox(searchform("anyColour"), '_label -> "")
+                                    Белое  @helper.checkbox(searchform("whiteColour"), '_label -> "")
+                                    Красное @helper.checkbox(searchform("redColour"), '_label -> "")
+                                    Розовое @helper.checkbox(searchform("pinkColour"), '_label -> "")</div>
+                                <script>
+                                        $(".group input").on("click", function () {
+                                            $(".group input").removeAttr("checked");
+                                            $(this).prop("checked", true);
+                                        })
+                                </script>
 
-                                    @helper.inputText(wineForm("name"),'_showConstraints ->false, 'placeholder -> "Введите название", '_label ->"")
-                                    <td> Белое</td> <td>@helper.checkbox(searchform("whiteColour"), '_label ->"")</td>
-                                    <tr></tr>
-                                    <td>Красное</td>  <td>@helper.checkbox(searchform("redColour"), '_label ->"")</td>
-                                    <tr></tr>
-                                    <td>Розовое</td>  <td>@helper.checkbox(searchform("pinkColour"), '_label ->"")</td>
-                                    @helper.inputText(wineForm("country"),'_showConstraints ->false, 'placeholder -> "Страна", '_label ->"")
-                                    @helper.inputText(searchform("minprice"),'_showConstraints ->false, 'placeholder -> "Цена От ", '_label ->"")
-                                    @helper.inputText(searchform("maxprice"),'_showConstraints ->false, 'placeholder -> "Цена До", '_label ->"")
+                                <tr>Сахар</tr>
+                                <div class="group2">
+                                Любое содержание сахара @helper.checkbox(searchform("anySugar"), '_label -> "")
+                                Полусладкое @helper.checkbox(searchform("semisweet"), '_label -> "")
+                                Сухое @helper.checkbox(searchform("dry"), '_label -> "")
+                                Сладкое @helper.checkbox(searchform("sweet"), '_label -> "")
+                                Полусухое @helper.checkbox(searchform("semidry"), '_label -> "") </div>
 
-                                    <button type="submit">Поиск</button>
-                                }
+                                      <script>
+                                        $(".group2 input").on("click", function () {
+                                            $(".group2 input").removeAttr("checked");
+                                            $(this).prop("checked", true);
+                                        })
+                                      </script>
 
-                                </div>
+
+        @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", '_label -> "")
+        @helper.inputText(searchform("minprice"), '_showConstraints -> false, 'placeholder -> "Цена От ", '_label -> "")
+        @helper.inputText(searchform("maxprice"), '_showConstraints -> false, 'placeholder -> "Цена До", '_label -> "")
 
 
-                                    <!--сортировка
+        <button type="submit">Поиск</button>
+        }
+
+        </div>
+
+
+            <!--сортировка
                          0- по цене по возрастанию
                          5 - по цене по убыванию
                          1 - по названию по возрастанию
@@ -358,50 +382,50 @@
                          4 - по крепости по убыванию-->
 
 
-                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,0)){
-                                    Cортировка по цене
-                                <button type="submit" class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                                </button>
-                            }
-                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,5)){
+        @helper.form(action = routes.WineController.sortCatalogPage(login, isAdmin, 0)) {
+            Cортировка по цене
+        <button type="submit" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-sort-by-attributes"></span>
+        </button>
+        }
+        @helper.form(action = routes.WineController.sortCatalogPage(login, isAdmin, 5)) {
 
-                                    <button type="submit" class="btn btn-default btn-sm">
-                                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                                    </button>
-                                }
-                            <p></p>
-                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,1)){
-                                    Cортировка по названию
-                                    <button type="submit" class="btn btn-default btn-sm">
-                                        <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                                    </button>
-                                }
-                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,2)){
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </button>
+        }
+        <p></p>
+        @helper.form(action = routes.WineController.sortCatalogPage(login, isAdmin, 1)) {
+            Cортировка по названию
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-sort-by-attributes"></span>
+            </button>
+        }
+        @helper.form(action = routes.WineController.sortCatalogPage(login, isAdmin, 2)) {
 
-                                    <button type="submit" class="btn btn-default btn-sm">
-                                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                                    </button>
-                                }
-                            <p></p>
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </button>
+        }
+        <p></p>
 
-                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,3)){
-                                    Сортировка по крепости
-                                    <button type="submit" class="btn btn-default btn-sm">
-                                        <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                                    </button>
-                                }
-                                @helper.form(action = routes.WineController.sortCatalogPage(login,isAdmin,4)){
+        @helper.form(action = routes.WineController.sortCatalogPage(login, isAdmin, 3)) {
+            Сортировка по крепости
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-sort-by-attributes"></span>
+            </button>
+        }
+        @helper.form(action = routes.WineController.sortCatalogPage(login, isAdmin, 4)) {
 
-                                    <button type="submit" class="btn btn-default btn-sm">
-                                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                                    </button>
-                                }
-                            </tr>
-                            @*<tr colspan="2"></tr>*@
-                        </table>
-                    </td>
-                </tr>
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </button>
+        }
+        </tr>
+        @*<tr colspan="2"></tr>*@
+        </table>
+        </td>
+        </tr>
             </table>
             <br>
             <p></p>
