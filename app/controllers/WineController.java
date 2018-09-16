@@ -1,6 +1,7 @@
 package controllers;
 
 import io.ebean.Ebean;
+import io.ebean.Expr;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
 import models.*;
@@ -139,14 +140,23 @@ public class WineController extends Controller {
             searchParam.setRedColour(false);
         }
         else {
-
-
             Boolean redColour = Boolean.valueOf(String.valueOf(rawdata.get("redColour")));
-            System.out.print("ээээээээээээээээээээээээээээээй");
-
             searchParam.setRedColour(redColour);
         }
-        System.out.println("GQQQQQQ544444444444444444444444444444444QQQQ " + searchParam.isRedColour() );
+        if (rawdata.get("pinkColour")==null){
+            searchParam.setPinkColour(false);
+        }
+        else {
+            Boolean pinkColour = Boolean.valueOf(String.valueOf(rawdata.get("pinkColour")));
+            searchParam.setPinkColour(pinkColour);
+        }
+        if (rawdata.get("whiteColour")==null){
+            searchParam.setWhiteColour(false);
+        }
+        else {
+            Boolean whiteColour = Boolean.valueOf(String.valueOf(rawdata.get("whiteColour")));
+            searchParam.setWhiteColour(whiteColour);
+        }
 
         if (searchParam.getMinprice() == null){
             searchParam.setMinprice(0.0);
@@ -156,77 +166,156 @@ public class WineController extends Controller {
             searchParam.setMaxprice(Double.parseDouble(searchParametrs(sql)));
         }
 
-        // если вино красное и все пусто
-        if((winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
-                (winParam.getCountry().isEmpty()) && searchParam.isRedColour()){
+        // если все пусто и только фильтр на цвет
+        if((winParam.getName().isEmpty()) && (winParam.getCountry().isEmpty())){
+            // если вино розовое
+            if (searchParam.isPinkColour() && !searchParam.isWhiteColour() &&
+            !searchParam.isRedColour())
             winList = Ebean.find(wine.class).where().
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
-                    eq("colour","Красное").
+                    eq("colour","Розовое").
                     setDistinct(true).findList();
+            // если вино красное
+            if (!searchParam.isPinkColour() && !searchParam.isWhiteColour() &&
+                    searchParam.isRedColour())
+                winList = Ebean.find(wine.class).where().
+                        between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                        eq("colour","Красное").
+                        setDistinct(true).findList();
+            // если вино белое
+            if (!searchParam.isPinkColour() && searchParam.isWhiteColour() &&
+                    !searchParam.isRedColour())
+                winList = Ebean.find(wine.class).where().
+                        between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                        eq("colour","Белое").
+                        setDistinct(true).findList();
+            // если вино красное или белое
+            if (!searchParam.isPinkColour() && searchParam.isWhiteColour() &&
+                    searchParam.isRedColour())
+                winList = Ebean.find(wine.class).where().
+                        between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                        or(Expr.like("colour","Белое"),
+                                Expr.like("colour","Красное")).endOr().
+                        setDistinct(true).findList();
+            // если вино красное или розовое
+            if (searchParam.isPinkColour() && !searchParam.isWhiteColour() &&
+                    searchParam.isRedColour())
+                winList = Ebean.find(wine.class).where().
+                        between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                        or(Expr.like("colour","Розовое"),
+                                Expr.like("colour","Красное")).endOr().
+                        setDistinct(true).findList();
+            // если вино розовое или белое
+            if (searchParam.isPinkColour() && searchParam.isWhiteColour() &&
+                    !searchParam.isRedColour())
+                winList = Ebean.find(wine.class).where().
+                        between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                        or(Expr.like("colour","Розовое"),
+                                Expr.like("colour","Белое")).endOr().
+                        setDistinct(true).findList();
+            // если красное или белое или розовое
+            if (searchParam.isPinkColour() && searchParam.isWhiteColour() &&
+                    searchParam.isRedColour())
+                winList = Ebean.find(wine.class).where().
+                        between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                        setDistinct(true).findList();
+            // если вообще нет фильра на вино
+            if (!searchParam.isPinkColour() && !searchParam.isWhiteColour() &&
+                    !searchParam.isRedColour())
+                winList = Ebean.find(wine.class).where().
+                        between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
+                        setDistinct(true).findList();
         }
 
         // если все данные в фильтр введены
-
         if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
-        && winParam.getDegree()!=null && (!(winParam.getCountry().isEmpty()))) {
+        && (!(winParam.getCountry().isEmpty()))&& searchParam.isPinkColour() &&
+        searchParam.isWhiteColour()&& searchParam.isRedColour()) {
             winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
-                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
-                    eq("degree",winParam.getDegree()).eq("country",winParam.getCountry()).setDistinct(true).findList();
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice())
+                    .eq("country",winParam.getCountry()).setDistinct(true).findList();
                     }
-        // если все поля пустые
-        if((winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
-                (winParam.getCountry().isEmpty())&& (!(searchParam.isRedColour()))){
-            winList = Ebean.find(wine.class).where().
-                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
-                    setDistinct(true).findList();
+         // если все данные введены и вино только красное
+        if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
+                && (!(winParam.getCountry().isEmpty()))&& !searchParam.isPinkColour() &&
+                !searchParam.isWhiteColour()&& searchParam.isRedColour()) {
+            winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice())
+                    .eq("country",winParam.getCountry()).
+                            eq("colour","Красное").setDistinct(true).findList();
         }
+        // если все данные введены и вино только белое
+        if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
+                && (!(winParam.getCountry().isEmpty()))&& !searchParam.isPinkColour() &&
+                !searchParam.isWhiteColour()&& searchParam.isRedColour()) {
+            winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice())
+                    .eq("country",winParam.getCountry()).
+                            eq("colour","Белое").setDistinct(true).findList();
+        }
+        // если все данные введены и вино только розовое
+        if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
+                && (!(winParam.getCountry().isEmpty()))&& !searchParam.isPinkColour() &&
+                !searchParam.isWhiteColour()&& searchParam.isRedColour()) {
+            winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice())
+                    .eq("country",winParam.getCountry()).
+                            eq("colour","Розовое").setDistinct(true).findList();
+        }
+        // если все данные введены и вино розовое или красное
+         if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
+                && (!(winParam.getCountry().isEmpty()))&& !searchParam.isPinkColour() &&
+                !searchParam.isWhiteColour()&& searchParam.isRedColour()) {
+            winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice())
+                    .eq("country",winParam.getCountry()).or
+                            (Expr.like("colour","Розовое"),
+                     Expr.like("colour","Красное")).endOr().setDistinct(true).findList();
+        }
+        // если все данные введены и вино розовое или белое
+        if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
+                && (!(winParam.getCountry().isEmpty()))&& !searchParam.isPinkColour() &&
+                !searchParam.isWhiteColour()&& searchParam.isRedColour()) {
+            winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice())
+                    .eq("country",winParam.getCountry()).or
+                            (Expr.like("colour","Розовое"),
+                                    Expr.like("colour","Белое")).endOr().setDistinct(true).findList();
+        }
+        // если все данные введены и вино красное или белое
+        if (!(winParam.getName().isEmpty()) && searchParam.getMinprice() != null && searchParam.getMaxprice() != null
+                && (!(winParam.getCountry().isEmpty()))&& !searchParam.isPinkColour() &&
+                !searchParam.isWhiteColour()&& searchParam.isRedColour()) {
+            winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                    between("price",searchParam.getMinprice(),searchParam.getMaxprice())
+                    .eq("country",winParam.getCountry()).or
+                            (Expr.like("colour","Белое"),
+                                    Expr.like("colour","Красное")).endOr().setDistinct(true).findList();
+        }
+
         // если введено только название
-        if(!(winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
-                winParam.getCountry().isEmpty()){
+        if(!(winParam.getName().isEmpty()) && winParam.getCountry().isEmpty() &&
+        !searchParam.isRedColour()&& !searchParam.isWhiteColour()&& !searchParam.isPinkColour()){
             winList = Ebean.find(wine.class).where().
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
                     eq("name",winParam.getName()).setDistinct(true).findList();
         }
-        // если введена только крепость
-        if((winParam.getName().isEmpty()) && (winParam.getDegree()!=null) &&
-                winParam.getCountry().isEmpty()){
-            winList = Ebean.find(wine.class).where().
-                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
-                    eq("degree",winParam.getDegree()).setDistinct(true).findList();
-        }
+
         //если введена только страна
-        if((winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
-                (!(winParam.getCountry().isEmpty()))){
+        if((winParam.getName().isEmpty()) && (!(winParam.getCountry().isEmpty()))&&
+                !searchParam.isRedColour()&& !searchParam.isWhiteColour()&& !searchParam.isPinkColour()){
             winList = Ebean.find(wine.class).where().
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
                     eq("country",winParam.getCountry()).setDistinct(true).findList();
         }
-        // если введены только страна и крепость
-        if((winParam.getName().isEmpty()) && (winParam.getDegree()!=null) &&
-                (!(winParam.getCountry().isEmpty()))){
-            winList = Ebean.find(wine.class).where().
-                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
-                    eq("country",winParam.getCountry()).eq("degree",winParam.getDegree())
-                    .setDistinct(true).findList();
-        }
         // если введено название и страна
-        if(!(winParam.getName().isEmpty()) && (winParam.getDegree()==null) &&
-                (!(winParam.getCountry().isEmpty()))){
+        if(!(winParam.getName().isEmpty())  && (!(winParam.getCountry().isEmpty()))&&
+                !searchParam.isRedColour()&& !searchParam.isWhiteColour()&& !searchParam.isPinkColour()){
             winList = Ebean.find(wine.class).where().
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
                     eq("country",winParam.getCountry()).eq("name",winParam.getName())
                     .setDistinct(true).findList();
         }
-        // если введено название , крепость
-        if(!(winParam.getName().isEmpty()) && (winParam.getDegree()!=null) &&
-                ((winParam.getCountry().isEmpty()))){
-            winList = Ebean.find(wine.class).where().
-                    between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
-                    eq("degree",winParam.getDegree()).eq("name",winParam.getName())
-                    .setDistinct(true).findList();
-        }
-
-
 
         searchList = winList;
 
