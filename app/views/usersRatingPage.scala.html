@@ -1,4 +1,4 @@
-@(login:String,isAdmin:Boolean,nameColomn:Seq[String],win:Seq[rating],ratingName:Seq[String])
+@(login:String,isAdmin:Boolean,nameColomn:Seq[String],win:Seq[rating])
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -84,11 +84,13 @@
             it(i)
         }
 
-            @*вывод названия вина*@
-        @wineNAME(i:Int)=@{
-            val it = ratingName
+            @*вывод отсортированной таблицы*@
+        @ratingWine(i:Int)=@{
+            val it = win
             it(i)
         }
+
+
             @*вывод строки*@
         @display(i:Int)=@{
             val it = win
@@ -122,12 +124,14 @@
                 <td>
                     <table class="wine1">
                         <tr>
-                        @for(j <- 1 to ratingName.length) {
+                        @for(j <- 1 to nameColomn.length-1) {
                             <th>@colomn(j-1)</th>
                         }
                         </tr>
-                        <tr colspan="2"> @win.map { item =>
-                            <th>@item.getWine(item.getId_product,login)</th>
+                        <tr colspan="2">
+                        @win.map { item =>
+                            <th>@item.getWine(item.getId_product)</th>
+
                             <th>@item.getRating</th>
 
 

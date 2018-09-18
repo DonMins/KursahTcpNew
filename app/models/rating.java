@@ -31,13 +31,13 @@ public class rating {
     public ArrayList<String> getNameColomn(){
         ArrayList<String > nameColomn = new ArrayList<>();
         nameColomn.add("Продукт");
-        nameColomn.add("Пользователь");
         nameColomn.add("Оценка");
+        nameColomn.add("Пользователь");
 
         return nameColomn;
     }
 
-    public static Finder<Integer, rating> find = new Finder<>(rating.class);
+   // public static Finder<rating> find = new Finder<>(rating.class);
     public rating(){}
 
     public rating(@Constraints.Required Integer id_product,
@@ -70,9 +70,9 @@ public class rating {
         this.rating = rating;
     }
 
-    public String getWine(Integer id_product,String login) {
+    public String getWine(Integer id_product) {
         String parametrs= null;
-        String sql1 = "select wine.name from wine,public.rating, public.user where rating.id_user=id and login = '"+login+"' and rating.id_product=wine.id_product";
+        String sql1 = "Select wine.name from public.wine, public.rating where wine.id_product=rating.id_product and rating.id_product ="+id_product;
         SqlQuery maxId = Ebean.createSqlQuery(sql1);
 
         List<SqlRow> mId = maxId.findList();
@@ -80,7 +80,7 @@ public class rating {
             Set<String> keyset2 = row2.keySet();
             for (String s : keyset2) {
                 parametrs = row2.getString(s);
-                System.out.println("LOOOOK!"+parametrs);
+
 
             }
         }
