@@ -171,3 +171,55 @@ table.wine2 {
     margin-top: 0%;/*150*/
     margin-left: 0%;/*-10*/
 }
+
+
+
+
+
+
+body{
+    background: #eccabf;
+}
+img {
+    height: 320px;
+    max-width: 100%;
+}
+.content{
+    margin-top: 50px;
+}
+.product {
+    background: #ffcdfa none repeat scroll 0 0;
+    border: 2px solid #da0505;
+    height: 500px;
+    overflow: hidden;
+    padding: 15px 10px;
+    position: relative;
+    text-align: center;
+    transition: all 0.5s ease 0s;
+    /*margin-bottom: 10px;*/
+}
+.product:hover {
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+}
+
+.product-img {
+    height: auto;
+}
+.product-title a {
+    color: #000;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.product-desc {
+    max-height: 60px;
+    overflow: hidden;
+}
+.product-price {
+    bottom: 15px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    color: #d51e08;
+    font-size: 18px;
+    font-weight: 500;
+}

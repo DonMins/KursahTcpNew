@@ -150,6 +150,59 @@
                 </td>
             </tr>
         </table>
+        <table>
+
+
+
+
+        @win.map { item =>
+
+                <tr>
+        <div class="col-md-8 products">
+
+            <div class="row">
+
+                <div class="col-sm-4">
+
+                    <div class="product">
+                        <table>
+
+                        <div class="product-img">
+                            <tr>
+
+                            <a href="#"><img src="/assets/images/Casa Del Coppiere Vino Da Tavola.png" alt=""></a>
+                            </tr>
+                        </div>
+                            < <tr colspan="2">
+
+                            @item.getWine(item.getId_product)
+
+                            @item.getRating
+
+
+                        @if(isAdmin) {
+
+                                @*<li><a href="#win4" class="button button-green">Редактировать</a></li>*@
+                                <a href="@routes.WineController.renderUpdateWineInfo(item.getId_product, login)">
+                                    Изменить</a>
+                                <a href="@routes.WineController.deleteWine(item.getId_product, login)" >
+                                    Удалить </a>
+                            }
+                            <tr></tr>
+                            <p class="product-price">Price: €10.00
+
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        }
+
+        </table>
+
 
 
 
