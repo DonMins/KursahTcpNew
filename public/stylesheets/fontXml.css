@@ -273,11 +273,13 @@ img {
 .rating:not(:checked) > label:before {
     content: '★ ';
 }
-
+/*звёзды уже выбранные */
 .rating > input:checked ~ label {
     color: #f70;
     text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
 }
+
+
 
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label {
@@ -294,11 +296,29 @@ img {
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
 }
 
-.rating > label:active {
-    position:relative;
-    top:2px;
-    left:2px;
+
+
+
+.rating:not(:checked) >  input:not(.veryGrey) ~ label:hover,
+.rating:not(:checked)  > input:disabled~ label:hover ~ label,
+.rating:not(:checked) > label:hover ~  input:disabled ~ label {
+    color: #f70;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
 }
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+
+
+/*.rating > label:active {*/
+    /*position:relative;*/
+    /*top:2px;*/
+    /*left:2px;*/
+/*}*/
 
 @media only screen and (min-width: 450px) {
     .col-md-8 products {
