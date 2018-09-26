@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "basket", schema = "public")
 public class basket {
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "public.basket_id_product_seq")
+   // @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "public.basket_id_product_seq")
+
 
     private Integer id_product;
     private String login;

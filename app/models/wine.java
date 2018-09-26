@@ -16,9 +16,10 @@ import java.util.Set;
 @Table(name = "wine", schema = "public")
 
 public class wine implements Constraints.Validatable<String> {
-        @Id
-        @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "public.wine_id_seq")
-        private Integer id_product;
+//        @Id
+//        @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "public.wine_id_seq")
+    @Id
+    private Integer id_product;
 
       //  @Constraints.Required
       private String name;

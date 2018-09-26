@@ -3,6 +3,7 @@ package controllers;
 import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
+import javafx.print.Collation;
 import models.User;
 import models.basket;
 import models.rating;
@@ -11,9 +12,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import scala.collection.JavaConverters;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static controllers.WineController.searchParametrs;
 import static scala.collection.JavaConverters.asScalaBuffer;
@@ -46,14 +45,23 @@ public class BasketController extends Controller {
                 Integer tmp = Integer.parseInt(split);
                 idForBasket.add(tmp);
             }
-            for (int i = 0; i < idForBasket.size(); ++i) {
-                winListtmp = Ebean.find(wine.class).where().in("id_product", idForBasket).
-                        setDistinct(true).findList();
-                winList = winListtmp;
 
+            winList = Ebean.find(wine.class).where().in("id_product", idForBasket).
+                    setDistinct(true).findList();
+
+            Collections.reverse(idForBasket);
+            for (int i = 0; i < idForBasket.size(); ++i) {
+                winList.get(i).setId_product(idForBasket.get(i));
             }
-            for(int i=0;i<winList.size();++i)
-            System.out.println("лист " +winList.get(i));
+
+            winList.sort(new Comparator<wine>() {
+                @Override
+                public int compare(wine o1, wine o2) {
+                        if(o2.getId_product()  <=o1.getId_product())
+                            return -1;
+                        return 1;
+                }
+            });
 
 
             wine us = new wine();
