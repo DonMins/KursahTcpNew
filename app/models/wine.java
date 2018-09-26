@@ -73,7 +73,7 @@ public class wine implements Constraints.Validatable<String> {
             for (SqlRow row3 : rows3) {
                 Set<String> keyset = row3.keySet();
                 for (String s : keyset) {
-                    System.out.println(row3.getString(s));
+                    //System.out.println(row3.getString(s));
                     nameColomn.add(row3.getString(s));
                 }
             }
@@ -174,7 +174,7 @@ public class wine implements Constraints.Validatable<String> {
 
     @Override
         public String validate() {
-            System.out.println("wine validate");
+           // System.out.println("wine validate");
             List<wine>win = Ebean.find(wine.class).where().eq("id_product", id_product).findList();
             if(win.isEmpty()){
                 return null;

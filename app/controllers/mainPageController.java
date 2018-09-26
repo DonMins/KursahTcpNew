@@ -26,7 +26,7 @@ public class mainPageController extends Controller {
 
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
-        System.out.println("GGGGGGGGGGGGGGGG "+ error);
+        //System.out.println("GGGGGGGGGGGGGGGG "+ error);
         return ok(indexProjectPage.render("",false,form,form2,error));
     }
 

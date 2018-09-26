@@ -87,7 +87,7 @@ public class ProviderController extends Controller {
                 Ebean.save(provid);
             }catch (Exception ex){
 
-                System.out.println("ГОАНООООЭ");
+                //System.out.println("ГОАНООООЭ");
 
                 return redirect(routes.ProviderController.renderAddProvider(login));
             }

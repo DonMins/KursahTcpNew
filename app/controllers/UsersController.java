@@ -26,6 +26,7 @@ import static scala.collection.JavaConverters.asScalaBuffer;
  */
 public class UsersController extends Controller {
     private static Logger.ALogger logger = Logger.of(UsersController.class);
+    private  String loginAdmin;
 
 
     /**
@@ -34,6 +35,7 @@ public class UsersController extends Controller {
      * list of users and users fields names
      */
       public Result usersList(String login){
+          loginAdmin = login;
 
         List<User> users = User.find.all();
         users.sort(new Comparator<User>() {
@@ -72,12 +74,12 @@ public class UsersController extends Controller {
      * Render registration page
      * @return Response with registration form to registration page
      */
-    public Result renderAddUserForm(boolean admin){
+    public Result renderAddUserForm(boolean admin,Integer error){
         Form<LoginForm> form = formFactory.form(LoginForm.class);
 
         Form<User> form2 = formFactory.form(User.class);
 
-        return ok(views.html.createUser.render(form2,true));
+        return ok(views.html.createUser.render(form2,true,error,loginAdmin));
     }
 
     /**
@@ -111,8 +113,11 @@ public class UsersController extends Controller {
 
             }
         }
-        System.out.print("EEEEEEEE"+id);
+     //   System.out.print("EEEEEEEE"+id);
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
+            if (admin){
+                return redirect(routes.UsersController.renderAddUserForm(admin,2));
+            }
             return ok(views.html.indexProjectPage.render("",admin,form,userForm,2));
         }
         Map<String, String> rawdata = userForm.rawData();
@@ -124,25 +129,29 @@ public class UsersController extends Controller {
         user.setLogin(rawdata.get("login"));
         user.setPassword(rawdata.get("password"));
         user.setAdmin(isAdmin);
+
         List<User> users = Ebean.find(User.class).where().eq("login", user.getLogin()).findList();
+       // System.out.println("Something went wrong53");
         if(users.isEmpty()){
             try{
                 Ebean.save(user);
             }catch (Exception ex){
                 logger.info("При регистрации пользователя произошла ошибка");
-                System.out.println("Something went wrong");
-                return redirect(routes.UsersController.renderAddUserForm(admin));
+         //       System.out.println("Something went wrong");
+                return redirect(routes.UsersController.renderAddUserForm(admin,0));
             }
             if(admin){
-                return redirect(routes.UsersController.usersList(user.getLogin()));
+                return redirect(routes.UsersController.usersList(loginAdmin));
             }
            else{
+           //     System.out.println("Something went wrong55");
             return redirect(routes.mainPageController.test());
            }
 
         }
         logger.info("Произошла какая-то неведома ошибка");
-        return redirect(routes.UsersController.renderAddUserForm(admin));
+        //System.out.println("Something went wrong54");
+        return redirect(routes.UsersController.renderAddUserForm(admin,0));
     }
     public Result renderUpdateUserInfo(Integer id,String login){
         User user = User.find.byId(id);

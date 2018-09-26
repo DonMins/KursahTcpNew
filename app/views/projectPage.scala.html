@@ -40,7 +40,7 @@
                    </div>
 
 
-                   <a href="@routes.UsersController.renderAddUserForm(false)" class="slick-login2">Регистрация</a>
+                   <a href="@routes.UsersController.renderAddUserForm(false,0)" class="slick-login2">Регистрация</a>
 
                }
            <a class="close"title="Закрыть" href="#close"></a>
@@ -74,12 +74,6 @@
                }
                <a class="close"title="Закрыть" href="#close"></a>
            </div>
-
-
-
-
-
-
 
            @if(error == 1 || error ==2) {
                    <!-- Модальное окно при загрузке -->
@@ -152,6 +146,7 @@
                 <li><a href="@routes.ProviderController.providerPage("",isAdmin)">Поставщики </a></li>
                 <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
                 <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
+                <li><a href="@routes.BasketController.basketPage("",isAdmin)">Корзина </a></li>
             }
             @if(!(login.isEmpty)) {
 
@@ -159,6 +154,8 @@
                 <li><a href="@routes.ProviderController.providerPage(login,isAdmin)">Поставщики </a></li>
                 <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
                 <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
+                <li><a href="@routes.BasketController.basketPage(login,isAdmin)">Корзина </a></li>
+
                 @if(isAdmin){
                     <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                 }

@@ -35,7 +35,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 #controller for list of user
 GET     /users                      controllers.UsersController.usersList(login:String)
 GET    /users/:id                     controllers.UsersController.deleteUser(id: Integer,login:String)
-GET     /adduser                    controllers.UsersController.renderAddUserForm(admin:Boolean)
+GET     /adduser                    controllers.UsersController.renderAddUserForm(admin:Boolean,error:Integer)
 GET     /addadmin                    controllers.UsersController.renderAdminForm()
 + nocsrf
 POST    /adduser                      controllers.UsersController.addingUser(admin:Boolean)
@@ -64,3 +64,10 @@ GET     /addProvider                  controllers.ProviderController.renderAddPr
 GET     /updateProvider             controllers.ProviderController.renderUpdateProviderInfo(id: Integer,login:String)
 + nocsrf
 POST    /updateProvider               controllers.ProviderController.updateProviderInfo(id: Integer,login:String)
+GET    /basketPage                     controllers.BasketController.basketPage(login:String, isAdmin: Boolean)
+
+GET    /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
+GET    /basketDelete/:id/:login/:isAdmin       controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)
+
+
+

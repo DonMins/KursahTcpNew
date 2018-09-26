@@ -42,7 +42,7 @@
                     </div>
 
 
-                    <a href="@routes.UsersController.renderAddUserForm(false)" class="slick-login2">Регистрация</a>
+                    <a href="@routes.UsersController.renderAddUserForm(false,0)" class="slick-login2">Регистрация</a>
 
                 }
                 <a class="close"title="Закрыть" href="#close"></a>
@@ -145,7 +145,7 @@
                     </div>
 
 
-                    <a href="@routes.UsersController.renderAddUserForm(false)" class="slick-login2">Регистрация</a>
+                    <a href="@routes.UsersController.renderAddUserForm(false,0)" class="slick-login2">Регистрация</a>
 
                 }
 
@@ -311,6 +311,13 @@
                                 <th>@item.getPrice</th>
                                 <th>@item.getValue</th>
                                 <th>@item.getDegree</th>
+                                <th>
+                                @helper.form(action = routes.BasketController.addIn(login, isAdmin,item.getId_product)) {
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                                    </button>
+                                }
+                                </th>
 
                             @if(isAdmin) {
                                 <th>

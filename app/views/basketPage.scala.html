@@ -1,0 +1,167 @@
+@(login:String,isAdmin:Boolean,nameColomn:Seq[String],win:Seq[wine])
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
+        <title>Корзина</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/search.css")">
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
+
+        @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
+        <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+        @if(!(login.isEmpty)){
+            <div align="right">
+
+                Вы вошли как :@login
+
+                <br>
+            </div>
+        }
+
+        <div align="center">
+            <h2>Barton & Guestier</h2>
+
+            <p></p>
+
+
+            <p></p>
+            <ul class="menu" >
+                <li> <a href=#>Личный кабинет </a>
+                    <ul class="submenu">
+                        @if(login.isEmpty) {
+                            <li><a href="#win1" class="button button-green">Вход</a></li>
+                            <li><a href="#win2" class="button button-green">Регистрация</a></li>
+                            @*<li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>*@
+                            @*<li><a href="@routes.UsersController.renderAddUserForm(isAdmin)">Регистрация</a></li>*@
+                        }
+                        @if(!(login.isEmpty)){
+                            <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                        }
+
+                    </ul>
+                </li>
+
+            </ul>
+            <ul id="nav">
+
+                @if(login.isEmpty) {
+
+                    <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
+                    <li><a href="@routes.ProviderController.providerPage("",isAdmin)">Поставщики </a></li>
+                    <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
+                    <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
+                }
+                @if(!(login.isEmpty)){
+
+                    <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
+                    <li><a href="@routes.ProviderController.providerPage(login,isAdmin)">Поставщики </a></li>
+                    <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
+                    <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
+                    @if(isAdmin){
+                        @*<li><a href="@routes.WineController.renderAddWine(login)">Добавить товар </a></li>*@
+                        <li><a href="#win3" class="button button-green">Добавить товар</a></li>
+                        <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
+                    }
+                }
+
+            </ul>
+            <p></p>
+            <p></p>
+            <p></p>
+
+                @*вывод колонки*@
+            @colomn(i:Int)=@{
+                val it =nameColomn
+                it(i)
+            }
+                @*вывод строки*@
+            @display(i:Int)=@{
+                val it = win
+                it(i)
+            }
+                @*всего колонок*@
+            @sizeItems()=@{
+                if(nameColomn==null) {
+                    val tmp =0
+                    tmp
+                }
+                else{
+                val sizeItems = nameColomn.length
+                 sizeItems
+                }
+            }
+                @*количество страниц*@
+            @pages=@{
+
+                sizeItems2()/sizeItems()
+
+            }
+                @*всего записываемых элементов*@
+            @sizeItems2()=@{
+                val sizeItems2 = win.length
+                sizeItems2
+
+            }
+
+                @*печатает название таблиц*@
+            @printCode(i:Int)=@{
+                val cod = "wine"
+                cod(i)
+            }
+
+            <table class="wine">
+                <tr>
+                    <td>
+                        @if(sizeItems()!=0){
+                        <table class="wine1">
+                            <tr>
+                            @for(j <- 2 to sizeItems) {
+                                <th>@colomn(j-1)</th>
+                            }
+                            </tr>
+                            <tr colspan="2"> @win.map { item =>
+                                <th>@item.getId_product</th>
+                                <th>@item.getName</th>
+                                <th>@item.getColour</th>
+                                <th>@item.getCountry</th>
+                                <th>@item.getBrand</th>
+                                <th>@item.getShelf_life</th>
+                                <th>@item.getSugar</th>
+                                <th>@item.getGrape_sort</th>
+                                <th>@item.getPrice</th>
+                                <th>@item.getValue</th>
+                                <th>@item.getDegree</th>
+
+                                <th> <a href="@routes.BasketController.deleteFromBasket(item.getId_product,login,isAdmin)" > Удалить </a></th>
+
+
+                            @if(isAdmin) {
+                                <th>
+                                    @*<li><a href="#win4" class="button button-green">Изменить</a></li>*@
+
+                                </th>
+                            }
+                            <tr></tr>
+                            }
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            }
+            @if(sizeItems()==0){
+                Корзина пустая !
+            }
+        </div>
+    </body>
+</html>

@@ -282,42 +282,42 @@ public class WineController extends Controller {
         && (!(winParam.getCountry().isEmpty()))) {
           // если введены цвет и сахар
             if ((!notColour) && (!notSugar)) {
-                winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                winList = Ebean.find(wine.class).where().contains("name", winParam.getName()).
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice())
                         .eq("country", winParam.getCountry()).eq("colour", colourWin)
                         .eq("sugar", typeWin).setDistinct(true).findList();
             }
             //если  ввели цвет и любой сахар
             if ((!notColour) && (searchParam.isAnySugar())){
-                winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                winList = Ebean.find(wine.class).where().contains("name", winParam.getName()).
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice())
                         .eq("country", winParam.getCountry()).eq("colour", colourWin)
                         .setDistinct(true).findList();
             }
             // если ввели сахар и любой цвет
             if ((!notSugar) && (searchParam.isAnyColour())){
-                winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                winList = Ebean.find(wine.class).where().contains("name", winParam.getName()).
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice())
                         .eq("country", winParam.getCountry()).eq("sugar", typeWin)
                         .setDistinct(true).findList();
             }
             // если ввели цвет, но не ввели сахар
             if ((notSugar) && (!notColour)){
-                winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                winList = Ebean.find(wine.class).where().contains("name", winParam.getName()).
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice())
                         .eq("country", winParam.getCountry()).eq("colour", colourWin)
                         .setDistinct(true).findList();
             }
             // если ввели сахар, но не ввели цвет
             if ((notSugar) && (!notColour)){
-                winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                winList = Ebean.find(wine.class).where().contains("name", winParam.getName()).
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice())
                         .eq("country", winParam.getCountry()).eq("sugar", typeWin)
                         .setDistinct(true).findList();
             }
             // если оба любые
             if(searchParam.isAnySugar() && searchParam.isAnyColour()){
-                winList = Ebean.find(wine.class).where().eq("name", winParam.getName()).
+                winList = Ebean.find(wine.class).where().contains("name", winParam.getName()).
                         between("price",searchParam.getMinprice(),searchParam.getMaxprice())
                         .eq("country",winParam.getCountry()).setDistinct(true).findList();
             }
@@ -329,27 +329,27 @@ public class WineController extends Controller {
             if (notColour && notSugar) {
                 winList = Ebean.find(wine.class).where().
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice()).
-                        eq("name", winParam.getName()).setDistinct(true).findList();
+                        contains("name",winParam.getName()).setDistinct(true).findList();
             }
             // если нет цвета , но есть тип
             if (notColour && !notSugar) {
                 winList = Ebean.find(wine.class).where().
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice()).
-                        eq("name", winParam.getName()).
+                        contains("name", winParam.getName()).
                         eq("sugar", typeWin).setDistinct(true).findList();
             }
             // если нет типа, но есть цвет
             if (!notColour && notSugar) {
                 winList = Ebean.find(wine.class).where().
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice()).
-                        eq("name", winParam.getName()).
+                        contains("name", winParam.getName()).
                         eq("colour", colourWin).setDistinct(true).findList();
             }
             //если есть тип и цвет
             if (!notColour && !notSugar) {
                 winList = Ebean.find(wine.class).where().
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice()).
-                        eq("name", winParam.getName()).
+                        contains("name", winParam.getName()).
                         eq("colour", colourWin).
                         eq("sugar", typeWin).setDistinct(true).findList();
             }
@@ -357,21 +357,21 @@ public class WineController extends Controller {
             if (!notColour && searchParam.isAnySugar()) {
                 winList = Ebean.find(wine.class).where().
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice()).
-                        eq("name", winParam.getName()).
+                        contains("name", winParam.getName()).
                         eq("colour", colourWin).setDistinct(true).findList();
             }
             // если есть сахар и любой цвет
             if (!notSugar && searchParam.isAnyColour()) {
                 winList = Ebean.find(wine.class).where().
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice()).
-                        eq("name", winParam.getName()).
+                        contains("name", winParam.getName()).
                         eq("sugar", typeWin).setDistinct(true).findList();
             }
             // если есть любой цвет и любой сахар
             if (searchParam.isAnySugar() && searchParam.isAnyColour()) {
                 winList = Ebean.find(wine.class).where().
                         between("price", searchParam.getMinprice(), searchParam.getMaxprice()).
-                        eq("name", winParam.getName()).
+                        contains("name", winParam.getName()).
                         setDistinct(true).findList();
             }
         }
