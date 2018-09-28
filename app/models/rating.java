@@ -90,6 +90,8 @@ public class rating {
     }
 
 
+
+
 //    public String getUser(Integer id_user) {
 //        String parametrs2= null;
 //        String sql2="Select login from public.user, public.rating where id=" + id_user;

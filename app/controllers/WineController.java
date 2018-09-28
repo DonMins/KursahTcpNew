@@ -591,5 +591,33 @@ public class WineController extends Controller {
 
         return redirect(routes.WineController.catalogPage(login,true));
     }
+    public Result newRating(Integer id_product,String login,Integer ratingNew){
+        rating newRating = new rating();
+        newRating.setId_product(id_product);
+
+        String parametrs= null;
+        int id_user=0;
+
+        String sql = "SELECT id FROM public.user where login ='"+login+"'";
+        SqlQuery userID = Ebean.createSqlQuery(sql);
+
+        List<SqlRow> mId = userID.findList();
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                parametrs = row2.getString(s);
+
+            }
+        }
+        id_user=Integer.getInteger(parametrs);
+
+        newRating.setId_user(id_user);
+        newRating.setRating(ratingNew);
+        Ebean.save(newRating);
+
+        return redirect(routes.WineController.catalogPage(login,true));
+    }
+
+
 
 }

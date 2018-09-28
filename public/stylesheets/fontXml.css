@@ -145,8 +145,8 @@ ul.menu > li:hover > ul.submenu {
 
 
 table.wine {
-    table-layout:fixed;
-    width: 98%;
+    /*table-layout:fixed;*/
+    width: 100%;
 }
 /*table.wine td {*/
     /*overflow:hidden;*/
@@ -154,9 +154,9 @@ table.wine {
 /*table.wine1 td:nth-of-type(1) {*/
     /*width:200px;*/
 /*}*/
-table.wine td:nth-of-type(2) {
-    width:200px;
-}
+/*table.wine td:nth-of-type(2) {*/
+    /*width:200px;*/
+/*}*/
 /*table.wine1 th:nth-of-type(8) {*/
     /*width:45px;*/
 /*}*/
@@ -177,9 +177,7 @@ table.wine2 {
 
 
 
-body{
-    background: #eccabf;
-}
+
 img {
     height: 320px;
     max-width: 100%;
@@ -188,7 +186,7 @@ img {
     margin-top: 50px;
 }
 .product {
-    background: #ffcdfa none repeat scroll 0 0;
+    background: #feffff none repeat scroll 0 0;
     border: 2px solid #da0505;
     height: 500px;
     overflow: hidden;
@@ -203,7 +201,14 @@ img {
 }
 
 .product-img {
-    height: auto;
+    height: 1000px;
+    bottom: 15px;
+
+    float: left;
+    margin: 50px 50px 50px 100px
+
+
+
 }
 .product-title a {
     color: #000;
@@ -215,16 +220,28 @@ img {
     overflow: hidden;
 }
 .product-price {
-     bottom: 15px;
-     left: -70px;
+      bottom: 15px;
+      left: -70px;
 
 
-     position: absolute;
-     width: 100%;
-     color: #d51e08;
-     font-size: 18px;
-     font-weight: 500;
- }
+      position: absolute;
+      width: 100%;
+      color: #d51e08;
+      font-size: 18px;
+      font-weight: 500;
+  }
+
+.product-price1 {
+    bottom: 50px;
+    left: -293px;
+
+
+    position: absolute;
+    width: 100%;
+    color: #171fd5;
+    font-size: 18px;
+    font-weight: 500;
+}
 .product-name {
     bottom: 60px;
     left: 0px;
@@ -320,8 +337,44 @@ img {
     /*left:2px;*/
 /*}*/
 
-@media only screen and (min-width: 450px) {
-    .col-md-8 products {
-        width: 50%;
+@media only screen and (min-width: 600px) {
+    .row {
+        width: 100%;
     }
 }
+
+
+
+.wineName{
+    font-family: "Comic Sans MS";
+    font-size: 30px;
+    font-style: italic;
+
+    color: red;
+    /*text-align: center;*/
+
+}
+.btn btn-default btn-sm{
+    margin: 50px 50px 50px 0px
+}
+.average{
+    bottom: 15px;
+    left: -70px;
+
+    color: blue;
+    font-size: 18px;
+    font-weight: 500;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
