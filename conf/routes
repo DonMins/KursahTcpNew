@@ -68,6 +68,6 @@ GET    /basketPage                     controllers.BasketController.basketPage(l
 
 GET    /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
 GET    /basketDelete/:id/:login/:isAdmin       controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)
-
+GET    /wine/:login/:id        controllers.WineController.newRating(id:Integer,login:String, id2:Integer)
 
 

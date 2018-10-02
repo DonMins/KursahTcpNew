@@ -381,30 +381,28 @@
 
 
 
-                                                    <input type="radio" id=@item.getId_product name=@item.getId_product value="5"  /><label for="star5" title="Rocks!"  >5 stars</label>
-                                                    <input type="radio" id='@item.getId_product+"star4" name=@item.getId_product value="4"  /><label for="star4" title="Pretty good">4 stars</label>
-                                                    <input type="radio" id=@item.getId_product+"star3" name=@item.getId_product value="3" /><label for="star3" title="Meh">3 stars</label>
-                                                    <input type="radio" id=@item.getId_product+"star2" name=@item.getId_product value="2"  /><label for="star2" title="Kinda bad">2 stars</label>
-                                                    <input type="radio" id=@item.getId_product+'star1' name=@item.getId_product value="1" /><label for="star1" title="Sucks big time">1 star</label>
-
-
+                                                    <input type="radio" id=@item.idForRating(item.getId_product,5) name=@item.getId_product value="5"  /><label for="star5" title="Rocks!"  >5 stars</label>
+                                                    <input type="radio" id=@item.idForRating(item.getId_product,4) name=@item.getId_product value="4"  /><label for="star4" title="Pretty good">4 stars</label>
+                                                    <input type="radio" id=@item.idForRating(item.getId_product,3) name=@item.getId_product value="3" /><label for="star3" title="Meh">3 stars</label>
+                                                    <input type="radio" id=@item.idForRating(item.getId_product,2) name=@item.getId_product value="2"  /><label for="star2" title="Kinda bad">2 stars</label>
+                                                    <input type="radio" id=@item.idForRating(item.getId_product,1) name=@item.getId_product value="1" /><label for="star1" title="Sucks big time">1 star</label>
 
 
                                             </div>
                                             </div>
 
-                                                <p>
+                                                @*<p>*@
 
-                                                @helper.form(action = routes.BasketController.addIn(login, isAdmin,item.getId_product)){
+                                                @*helper.form(action = routes.BasketController.addIn(login, isAdmin,item.getId_product)){*@
 
 
-                                                    <button type="submit" class="btn btn-default btn-sm" style="width:50px;height:50px">
-                                                        <span class="glyphicon glyphicon-shopping-cart" ></span>
-                                                    </button>
+                                                    @*<button type="submit" class="btn btn-default btn-sm" style="width:50px;height:50px">*@
+                                                        @*<span class="glyphicon glyphicon-shopping-cart" ></span>*@
+                                                    @*</button>*@
 
-                                                }
+                                                @*}*@
 
-                                                </p>
+                                                @*</p>*@
 
 
 

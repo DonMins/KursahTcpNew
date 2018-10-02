@@ -183,6 +183,56 @@ public class wine implements Constraints.Validatable<String> {
             return "товар с таким id уже существует";
         }
 
+    public double averageRatingOfTheProduct(Integer id_product)
+    {
+        String parametrs= null;
+        double average=0;
+        String sql = "SELECT AVG(rating) FROM rating where id_product="+id_product;
+        SqlQuery averageID = Ebean.createSqlQuery(sql);
+
+        List<SqlRow> mId = averageID.findList();
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                parametrs = row2.getString(s);
+
+
+            }
+        }
+        if(parametrs==null)
+            average =0;
+        else{
+            average = Double.parseDouble(parametrs);
+        }
+
+
+        return average;
+
+
+
+    }
+
+    public String idForRating(Integer id_product, Integer star)
+    {
+        if(star ==5 )
+            return (id_product+"5");
+        if(star ==4 )
+            return (id_product+"4");
+        if(star ==3 )
+            return (id_product+"3");
+        if(star ==2 )
+            return (id_product+"2");
+        if(star ==1 )
+            return (id_product+"1");
+        else
+            return "0";
+
+    }
+
+
+
+
+
 
     }
 
