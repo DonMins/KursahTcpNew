@@ -380,23 +380,33 @@
                                             <div class="rating">
 
 
+                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,5)) {
+                                                <input type="submit" value="5" />
+                                            }
+                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,4)) {
+                                                    <input type="submit" value="4" />
+                                                }
+                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,3)) {
+                                                    <input type="submit" value="3" />
+                                                }
+                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,2)) {
+                                                    <input type="submit" value="2" />
+                                                }
+                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,1)) {
+                                                    <input type="submit" value="1" />
+                                                }
 
-                                                    <input type="radio" id=@item.idForRating(item.getId_product,5) name=@item.getId_product value="5" onclick="show(this);"  /><label for=@item.idForRating(item.getId_product,5) title="Rocks!"  >5 stars</label>
-                                                    <input type="radio" id=@item.idForRating(item.getId_product,4) name=@item.getId_product value="4" onclick="show(this);" /><label for=@item.idForRating(item.getId_product,4) title="Pretty" >4 stars</label>
-                                                    <input type="radio" id=@item.idForRating(item.getId_product,3) name=@item.getId_product value="3" onclick="show(this);"/><label  for=@item.idForRating(item.getId_product,3) title="Meh">3 stars</label>
-                                                    <input type="radio" id=@item.idForRating(item.getId_product,2) name=@item.getId_product value="2"  onclick="show(this);"/><label for=@item.idForRating(item.getId_product,2) title="Bad">2 stars</label>
-                                                    <input type="radio" id=@item.idForRating(item.getId_product,1) name=@item.getId_product value="1" onclick="show(this);"/><label  for=@item.idForRating(item.getId_product,1) title="Awfull">1 star</label>
+
+
 
                                                <script>
-                                                       @*var rad=document.getElementsByName(@item.getId_product);*@
-                                                       @*for (var i=0;i<rad.length; i++) {*@
-                                                           @*if (rad[i].checked) {*@
-                                                               @*alert('Выбран ' + i + ' radiobutton');*@
-                                                           @*}*@
-                                                       @*}*@
-                                                  function show(obj) {
-                                                          alert(obj.getAttribute('value'));
-                                                                                  }
+
+                                                       function show(obj) {
+
+                                                           alert(obj.getAttribute('value'));
+
+                                                       }
+
                                                </script>
 
                                             </div>

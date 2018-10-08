@@ -592,6 +592,7 @@ public class WineController extends Controller {
         return redirect(routes.WineController.catalogPage(login,true));
     }
     public Result newRating(Integer id_product,String login,Integer ratingNew){
+        System.out.println("It's working");
         rating newRating = new rating();
         newRating.setId_product(id_product);
 
@@ -609,7 +610,7 @@ public class WineController extends Controller {
 
             }
         }
-        id_user=Integer.getInteger(parametrs);
+        id_user=Integer.parseInt(parametrs);
 
         newRating.setId_user(id_user);
         newRating.setRating(ratingNew);
