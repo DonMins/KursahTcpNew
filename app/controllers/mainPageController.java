@@ -2,6 +2,7 @@ package controllers;
 
 import models.LoginForm;
 import models.User;
+import models.contact;
 import models.workDatabase;
 import play.data.Form;
 import play.data.FormFactory;
@@ -54,6 +55,10 @@ public class mainPageController extends Controller {
 //    }
     public Result contactPage(String login,boolean isAdmin)
     {
+        contact new_contact = new contact();
+        new_contact.setAdress("г.Самара, ул. Любительская, д. 13, 1 этаж");
+        new_contact.setContact_number("555-55-55");
+        new_contact.setEmail("DonMins@yandex.ru");
 
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);

@@ -356,9 +356,18 @@
 
                                                 <a href="#"><img src="/assets/images/Casa Del Coppiere Vino Da Tavola.png" alt=""  height="800" ></a>
                                                 </div>
+
                                                 <div class="wineName">
-                                                <p>@item.getName</p>
+                                                    <p>@item.getName</p>
+                                                    <hr style="border: none;
+                                                        background-color: red;
+                                                        color: red;
+                                                        height: 2px;">
                                                 </div>
+
+
+
+
                                                 <p>@item.getColour</p>
                                                 <p>@item.getCountry</p>
                                                 <p>@item.getBrand</p>
@@ -378,36 +387,38 @@
                                             <div class="product-rating">
 
                                             <div class="rating">
+                                                <div style="display:inline-flex; margin: 0 auto; width: 500px;">
+
+                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,1)) {
+                                                        <input type="submit"  class="btn btn-danger" value="1" />
+                                                    }
+                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,2)) {
+                                                        <input type="submit"  class="btn btn-danger" value="2" />
+                                                    }
+                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,3)) {
+                                                        <input type="submit"  class="btn btn-danger" value="3" />
+                                                    }
+                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,4)) {
+                                                        <input type="submit"  class="btn btn-danger" value="4" />
+                                                    }
+                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,5)) {
+                                                        <input type="submit"   class="btn btn-danger" value="5" />
+                                                    }
 
 
-                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,5)) {
-                                                <input type="submit" value="5" />
-                                            }
-                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,4)) {
-                                                    <input type="submit" value="4" />
-                                                }
-                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,3)) {
-                                                    <input type="submit" value="3" />
-                                                }
-                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,2)) {
-                                                    <input type="submit" value="2" />
-                                                }
-                                                @helper.form(action = routes.WineController.newRating(item.getId_product, login ,1)) {
-                                                    <input type="submit" value="1" />
-                                                }
 
 
 
 
-                                               <script>
 
-                                                       function show(obj) {
 
-                                                           alert(obj.getAttribute('value'));
+                                                </div>
 
-                                                       }
 
-                                               </script>
+
+
+
+
 
                                             </div>
                                             </div>
