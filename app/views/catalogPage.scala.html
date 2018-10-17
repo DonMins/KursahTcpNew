@@ -388,22 +388,43 @@
 
                                             <div class="rating">
                                                 <div style="display:inline-flex; margin: 0 auto; width: 500px;">
+                                                    @if(!login.isEmpty) {
 
-                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,1)) {
-                                                        <input type="submit"  class="btn btn-danger" value="1" />
+                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 1)) {
+                                                            <input type="submit" class="btn btn-danger" value="1" />
+                                                        }
+                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 2)) {
+                                                            <input type="submit" class="btn btn-danger" value="2" />
+                                                        }
+                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 3)) {
+                                                            <input type="submit" class="btn btn-danger" value="3" />
+                                                        }
+                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 4)) {
+                                                            <input type="submit" class="btn btn-danger" value="4" />
+                                                        }
+                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 5)) {
+                                                            <input type="submit" class="btn btn-danger" value="5" />
+                                                        }
                                                     }
-                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,2)) {
-                                                        <input type="submit"  class="btn btn-danger" value="2" />
+                                                    @if(login.isEmpty){
+
+                                                            <input type="submit" class="btn btn-danger" value="1" disabled />
+
+
+                                                            <input type="submit" class="btn btn-danger" value="2" disabled/>
+
+
+                                                            <input type="submit" class="btn btn-danger" value="3" disabled/>
+
+
+                                                            <input type="submit" class="btn btn-danger" value="4" disabled/>
+
+
+                                                            <input type="submit" class="btn btn-danger" value="5" disabled/>
+
+
                                                     }
-                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,3)) {
-                                                        <input type="submit"  class="btn btn-danger" value="3" />
-                                                    }
-                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,4)) {
-                                                        <input type="submit"  class="btn btn-danger" value="4" />
-                                                    }
-                                                    @helper.form(action = routes.WineController.newRating(item.getId_product, login ,5)) {
-                                                        <input type="submit"   class="btn btn-danger" value="5" />
-                                                    }
+
 
 
 
