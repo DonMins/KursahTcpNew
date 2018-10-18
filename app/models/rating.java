@@ -18,49 +18,46 @@ import java.util.Set;
 public class rating {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public.rating_id_user_id_seq")
-    private Integer id_user ;
 
+    @Column(name = "id_user")
+    private Integer idUser ;
 
-    //        @Constraints.Required
-//    private String name;
-    @Constraints.Required
-    private Integer id_product;
-    @Constraints.Required
+    @Column(name = "id_product")
+    private Integer idProduct;
+
     private Integer rating;
 
-    public ArrayList<String> getNameColomn(){
-        ArrayList<String > nameColomn = new ArrayList<>();
+    public List<String> getNameColomn(){
+        List<String > nameColomn = new ArrayList<>();
         nameColomn.add("Продукт");
         nameColomn.add("Оценка");
         nameColomn.add("Пользователь");
-
         return nameColomn;
     }
 
-   // public static Finder<rating> find = new Finder<>(rating.class);
+    public static Finder<Integer,rating> find = new Finder<>(rating.class);
     public rating(){}
 
-    public rating(@Constraints.Required Integer id_product,
-                    @Constraints.Required Integer id_user, @Constraints.Required Integer rating) {
-        this.id_product = id_product;
-        this.id_user = id_user;
+    public rating(Integer idProduct,Integer idUser,  Integer rating) {
+        this.idProduct = idProduct;
+        this.idUser = idUser;
         this.rating = rating;
     }
 
-    public Integer getId_product() {
-        return id_product;
+    public Integer getIdProduct() {
+        return idProduct;
     }
 
-    public void setId_product(Integer id_product) {
-        this.id_product = id_product;
+    public void setIdProduct(Integer idProduct) {
+        this.idProduct = idProduct;
     }
 
-    public Integer getId_user() {
-        return id_user;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(Integer id_user) {
-        this.id_user = id_user;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
     public Integer getRating() {
         return rating;
@@ -70,9 +67,10 @@ public class rating {
         this.rating = rating;
     }
 
-    public String getWine(Integer id_product) {
+    public String getWine(Integer idProduct) {
         String parametrs= null;
-        String sql1 = "Select wine.name from public.wine, public.rating where wine.id_product=rating.id_product and rating.id_product ="+id_product;
+        String sql1 = "Select wine.name from public.wine, public.rating where" +
+                " wine.id_product=rating.id_product and rating.id_product ="+idProduct;
         SqlQuery maxId = Ebean.createSqlQuery(sql1);
 
         List<SqlRow> mId = maxId.findList();
@@ -80,33 +78,9 @@ public class rating {
             Set<String> keyset2 = row2.keySet();
             for (String s : keyset2) {
                 parametrs = row2.getString(s);
-
-
             }
         }
-
         return parametrs;
-
     }
-
-
-
-
-//    public String getUser(Integer id_user) {
-//        String parametrs2= null;
-//        String sql2="Select login from public.user, public.rating where id=" + id_user;
-//        SqlQuery userId = Ebean.createSqlQuery(sql2);
-//
-//        List<SqlRow> mId = userId.findList();
-//        for (SqlRow row2 : mId) {
-//            Set<String> keyset2 = row2.keySet();
-//            for (String s : keyset2) {
-//                parametrs2 = row2.getString(s);
-//
-//            }
-//        }
-//        return parametrs2;
-//
-//    }
 
 }

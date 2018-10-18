@@ -32,13 +32,11 @@ public class WineController extends Controller {
         Form<wine> wineForm = formFactory.form(wine.class);
         Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
         search searchParam = searchForm.get();
-
-
         Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
 
         List<wine> winList = wine.find.all();
 
-        ArrayList<String> nameColomn = new ArrayList<>();
+        List<String> nameColomn = new ArrayList<>();
         wine us = new wine();
 
         nameColomn = us.getNameColomn();
@@ -103,7 +101,7 @@ public class WineController extends Controller {
 
             }
         });
-        ArrayList<String> nameColomn = new ArrayList<>();
+        List<String> nameColomn = new ArrayList<>();
         wine us = new wine();
 
         nameColomn = us.getNameColomn();
@@ -125,7 +123,7 @@ public class WineController extends Controller {
         List<wine> winList = null;
         if(wineForm.hasErrors() || wineForm.hasGlobalErrors()||
                 searchForm.hasErrors() || searchForm.hasGlobalErrors()){
-            ArrayList<String> nameColomn = new ArrayList<>();
+            List<String> nameColomn = new ArrayList<>();
             wine us = new wine();
 
             nameColomn = us.getNameColomn();
@@ -433,12 +431,9 @@ public class WineController extends Controller {
 //
 
         searchList = winList;
-
-        ArrayList<String> nameColomn = new ArrayList<>();
+        List<String> nameColomn = new ArrayList<>();
         wine us = new wine();
-
         nameColomn = us.getNameColomn();
-
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
                 ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
     }
@@ -447,11 +442,8 @@ public class WineController extends Controller {
         return redirect(routes.WineController.catalogPage(login,true));
     }
 
-
     public Result renderAddWine(String login){
-
         Form<wine> form = formFactory.form(wine.class);
-
         return ok(views.html.createWine.render(form,login));
     }
 
@@ -470,18 +462,13 @@ public class WineController extends Controller {
     }
     public Result addingWine(String login){
         String sql = "select max(id_product) from public.wine";
-        Integer id;
-
+        int id;
         try {
          id = Integer.parseInt(searchParametrs(sql));
-
-
         }
-
         catch (NumberFormatException e){
             id=0;
         }
-
         Form<wine> win = formFactory.form(wine.class).bindFromRequest();
         if(win.hasErrors() || win.hasGlobalErrors()){
             return ok(views.html.createWine.render(win,login));
@@ -489,14 +476,14 @@ public class WineController extends Controller {
         Map<String, String> rawdata = win.rawData();
         wine Win = new wine();
 
-        Win.setId_product((id+1));
+        Win.setIdProduct((id+1));
         Win.setName(rawdata.get("name"));
         Win.setColour(rawdata.get("colour"));
         Win.setCountry(rawdata.get("country"));
         Win.setBrand(rawdata.get("brand"));
-        Win.setShelf_life(rawdata.get("shelf_life"));
+        Win.setShelfLife(rawdata.get("shelf_life"));
         Win.setSugar(rawdata.get("sugar"));
-        Win.setGrape_sort(rawdata.get("grape_sort"));
+        Win.setGrapeSort(rawdata.get("grape_sort"));
         if ((rawdata.get("price").isEmpty())){
                 Win.setPrice(null);
             }
@@ -517,27 +504,21 @@ public class WineController extends Controller {
             Win.setDegree(Double.valueOf(rawdata.get("degree")));
         }
 
-        List<wine> winne = Ebean.find(wine.class).where().eq("id_product", Win.getId_product()).findList();
+        List<wine> winne = Ebean.find(wine.class).where().eq("id_product", Win.getIdProduct()).findList();
         if(winne.isEmpty()){
             try{
                 Ebean.save(Win);
             }catch (Exception ex){
-
-
-
                 return redirect(routes.WineController.renderAddWine(login));
             }
-
             return redirect(routes.WineController.catalogPage(login,true));
-
         }
-
         return redirect(routes.WineController.renderAddWine(login));
     }
     public Result renderUpdateWineInfo(Integer id,String login){
         wine win = wine.find.byId(id);
         UpdateWine update = new UpdateWine(win.getName(),win.getColour(),win.getCountry(),win.getBrand(),
-                win.getShelf_life(),win.getSugar(),win.getGrape_sort(),win.getPrice(),
+                win.getShelfLife(),win.getSugar(),win.getGrapeSort(),win.getPrice(),
                 win.getValue(),win.getDegree());
 
         Form<UpdateWine> updateForm = formFactory.form(UpdateWine.class).fill(update);
@@ -547,9 +528,8 @@ public class WineController extends Controller {
     public Result updateWineInfo(Integer id,String login){
         wine Win = wine.find.byId(id);
         List<wine> winList = wine.find.all();
-        ArrayList<String> nameColomn = new ArrayList<>();
+        List<String> nameColomn = new ArrayList<>();
         wine us = new wine();
-
         nameColomn = us.getNameColomn();
         Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
@@ -565,9 +545,9 @@ public class WineController extends Controller {
         Win.setColour(rawdata.get("colour"));
         Win.setCountry(rawdata.get("country"));
         Win.setBrand(rawdata.get("brand"));
-        Win.setShelf_life(rawdata.get("shelf_life"));
+        Win.setShelfLife(rawdata.get("shelf_life"));
         Win.setSugar(rawdata.get("sugar"));
-        Win.setGrape_sort(rawdata.get("grape_sort"));
+        Win.setGrapeSort(rawdata.get("grape_sort"));
         if ((rawdata.get("value").isEmpty())){
             Win.setValue(null);
         }
@@ -594,7 +574,7 @@ public class WineController extends Controller {
     public Result newRating(Integer id_product,String login,Integer ratingNew){
         System.out.println("It's working");
         rating newRating = new rating();
-        newRating.setId_product(id_product);
+        newRating.setIdProduct(id_product);
 
         String parametrs= null;
         int id_user=0;
@@ -612,13 +592,11 @@ public class WineController extends Controller {
         }
         id_user=Integer.parseInt(parametrs);
 
-        newRating.setId_user(id_user);
+        newRating.setIdUser(id_user);
         newRating.setRating(ratingNew);
         Ebean.save(newRating);
 
         return redirect(routes.WineController.catalogPage(login,true));
     }
-
-
 
 }

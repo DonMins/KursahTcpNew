@@ -4,19 +4,16 @@ import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
 
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class workDatabase {
-    public static ArrayList<ArrayList<String>> getTableValues(String tablename) {
+    public static List<List<String>> getTableValues(String tablename) {
 
-        ArrayList<String> colomn = new ArrayList<>();
-        ArrayList<String> date = new ArrayList<>();
-        ArrayList<ArrayList<String>> stekAll = new ArrayList<>();
+        List<String> colomn = new ArrayList<>();
+        List<String> date = new ArrayList<>();
+        List<List<String>> stekAll = new ArrayList<>();
         try {
             String q = "SELECT pgd.description " +
                    "from pg_catalog.pg_statio_all_tables as st " +
@@ -33,11 +30,9 @@ public class workDatabase {
             if(rows3.isEmpty()){
                 return null;
             }
-
             for (SqlRow row3 : rows3) {
                 Set<String> keyset = row3.keySet();
                 for (String s : keyset) {
-                    //System.out.println(row3.getString(s));
                     colomn.add(row3.getString(s));
                 }
             }

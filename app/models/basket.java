@@ -11,33 +11,33 @@ import javax.persistence.*;
 public class basket {
    // @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "public.basket_id_product_seq")
 
-
-    private Integer id_product;
+    @Column(name = "id_product")
+    private Integer idProduct;
     private String login;
     @Id
-    private Integer id_basket;
-
-    public Integer getId_basket() {
-        return id_basket;
-    }
-
-    public void setId_basket(Integer id_basket) {
-        this.id_basket = id_basket;
+    @Column(name = "id_basket")
+    private Integer idBasket;
+    public Integer getIdBasket() {
+        return idBasket;
     }
 
     public  basket(){}
 
-    public basket(Integer id_product, String login) {
-        this.id_product = id_product;
+    public void setIdBasket(Integer idBasket) {
+        this.idBasket = idBasket;
+    }
+
+    public basket(Integer idProduct, String login) {
+        this.idProduct = idProduct;
         this.login = login;
     }
 
-    public Integer getId_product() {
-        return id_product;
+    public Integer getIdProduct() {
+        return idProduct;
     }
 
-    public void setId_product(Integer id_product) {
-        this.id_product = id_product;
+    public void setIdProduct(Integer idProduct) {
+        this.idProduct = idProduct;
     }
 
     public String getLogin() {

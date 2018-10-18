@@ -1,5 +1,8 @@
 package models;
 
+/**
+ * Класс для фильтра
+ */
 public class search {
     private  Double minprice;
     private  Double maxprice;

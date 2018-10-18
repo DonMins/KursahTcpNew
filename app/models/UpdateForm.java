@@ -9,24 +9,16 @@ public class UpdateForm {
     @Constraints.Required
     private String password;
 
-    @Override
-    public String toString() {
-        return "UpdateForm{" +
-                "password='" + password + '\'' +
-                ", isAdmin=" + isAdmin +
-                '}';
-    }
-    
     private boolean isAdmin;
+
+    public UpdateForm(){}
 
     public UpdateForm(@Constraints.Required String password, @Constraints.Required Boolean isAdmin) {
         this.password = password;
-
         this.isAdmin = isAdmin;
     }
 
     public String getPassword() {
-
         return password;
     }
     public void setPassword(String password) {
@@ -41,5 +33,5 @@ public class UpdateForm {
         isAdmin = admin;
     }
 
-    public UpdateForm(){}
+
 }

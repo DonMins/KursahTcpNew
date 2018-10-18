@@ -16,81 +16,84 @@ import java.util.Set;
 @Table(name = "wine", schema = "public")
 
 public class wine implements Constraints.Validatable<String> {
-//        @Id
+    //        @Id
 //        @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "public.wine_id_seq")
     @Id
-    private Integer id_product;
+    @Column(name = "id_product")
+    private Integer idProduct;
 
-      //  @Constraints.Required
-      private String name;
-   //     @Constraints.Required
-        private String colour;
-        private String country;
-        private String brand;
-        private String shelf_life;
-        private String sugar;
-        private String grape_sort;
-       // @Constraints.Required
-        private Double price;
-        //@Constraints.Required
-        private Double value;
-        //@Constraints.Required
-        private Double degree;
+    //  @Constraints.Required
+    private String name;
+    //     @Constraints.Required
+    private String colour;
+    private String country;
+    private String brand;
+    @Column(name = "shelf_life")
+    private String shelfLife;
+    private String sugar;
+    @Column(name = "grape_sort")
+    private String grapeSort;
+    // @Constraints.Required
+    private Double price;
+    //@Constraints.Required
+    private Double value;
+    //@Constraints.Required
+    private Double degree;
 
 
-    public wine(){}
+    public wine() {
+    }
 
-    public wine(Integer id_product,String name, String colour,String country,String brand,
-                String shelf_life,String sugar,String grape_sort,Double price,
-                Double value,Double degree){
-           this.id_product = id_product
-           ;
-           this.name = name;
-           this.colour=colour;
-           this.brand = brand;
-           this.shelf_life = shelf_life;
-           this.sugar = sugar;
-           this.grape_sort = grape_sort;
-           this.price= price;
-           this.value = value;
-           this.degree = degree;
+    public wine(Integer idProduct, String name, String colour, String country, String brand,
+                String shelfLife, String sugar, String grapeSort, Double price,
+                Double value, Double degree) {
+        this.idProduct = idProduct;
+        this.name = name;
+        this.colour = colour;
+        this.brand = brand;
+        this.shelfLife = shelfLife;
+        this.sugar = sugar;
+        this.grapeSort = grapeSort;
+        this.price = price;
+        this.value = value;
+        this.degree = degree;
 
+    }
+
+    public List<String> getNameColomn() {
+        List<String> nameColomn = new ArrayList<>();
+
+        String q = "SELECT pgd.description " +
+                "from pg_catalog.pg_statio_all_tables as st " +
+                "inner join pg_catalog.pg_description pgd on (pgd.objoid=st.relid) " +
+                "right outer join information_schema.columns c on (pgd.objsubid=c.ordinal_position and  c.table_schema=st.schemaname and c.table_name=st.relname) " +
+                "where table_schema = 'public' and table_name = 'wine'";
+
+        SqlQuery query3 = Ebean.createSqlQuery(q);// для вывода комментарией к колонкам таблицы
+        List<SqlRow> rows3 = query3.findList();
+        if (rows3.isEmpty()) {
+            return null;
         }
-
-        public ArrayList<String> getNameColomn() {
-            ArrayList<String> nameColomn = new ArrayList<>();
-
-            String q = "SELECT pgd.description " +
-                    "from pg_catalog.pg_statio_all_tables as st " +
-                    "inner join pg_catalog.pg_description pgd on (pgd.objoid=st.relid) " +
-                    "right outer join information_schema.columns c on (pgd.objsubid=c.ordinal_position and  c.table_schema=st.schemaname and c.table_name=st.relname) " +
-                    "where table_schema = 'public' and table_name = 'wine'";
-
-            SqlQuery query3 = Ebean.createSqlQuery(q);// для вывода комментарией к колонкам таблицы
-            List<SqlRow> rows3 = query3.findList();
-            if (rows3.isEmpty()) {
-                return null;
+        for (SqlRow row3 : rows3) {
+            Set<String> keyset = row3.keySet();
+            for (String s : keyset) {
+                nameColomn.add(row3.getString(s));
             }
-            for (SqlRow row3 : rows3) {
-                Set<String> keyset = row3.keySet();
-                for (String s : keyset) {
-                    //System.out.println(row3.getString(s));
-                    nameColomn.add(row3.getString(s));
-                }
-            }
-            nameColomn.add("Рейтинг");
-            return nameColomn;
         }
+        nameColomn.add("Рейтинг");
+        return nameColomn;
+    }
 
     public static Finder<String, wine> find1 = new Finder<>(wine.class);
 
     public static Finder<Integer, wine> find = new Finder<>(wine.class);
-    public Integer getId_product() {
-        return id_product;
+
+    public Integer getIdProduct() {
+        return idProduct;
     }
 
-    public void setId_product(Integer id_product) {
-        this.id_product = id_product;
+    public void setIdProduct(Integer idProduct) {
+        this.idProduct = idProduct;
     }
 
     public String getName() {
@@ -125,12 +128,12 @@ public class wine implements Constraints.Validatable<String> {
         this.brand = brand;
     }
 
-    public String getShelf_life() {
-        return shelf_life;
+    public String getShelfLife() {
+        return shelfLife;
     }
 
-    public void setShelf_life(String shelf_life) {
-        this.shelf_life = shelf_life;
+    public void setShelfLife(String shelfLife) {
+        this.shelfLife = shelfLife;
     }
 
     public String getSugar() {
@@ -141,12 +144,12 @@ public class wine implements Constraints.Validatable<String> {
         this.sugar = sugar;
     }
 
-    public String getGrape_sort() {
-        return grape_sort;
+    public String getGrapeSort() {
+        return grapeSort;
     }
 
-    public void setGrape_sort(String grape_sort) {
-        this.grape_sort = grape_sort;
+    public void setGrapeSort(String grape_sort) {
+        this.grapeSort = grapeSort;
     }
 
     public Double getPrice() {
@@ -174,20 +177,19 @@ public class wine implements Constraints.Validatable<String> {
     }
 
     @Override
-        public String validate() {
-           // System.out.println("wine validate");
-            List<wine>win = Ebean.find(wine.class).where().eq("id_product", id_product).findList();
-            if(win.isEmpty()){
-                return null;
-            }
-            return "товар с таким id уже существует";
-        }
+    public String validate() {
 
-    public double averageRatingOfTheProduct(Integer id_product)
-    {
-        String parametrs= null;
-        double average=0;
-        String sql = "SELECT AVG(rating) FROM rating where id_product="+id_product;
+        List<wine> win = Ebean.find(wine.class).where().eq("id_product", idProduct).findList();
+        if (win.isEmpty()) {
+            return null;
+        }
+        return "товар с таким id уже существует";
+    }
+
+    public double averageRatingOfTheProduct(Integer id_product) {
+        String parametrs = null;
+        double average = 0;
+        String sql = "SELECT AVG(rating) FROM rating where id_product=" + id_product;
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = averageID.findList();
@@ -195,45 +197,31 @@ public class wine implements Constraints.Validatable<String> {
             Set<String> keyset2 = row2.keySet();
             for (String s : keyset2) {
                 parametrs = row2.getString(s);
-
-
             }
         }
-        if(parametrs==null)
-            average =0;
-        else{
+        if (parametrs == null)
+            average = 0;
+        else {
             average = Double.parseDouble(parametrs);
         }
-
-
         return average;
-
-
-
     }
 
-    public String idForRating(Integer id_product, Integer star)
-    {
-        if(star ==5 )
-            return (id_product+"5");
-        if(star ==4 )
-            return (id_product+"4");
-        if(star ==3 )
-            return (id_product+"3");
-        if(star ==2 )
-            return (id_product+"2");
-        if(star ==1 )
-            return (id_product+"1");
+    public String idForRating(Integer id_product, Integer star) {
+        if (star == 5)
+            return (id_product + "5");
+        if (star == 4)
+            return (id_product + "4");
+        if (star == 3)
+            return (id_product + "3");
+        if (star == 2)
+            return (id_product + "2");
+        if (star == 1)
+            return (id_product + "1");
         else
             return "0";
 
     }
-
-
-
-
-
-
-    }
+}
 
 

@@ -36,36 +36,31 @@ public class LoginController extends Controller {
      */
     public Result checkingLoginForm(){
         Integer error;
-        Form<LoginForm> bookForm = formFactory.form(LoginForm.class).bindFromRequest();
+        Form<LoginForm> logForm = formFactory.form(LoginForm.class).bindFromRequest();
 
-        if(bookForm.hasGlobalErrors()||bookForm.hasErrors() ){
+        if(logForm.hasGlobalErrors()||logForm.hasErrors() ){
             error = 1; // неверный логин или пароль
 
             mainPageController.error=error;
 
             return redirect(routes.mainPageController.test());
         }
-        LoginForm book = bookForm.get();
-        System.out.println(book.toString());
-        List<User> users = Ebean.find(User.class).where().eq("login", book.getLogin()).findList();
+        LoginForm log = logForm.get();
+        System.out.println(log.toString());
+        List<User> users = Ebean.find(User.class).where().eq("login", log.getLogin()).findList();
 
         User user = users.get(0);
-        if( user.getPassword().equals(book.getPassword())) {
-
+        if( user.getPassword().equals(log.getPassword())) {
             error=0;
             mainPageController.error=error; // все хорошо, ошибок нет
             logger.info("Пользователь " + user.getLogin() + " успешно авторизовался");
-            session().put("username", book.getLogin());
+            session().put("username", log.getLogin());
             logger.info("Пользователь " + user.getLogin() + " авторизовался ");
-            return redirect(routes.mainPageController.projectPage(book.getLogin(),user.getAdmin()));
-
+            return redirect(routes.mainPageController.projectPage(log.getLogin(),user.getAdmin()));
         }
         session().remove("username");
         error = 1; // неверный логин или пароль
-
         mainPageController.error=error;
-
-
         return redirect(routes.mainPageController.test());
     }
 

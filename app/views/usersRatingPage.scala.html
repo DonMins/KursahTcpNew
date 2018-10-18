@@ -58,22 +58,18 @@
             @if(login.isEmpty) {
 
                 <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
-                <li><a href="@routes.ProviderController.providerPage("",isAdmin)">Поставщики </a></li>
                 <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
                 <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
             }
             @if(!(login.isEmpty)) {
 
                 <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
-                <li><a href="@routes.ProviderController.providerPage(login,isAdmin)">Поставщики </a></li>
                 <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
                 <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
                 @if(isAdmin){
                     <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                 }
             }
-
-
         </ul>
 
         <p></p>
@@ -114,8 +110,6 @@
 
         }
 
-
-
         <br>
         <p></p>
 
@@ -130,7 +124,7 @@
                         </tr>
                         <tr colspan="2">
                         @win.map { item =>
-                            <th>@item.getWine(item.getId_product)</th>
+                            <th>@item.getWine(item.getIdProduct)</th>
 
                             <th>@item.getRating</th>
 
@@ -138,9 +132,9 @@
                         @if(isAdmin) {
                             <th>
                                 @*<li><a href="#win4" class="button button-green">Редактировать</a></li>*@
-                                <a href="@routes.WineController.renderUpdateWineInfo(item.getId_product, login)">
+                                <a href="@routes.WineController.renderUpdateWineInfo(item.getIdProduct, login)">
                                     Изменить</a>
-                                <a href="@routes.WineController.deleteWine(item.getId_product, login)" >
+                                <a href="@routes.WineController.deleteWine(item.getIdProduct, login)" >
                                     Удалить </a></th>
                         }
                         <tr></tr>
@@ -154,12 +148,6 @@
         @win.map { item =>
 
         <table>
-
-
-
-
-
-
         <div class="col-md-8 products">
 
             <div class="row">
@@ -168,72 +156,64 @@
 
                     <div class="product">
 
-
                         @*<div class="product-img">*@
                             @*<tr>*@
 
                             @*<a href="#"><img src="/assets/images/Casa Del Coppiere Vino Da Tavola.png" alt=""></a>*@
                             @*</tr>*@
                         @*</div>*@
-
-
-                            <p class="product-name">@item.getWine(item.getId_product)
-
-
+                            <p class="product-name">@item.getWine(item.getIdProduct)
                             <p class="product-price">€10.00
                     <div class="product-rating">
                     <div class="rating">
 
                         @if(item.getRating==5){
-                            <input type="radio" id="star5" name=@item.getId_product value="5"  checked disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getId_product value="4" disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getId_product value="3" disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getId_product value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getId_product value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
+                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  checked disabled /><label for="star5" title="Rocks!">5 stars</label>
+                            <input type="radio" id="star4" name=@item.getIdProduct value="4" disabled /><label for="star4" title="Pretty good">4 stars</label>
+                            <input type="radio" id="star3" name=@item.getIdProduct value="3" disabled/><label for="star3" title="Meh">3 stars</label>
+                            <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
+                            <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
 
                         }
 
 
                         @if(item.getRating==4){
-                            <input type="radio" id="star5" name=@item.getId_product value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getId_product value="4" checked disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getId_product value="3" disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getId_product value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getId_product value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
+                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
+                            <input type="radio" id="star4" name=@item.getIdProduct value="4" checked disabled /><label for="star4" title="Pretty good">4 stars</label>
+                            <input type="radio" id="star3" name=@item.getIdProduct value="3" disabled/><label for="star3" title="Meh">3 stars</label>
+                            <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
+                            <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
 
                         }
 
                         @if(item.getRating==3){
-                            <input type="radio" id="star5" name=@item.getId_product value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getId_product value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getId_product value="3" checked disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getId_product value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getId_product value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
+                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
+                            <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
+                            <input type="radio" id="star3" name=@item.getIdProduct value="3" checked disabled/><label for="star3" title="Meh">3 stars</label>
+                            <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
+                            <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
 
                         }
 
                         @if(item.getRating==2){
-                            <input type="radio" id="star5" name=@item.getId_product value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getId_product value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getId_product value="3"  class="veryGrey" disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getId_product value="2" checked disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getId_product value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
+                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
+                            <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
+                            <input type="radio" id="star3" name=@item.getIdProduct value="3"  class="veryGrey" disabled/><label for="star3" title="Meh">3 stars</label>
+                            <input type="radio" id="star2" name=@item.getIdProduct value="2" checked disabled /><label for="star2" title="Kinda bad">2 stars</label>
+                            <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
 
                         }
                         @if(item.getRating==1){
-                            <input type="radio" id="star5" name=@item.getId_product value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getId_product value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getId_product value="3"  class="veryGrey" disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getId_product value="2" class="veryGrey" disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getId_product value="1"  checked disabled/><label for="star1" title="Sucks big time">1 star</label>
+                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
+                            <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
+                            <input type="radio" id="star3" name=@item.getIdProduct value="3"  class="veryGrey" disabled/><label for="star3" title="Meh">3 stars</label>
+                            <input type="radio" id="star2" name=@item.getIdProduct value="2" class="veryGrey" disabled /><label for="star2" title="Kinda bad">2 stars</label>
+                            <input type="radio" id="star1" name=@item.getIdProduct value="1"  checked disabled/><label for="star1" title="Sucks big time">1 star</label>
 
                         }
 
-
                     </div>
                     </div>
-
-
 
                     </div>
 
@@ -245,8 +225,6 @@
         }
 
         </table>
-
-
 
 
     </div>

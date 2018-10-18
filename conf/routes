@@ -11,7 +11,6 @@ GET     /count                      controllers.CountController.count
 GET     /message                    controllers.AsyncController.message
 GET     /log                           controllers.mainPageController.projectPage(login:String,isAdmin:Boolean)
 GET     /                           controllers.mainPageController.test()
-GET     /ccs                           controllers.mainPageController.ccs()
 
 
 GET     /catalog                        controllers.WineController.catalogPage(login:String,isAdmin:Boolean)
@@ -20,7 +19,6 @@ GET     /catalog                        controllers.WineController.catalogPage(l
 POST     /catalogSort                        controllers.WineController.sortCatalogPage(login:String,isAdmin:Boolean,sortCatalog:Integer)
 + nocsrf
 POST    /catalogSearch   controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
-GET     /provider                      controllers.ProviderController.providerPage(login:String,isAdmin:Boolean)
 GET     /contact                  controllers.mainPageController.contactPage(login:String,isAdmin:Boolean)
 
 #Login page controllers
@@ -58,16 +56,10 @@ POST    /updateWine                  controllers.WineController.updateWineInfo(i
 
 #controller provider
 
-GET    /provider/:id                     controllers.ProviderController.deleteProvider(id: Integer, login: String)
-GET    /addProvider/:login                     controllers.ProviderController.addingProvider(login: String)
-GET     /addProvider                  controllers.ProviderController.renderAddProvider(login: String)
-GET     /updateProvider             controllers.ProviderController.renderUpdateProviderInfo(id: Integer,login:String)
-+ nocsrf
-POST    /updateProvider               controllers.ProviderController.updateProviderInfo(id: Integer,login:String)
 GET    /basketPage                     controllers.BasketController.basketPage(login:String, isAdmin: Boolean)
 
 GET    /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
 GET    /basketDelete/:id/:login/:isAdmin       controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)
-GET    /wine/:login/:id        controllers.WineController.newRating(id:Integer,login:String, id2:Integer)
+GET    /newWineRaring/:id/:login/:id2      controllers.WineController.newRating(id:Integer,login:String, id2:Integer)
 
 

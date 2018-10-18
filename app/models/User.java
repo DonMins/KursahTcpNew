@@ -19,43 +19,28 @@ public class User implements Constraints.Validatable<String> {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "public.user_id_seq")
     private Integer id;
-
     @Constraints.Required
     private String login;
     @Constraints.Required
     private String password;
-
     @Column(name = "isadmin")
     private boolean isAdmin;
 
     public User(){}
 
     public User(String login, String password, Boolean isAdmin,Integer id){
-
         this.login = login;
         this.password = password;
         this.isAdmin = isAdmin;
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", isAdmin=" + isAdmin +
-
-                '}';
-    }
-
-    public ArrayList<String> getNameColomn(){
-        ArrayList<String > nameColomn = new ArrayList<>();
+    public List<String> getNameColomn(){
+        List<String > nameColomn = new ArrayList<>();
         nameColomn.add("Id");
         nameColomn.add("Логин");
         nameColomn.add("Пароль");
         nameColomn.add("Учетная запись админа");
-
         return nameColomn;
     }
 

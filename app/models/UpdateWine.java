@@ -2,6 +2,8 @@ package models;
 
 import play.data.validation.Constraints;
 
+import javax.persistence.Column;
+
 public class UpdateWine {
 
     @Constraints.Required
@@ -10,9 +12,11 @@ public class UpdateWine {
     private String colour;
     private String country;
     private String brand;
-    private String shelf_life;
+    @Column(name = "shelf_life")
+    private String shelfLife;
     private String sugar;
-    private String grape_sort;
+    @Column(name = "grape_sort")
+    private String grapeSort;
   //  @Constraints.Required
     private Double price;
     //@Constraints.Required
@@ -24,16 +28,16 @@ public class UpdateWine {
     }
 
     public UpdateWine(@Constraints.Required String name, @Constraints.Required String colour,
-                      String country, String brand, String shelf_life, String sugar,
-                      String grape_sort, Double price,
+                      String country, String brand, String shelfLife, String sugar,
+                      String grapeSort, Double price,
                        Double value, Double degree) {
         this.name = name;
         this.colour = colour;
         this.country = country;
         this.brand = brand;
-        this.shelf_life = shelf_life;
+        this.shelfLife = shelfLife;
         this.sugar = sugar;
-        this.grape_sort = grape_sort;
+        this.grapeSort = grapeSort;
         this.price = price;
         this.value = value;
         this.degree = degree;
@@ -71,12 +75,12 @@ public class UpdateWine {
         this.brand = brand;
     }
 
-    public String getShelf_life() {
-        return shelf_life;
+    public String getShelfLife() {
+        return shelfLife;
     }
 
-    public void setShelf_life(String shelf_life) {
-        this.shelf_life = shelf_life;
+    public void setShelfLife(String shelfLife) {
+        this.shelfLife = shelfLife;
     }
 
     public String getSugar() {
@@ -87,12 +91,12 @@ public class UpdateWine {
         this.sugar = sugar;
     }
 
-    public String getGrape_sort() {
-        return grape_sort;
+    public String getGrapeSort() {
+        return grapeSort;
     }
 
-    public void setGrape_sort(String grape_sort) {
-        this.grape_sort = grape_sort;
+    public void setGrapeSort(String grapeSort) {
+        this.grapeSort = grapeSort;
     }
 
     public Double getPrice() {

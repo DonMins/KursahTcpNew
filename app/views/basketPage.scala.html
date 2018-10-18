@@ -57,14 +57,12 @@
                 @if(login.isEmpty) {
 
                     <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
-                    <li><a href="@routes.ProviderController.providerPage("",isAdmin)">Поставщики </a></li>
                     <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
                     <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
                 }
                 @if(!(login.isEmpty)){
 
                     <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
-                    <li><a href="@routes.ProviderController.providerPage(login,isAdmin)">Поставщики </a></li>
                     <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
                     <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
                     @if(isAdmin){
@@ -131,20 +129,20 @@
                             </tr>
                             <tr colspan="2"> @win.map { item =>
 
-                                <th>@item.getId_product</th>
+                                <th>@item.getIdProduct</th>
                                 <th>@item.getName</th>
                                 <th>@item.getColour</th>
                                 <th>@item.getCountry</th>
                                 <th>@item.getBrand</th>
-                                <th>@item.getShelf_life</th>
+                                <th>@item.getShelfLife</th>
                                 <th>@item.getSugar</th>
-                                <th>@item.getGrape_sort</th>
+                                <th>@item.getGrapeSort</th>
                                 <th>@item.getPrice</th>
                                 <th>@item.getValue</th>
                                 <th>@item.getDegree</th>
 
                                 <th>
-                                    <button onclick="window.location.href='@routes.BasketController.deleteFromBasket(item.getId_product,login,isAdmin)'"
+                                    <button onclick="window.location.href='@routes.BasketController.deleteFromBasket(item.getIdProduct,login,isAdmin)'"
                                     type="submit" class="btn btn-default btn-sm">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>

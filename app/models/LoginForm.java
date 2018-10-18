@@ -18,14 +18,6 @@ public class LoginForm implements Constraints.Validatable<String> {
     @Constraints.Required
     private String password;
 
-    @Override
-    public String toString() {
-        return "LoginForm{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
     public LoginForm(){}
 
     public LoginForm(String login, String password) {
@@ -34,7 +26,6 @@ public class LoginForm implements Constraints.Validatable<String> {
     }
 
     public String getLogin() {
-
         return login;
     }
 

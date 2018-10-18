@@ -1,13 +1,13 @@
 package models;
 
 public class contact {
-    private String contact_number;
+    private String contactNumber;
     private String adress;
     private String email;
     private String workHours;
 
-    public void setContact_number(String contact_number) {
-        this.contact_number = contact_number;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public void setAdress(String adress) {
@@ -23,7 +23,7 @@ public class contact {
     }
 
     public String getContact_number() {
-        return contact_number;
+        return contactNumber;
     }
 
     public String getAdress() {

@@ -164,7 +164,7 @@
                 </div>
 
                 @*<br>*@
-                @helper.form(action = routes.WineController.updateWineInfo(wine.getId_product,login), 'id -> "slick-login"){
+                @helper.form(action = routes.WineController.updateWineInfo(wine.getIdProduct,login), 'id -> "slick-login"){
 
                     <table>
                         <tr>
@@ -235,14 +235,12 @@
                 @if(login.isEmpty) {
 
                     <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
-                    <li><a href="@routes.ProviderController.providerPage("",isAdmin)">Поставщики </a></li>
                     <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
                     <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
                 }
                 @if(!(login.isEmpty)){
 
                     <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
-                    <li><a href="@routes.ProviderController.providerPage(login,isAdmin)">Поставщики </a></li>
                     <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
                     <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
                    @if(isAdmin){
@@ -371,9 +369,9 @@
                                                 <p>@item.getColour</p>
                                                 <p>@item.getCountry</p>
                                                 <p>@item.getBrand</p>
-                                                <p>@item.getShelf_life</p>
+                                                <p>@item.getShelfLife</p>
                                                <p>@item.getSugar</p>
-                                                <p>@item.getGrape_sort</p>
+                                                <p>@item.getGrapeSort</p>
 
                                                 <p>@item.getValue</p>
                                                 <p>@item.getDegree</p>
@@ -382,7 +380,7 @@
 
                                             <p class="product-price">@item.getPrice
 
-                                            <p class="product-price1">@item.averageRatingOfTheProduct(item.getId_product)/5.0
+                                            <p class="product-price1">@item.averageRatingOfTheProduct(item.getIdProduct)/5.0
 
                                             <div class="product-rating">
 
@@ -390,19 +388,19 @@
                                                 <div style="display:inline-flex; margin: 0 auto; width: 500px;">
                                                     @if(!login.isEmpty) {
 
-                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 1)) {
+                                                        @helper.form(action = routes.WineController.newRating(item.getIdProduct, login, 1)) {
                                                             <input type="submit" class="btn btn-danger" value="1" />
                                                         }
-                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 2)) {
+                                                        @helper.form(action = routes.WineController.newRating(item.getIdProduct, login, 2)) {
                                                             <input type="submit" class="btn btn-danger" value="2" />
                                                         }
-                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 3)) {
+                                                        @helper.form(action = routes.WineController.newRating(item.getIdProduct, login, 3)) {
                                                             <input type="submit" class="btn btn-danger" value="3" />
                                                         }
-                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 4)) {
+                                                        @helper.form(action = routes.WineController.newRating(item.getIdProduct, login, 4)) {
                                                             <input type="submit" class="btn btn-danger" value="4" />
                                                         }
-                                                        @helper.form(action = routes.WineController.newRating(item.getId_product, login, 5)) {
+                                                        @helper.form(action = routes.WineController.newRating(item.getIdProduct, login, 5)) {
                                                             <input type="submit" class="btn btn-danger" value="5" />
                                                         }
                                                     }
@@ -425,27 +423,12 @@
 
                                                     }
 
-
-
-
-
-
-
-
-
                                                 </div>
-
-
-
-
-
-
-
                                             </div>
                                             </div>
 
                                                 <p>
-                                                @helper.form(action = routes.BasketController.addIn(login, isAdmin,item.getId_product)){
+                                                @helper.form(action = routes.BasketController.addIn(login, isAdmin,item.getIdProduct)){
 
 
                                                     <button type="submit" class="btn btn-default btn-sm" style="width:50px;height:50px">
@@ -456,12 +439,9 @@
 
                                                 </p>
 
-
-
                                             </div>
 
                                                 }
-
 
                                                 </td>
 
@@ -567,26 +547,9 @@
                                     }
                                     @*<tr colspan="2"></tr>*@
                                 </table>
-
-
-
-
-
                             </td>
 
-
-
-
-
         </table>
-
-
-
-
-
-
-
-
 
                     @*</td>*@
                 @*</tr>*@
@@ -595,7 +558,6 @@
             @*<p></p>*@
         </div>
     </body>
-
 
 </html>
 

@@ -6,6 +6,7 @@ import models.workDatabase;
 
 import javax.jws.WebService;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of webservice interface.
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 @WebService(endpointInterface = "services.dictionary.Dictionaries")
 public class DictionariesImpl implements Dictionaries {
     @Override
-    public ArrayList<ArrayList<String>> getTableValues(String tablename) {
+    public List<List<String>> getTableValues(String tablename) {
         return workDatabase.getTableValues(tablename.toLowerCase());
     }
 
