@@ -7,6 +7,7 @@ import models.LoginForm;
 import models.User;
 import models.UpdateForm;
 import play.Logger;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -114,7 +115,9 @@ public class UsersController extends Controller {
             if (admin){
                 return redirect(routes.UsersController.renderAddUserForm(admin,2));
             }
-            return ok(views.html.indexProjectPage.render("",admin,form,userForm,2));
+            DynamicForm requestData = formFactory.form().bindFromRequest();
+
+            return ok(views.html.indexProjectPage.render("",admin,form,userForm,2,requestData));
         }
         Map<String, String> rawdata = userForm.rawData();
 

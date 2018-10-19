@@ -9,8 +9,14 @@
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
-GET     /log                           controllers.mainPageController.projectPage(login:String,isAdmin:Boolean)
+
+GET   /aboutProject                     controllers.mainPageController.projectPage
++ nocsrf
+POST   /aboutProject                        controllers.mainPageController.projectPage2
 GET     /                           controllers.mainPageController.test()
+
++ nocsrf
+POST     /test                           controllers.mainPageController.test2
 
 
 GET     /catalog                        controllers.WineController.catalogPage(login:String,isAdmin:Boolean)

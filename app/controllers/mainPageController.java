@@ -4,6 +4,7 @@ import models.LoginForm;
 import models.User;
 import models.contact;
 import models.workDatabase;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -17,24 +18,45 @@ import java.util.ArrayList;
 
 
 public class mainPageController extends Controller {
-    protected static String LOGIN ;
-    protected static boolean ADMIN;
+    protected static String LOGIN  = LoginController.login;
+    protected static boolean ADMIN = LoginController.isAdmin;
+
     protected static Integer error ;
     @Inject
     FormFactory formFactory;
 
     public Result test(){
+        DynamicForm requestData = formFactory.form().bindFromRequest();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
-        return ok(indexProjectPage.render("",false,form,form2,error));
+        return ok(indexProjectPage.render("",false,form,form2,error,requestData));
+    }
+    public Result test2(){
+        DynamicForm requestData = formFactory.form().bindFromRequest();
+        String firstname = requestData.get("login");
+
+        return ok("Hello " + firstname );
     }
 
-    public Result projectPage(String login,boolean isAdmin){
-        LOGIN=login;
-        ADMIN = isAdmin;
+    public Result projectPage(){
+        DynamicForm requestData = formFactory.form().bindFromRequest();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
-        return ok(indexProjectPage.render(login,isAdmin,form,form2,error));
+        if (session().get("login")!=null) {
+            LOGIN = session().get("login");
+            ADMIN = Boolean.parseBoolean(session().get("isAdmin"));
+            System.out.println("ВОЙ ЛОГИН " + LOGIN);
+        }
+
+        else{
+            LOGIN="";
+            ADMIN=false;
+        }
+        return ok(indexProjectPage.render(LOGIN,ADMIN,form,form2,error,requestData));
+    }
+
+    public Result projectPage2(){
+        return redirect(routes.mainPageController.projectPage());
     }
 
     public Result contactPage(String login,boolean isAdmin)

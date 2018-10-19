@@ -24,6 +24,7 @@ public class User implements Constraints.Validatable<String> {
     @Constraints.Required
     private String password;
     @Column(name = "isadmin")
+
     private boolean isAdmin;
 
     public User(){}

@@ -34,7 +34,11 @@
 
                     <li><a href="@routes.mainPageController.contactPage(login,true)">Контакты </a ></li>
                     <li><a href="@routes.WineController.catalogPage(login,true)">Каталог </a></li>
-                    <li><a href="@routes.mainPageController.projectPage(login,true)">О проекте </a></li>
+                @helper.form(action = routes.mainPageController.projectPage2) {
+                    <input type="hidden" name="login" value="@login">
+                    <input type="hidden" name="isAdmin" value="true">
+                    <input type="submit" value="О проекте">
+                }
                     <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                     <li><a href="@routes.UsersController.renderAddUserForm(true,0)">Добавить пользователя </a></li>
             </ul>

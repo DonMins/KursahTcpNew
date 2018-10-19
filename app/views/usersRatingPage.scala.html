@@ -55,21 +55,18 @@
         <ul id="nav">
 
 
-            @if(login.isEmpty) {
-
-                <li><a href="@routes.mainPageController.contactPage("",isAdmin)">Контакты </a ></li>
-                <li><a href="@routes.WineController.catalogPage("",isAdmin)">Каталог </a></li>
-                <li><a href="@routes.mainPageController.projectPage("",isAdmin)">О проекте </a></li>
-            }
-            @if(!(login.isEmpty)) {
 
                 <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
                 <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
-                <li><a href="@routes.mainPageController.projectPage(login,isAdmin)">О проекте </a></li>
+                @helper.form(action = routes.mainPageController.projectPage2) {
+                    <input type="hidden" name="login" value="@login">
+                    <input type="hidden" name="isAdmin" value="@isAdmin">
+                    <input type="submit" value="О проекте">
+                }
                 @if(isAdmin){
                     <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                 }
-            }
+
         </ul>
 
         <p></p>

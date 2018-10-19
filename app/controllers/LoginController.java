@@ -4,6 +4,7 @@ import io.ebean.Ebean;
 import models.User;
 import models.LoginForm;
 import play.Logger;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -16,6 +17,8 @@ import java.util.List;
  * Controller that render login form and hanlde all request for login and logout.
  */
 public class LoginController extends Controller {
+    protected static String login;
+    protected static boolean isAdmin;
     @Inject
     FormFactory formFactory;
     private static Logger.ALogger logger = Logger.of(LoginController.class);
@@ -50,15 +53,17 @@ public class LoginController extends Controller {
         List<User> users = Ebean.find(User.class).where().eq("login", log.getLogin()).findList();
 
         User user = users.get(0);
+
         if( user.getPassword().equals(log.getPassword())) {
             error=0;
             mainPageController.error=error; // все хорошо, ошибок нет
             logger.info("Пользователь " + user.getLogin() + " успешно авторизовался");
-            session().put("username", log.getLogin());
+            session().put("login", log.getLogin());
+            session().put("isAdmin", String.valueOf(user.getAdmin()));
             logger.info("Пользователь " + user.getLogin() + " авторизовался ");
-            return redirect(routes.mainPageController.projectPage(log.getLogin(),user.getAdmin()));
+            return redirect(routes.mainPageController.projectPage());
         }
-        session().remove("username");
+
         error = 1; // неверный логин или пароль
         mainPageController.error=error;
         return redirect(routes.mainPageController.test());
@@ -70,8 +75,9 @@ public class LoginController extends Controller {
      */
     public Result logout(){
         logger.info("Пользователь " + session().get("username") + " разлогинился");
-        session().remove("username");
-        return redirect(routes.mainPageController.projectPage("",false));
+        session().remove("login");
+        session().remove("isAdmin");
+        return redirect(routes.mainPageController.projectPage());
     }
 
 }
