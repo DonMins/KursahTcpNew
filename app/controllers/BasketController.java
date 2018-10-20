@@ -4,24 +4,31 @@ import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
 import javafx.print.Collation;
-import models.User;
-import models.basket;
-import models.rating;
-import models.wine;
+import models.*;
+import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.collection.JavaConverters;
 
+import javax.inject.Inject;
 import java.util.*;
 
 import static controllers.WineController.searchParametrs;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class BasketController extends Controller {
-    public Result basketPage(String login, boolean isAdmin){
+    protected String LOGIN ;
+    protected Boolean ADMIN;
+    @Inject
+    FormFactory formFactory;
+
+    public Result basketPage(){
+        LOGIN = mainPageController.getSessionLogin();
+        ADMIN = mainPageController.getSessionAdmin();
         String sql1 = " select distinct wine.id_product from wine, basket,user" +
                 " where wine.id_product in(select basket.id_product " +
-                "from public.basket, public.user where public.basket.login = '"+login+"');";
+                "from public.basket, public.user where public.basket.login = '"+LOGIN+"');";
 
         String wineRating = "";
         SqlQuery maxId = Ebean.createSqlQuery(sql1);
@@ -48,7 +55,7 @@ public class BasketController extends Controller {
             winList = Ebean.find(wine.class).where().in("id_product", idForBasket).
                     setDistinct(true).findList();
 
-            Collections.reverse(idForBasket);
+            //Collections.reverse(idForBasket);
             for (int i = 0; i < idForBasket.size(); ++i) {
                 winList.get(i).setIdProduct(idForBasket.get(i));
             }
@@ -67,8 +74,11 @@ public class BasketController extends Controller {
         catch (NullPointerException| NumberFormatException ex){
            nameColomn = null;
         }
-        return ok(views.html.basketPage.render(login,isAdmin, JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList)));
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+
+        return ok(views.html.basketPage.render(LOGIN,ADMIN, JavaConverters.asScalaBuffer(nameColomn)
+                ,asScalaBuffer(winList),form,form2,0));
     }
     public Result addIn(String login, boolean isAdmin,int id){
 
@@ -85,7 +95,7 @@ public class BasketController extends Controller {
         bask.setIdProduct(id);
         bask.setLogin(login);
         Ebean.save(bask);
-        return redirect(routes.WineController.catalogPage(login,isAdmin));
+        return redirect(routes.WineController.catalogPage());
     }
     public Result deleteFromBasket(Integer id,String login,boolean isAdmin){
         String sql2 = "select id_basket from public.basket where id_product="+id + "and login="+ "'" + login +"'";
@@ -99,7 +109,7 @@ public class BasketController extends Controller {
             }
         }
         basket.find.deleteById(parametrs);
-        return redirect(routes.BasketController.basketPage(login,isAdmin));
+        return redirect(routes.BasketController.basketPage());
     }
 
 }

@@ -188,7 +188,8 @@ public class wine implements Constraints.Validatable<String> {
 
     public double averageRatingOfTheProduct(Integer id_product) {
         String parametrs = null;
-        double average = 0;
+        double average = 0; // а вообще результат сюда пишется
+        String formatedAverage="";// введенная спциально для округления
         String sql = "SELECT AVG(rating) FROM rating where id_product=" + id_product;
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
@@ -200,28 +201,18 @@ public class wine implements Constraints.Validatable<String> {
             }
         }
         if (parametrs == null)
-            average = 0;
+            formatedAverage=""; //поправить тут
         else {
-            average = Double.parseDouble(parametrs);
+
+            average = Double.parseDouble(parametrs);// тут получаем рейтинг средний
+
+          //  formatedAverage = String.format("%.2f", average); //округление которое предлагаю я
+            // измени функцию чтобы возврщала Double а не String
         }
-        return average;
+        return Math.rint(average*10)/10;// поправить тут
     }
 
-    public String idForRating(Integer id_product, Integer star) {
-        if (star == 5)
-            return (id_product + "5");
-        if (star == 4)
-            return (id_product + "4");
-        if (star == 3)
-            return (id_product + "3");
-        if (star == 2)
-            return (id_product + "2");
-        if (star == 1)
-            return (id_product + "1");
-        else
-            return "0";
 
-    }
 }
 
 

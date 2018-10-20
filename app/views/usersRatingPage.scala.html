@@ -1,230 +1,259 @@
-@(login:String,isAdmin:Boolean,nameColomn:Seq[String],win:Seq[rating])
+@(login: String, isAdmin: Boolean, nameColomn: Seq[String], win: Seq[rating])
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
-    <title>Личный кабинет</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
+        <title>Личный кабинет</title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/search.css")">
-    <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/search.css")">
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
 
-    @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
-    <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
-</head>
-<body>
-    @if(!(login.isEmpty)){
-        <div align="right">
+        @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
+        <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+        @if(!(login.isEmpty)) {
+            <div align="right">
 
-            Вы вошли как :@login
+                Вы вошли как :@login
 
-            <br>
-        </div>
-    }
+                <br>
+            </div>
+        }
 
-    <div align="center">
-        <h2>Barton & Guestier</h2>
+        <div align="center">
+            <h2>Barton & Guestier</h2>
 
-        <p></p>
-
-
-        <ul class="menu" >
-            <li> <a href=#>Личный кабинет </a>
-                <ul class="submenu">
-                    @if(login.isEmpty ) {
-                        <li><a href="#win1" class="button button-green">Вход</a></li>
-                        <li><a href="#win2" class="button button-green">Регистрация</a></li>
-
-                    }
-                    @if(!(login.isEmpty)){
-                        <li><a href="@routes.LoginController.logout()">Выход</a></li>
-                        <li><a href="@routes.RatingController.ratingUserPage(login,isAdmin)">Действия</a></li>
-                    }
-
-                </ul>
-            </li>
-
-        </ul>
-
-        <ul id="nav">
+            <p></p>
 
 
+            <ul class="menu" >
+                <li> <a href=#>Личный кабинет </a>
+                    <ul class="submenu">
+                        @if(login.isEmpty) {
+                            <li><a href="#win1" class="button button-green">Вход</a></li>
+                            <li><a href="#win2" class="button button-green">Регистрация</a></li>
 
-                <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
-                <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
+                        }
+                        @if(!(login.isEmpty)) {
+                            <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                            <li><a href="@routes.RatingController.ratingUserPage(login, isAdmin)">Действия</a></li>
+                        }
+
+                    </ul>
+                </li>
+
+            </ul>
+
+            <ul id="nav">
+
+
+                <li><a>@helper.form(action = routes.mainPageController.contactPage) {
+                    <input type="submit" value="Контакты">
+                    }</a>
+                </li>
+                <li><a>@helper.form(action = routes.WineController.catalogPage) {
+                    <input type="submit" value="Каталог">
+                    }</a>
+                </li>
                 @helper.form(action = routes.mainPageController.projectPage2) {
-                    <input type="hidden" name="login" value="@login">
-                    <input type="hidden" name="isAdmin" value="@isAdmin">
+
                     <input type="submit" value="О проекте">
                 }
-                @if(isAdmin){
+                @if(isAdmin) {
                     <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                 }
 
-        </ul>
+            </ul>
 
-        <p></p>
+            <p></p>
 
-            @*вывод колонки*@
-        @colomn(i:Int)=@{
-            val it = nameColomn
-            it(i)
-        }
+                @*вывод колонки*@
+            @colomn(i: Int) = @{
+                val it = nameColomn
+                it(i)
+            }
 
-            @*вывод отсортированной таблицы*@
-        @ratingWine(i:Int)=@{
-            val it = win
-            it(i)
-        }
-
-
-            @*вывод строки*@
-        @display(i:Int)=@{
-            val it = win
-            it(i)
-        }
-            @*всего колонок*@
-        @sizeItems()=@{
-            val sizeItems = nameColomn.length
-            sizeItems
-        }
-            @*количество страниц*@
-        @pages=@{
-
-            sizeItems2()/(sizeItems())
-
-        }
-            @*всего записываемых элементов*@
-        @sizeItems2()=@{
-            val sizeItems2 = win.length
-            sizeItems2
-
-        }
-
-        <br>
-        <p></p>
-
-        <table class="wine">
-            <tr>
-                <td>
-                    <table class="wine1">
-                        <tr>
-                        @for(j <- 1 to nameColomn.length-1) {
-                            <th>@colomn(j-1)</th>
-                        }
-                        </tr>
-                        <tr colspan="2">
-                        @win.map { item =>
-                            <th>@item.getWine(item.getIdProduct)</th>
-
-                            <th>@item.getRating</th>
+                @*вывод отсортированной таблицы*@
+            @ratingWine(i: Int) = @{
+                val it = win
+                it(i)
+            }
 
 
-                        @if(isAdmin) {
-                            <th>
-                                @*<li><a href="#win4" class="button button-green">Редактировать</a></li>*@
-                                <a href="@routes.WineController.renderUpdateWineInfo(item.getIdProduct, login)">
-                                    Изменить</a>
-                                <a href="@routes.WineController.deleteWine(item.getIdProduct, login)" >
-                                    Удалить </a></th>
-                        }
-                        <tr></tr>
-                        }
-                        @*</tr>*@
-                    </table>
-                </td>
-            </tr>
+                @*вывод строки*@
+            @display(i: Int) = @{
+                val it = win
+                it(i)
+            }
+                @*всего колонок*@
+            @sizeItems() = @{
+                val sizeItems = nameColomn.length
+                sizeItems
+            }
+                @*количество страниц*@
+            @pages = @{
+
+                sizeItems2() / (sizeItems())
+
+            }
+                @*всего записываемых элементов*@
+            @sizeItems2() = @{
+                val sizeItems2 = win.length
+                sizeItems2
+
+            }
+
+            <br>
+            <p></p>
+
+            <table class="wine">
+                <tr>
+                    <td>
+                        <table class="wine1">
+                            <tr>
+                            @for(j <- 1 to nameColomn.length - 1) {
+                                <th>@colomn(j - 1)</th>
+                            }
+                            </tr>
+                            <tr colspan="2">
+                            @win.map { item =>
+                                <th>@item.getWine(item.getIdProduct)</th>
+
+                                <th>@item.getRating</th>
+
+
+                            @if(isAdmin) {
+                                <th>
+                                    @*<li><a href="#win4" class="button button-green">Редактировать</a></li>*@
+                                    <a href="@routes.WineController.renderUpdateWineInfo(item.getIdProduct, login)">
+                                        Изменить</a>
+                                    <a href="@routes.WineController.deleteWine(item.getIdProduct, login)" >
+                                        Удалить </a></th>
+                            }
+                            <tr></tr>
+                            }
+                            @*</tr>*@
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            @win.map { item =>
+
+                <table>
+                    <div class="col-md-8 products">
+
+                        <div class="row">
+
+                            <div class="col-sm-4">
+
+                                <div class="product">
+
+                                    @*<div class="product-img">*@
+                                    @*<tr>*@
+
+                                    @*<a href="#"><img src="/assets/images/Casa Del Coppiere Vino Da Tavola.png" alt=""></a>*@
+                                    @*</tr>*@
+                                    @*</div>*@
+                                    <p class="product-name">@item.getWine(item.getIdProduct)
+                                <p class="product-price">€10.00
+                                <div class="product-rating">
+                                <div class="rating">
+
+                                    @if(item.getRating == 5) {
+                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" checked disabled />
+                                        <label for="star5" title="Rocks!">5 stars</label>
+                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" disabled />
+                                        <label for="star4" title="Pretty good">4 stars</label>
+                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" disabled/>
+                                        <label for="star3" title="Meh">3 stars</label>
+                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled />
+                                        <label for="star2" title="Kinda bad">2 stars</label>
+                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/>
+                                        <label for="star1" title="Sucks big time">1 star</label>
+
+                                    }
+
+
+                                    @if(item.getRating == 4) {
+                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" class="veryGrey" disabled />
+                                        <label for="star5" title="Rocks!">5 stars</label>
+                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" checked disabled />
+                                        <label for="star4" title="Pretty good">4 stars</label>
+                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" disabled/>
+                                        <label for="star3" title="Meh">3 stars</label>
+                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled />
+                                        <label for="star2" title="Kinda bad">2 stars</label>
+                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/>
+                                        <label for="star1" title="Sucks big time">1 star</label>
+
+                                    }
+
+                                    @if(item.getRating == 3) {
+                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" class="veryGrey" disabled />
+                                        <label for="star5" title="Rocks!">5 stars</label>
+                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled />
+                                        <label for="star4" title="Pretty good">4 stars</label>
+                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" checked disabled/>
+                                        <label for="star3" title="Meh">3 stars</label>
+                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled />
+                                        <label for="star2" title="Kinda bad">2 stars</label>
+                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/>
+                                        <label for="star1" title="Sucks big time">1 star</label>
+
+                                    }
+
+                                    @if(item.getRating == 2) {
+                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" class="veryGrey" disabled />
+                                        <label for="star5" title="Rocks!">5 stars</label>
+                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled />
+                                        <label for="star4" title="Pretty good">4 stars</label>
+                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" class="veryGrey" disabled/>
+                                        <label for="star3" title="Meh">3 stars</label>
+                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" checked disabled />
+                                        <label for="star2" title="Kinda bad">2 stars</label>
+                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/>
+                                        <label for="star1" title="Sucks big time">1 star</label>
+
+                                    }
+                                    @if(item.getRating == 1) {
+                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" class="veryGrey" disabled />
+                                        <label for="star5" title="Rocks!">5 stars</label>
+                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled />
+                                        <label for="star4" title="Pretty good">4 stars</label>
+                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" class="veryGrey" disabled/>
+                                        <label for="star3" title="Meh">3 stars</label>
+                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" class="veryGrey" disabled />
+                                        <label for="star2" title="Kinda bad">2 stars</label>
+                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" checked disabled/>
+                                        <label for="star1" title="Sucks big time">1 star</label>
+
+                                    }
+
+                                </div>
+                                </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+            }
+
         </table>
 
-        @win.map { item =>
-
-        <table>
-        <div class="col-md-8 products">
-
-            <div class="row">
-
-                <div class="col-sm-4">
-
-                    <div class="product">
-
-                        @*<div class="product-img">*@
-                            @*<tr>*@
-
-                            @*<a href="#"><img src="/assets/images/Casa Del Coppiere Vino Da Tavola.png" alt=""></a>*@
-                            @*</tr>*@
-                        @*</div>*@
-                            <p class="product-name">@item.getWine(item.getIdProduct)
-                            <p class="product-price">€10.00
-                    <div class="product-rating">
-                    <div class="rating">
-
-                        @if(item.getRating==5){
-                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  checked disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getIdProduct value="4" disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getIdProduct value="3" disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
-
-                        }
-
-
-                        @if(item.getRating==4){
-                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getIdProduct value="4" checked disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getIdProduct value="3" disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
-
-                        }
-
-                        @if(item.getRating==3){
-                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getIdProduct value="3" checked disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
-
-                        }
-
-                        @if(item.getRating==2){
-                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getIdProduct value="3"  class="veryGrey" disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getIdProduct value="2" checked disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/><label for="star1" title="Sucks big time">1 star</label>
-
-                        }
-                        @if(item.getRating==1){
-                            <input type="radio" id="star5" name=@item.getIdProduct value="5"  class="veryGrey" disabled /><label for="star5" title="Rocks!">5 stars</label>
-                            <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled /><label for="star4" title="Pretty good">4 stars</label>
-                            <input type="radio" id="star3" name=@item.getIdProduct value="3"  class="veryGrey" disabled/><label for="star3" title="Meh">3 stars</label>
-                            <input type="radio" id="star2" name=@item.getIdProduct value="2" class="veryGrey" disabled /><label for="star2" title="Kinda bad">2 stars</label>
-                            <input type="radio" id="star1" name=@item.getIdProduct value="1"  checked disabled/><label for="star1" title="Sucks big time">1 star</label>
-
-                        }
-
-                    </div>
-                    </div>
-
-                    </div>
-
-
-                </div>
-            </div>
 
         </div>
-        }
 
-        </table>
-
-
-    </div>
-
-</body>
+    </body>
 </html>

@@ -1,7 +1,6 @@
-@(login:String,isAdmin:Boolean,bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User], error: Integer,
-        dinamicForm: play.data.DynamicForm)
+@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Integer)
 <html>
- @*0 -no error , if 1 - error*@
+    @*0 -no error , if 1 - error*@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -15,92 +14,90 @@
 
     </head>
     <body>
-       <div align="center">
-       <h2>Barton & Guestier</h2>
+        <div align="center">
+            <h2>Barton & Guestier</h2>
 
 
-               <!-- Модальное окно №1 -->
-           <a href="#x" class="overlay" id="win1"></a>
-           <div class="popup">
-               @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login"){
-                   <div class="modal-header">
+                <!-- Модальное окно №1 -->
+            <a href="#x" class="overlay" id="win1"></a>
+            <div class="popup">
+                @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login") {
+                    <div class="modal-header">
 
-                       <h1 class="modal-title">Вход в личный кабинет</h1>
-                   </div>
+                        <h1 class="modal-title">Вход в личный кабинет</h1>
+                    </div>
 
-                   <br>
-                   @helper.inputText(bookForm("login"),'_showConstraints ->false, 'placeholder -> "Логин",'required -> "required")
-                   @helper.inputPassword(bookForm("password"),'_showConstraints ->false, 'placeholder -> "Пароль",'required -> "required")
+                    <br>
+                    @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
+                    @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
 
-                   <div class="modal-footer">
-                       <input type ="submit" value="Войти">
-                   </div>
-
-
-                   <a href="@routes.UsersController.renderAddUserForm(false,0)" class="slick-login2">Регистрация</a>
-
-               }
-           <a class="close"title="Закрыть" href="#close"></a>
-           </div>
-
-               <!-- Модальное окно №2 -->
-           <a href="#x" class="overlay" id="win2"></a>
-           <div class="popup">
-               <div class="modal-header">
-
-                   <h1 class="modal-title">Регистрация </h1>
-               </div>
-
-               @helper.form(action = routes.UsersController.addingUser(isAdmin), 'id -> "slick-login"){
-
-                   @helper.inputText(registrationForm("login"),'_showConstraints ->false,'placeholder -> "Логин",'required -> "required")
-
-                   @helper.inputText(registrationForm("password"),'_showConstraints ->false,'placeholder -> "Ваш сложный пароль",'required -> "required")
-                   @if(isAdmin){
-                       Права администратора:@helper.checkbox(registrationForm("isAdmin"))
-                   }
-
-                   <div class="modal-footer">
-                       <input type ="submit" value="Создать">
-                   </div>
+                    <div class="modal-footer">
+                        <input type ="submit" value="Войти">
+                    </div>
 
 
+                    <a href="@routes.UsersController.renderAddUserForm(false, 0)" class="slick-login2">Регистрация</a>
 
-               }
-               <a class="close"title="Закрыть" href="#close"></a>
-           </div>
+                }
+                <a class="close" title="Закрыть" href="#close"></a>
+            </div>
 
-           @if(error == 1 || error ==2) {
-                   <!-- Модальное окно при загрузке -->
+                <!-- Модальное окно №2 -->
+            <a href="#x" class="overlay" id="win2"></a>
+            <div class="popup">
+                <div class="modal-header">
 
-               <div class="container">
-                       <!-- Modal -->
-                   <div class="modal fade" id="myModal" role="dialog">
-                       <div class="modal-dialog">
+                    <h1 class="modal-title">Регистрация </h1>
+                </div>
 
-                               <!-- Modal content-->
-                           <div class="modal-content">
-                               <div class="modal-header">
-                                   <button type="button" class="close" data-dismiss="modal"></button>
-                                   <h4 class="modal-title">Ошибка! </h4>
-                               </div>
-                               <div class="modal-body">
-                                   <h4> Неверный пароль или логин!</h4>
-                               </div>
+                @helper.form(action = routes.UsersController.addingUser(isAdmin), 'id -> "slick-login") {
 
-                           </div>
+                    @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
 
-                       </div>
-                   </div>
-               </div>
+                    @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
+                    @if(isAdmin) {
+                        Права администратора:@helper.checkbox(registrationForm("isAdmin"))
+                    }
 
-               <script>
-                       $(document).ready(function () {
-                           $('#myModal').modal('show');
-                       });
-               </script>
-           }
+                    <div class="modal-footer">
+                        <input type ="submit" value="Создать">
+                    </div>
 
+
+                }
+                <a class="close" title="Закрыть" href="#close"></a>
+            </div>
+
+            @if(error == 1) {
+                    <!-- Модальное окно при загрузке -->
+
+                <div class="container">
+                        <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Ошибка! </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4> Неверный пароль или логин!</h4>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                        $(document).ready(function () {
+                            $('#myModal').modal('show');
+                        });
+                </script>
+            }
 
 
             <p></p>
@@ -109,14 +106,14 @@
             <ul class="menu" >
                 <li> <a href=#>Личный кабинет </a>
                     <ul class="submenu">
-                        @if(login.isEmpty ) {
+                        @if(login.isEmpty) {
                             <li><a href="#win1" class="button button-green">Вход</a></li>
                             <li><a href="#win2" class="button button-green">Регистрация</a></li>
 
                         }
-                        @if(!(login.isEmpty)){
+                        @if(!(login.isEmpty)) {
                             <li><a href="@routes.LoginController.logout()">Выход</a></li>
-                            <li><a href="@routes.RatingController.ratingUserPage(login,isAdmin)">Действия</a></li>
+                            <li><a href="@routes.RatingController.ratingUserPage(login, isAdmin)">Действия</a></li>
                         }
 
                     </ul>
@@ -124,23 +121,32 @@
 
             </ul>
 
-        <ul id="nav">
+            <ul id="nav">
 
-                <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
-                <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
-                @helper.form(action = routes.mainPageController.projectPage2) {
-                    <input type="hidden" name="login" value="@login">
-                    <input type="hidden" name="isAdmin" value="@isAdmin">
+                <li><a>@helper.form(action = routes.mainPageController.contactPage) {
+                    <input type="submit" value="Контакты">
+                    }</a>
+                </li>
+
+                <li><a>@helper.form(action = routes.WineController.catalogPage) {
+                    <input type="submit" value="Каталог">
+                    }</a>
+                </li>
+                <li><a>@helper.form(action = routes.mainPageController.projectPage2) {
+
                     <input type="submit" value="О проекте">
-                }
-                <li><a href="@routes.BasketController.basketPage(login,isAdmin)">Корзина </a></li>
+                    }</a></li>
+                <li><a>@helper.form(action = routes.BasketController.basketPage()) {
 
-                @if(isAdmin){
+                    <input type="submit" value="Корзина">
+                    }</a></li>
+
+                @if(isAdmin) {
                     <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                 }
 
 
-        </ul>
+            </ul>
             <table class="start">
                 <tr>
                     <th>Дорогие Гости, добро пожаловать на сайт Винного Дома Barton & Guestier!</th>
@@ -155,7 +161,7 @@
                         Где можно приобрести, а главное научиться распознавать достойный напиток?
                         Есть такое место...
                         Таня сделает красивое оформление текста, лесенка
-                    к примеру</th>
+                        к примеру</th>
 
                 </tr>
             </table>

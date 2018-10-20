@@ -6,66 +6,69 @@
 # An example controller showing a sample home page
 #GET     /                           controllers.HomeController.index
 # An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
+GET         /count                                    controllers.CountController.count
 # An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
+GET         /message                                  controllers.AsyncController.message
 
-GET   /aboutProject                     controllers.mainPageController.projectPage
+GET         /aboutProject                             controllers.mainPageController.projectPage
 + nocsrf
-POST   /aboutProject                        controllers.mainPageController.projectPage2
-GET     /                           controllers.mainPageController.test()
-
-+ nocsrf
-POST     /test                           controllers.mainPageController.test2
+POST        /aboutProject                             controllers.mainPageController.projectPage2
+GET         /                                         controllers.mainPageController.test()
 
 
-GET     /catalog                        controllers.WineController.catalogPage(login:String,isAdmin:Boolean)
 
 + nocsrf
-POST     /catalogSort                        controllers.WineController.sortCatalogPage(login:String,isAdmin:Boolean,sortCatalog:Integer)
+POST         /catalog                                  controllers.WineController.catalogPage
+GET         /catalog                                  controllers.WineController.catalogPage
+
 + nocsrf
-POST    /catalogSearch   controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
-GET     /contact                  controllers.mainPageController.contactPage(login:String,isAdmin:Boolean)
+POST        /catalogSort                              controllers.WineController.sortCatalogPage(login:String,isAdmin:Boolean,sortCatalog:Integer)
++ nocsrf
+POST        /catalogSearch                            controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
++ nocsrf
+POST      /contact                                  controllers.mainPageController.contactPage
 
 #Login page controllers
-GET     /login                           controllers.LoginController.renderLoginForm
+GET         /login                                    controllers.LoginController.renderLoginForm
 + nocsrf
-POST    /login                              controllers.LoginController.checkingLoginForm
-GET     /logout                      controllers.LoginController.logout
+POST        /login                                    controllers.LoginController.checkingLoginForm
+GET         /logout                                   controllers.LoginController.logout
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                             controllers.Assets.versioned(path="/public", file: Asset)
 
 #controller for list of user
-GET     /users                      controllers.UsersController.usersList(login:String)
-GET    /users/:id                     controllers.UsersController.deleteUser(id: Integer,login:String)
-GET     /adduser                    controllers.UsersController.renderAddUserForm(admin:Boolean,error:Integer)
-GET     /addadmin                    controllers.UsersController.renderAdminForm()
+GET         /users                                    controllers.UsersController.usersList(login:String)
+GET         /users/:id                                controllers.UsersController.deleteUser(id: Integer,login:String)
+GET         /adduser                                  controllers.UsersController.renderAddUserForm(admin:Boolean,error:Integer)
+GET         /addadmin                                 controllers.UsersController.renderAdminForm()
 + nocsrf
-POST    /adduser                      controllers.UsersController.addingUser(admin:Boolean)
+POST        /adduser                                  controllers.UsersController.addingUser(admin:Boolean)
 
 
-GET     /updateuser               controllers.UsersController.renderUpdateUserInfo(id: Integer,login:String)
+GET         /updateuser                               controllers.UsersController.renderUpdateUserInfo(id: Integer,login:String)
 + nocsrf
-POST    /updateuser                 controllers.UsersController.updateUserInfo(id: Integer,login:String)
+POST        /updateuser                               controllers.UsersController.updateUserInfo(id: Integer,login:String)
 
 #controller rating
-GET     /seeRating                   controllers.RatingController.ratingUserPage(login:String,isAdmin: Boolean)
+GET         /seeRating                                controllers.RatingController.ratingUserPage(login:String,isAdmin: Boolean)
 #controller wine
 
-GET    /wine/:id                     controllers.WineController.deleteWine(id: Integer, login: String)
-GET    /addWinecatalog/:login                     controllers.WineController.addingWine(login: String)
-GET     /addWine/:login                  controllers.WineController.renderAddWine(login: String)
-GET     /updateWine                controllers.WineController.renderUpdateWineInfo(id: Integer,login:String)
+GET         /wine/:id                                 controllers.WineController.deleteWine(id: Integer, login: String)
+GET         /addWinecatalog/:login                    controllers.WineController.addingWine(login: String)
+GET         /addWine/:login                           controllers.WineController.renderAddWine(login: String)
+GET         /updateWine                               controllers.WineController.renderUpdateWineInfo(id: Integer,login:String)
 + nocsrf
-POST    /updateWine                  controllers.WineController.updateWineInfo(id: Integer,login:String)
+POST        /updateWine                               controllers.WineController.updateWineInfo(id: Integer,login:String)
 
 #controller provider
++ nocsrf
+POST        /basketPage                               controllers.BasketController.basketPage
+GET        /basketPage                               controllers.BasketController.basketPage
 
-GET    /basketPage                     controllers.BasketController.basketPage(login:String, isAdmin: Boolean)
-
-GET    /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
-GET    /basketDelete/:id/:login/:isAdmin       controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)
-GET    /newWineRaring/:id/:login/:id2      controllers.WineController.newRating(id:Integer,login:String, id2:Integer)
+GET         /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
+GET         /basketDelete/:id/:login/:isAdmin         controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)
++ nocsrf
+POST        /newWineRaring          controllers.WineController.newRating
 
 

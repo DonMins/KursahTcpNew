@@ -113,11 +113,11 @@ public class UsersController extends Controller {
         }
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
             if (admin){
-                return redirect(routes.UsersController.renderAddUserForm(admin,2));
+                return redirect(routes.UsersController.renderAddUserForm(admin,1));
             }
-            DynamicForm requestData = formFactory.form().bindFromRequest();
 
-            return ok(views.html.indexProjectPage.render("",admin,form,userForm,2,requestData));
+
+            return ok(views.html.indexProjectPage.render("",admin,form,userForm,1));
         }
         Map<String, String> rawdata = userForm.rawData();
 
@@ -125,7 +125,7 @@ public class UsersController extends Controller {
         User user = new User();
         user.setId((id+1));
         user.setLogin(rawdata.get("login"));
-        user.setPassword(rawdata.get("password"));
+        user.setPassword((rawdata.get("password")));
         user.setAdmin(isAdmin);
 
         List<User> users = Ebean.find(User.class).where().eq("login", user.getLogin()).findList();

@@ -1,4 +1,4 @@
-@(login:String, isAdmin:Boolean,bookForm : play.data.Form[LoginForm], registrationForm : play.data.Form[User], error: Integer)
+@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Integer)
 <html>
 
     <head>
@@ -20,25 +20,25 @@
                 <!-- Модальное окно №1 -->
             <a href="#x" class="overlay" id="win1"></a>
             <div class="popup">
-                @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login"){
+                @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login") {
                     <div class="modal-header">
 
                         <h1 class="modal-title">Вход в личный кабинет</h1>
                     </div>
 
                     <br>
-                    @helper.inputText(bookForm("login"),'_showConstraints ->false, 'placeholder -> "Логин",'required -> "required")
-                    @helper.inputPassword(bookForm("password"),'_showConstraints ->false, 'placeholder -> "Пароль",'required -> "required")
+                    @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
+                    @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
 
                     <div class="modal-footer">
                         <input type ="submit" value="Войти">
                     </div>
 
 
-                    <a href="@routes.UsersController.renderAddUserForm(false,0)" class="slick-login2">Регистрация</a>
+                    <a href="@routes.UsersController.renderAddUserForm(false, 0)" class="slick-login2">Регистрация</a>
 
                 }
-            <a class="close"title="Закрыть" href="#close"></a>
+                <a class="close" title="Закрыть" href="#close"></a>
             </div>
 
                 <!-- Модальное окно №2 -->
@@ -49,12 +49,12 @@
                     <h1 class="modal-title">Регистрация </h1>
                 </div>
 
-                @helper.form(action = routes.UsersController.addingUser(isAdmin), 'id -> "slick-login"){
+                @helper.form(action = routes.UsersController.addingUser(isAdmin), 'id -> "slick-login") {
 
-                    @helper.inputText(registrationForm("login"),'_showConstraints ->false,'placeholder -> "Логин",'required -> "required")
+                    @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
 
-                    @helper.inputText(registrationForm("password"),'_showConstraints ->false,'placeholder -> "Ваш сложный пароль",'required -> "required")
-                    @if(isAdmin){
+                    @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
+                    @if(isAdmin) {
                         Права администратора:@helper.checkbox(registrationForm("isAdmin"))
                     }
 
@@ -63,16 +63,11 @@
                     </div>
 
                 }
-                <a class="close"title="Закрыть" href="#close"></a>
+                <a class="close" title="Закрыть" href="#close"></a>
             </div>
 
 
-
-
-
-
-
-            @if(error == 1 || error ==2) {
+            @if(error == 1 || error == 2) {
                     <!-- Модальное окно при загрузке -->
 
                 <div class="container">
@@ -113,7 +108,7 @@
                             @*<li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>*@
                             @*<li><a href="@routes.UsersController.renderAddUserForm(isAdmin)">Регистрация</a></li>*@
                         }
-                        @if(!(login.isEmpty)){
+                        @if(!(login.isEmpty)) {
                             <li><a href="@routes.LoginController.logout()">Выход</a></li>
                         }
 
@@ -124,16 +119,25 @@
             <ul id="nav">
 
 
-                    <li><a href="@routes.mainPageController.contactPage(login,isAdmin)">Контакты </a ></li>
-                    <li><a href="@routes.WineController.catalogPage(login,isAdmin)">Каталог </a></li>
-                @helper.form(action = routes.mainPageController.projectPage2) {
-                    <input type="hidden" name="login" value="@login">
-                    <input type="hidden" name="isAdmin" value="@isAdmin">
+                <li><a>@helper.form(action = routes.mainPageController.contactPage) {
+                    <input type="submit" value="Контакты">
+                    }</a>
+                </li>
+                <li><a>@helper.form(action = routes.WineController.catalogPage) {
+                    <input type="submit" value="Каталог">
+                    }</a>
+                </li>
+                <li><a>@helper.form(action = routes.mainPageController.projectPage2) {
+
                     <input type="submit" value="О проекте">
+                    }</a></li>
+                <li><a>@helper.form(action = routes.BasketController.basketPage()) {
+
+                    <input type="submit" value="Корзина">
+                    }</a></li>
+                @if(isAdmin) {
+                    <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                 }
-                    @if(isAdmin){
-                        <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
-                    }
 
 
             </ul>
@@ -154,7 +158,6 @@
                         <p>              Сб.-Вт.: 10:00 - 18:00</p>
                     </div>
                 </div>
-
 
 
             </table>

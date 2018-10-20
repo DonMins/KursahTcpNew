@@ -1,4 +1,4 @@
-@(nameColomn:Seq[String] ,users :Seq[User],login:String)
+@(nameColomn: Seq[String], users: Seq[User], login: String)
 <html>
     <title>Список пользователей</title>
     <head>
@@ -7,7 +7,7 @@
     </head>
     <body>
         <div align="center">
-            @if(!(login.isEmpty)){
+            @if(!(login.isEmpty)) {
                 <div align="right">
 
                     Вы вошли как :@login
@@ -15,52 +15,63 @@
                     <br>
                 </div>
             }
-            <h2>Barton & Guestier</h2>
+        <h2>Barton & Guestier</h2>
 
 
-            <p></p>
-            <ul class="menu" >
-                <li> <a href=#>Личный кабинет </a>
-                    <ul class="submenu">
+        <p></p>
+        <ul class="menu" >
+            <li> <a href=#>Личный кабинет </a>
+                <ul class="submenu">
 
-                        <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                    <li><a href="@routes.LoginController.logout()">Выход</a></li>
+
+                </ul>
+            </li>
+
+        </ul>
+        <ul id="nav">
+
+            <li><a>@helper.form(action = routes.mainPageController.contactPage) {
+                <input type="submit" value="Контакты">
+                }</a>
+            </li>
+            <li><a>@helper.form(action = routes.WineController.catalogPage) {
+                <input type="submit" value="Каталог">
+                }</a>
+            </li>
+            <li><a>@helper.form(action = routes.mainPageController.projectPage2) {
+
+            <input type="submit" value="О проекте">
+            }</a>
+        </li>
+        <li><a>@helper.form(action = routes.BasketController.basketPage()) {
+
+            <input type="submit" value="Корзина">
+            }</a>
+        </li>
+        <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
+        <li><a href="@routes.UsersController.renderAddUserForm(true, 0)">Добавить пользователя </a></li>
+        </ul>
+        <p></p>
+        <p></p>
+        <p></p>
 
 
-                    </ul>
-                </li>
+            @sizeNameColomn() = @{
+                val sizeItems = nameColomn.length
+                sizeItems
+            }
 
-            </ul>
-            <ul id="nav">
+            @colomn(i: Int) = @{
+                val it = nameColomn
+                it(i)
+            }
 
-                    <li><a href="@routes.mainPageController.contactPage(login,true)">Контакты </a ></li>
-                    <li><a href="@routes.WineController.catalogPage(login,true)">Каталог </a></li>
-                @helper.form(action = routes.mainPageController.projectPage2) {
-                    <input type="hidden" name="login" value="@login">
-                    <input type="hidden" name="isAdmin" value="true">
-                    <input type="submit" value="О проекте">
-                }
-                    <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
-                    <li><a href="@routes.UsersController.renderAddUserForm(true,0)">Добавить пользователя </a></li>
-            </ul>
-            <p></p>
-            <p></p>
-            <p></p>
-
-
-            @sizeNameColomn()=@{
-            val sizeItems = nameColomn.length
-            sizeItems
-        }
-
-        @colomn(i:Int)=@{
-            val it = nameColomn
-            it(i)
-        }
         <ul>
             <table>
                 <tr>
                 @for(j <- 1 to sizeNameColomn) {
-                    <th>@colomn(j-1)</th>
+                    <th>@colomn(j - 1)</th>
                 }
                 </tr>
                 @users.map { item =>
@@ -69,11 +80,10 @@
                     <th>@item.getPassword</th>
                     <th>@item.getAdmin</th>
 
-                    <th><a href="@routes.UsersController.renderUpdateUserInfo(item.getId,login)">Редактировать</a>
-                    <a href="@routes.UsersController.deleteUser(item.getId,login)" > Удалить </a></th>
+                    <th><a href="@routes.UsersController.renderUpdateUserInfo(item.getId, login)">Редактировать</a>
+                        <a href="@routes.UsersController.deleteUser(item.getId, login)" > Удалить </a></th>
                     <tr></tr>
                 }
-
 
             </table>
         </ul>

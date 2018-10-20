@@ -1,32 +1,36 @@
 package controllers;
 
 import io.ebean.Ebean;
-import io.ebean.Expr;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
 import models.*;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.collection.JavaConverters;
-import views.html.indexCatalogPage;
 
 import javax.inject.Inject;
 import java.util.*;
 
+import static controllers.mainPageController.getSessionLogin;
+import static controllers.mainPageController.getSessionAdmin;
 import static scala.collection.JavaConverters.asScalaBuffer;
-import static scala.collection.JavaConverters.seqAsJavaList;
 
 public class WineController extends Controller {
-    String loginn = mainPageController.LOGIN;
-    boolean isAdminn = mainPageController.ADMIN;
+
+
+    String LOGIN;
+    Boolean ADMIN;
     public static Integer error ;
     public List<wine> searchList = null;
     @Inject
     FormFactory formFactory;
 
-    public Result catalogPage(String login,boolean isAdmin){
+    public Result catalogPage(){
+        LOGIN = getSessionLogin();
+        ADMIN = getSessionAdmin();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
@@ -42,7 +46,7 @@ public class WineController extends Controller {
         nameColomn = us.getNameColomn();
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
+                ,asScalaBuffer(winList),LOGIN,ADMIN,form,form2,error,wineForm,updateform,us,searchForm));
     }
 
 
@@ -433,13 +437,15 @@ public class WineController extends Controller {
         searchList = winList;
         List<String> nameColomn = new ArrayList<>();
         wine us = new wine();
+        LOGIN = getSessionLogin();
+        ADMIN = getSessionAdmin();
         nameColomn = us.getNameColomn();
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
+                ,asScalaBuffer(winList),LOGIN,ADMIN,form,form2,error,wineForm,updateform,us,searchForm));
     }
     public Result deleteWine(Integer id,String login){
         wine.find.deleteById(id);
-        return redirect(routes.WineController.catalogPage(login,true));
+        return redirect(routes.WineController.catalogPage());
     }
 
     public Result renderAddWine(String login){
@@ -511,7 +517,7 @@ public class WineController extends Controller {
             }catch (Exception ex){
                 return redirect(routes.WineController.renderAddWine(login));
             }
-            return redirect(routes.WineController.catalogPage(login,true));
+            return redirect(routes.WineController.catalogPage());
         }
         return redirect(routes.WineController.renderAddWine(login));
     }
@@ -536,9 +542,11 @@ public class WineController extends Controller {
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
         Form<search> searchForm = formFactory.form(search.class);
+        LOGIN = getSessionLogin();
+        ADMIN = getSessionAdmin();
         if(form.hasErrors() || form.hasGlobalErrors()){
             return ok(views.html.catalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                    ,asScalaBuffer(winList),login,isAdminn,form,form2,1,wineForm,updateform, Win,searchForm));
+                    ,asScalaBuffer(winList),LOGIN, ADMIN,form,form2,1,wineForm,updateform, Win,searchForm));
         }
         Map<String, String> rawdata = updateform.rawData();
         Win.setName(rawdata.get("name"));
@@ -569,17 +577,21 @@ public class WineController extends Controller {
             }
         Ebean.update(Win);
 
-        return redirect(routes.WineController.catalogPage(login,true));
+        return redirect(routes.WineController.catalogPage());
     }
-    public Result newRating(Integer id_product,String login,Integer ratingNew){
+    public Result newRating(){
+        LOGIN=getSessionLogin();
+        DynamicForm form = formFactory.form().bindFromRequest();
+        int idProduct= Integer.parseInt(form.get("getIdProduct"));
+        int ratingNew= Integer.parseInt(form.get("rating"));
         System.out.println("It's working");
         rating newRating = new rating();
-        newRating.setIdProduct(id_product);
+        newRating.setIdProduct(idProduct);
 
         String parametrs= null;
         int id_user=0;
 
-        String sql = "SELECT id FROM public.user where login ='"+login+"'";
+        String sql = "SELECT id FROM public.user where login ='"+LOGIN+"'";
         SqlQuery userID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = userID.findList();
@@ -596,7 +608,8 @@ public class WineController extends Controller {
         newRating.setRating(ratingNew);
         Ebean.save(newRating);
 
-        return redirect(routes.WineController.catalogPage(login,true));
+        return redirect(routes.WineController.catalogPage());
     }
 
 }
+

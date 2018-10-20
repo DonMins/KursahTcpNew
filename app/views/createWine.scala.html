@@ -7,8 +7,10 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/style.css")">
     </head>
     <body>
-        <a href="@routes.WineController.catalogPage(login,true)" class = "link">На главную страницу </a>
-        <h1 class="g1">Регистрация товара</h1>
+        <li><a>@helper.form(action = routes.WineController.catalogPage) {
+            <input type="submit" value="Каталог">
+            }</a>
+        </li>        <h1 class="g1">Регистрация товара</h1>
 
         @helper.form(action = routes.WineController.addingWine(login), 'id -> "slick-login"){
             @helper.inputText(form("name"),'_showConstraints ->false,'placeholder -> "Название вина")

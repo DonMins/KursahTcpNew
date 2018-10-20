@@ -7,7 +7,7 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/style.css")">
     </head>
     <body>
-        <a href="@routes.WineController.catalogPage(login,true)" class = "link">На главную страницу </a>
+        @*<a href="@routes.WineController.catalogPage(login,true)" class = "link">На главную страницу </a>*@
         <h1 class="g1">Редактирование товара</h1>
 
         @helper.form(action = routes.WineController.updateWineInfo(win.getIdProduct,login), 'id -> "slick-login"){
