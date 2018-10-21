@@ -2,6 +2,7 @@ package models;
 
 import io.ebean.Ebean;
 import models.User;
+import org.apache.commons.codec.digest.DigestUtils;
 import play.Logger;
 import play.data.validation.Constraints;
 
@@ -56,8 +57,10 @@ public class LoginForm implements Constraints.Validatable<String> {
 
         }
         User user = users.get(0);
+        String passwordHex = DigestUtils.md5Hex(password).toUpperCase();
+
         System.out.println(user.getLogin());
-        if( !user.getPassword().equals(password)){
+        if( !user.getPassword().equals(passwordHex)){
 
             return "Неправильный логин или пароль";
         }

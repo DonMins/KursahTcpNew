@@ -6,6 +6,7 @@ import io.ebean.SqlRow;
 import models.LoginForm;
 import models.User;
 import models.UpdateForm;
+import org.apache.commons.codec.digest.DigestUtils;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -125,7 +126,9 @@ public class UsersController extends Controller {
         User user = new User();
         user.setId((id+1));
         user.setLogin(rawdata.get("login"));
-        user.setPassword((rawdata.get("password")));
+        String passwordHex = DigestUtils.md5Hex(rawdata.get("password")).toUpperCase();
+        user.setPassword(passwordHex);
+        System.out.println("секрет "+passwordHex);
         user.setAdmin(isAdmin);
 
         List<User> users = Ebean.find(User.class).where().eq("login", user.getLogin()).findList();
