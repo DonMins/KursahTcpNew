@@ -189,7 +189,7 @@ public class wine implements Constraints.Validatable<String> {
     public double averageRatingOfTheProduct(Integer id_product) {
         String parametrs = null;
         double average = 0; // а вообще результат сюда пишется
-        String formatedAverage="";// введенная спциально для округления
+
         String sql = "SELECT AVG(rating) FROM rating where id_product=" + id_product;
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
@@ -201,7 +201,7 @@ public class wine implements Constraints.Validatable<String> {
             }
         }
         if (parametrs == null)
-            formatedAverage=""; //поправить тут
+            return 0;
         else {
 
             average = Double.parseDouble(parametrs);// тут получаем рейтинг средний
@@ -211,6 +211,68 @@ public class wine implements Constraints.Validatable<String> {
         }
         return Math.rint(average*10)/10;// поправить тут
     }
+
+    public String isVote(Integer idProduct,String login)
+    {
+        String parametrs = null;
+
+        String sql ="SELECT login FROM rating,public.user where rating.id_product=" + idProduct+" and login='"+login+"'and id=rating.id_user";
+        SqlQuery averageID = Ebean.createSqlQuery(sql);
+
+        List<SqlRow> mId = averageID.findList();
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                parametrs = row2.getString(s);
+            }
+        }
+        if (parametrs == null)
+            return login; // может голосовать
+        else
+            return "";// не может голосовать
+
+    }
+    public String isAddingToBasket(Integer idProduct,String login)
+    {
+        String parametrs = null;
+
+        String sql ="SELECT login FROM basket where id_product=" + idProduct+" and login='"+login+"'";
+        SqlQuery averageID = Ebean.createSqlQuery(sql);
+
+        List<SqlRow> mId = averageID.findList();
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                parametrs = row2.getString(s);
+            }
+        }
+        if (parametrs == null)
+            return login; // может голосовать
+        else
+            return "";// не может голосовать
+
+    }
+    public Integer getUsersMark(Integer idProduct,String login)
+    {
+        String parametrs = null;
+
+        String sql ="SELECT rating FROM rating,public.user where rating.id_product=" + idProduct+" and login='"+login+"'and id=rating.id_user";
+        SqlQuery averageID = Ebean.createSqlQuery(sql);
+
+        List<SqlRow> mId = averageID.findList();
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                parametrs = row2.getString(s);
+            }
+        }
+        if (parametrs == null)
+            return 0; // может голосовать
+        else
+            return Integer.parseInt(parametrs) ;// не может голосовать
+
+    }
+
 
 
 }

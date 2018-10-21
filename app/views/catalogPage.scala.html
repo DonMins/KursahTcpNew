@@ -41,7 +41,6 @@
                     </div>
 
 
-                    <a href="@routes.UsersController.renderAddUserForm(false, 0)" class="slick-login2">Регистрация</a>
 
                 }
                 <a class="close" title="Закрыть" href="#close"></a>
@@ -360,37 +359,47 @@
                                                 <div style="display: inline-flex;margin: 0 auto;width: 500px;">
                                                     @if(!login.isEmpty) {
                                                         @*сюда добавить проверку - голосовал ли пользователь за вино*@
+                                                        @if(item.isVote(item.getIdProduct,login ) != login){
+                                                           Ваша оценка @item.getUsersMark(item.getIdProduct,login).
 
-                                                        @helper.form(action = routes.WineController.newRating) {
-                                                            <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                            <input type="hidden" name="rating" value="1">
-
-                                                            <input type="submit" class="btn btn-danger" value="1" />
                                                         }
-                                                        @helper.form(action = routes.WineController.newRating) {
-                                                            <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                            <input type="hidden" name="rating" value="2">
+                                                        @if(item.isVote(item.getIdProduct,login )==login){
+                                                            @helper.form(action = routes.WineController.newRating) {
+                                                                <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                                <input type="hidden" name="rating" value="1">
 
-                                                            <input type="submit" class="btn btn-danger" value="2" />
-                                                        }
-                                                        @helper.form(action = routes.WineController.newRating) {
-                                                            <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                            <input type="hidden" name="rating" value="3">
+                                                                <input type="submit" class="btn btn-danger" value="1" />
+                                                            }
+                                                            @helper.form(action = routes.WineController.newRating) {
+                                                                <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                                <input type="hidden" name="rating" value="2">
 
-                                                            <input type="submit" class="btn btn-danger" value="3" />
-                                                        }
-                                                        @helper.form(action = routes.WineController.newRating) {
-                                                            <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                            <input type="hidden" name="rating" value="4">
+                                                                <input type="submit" class="btn btn-danger" value="2" />
+                                                            }
+                                                            @helper.form(action = routes.WineController.newRating) {
+                                                                <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                                <input type="hidden" name="rating" value="3">
 
-                                                            <input type="submit" class="btn btn-danger" value="4" />
-                                                        }
-                                                        @helper.form(action = routes.WineController.newRating) {
-                                                            <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                            <input type="hidden" name="rating" value="5">
+                                                                <input type="submit" class="btn btn-danger" value="3" />
+                                                            }
+                                                            @helper.form(action = routes.WineController.newRating) {
+                                                                <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                                <input type="hidden" name="rating" value="4">
 
-                                                            <input type="submit" class="btn btn-danger" value="5" />
+                                                                <input type="submit" class="btn btn-danger" value="4" />
+                                                            }
+                                                            @helper.form(action = routes.WineController.newRating) {
+                                                                <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                                <input type="hidden" name="rating" value="5">
+
+                                                                <input type="submit" class="btn btn-danger" value="5" />
+
                                                         }
+
+
+
+                                                        }
+
                                                     }
                                                     @if(login.isEmpty) {
                                                         <input type="submit" class="btn btn-danger" value="1" disabled />
@@ -405,12 +414,18 @@
                                         </div>
                                         <p>
                                             @if(!(login.isEmpty)) {
-                                                @helper.form(action = routes.BasketController.addIn(login, isAdmin, item.getIdProduct)) {
-                                                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                                                        height: 50px">
-                                                        <span class="glyphicon glyphicon-shopping-cart" ></span>
-                                                    </button>
+                                                @if(item.isAddingToBasket(item.getIdProduct,login)==login) {
+                                                    @helper.form(action = routes.BasketController.addIn(login, isAdmin, item.getIdProduct)) {
+                                                        <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                            height: 50px">
+                                                            <span class="glyphicon glyphicon-shopping-cart" ></span>
+                                                        </button>
+                                                    }
                                                 }
+                                                @if(item.isAddingToBasket(item.getIdProduct,login)!=login){
+                                                    Товар уже добавлен в корзину.
+                                                }
+
                                             }
                                             @if(login.isEmpty){
                                                 <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
