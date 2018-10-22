@@ -231,6 +231,10 @@
                     <input type="submit" value="Контакты">
                     }</a>
                 </li>
+                <li><a>@helper.form(action = routes.mainPageController.contactPage) {
+                    <input type="submit" value="Акции">
+                    }</a>
+                </li>
                 <li><a>@helper.form(action = routes.WineController.catalogPage) {
                     <input type="submit" value="Каталог">
                     }</a>
@@ -335,7 +339,7 @@
                                 @win.map { item =>
                                     <div class="product">
                                         <a href="#" class="product-img">
-                                            <img src="/assets/images/Casa Del Coppiere Vino Da Tavola.png" alt="" height="800" ></a>
+                                            <img src=@item.getLinkForProduct(item.getIdProduct) alt="" height="800" ></a>
                                         <p class="wineName">@item.getName</p>
                                         <p > @colomn(2):@item.getColour</p>
                                         <p > @colomn(3):@item.getCountry</p>
@@ -350,6 +354,15 @@
                                             Изменить</a>
                                             <a href="@routes.WineController.deleteWine(item.getIdProduct, login)" >
                                             Удалить </a>
+                                            @helper.form(action = routes.WineController.upload(item.getIdProduct), 'enctype -> "multipart/form-data") {
+
+                                                <input type="file" name="picture">
+
+                                                <p>
+                                                    <input type="submit">
+                                                </p>
+
+                                            }
                                         }
 
                                         <p class="product-price">@item.getPrice

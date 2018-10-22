@@ -4,7 +4,18 @@
         <title>
             Редактирование товара
         </title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/style.css")">
+        @*<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/style.css")">*@
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/search.css")">
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
+
+        @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
+        <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </head>
     <body>
         @*<a href="@routes.WineController.catalogPage(login,true)" class = "link">На главную страницу </a>*@
@@ -12,7 +23,7 @@
 
         @helper.form(action = routes.WineController.updateWineInfo(win.getIdProduct,login), 'id -> "slick-login"){
 
-            <table>
+            <>
                 <tr>
                     <td> Название:  </td> <td>@helper.inputText(form("name"),'_showConstraints ->false)</td>
                 </tr>
@@ -42,6 +53,15 @@
                 </tr>
                 <tr>
                     <td> Крепость: </td> <td>  @helper.inputText(form("degree"),'_showConstraints ->false)</td>
+                </tr>
+
+                <tr>
+                    @*<td> fike: </td> <td>  @helper.inputFile(form("file"),'_showConstraints ->false)</td>*@
+                    @*<form enctype="multipart/form-data"  >*@
+                        @*<p>Загрузите фото вина</p>*@
+                            @*<input type="file" name="photo" multiple accept="image/*.image/png">*@
+                    @*</form>*@
+
                 </tr>
             </table>
 

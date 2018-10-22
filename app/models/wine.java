@@ -91,6 +91,11 @@ public class wine implements Constraints.Validatable<String> {
     public Integer getIdProduct() {
         return idProduct;
     }
+    public String getLinkForProduct(Integer idProduct)
+    {
+        String link="/assets/images/wines/"+idProduct+".png";
+        return link;
+    }
 
     public void setIdProduct(Integer idProduct) {
         this.idProduct = idProduct;
