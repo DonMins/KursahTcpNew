@@ -8,10 +8,12 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import scala.collection.JavaConverters;
 
 import javax.inject.Inject;
+import java.io.File;
 import java.util.*;
 
 import static controllers.mainPageController.getSessionLogin;
@@ -29,6 +31,7 @@ public class WineController extends Controller {
     FormFactory formFactory;
 
     public Result catalogPage(){
+
         LOGIN = getSessionLogin();
         ADMIN = getSessionAdmin();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
@@ -47,6 +50,23 @@ public class WineController extends Controller {
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
                 ,asScalaBuffer(winList),LOGIN,ADMIN,form,form2,error,wineForm,updateform,us,searchForm));
+    }
+
+    public Result upload(Integer idProduct) {
+        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
+        System.out.println("WWOOOOORK");
+        if (picture != null) {
+            String fileName = picture.getFilename();
+            String contentType = picture.getContentType();
+            File file = picture.getFile();
+            File newFile = new File(play.Play.application().path().toString() + "//public//images//wines//"+ idProduct+ ".png" );
+            file.renameTo(newFile);
+            return redirect(routes.WineController.catalogPage());
+        } else {
+            flash("error", "Missing file");
+            return badRequest();
+        }
     }
 
 
@@ -532,6 +552,7 @@ public class WineController extends Controller {
 
     }
     public Result updateWineInfo(Integer id,String login){
+
         wine Win = wine.find.byId(id);
         List<wine> winList = wine.find.all();
         List<String> nameColomn = new ArrayList<>();
@@ -612,4 +633,6 @@ public class WineController extends Controller {
     }
 
 }
+
+
 

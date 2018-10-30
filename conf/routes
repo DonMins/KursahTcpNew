@@ -69,6 +69,8 @@ POST        /updateWine                               controllers.WineController
 POST        /basketPage                               controllers.BasketController.basketPage
 GET        /basketPage                               controllers.BasketController.basketPage
 
+GET       /salePage                                    controllers.SaleController.showSales
+
 GET         /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
 GET         /basketDelete/:id/:login/:isAdmin         controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)
 + nocsrf

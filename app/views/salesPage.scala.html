@@ -1,4 +1,4 @@
-@(sale: sale,login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Integer)
+@(Sale:Seq[Sale],login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], sale: Sale,error:Integer)
 <html>
 
     <head>
@@ -147,19 +147,118 @@
             <br>
             <br>
 
+                @*вывод строки*@
+            @display(i: Int) = @{
+                val it = Sale
+                it(i)
+            }
 
-            <table class="wine">
-                <div class="card">
-                    <div class="card-body">
-                        <p>Номер телефона - 555-55-55</p>
-                        <p>E-mail - DonMins@@yandex.ru</p>
-                        <p>Адрес - г.Самара, ул. Любительская, д. 13, 1 этаж</p>
-                        <p>Часы работы - Пн.-Пт.: 9:00 - 21:00</p>
-                        <p>              Сб.-Вт.: 10:00 - 18:00</p>
+
+
+
+            <div id="main"><!— Основной раздел содержимого —>
+                <section id="content"><!— Основной подраздел содержимого —>
+                    <div id="left">
+
+                        <ul>
+                            @Sale.map { item =>
+                            <li>
+                                <div class="img"><a href="#"><img alt="" src="images/post1.jpg"></a></div>
+                                <div class="info">
+                                    <p> Акция на вино @item.getWine(item.getIdProduct)</p>
+                                    <p>@item.getText</p>
+                                    @*<div class="price">*@
+                                        @*<span class="st">Our price:</span><strong>$550.00</strong>*@
+                                    @*</div>*@
+
+                                    @if(isAdmin){
+                                        <div class="actions">@item.getText
+                                            тут хелпер писать с переходом в функцию на котроллере которая
+                                            будет перезаписывать данные в базе и плюс чтобы старые данные отобрадались сразу в о
+                                            <p><textarea rows="10" cols="45" name="text">@item.getText</textarea></p>
+                                            <a href="#">Изменить</a>
+                                            <a href="#">Удалить</a>
+                                        </div>
+
+                                    }
+
+                                </div>
+                            </li>
+                            @*<li>*@
+                                @*<div class="img"><a href="#"><img alt="" src="images/post2.jpg"></a></div>*@
+                                @*<div class="info">*@
+                                    @*<a class="title" href="#">Product 2</a>*@
+                                    @*<p>long description here 2</p>*@
+                                    @*<div class="price">*@
+                                        @*<span class="st">Our price:</span><strong>$250.00</strong>*@
+                                    @*</div>*@
+                                    @*<div class="actions">*@
+                                        @*<a href="#">Details</a>*@
+                                        @*<a href="#">Add to cart</a>*@
+                                    @*</div>*@
+                                @*</div>*@
+                            @*</li>*@
+                            @*<li>*@
+                                @*<div class="img"><a href="#"><img alt="" src="images/post3.jpg"></a></div>*@
+                                @*<div class="info">*@
+                                    @*<a href="#">Product 3</a>*@
+                                    @*<p>long description here 3</p>*@
+                                    @*<div class="price">*@
+                                        @*<span class="st">Our price:</span><strong>$350.00</strong>*@
+                                    @*</div>*@
+                                    @*<div class="actions">*@
+                                        @*<a href="#">Details</a>*@
+                                        @*<a href="#">Add to cart</a>*@
+                                    @*</div>*@
+                                @*</div>*@
+                            @*</li>*@
+                            @*<li>*@
+                                @*<div class="img"><a href="#"><img alt="" src="images/post4.jpg"></a></div>*@
+                                @*<div class="info">*@
+                                    @*<a class="title" href="#">Product 4</a>*@
+                                    @*<p>long description here 1</p>*@
+                                    @*<div class="price">*@
+                                        @*<span class="st">Our price:</span><strong>$550.00</strong>*@
+                                    @*</div>*@
+                                    @*<div class="actions">*@
+                                        @*<a href="#">Details</a>*@
+                                        @*<a href="#">Add to cart</a>*@
+                                    @*</div>*@
+                                @*</div>*@
+                            @*</li>*@
+                            @*<li>*@
+                                @*<div class="img"><a href="#"><img alt="" src="images/post5.jpg"></a></div>*@
+                                @*<div class="info">*@
+                                    @*<a class="title" href="#">Product 5</a>*@
+                                    @*<p>long description here 2</p>*@
+                                    @*<div class="price">*@
+                                        @*<span class="st">Our price:</span><strong>$250.00</strong>*@
+                                    @*</div>*@
+                                    @*<div class="actions">*@
+                                        @*<a href="#">Details</a>*@
+                                        @*<a href="#">Add to cart</a>*@
+                                    @*</div>*@
+                                @*</div>*@
+                            @*</li>*@
+                            @*<li>*@
+                                @*<div class="img"><a href="#"><img alt="" src="images/post6.jpg"></a></div>*@
+                                @*<div class="info">*@
+                                    @*<a class="title" href="#">Product 6</a>*@
+                                    @*<p>long description here 3</p>*@
+                                    @*<div class="price">*@
+                                        @*<span class="st">Our price:</span><strong>$350.00</strong>*@
+                                    @*</div>*@
+                                    @*<div>*@
+                                        @*<a href="#">Details</a>*@
+                                        @*<a href="#">Add to cart</a>*@
+                                    @*</div>*@
+                                @*</div>*@
+                            @*</li>*@
+                            }
+                        </ul>
                     </div>
-                </div>
-
-
-            </table>
+                </section>
+        </div>
         </div>
     </body>
+</html>
