@@ -13,7 +13,7 @@ import java.util.Set;
 @Constraints.Validate
 @Entity
 @Table(name = "sales", schema = "public")
-public class Sale {
+public class Sale implements Constraints.Validatable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public.rating_id_user_id_seq")
 
@@ -73,5 +73,19 @@ public class Sale {
             }
         }
         return parametrs;
+    }
+    public String getLinkForProduct(Integer idSale)
+    {
+        String link="/assets/images/sales/"+idSale+".png";
+        return link;
+    }
+
+    @Override
+    public String validate() {
+        List<Sale> sale = Ebean.find(Sale.class).where().eq("id_sale", idSales).findList();
+        if (sale.isEmpty()) {
+            return null;
+        }
+        return "акция с таким id уже существует";
     }
 }

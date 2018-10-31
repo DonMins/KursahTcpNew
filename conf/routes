@@ -70,6 +70,14 @@ POST        /basketPage                               controllers.BasketControll
 GET        /basketPage                               controllers.BasketController.basketPage
 
 GET       /salePage                                    controllers.SaleController.showSales
+GET       /salePage/:idSale/:idProduct         controllers.SaleController.changeSale(idSale:Integer, idProduct:Integer)
++ nocsrf
+POST       /salePage/:idSale/:idProduct          controllers.SaleController.changeSale(idSale:Integer, idProduct:Integer)
++ nocsrf
+POST         /salePage/:id                               controllers.SaleController.upload(id:Integer)
++ nocsrf
+GET       /salePage/:idSale                                    controllers.SaleController.deleteSale(idSale: Integer)
+GET       /addSale                                 controllers.SaleController.newSale
 
 GET         /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
 GET         /basketDelete/:id/:login/:isAdmin         controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)

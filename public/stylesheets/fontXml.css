@@ -1,6 +1,6 @@
 body{
     background: url("/assets/images/font.jpg");
-    color: yellow;
+    color: blueviolet;
 }
 TABLE {
     margin-top: 0%;/*150*/
@@ -16,7 +16,7 @@ TD, TH {
     padding: 3px; /* Поля вокруг содержимого таблицы */
     border: 1px solid white; /* Параметры рамки */
     text-align: center;
-    color: yellow;
+    color: black;
 }
 
 TH {

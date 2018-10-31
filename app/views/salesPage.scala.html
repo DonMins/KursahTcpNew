@@ -1,4 +1,4 @@
-@(Sale:Seq[Sale],login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], sale: Sale,error:Integer)
+@(Sale:Seq[Sale],login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], sale: Sale,error:Integer,saleForm:play.data.Form[Sale])
 <html>
 
     <head>
@@ -98,6 +98,35 @@
                 </script>
             }
 
+            <a href="#x" class="overlay" id="win3" ></a>
+            <div class="popup" style="overflow-y: scroll;
+                max-height: 100%;
+                margin-top: 0;
+                margin-bottom: 50px;
+                top: 0px ">
+
+                <div class="modal-header">
+
+                    <h1 class="modal-title">Добавление акции</h1>
+                </div>
+
+                <br>
+
+
+                @helper.form(action = routes.SaleController.newSale(), 'id -> "slick-login") {
+                    @helper.inputText(saleForm("idProduct"), '_showConstraints -> false, 'placeholder -> "Id продукта по акции")
+                    @helper.inputText(saleForm("text"), '_showConstraints -> false, 'placeholder -> "Условия акции")
+
+                    <div class="modal-footer">
+                        <input type ="submit" value="Создать">
+                    </div>
+
+                }
+
+                <a class="close" title="Закрыть" href="#close"></a>
+            </div>
+
+
             <p></p>
             <ul class="menu" >
                 <li> <a href=#>Личный кабинет </a>
@@ -163,97 +192,51 @@
                         <ul>
                             @Sale.map { item =>
                             <li>
-                                <div class="img"><a href="#"><img alt="" src="images/post1.jpg"></a></div>
+                                <div class="img"><a href="#"><img alt="" src=@item.getLinkForProduct(item.getIdSales)></a></div>
                                 <div class="info">
                                     <p> Акция на вино @item.getWine(item.getIdProduct)</p>
+                                    @if(!isAdmin){
                                     <p>@item.getText</p>
+                                    }
                                     @*<div class="price">*@
                                         @*<span class="st">Our price:</span><strong>$550.00</strong>*@
                                     @*</div>*@
 
                                     @if(isAdmin){
-                                        <div class="actions">@item.getText
-                                            тут хелпер писать с переходом в функцию на котроллере которая
-                                            будет перезаписывать данные в базе и плюс чтобы старые данные отобрадались сразу в о
-                                            <p><textarea rows="10" cols="45" name="text">@item.getText</textarea></p>
-                                            <a href="#">Изменить</a>
-                                            <a href="#">Удалить</a>
+                                        <div class="actions">
+
+                                            @helper.form(action = routes.SaleController.changeSale(item.getIdSales, item.getIdProduct)) {
+                                                <p><textarea rows="5" cols="25" name="getText" >@item.getText</textarea></p>
+
+                                                <input type="submit" class="btn btn-danger" value="Изменить" />
+                                            }
+                                            @helper.form(action = routes.SaleController.deleteSale(item.getIdSales)) {
+                                                <input type="submit" class="btn btn-danger" value="Удалить" />
+                                            }
+                                            <a href="#win3" class="button button-green">Добавить акцию</a>
+
+                                            @helper.form(action = routes.SaleController.upload(item.getIdSales), 'enctype -> "multipart/form-data") {
+
+                                                <input type="file" name="picture">
+
+                                                <p>
+                                                    <input type="submit">
+                                                </p>
+
+                                            }
+
+
+
+
+
+
                                         </div>
 
                                     }
 
                                 </div>
                             </li>
-                            @*<li>*@
-                                @*<div class="img"><a href="#"><img alt="" src="images/post2.jpg"></a></div>*@
-                                @*<div class="info">*@
-                                    @*<a class="title" href="#">Product 2</a>*@
-                                    @*<p>long description here 2</p>*@
-                                    @*<div class="price">*@
-                                        @*<span class="st">Our price:</span><strong>$250.00</strong>*@
-                                    @*</div>*@
-                                    @*<div class="actions">*@
-                                        @*<a href="#">Details</a>*@
-                                        @*<a href="#">Add to cart</a>*@
-                                    @*</div>*@
-                                @*</div>*@
-                            @*</li>*@
-                            @*<li>*@
-                                @*<div class="img"><a href="#"><img alt="" src="images/post3.jpg"></a></div>*@
-                                @*<div class="info">*@
-                                    @*<a href="#">Product 3</a>*@
-                                    @*<p>long description here 3</p>*@
-                                    @*<div class="price">*@
-                                        @*<span class="st">Our price:</span><strong>$350.00</strong>*@
-                                    @*</div>*@
-                                    @*<div class="actions">*@
-                                        @*<a href="#">Details</a>*@
-                                        @*<a href="#">Add to cart</a>*@
-                                    @*</div>*@
-                                @*</div>*@
-                            @*</li>*@
-                            @*<li>*@
-                                @*<div class="img"><a href="#"><img alt="" src="images/post4.jpg"></a></div>*@
-                                @*<div class="info">*@
-                                    @*<a class="title" href="#">Product 4</a>*@
-                                    @*<p>long description here 1</p>*@
-                                    @*<div class="price">*@
-                                        @*<span class="st">Our price:</span><strong>$550.00</strong>*@
-                                    @*</div>*@
-                                    @*<div class="actions">*@
-                                        @*<a href="#">Details</a>*@
-                                        @*<a href="#">Add to cart</a>*@
-                                    @*</div>*@
-                                @*</div>*@
-                            @*</li>*@
-                            @*<li>*@
-                                @*<div class="img"><a href="#"><img alt="" src="images/post5.jpg"></a></div>*@
-                                @*<div class="info">*@
-                                    @*<a class="title" href="#">Product 5</a>*@
-                                    @*<p>long description here 2</p>*@
-                                    @*<div class="price">*@
-                                        @*<span class="st">Our price:</span><strong>$250.00</strong>*@
-                                    @*</div>*@
-                                    @*<div class="actions">*@
-                                        @*<a href="#">Details</a>*@
-                                        @*<a href="#">Add to cart</a>*@
-                                    @*</div>*@
-                                @*</div>*@
-                            @*</li>*@
-                            @*<li>*@
-                                @*<div class="img"><a href="#"><img alt="" src="images/post6.jpg"></a></div>*@
-                                @*<div class="info">*@
-                                    @*<a class="title" href="#">Product 6</a>*@
-                                    @*<p>long description here 3</p>*@
-                                    @*<div class="price">*@
-                                        @*<span class="st">Our price:</span><strong>$350.00</strong>*@
-                                    @*</div>*@
-                                    @*<div>*@
-                                        @*<a href="#">Details</a>*@
-                                        @*<a href="#">Add to cart</a>*@
-                                    @*</div>*@
-                                @*</div>*@
-                            @*</li>*@
+
                             }
                         </ul>
                     </div>
