@@ -1,4 +1,4 @@
-@(Sale:Seq[Sale],login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], sale: Sale,error:Integer,saleForm:play.data.Form[Sale])
+@(Sale:Seq[Sale],login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], sale: Sale,error:Integer,saleForm:play.data.Form[Sale],wineList:Seq[String])
 <html>
 
     <head>
@@ -115,6 +115,15 @@
 
                 @helper.form(action = routes.SaleController.newSale(), 'id -> "slick-login") {
                     @helper.inputText(saleForm("idProduct"), '_showConstraints -> false, 'placeholder -> "Id продукта по акции")
+                    @helper.select(
+                        saleForm("game_duration"),
+                        helper.options(wineList),
+                        '_label -> "Game duration", '_default -> "-- Select duration --"
+                    )
+
+
+
+
                     @helper.inputText(saleForm("text"), '_showConstraints -> false, 'placeholder -> "Условия акции")
 
                     <div class="modal-footer">
