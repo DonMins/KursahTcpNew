@@ -34,12 +34,24 @@ public class SaleController extends Controller {
     public Result showSales(){
         LOGIN = getSessionLogin();
         ADMIN = getSessionAdmin();
+        String name = "";
+
+        List< String> wineList =new ArrayList<String>();
+
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         Form<Sale> saleForm = formFactory.form(Sale.class);
         Sale sale = new Sale();
         List<Sale> saleList = Sale.find.all();
-        return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale,error,saleForm));
+        for(int i =0 ; i<saleList.size();i++)
+        {
+            name=saleList.get(i).getWine(saleList.get(i).getIdProduct());
+            System.out.println(name);
+            wineList.add(i,name);
+        }
+
+
+        return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale,error,saleForm,asScalaBuffer(wineList)));
     }
     public Result changeSale(Integer idSale, Integer idProduct)
     {
@@ -57,7 +69,7 @@ public class SaleController extends Controller {
 
 
         if(form.hasErrors() || form.hasGlobalErrors()){
-            return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale1,1,saleForm));
+            return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale1,1,saleForm,null));
         }
         sale.setText(text);
         sale.setIdProduct(idProduct);
