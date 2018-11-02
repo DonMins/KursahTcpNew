@@ -68,6 +68,7 @@ POST        /updateWine                               controllers.WineController
 + nocsrf
 POST        /basketPage                               controllers.BasketController.basketPage
 GET        /basketPage                               controllers.BasketController.basketPage
+GET        /buyProduct                           controllers.BasketController.buyProducts
 
 GET       /salePage                                    controllers.SaleController.showSales
 GET       /salePage/:idSale/:idProduct         controllers.SaleController.changeSale(idSale:Integer, idProduct:Integer)

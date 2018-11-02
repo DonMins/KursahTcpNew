@@ -111,5 +111,31 @@ public class BasketController extends Controller {
         basket.find.deleteById(parametrs);
         return redirect(routes.BasketController.basketPage());
     }
+    public Result buyProducts(){
+        String login = mainPageController.getSessionLogin();
+        String sql2 = "select sum(price) from public.wine where id_product in (select id_product from public.basket where login="+ "'" + login +"'"+")";
+        SqlQuery maxId = Ebean.createSqlQuery(sql2);
+        List<SqlRow> mId = maxId.findList();
+        double sumProduct  = 0;
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                sumProduct = Double.parseDouble(row2.getString(s));
+            }
+        }
+        Random rnd = new Random();
+        int orderNumber = 100000 + rnd.nextInt(900000);
+        String stringOrderNumber = "Оплачено "+ sumProduct+ "  рублей " +
+                "№ заказа : "+login+String.valueOf(orderNumber);
 
+        String sqlDelete = "delete from public.basket where login ="+ "'" + login +"'";
+        List<String> message = new ArrayList<String>();
+        List<wine> win = new ArrayList<>();
+        message.add(stringOrderNumber);
+        Ebean.find(basket.class).where().eq("login" , login).delete();
+        Form<LoginForm> form = formFactory.form(LoginForm.class);
+        Form<User> form2 = formFactory.form(User.class);
+        return ok(views.html.basketPage.render(login,mainPageController.getSessionAdmin(), JavaConverters.asScalaBuffer(message)
+                ,JavaConverters.asScalaBuffer(win),form,form2,3));
+    }
 }

@@ -212,6 +212,14 @@
             <tr>
                 <td>
                 @if(sizeItems() != 0) {
+                    @if(error!=3) {
+                        <th>
+                            <button onclick="window.location.href = '@routes.BasketController.buyProducts()'"
+                            type="submit"> Купить
+
+                            </button>
+                        </th>
+                    }
                     <table class="wine1">
                         <tr>
                         @for(j <- 1 to sizeItems) {

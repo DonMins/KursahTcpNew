@@ -16,7 +16,7 @@ TD, TH {
     padding: 3px; /* Поля вокруг содержимого таблицы */
     border: 1px solid white; /* Параметры рамки */
     text-align: center;
-    color: black;
+    color: blue;
 }
 
 TH {
