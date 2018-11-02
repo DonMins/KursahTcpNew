@@ -20,16 +20,16 @@ public class Sale implements Constraints.Validatable<String> {
     @Column(name = "id_sale")
     private Integer idSales;
 
-    @Column(name = "id_product")
-    private Integer idProduct;
+    @Column(name = "head")
+    private String  head;
 
     @Column(name = "text")
     private String text;
 
     public Sale(){}
 
-    public Sale(Integer idSales, Integer idProduct, String text) {
-        this.idProduct = idProduct;
+    public Sale(Integer idSales, String head, String text) {
+        this.head = head;
         this.idSales = idSales;
         this.text = text;
     }
@@ -44,12 +44,12 @@ public class Sale implements Constraints.Validatable<String> {
         this.idSales = idSales;
     }
 
-    public Integer getIdProduct() {
-        return idProduct;
+    public String getHead() {
+        return head;
     }
 
-    public void setIdProduct(Integer idProduct) {
-        this.idProduct = idProduct;
+    public void setHead(String head) {
+        this.head= head;
     }
 
     public String getText() {
@@ -59,21 +59,7 @@ public class Sale implements Constraints.Validatable<String> {
     public void setText(String text) {
         this.text = text;
     }
-    public String getWine(Integer idProduct) {
-        String parametrs= null;
-        String sql1 = "Select wine.name from public.wine, public.rating where" +
-                " wine.id_product=rating.id_product and rating.id_product ="+idProduct;
-        SqlQuery maxId = Ebean.createSqlQuery(sql1);
 
-        List<SqlRow> mId = maxId.findList();
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                parametrs = row2.getString(s);
-            }
-        }
-        return parametrs;
-    }
     public String getLinkForProduct(Integer idSale)
     {
         String link="/assets/images/sales/"+idSale+".png";

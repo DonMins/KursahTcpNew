@@ -36,24 +36,19 @@ public class SaleController extends Controller {
         ADMIN = getSessionAdmin();
         String name = "";
 
-        List< String> wineList =new ArrayList<String>();
+
 
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         Form<Sale> saleForm = formFactory.form(Sale.class);
         Sale sale = new Sale();
         List<Sale> saleList = Sale.find.all();
-        for(int i =0 ; i<saleList.size();i++)
-        {
-            name=saleList.get(i).getWine(saleList.get(i).getIdProduct());
-            System.out.println(name);
-            wineList.add(i,name);
-        }
 
 
-        return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale,error,saleForm,asScalaBuffer(wineList)));
+
+        return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale,error,saleForm));
     }
-    public Result changeSale(Integer idSale, Integer idProduct)
+    public Result changeSale(Integer idSale)
     {
         LOGIN = getSessionLogin();
         ADMIN = getSessionAdmin();
@@ -69,10 +64,10 @@ public class SaleController extends Controller {
 
 
         if(form.hasErrors() || form.hasGlobalErrors()){
-            return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale1,1,saleForm,null));
+            return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale1,1,saleForm));
         }
         sale.setText(text);
-        sale.setIdProduct(idProduct);
+
 
         Ebean.update(sale);
 
@@ -83,7 +78,8 @@ public class SaleController extends Controller {
     }
     public Result deleteSale(Integer idSale)
     {
-        Sale.find.deleteById(idSale);
+        Ebean.find(Sale.class).where().eq("id_sale" , idSale).delete();
+       // Sale.find.deleteById(idSale);
         return redirect(routes.SaleController.showSales());
     }
     public Result newSale(){
@@ -107,11 +103,10 @@ public class SaleController extends Controller {
         Sale sale1 = new Sale();
 
         sale1.setIdSales((id+1));
-        sale1.setIdProduct(Integer.parseInt(rawdata.get("idProduct")));
+       sale1.setHead(rawdata.get("head"));
         sale1.setText(rawdata.get("text"));
-        if ((rawdata.get("idProduct").isEmpty())){
-            sale1.setIdProduct(null);
-        }
+
+
                 Ebean.save(sale1);
 
 
