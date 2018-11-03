@@ -114,7 +114,7 @@
 
 
                 @helper.form(action = routes.SaleController.newSale(), 'id -> "slick-login") {
-                    @helper.inputText(saleForm("head"), '_showConstraints -> false, 'placeholder -> "Заголовок акции")
+                    @helper.inputText(saleForm("idProduct"), '_showConstraints -> false, 'placeholder -> "Id продукта по акции")
                     @helper.inputText(saleForm("text"), '_showConstraints -> false, 'placeholder -> "Условия акции")
 
                     <div class="modal-footer">
@@ -176,7 +176,11 @@
             <br>
             <br>
 
-
+                @*вывод строки*@
+            @display(i: Int) = @{
+                val it = Sale
+                it(i)
+            }
 
 
 
@@ -190,7 +194,7 @@
                             <li>
                                 <div class="img"><a href="#"><img alt="" src=@item.getLinkForProduct(item.getIdSales)></a></div>
                                 <div class="info">
-                                    <p> @item.getHead</p>
+                                    <p> Акция на вино @item.getWine(item.getIdProduct)</p>
                                     @if(!isAdmin){
                                     <p>@item.getText</p>
                                     }
@@ -201,7 +205,7 @@
                                     @if(isAdmin){
                                         <div class="actions">
 
-                                            @helper.form(action = routes.SaleController.changeSale(item.getIdSales)) {
+                                            @helper.form(action = routes.SaleController.changeSale(item.getIdSales, item.getIdProduct)) {
                                                 <p><textarea rows="5" cols="25" name="getText" >@item.getText</textarea></p>
 
                                                 <input type="submit" class="btn btn-danger" value="Изменить" />
