@@ -1,4 +1,3 @@
-
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
@@ -77,12 +76,11 @@ POST       /salePage/:idSale         controllers.SaleController.changeSale(idSal
 + nocsrf
 POST         /salePage/:id                               controllers.SaleController.upload(id:Integer)
 + nocsrf
-GET       /salePage/:idSale                                    controllers.SaleController.deleteSale(idSale: Integer)
+GET       /delsalePage/:idSale                                    controllers.SaleController.deleteSale(idSale: Integer)
 GET       /addSale                                 controllers.SaleController.newSale
 
 GET         /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
 GET         /basketDelete/:id/:login/:isAdmin         controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)
 + nocsrf
 POST        /newWineRaring          controllers.WineController.newRating
-
 

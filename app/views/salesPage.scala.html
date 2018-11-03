@@ -114,7 +114,7 @@
 
 
                 @helper.form(action = routes.SaleController.newSale(), 'id -> "slick-login") {
-                    @helper.inputText(saleForm("idProduct"), '_showConstraints -> false, 'placeholder -> "Id продукта по акции")
+                    @helper.inputText(saleForm("head"), '_showConstraints -> false, 'placeholder -> "Заголовок акции")
                     @helper.inputText(saleForm("text"), '_showConstraints -> false, 'placeholder -> "Условия акции")
 
                     <div class="modal-footer">
@@ -176,11 +176,7 @@
             <br>
             <br>
 
-                @*вывод строки*@
-            @display(i: Int) = @{
-                val it = Sale
-                it(i)
-            }
+
 
 
 
@@ -190,22 +186,22 @@
                     <div id="left">
 
                         <ul>
-                            @Sale.map { item =>
+                        @Sale.map { item =>
                             <li>
                                 <div class="img"><a href="#"><img alt="" src=@item.getLinkForProduct(item.getIdSales)></a></div>
                                 <div class="info">
-                                    <p> Акция на вино @item.getWine(item.getIdProduct)</p>
+                                    <p> @item.getHead</p>
                                     @if(!isAdmin){
-                                    <p>@item.getText</p>
+                                        <p>@item.getText</p>
                                     }
                                     @*<div class="price">*@
-                                        @*<span class="st">Our price:</span><strong>$550.00</strong>*@
+                                    @*<span class="st">Our price:</span><strong>$550.00</strong>*@
                                     @*</div>*@
 
                                     @if(isAdmin){
                                         <div class="actions">
 
-                                            @helper.form(action = routes.SaleController.changeSale(item.getIdSales, item.getIdProduct)) {
+                                            @helper.form(action = routes.SaleController.changeSale(item.getIdSales)) {
                                                 <p><textarea rows="5" cols="25" name="getText" >@item.getText</textarea></p>
 
                                                 <input type="submit" class="btn btn-danger" value="Изменить" />
@@ -237,11 +233,11 @@
                                 </div>
                             </li>
 
-                            }
+                        }
                         </ul>
                     </div>
                 </section>
-        </div>
+            </div>
         </div>
     </body>
 </html>
