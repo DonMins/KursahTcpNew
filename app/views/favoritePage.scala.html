@@ -1,19 +1,25 @@
-@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Integer,contact:Seq[Contact])
-<html>
-
+@(login: String, isAdmin: Boolean, nameColomn: Seq[String], win: Seq[wine], LoginForm: play.data.Form[LoginForm],
+        registrationForm: play.data.Form[User], error: Integer)
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
+        <title>Корзина</title>
 
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/search.css")">
         <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
-
+        @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
         <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
-
     </head>
     <body>
-        @if(!(login.isEmpty)){
+        @if(!(login.isEmpty)) {
             <div align="right">
 
                 Вы вошли как :@login
@@ -21,8 +27,11 @@
                 <br>
             </div>
         }
+
         <div align="center">
             <h2>Barton & Guestier</h2>
+
+            <p></p>
 
 
                 <!-- Модальное окно №1 -->
@@ -35,15 +44,12 @@
                     </div>
 
                     <br>
-                    @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-                    @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
+                    @helper.inputText(LoginForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
+                    @helper.inputPassword(LoginForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
 
                     <div class="modal-footer">
                         <input type ="submit" value="Войти">
                     </div>
-
-
-
 
                 }
                 <a class="close" title="Закрыть" href="#close"></a>
@@ -73,7 +79,6 @@
                 }
                 <a class="close" title="Закрыть" href="#close"></a>
             </div>
-
 
             @if(error == 1 || error == 2) {
                     <!-- Модальное окно при загрузке -->
@@ -107,6 +112,7 @@
             }
 
             <p></p>
+
             <ul class="menu" >
                 <li> <a href=#>Личный кабинет </a>
                     <ul class="submenu">
@@ -126,8 +132,7 @@
             </ul>
             <ul id="nav">
 
-
-                <li><a>@helper.form(action = routes.ContactController.contactPage) {
+                <li><a>@helper.form(action = routes.mainPageController.contactPage) {
                     <input type="submit" value="Контакты">
                     }</a>
                 </li>
@@ -135,65 +140,122 @@
                     <input type="submit" value="Каталог">
                     }</a>
                 </li>
-                <li><a>@helper.form(action = routes.mainPageController.projectPage2) {
-
-                    <input type="submit" value="О проекте">
-                    }</a></li>
+                <li><a> @helper.form(action = routes.mainPageController.projectPage2) {
+                    <input type="submit" value="О проекте ">
+                    }
+                </a>
+                </li>
                 <li><a>@helper.form(action = routes.BasketController.basketPage) {
-                    <input type="hidden" name="numberSql" value="0">
+                    <input type="hidden" name="numberSql" value="1">
+                    <input type="submit" value="Избранное">
+                    }</a>
+                </li>
 
-                    <input type="submit" value="Корзина">
-                    }</a></li>
                 @if(isAdmin) {
+                    @*<li><a href="@routes.WineController.renderAddWine(login)">Добавить товар </a></li>*@
+                    <li><a href="#win3" class="button button-green">Добавить товар</a></li>
                     <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
                 }
 
-
             </ul>
-            <br>
-            <br>
             <p></p>
-            <br>
-            <br>
+            <p></p>
+            <p></p>
 
-            <div id="main"><!— Основной раздел содержимого —>
+                @*вывод колонки*@
+            @colomn(i: Int) = @{
+                val it = nameColomn
+                it(i)
+            }
 
-                <section id="content"><!— Основной подраздел содержимого —>
-                    @contact.map { item =>
-                    @if(!isAdmin){
-                        <p>Номер телефона -  @item.getPhone</p>
-                        <p>E-mail - @item.getEmail</p>
-                        <p>Адрес - @item.getAdress</p>
-                        <p>Часы работы - @item.getWorkHours</p>
-                    }
-                    @if(isAdmin){
-                        @helper.form(action = routes.ContactController.changeContact(item.getIdContact)) {
-                            <p><textarea rows="1" cols="100" name="getPhone" style="color: black" >@item.getPhone</textarea></p>
-                            <p><textarea rows="1" cols="100" name="getEmail" style="color: black" >@item.getEmail</textarea></p>
-                            <p><textarea rows="1" cols="100" name="getAdress" style="color: black" >@item.getAdress</textarea></p>
-                            <p><textarea rows="1" cols="100" name="getWorkHours" style="color: black" >@item.getWorkHours</textarea></p>
+                @*вывод строки*@
+            @display(i: Int) = @{
+                val it = win
+                it(i)
+            }
 
-                            <input type="submit" class="btn btn-danger" style="" value="Изменить" />
-                        }
+                @*всего колонок*@
+            @sizeItems() = @{
+                if(nameColomn == null) {
+                    val tmp = 0
+                    tmp
+                }
+                else {
+                    val sizeItems = nameColomn.length
+                    sizeItems
+                }
+            }
 
-                    }
-                    }
+                @*количество страниц*@
+            @pages = @{
 
-            @*<table class="wine">*@
-                @*<div class="card">*@
-                    @*<div class="card-body">*@
-                        @*<p>Номер телефона - 555-55-55</p>*@
-                        @*<p>E-mail - DonMins@@yandex.ru</p>*@
-                        @*<p>Адрес - г.Самара, ул. Любительская, д. 13, 1 этаж</p>*@
-                        @*<p>Часы работы - Пн.-Вс.: 9:00 - 21:00</p>*@
-                        @*<p>              Сб.-Вт.: 10:00 - 18:00</p>*@
-                    @*</div>*@
-                @*</div>*@
-                </section>
-            </div>
+                sizeItems2() / sizeItems()
+
+            }
+
+                @*всего записываемых элементов*@
+            @sizeItems2() = @{
+                val sizeItems2 = win.length
+                sizeItems2
+
+            }
+
+                @*печатает название таблиц*@
+            @printCode(i: Int) = @{
+                val cod = "wine"
+                cod(i)
+            }
+
+            <table class="wine">
+                <tr>
+                    <td>
+                    @if(sizeItems() != 0) {
+
+                        <table class="wine1">
+                            <tr>
+                            @for(j <- 1 to sizeItems) {
+                                <th>@colomn(j - 1)</th>
+                            }
+                            </tr>
+                            <tr colspan="2"> @win.map { item =>
+
+                                <th>@item.getIdProduct</th>
+                                <th>@item.getName</th>
+                                <th>@item.getColour</th>
+                                <th>@item.getCountry</th>
+                                <th>@item.getBrand</th>
+                                <th>@item.getShelfLife</th>
+                                <th>@item.getSugar</th>
+                                <th>@item.getGrapeSort</th>
+                                <th>@item.getPrice</th>
+                                <th>@item.getValue</th>
+                                <th>@item.getDegree</th>
+
+                                <th>
+                                    <button onclick="window.location.href = '@routes.BasketController.deleteFromFavorite(item.getIdProduct,login)'"
+                                    type="submit" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </th>
 
 
+                            @if(isAdmin) {
+                                <th>
+                                    @*<li><a href="#win4" class="button button-green">Изменить</a></li>*@
 
+                                </th>
+                            }
+                            <tr></tr>
+                            }
+
+                        </table>
+                        </td>
+                    </tr>
+            </table>
+            }
+            @if(sizeItems() == 0) {
+                Нет товаров в избранном !
+            }
         </div>
     </body>
 </html>

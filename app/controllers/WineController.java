@@ -21,10 +21,6 @@ import static controllers.mainPageController.getSessionAdmin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class WineController extends Controller {
-
-
-    String LOGIN;
-    Boolean ADMIN;
     public static Integer error ;
     public List<wine> searchList = null;
     @Inject
@@ -32,33 +28,25 @@ public class WineController extends Controller {
 
     public Result catalogPage(){
 
-        LOGIN = getSessionLogin();
-        ADMIN = getSessionAdmin();
+        String login = getSessionLogin();
+        boolean admin = getSessionAdmin();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
         Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
-        search searchParam = searchForm.get();
         Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
-
         List<wine> winList = wine.find.all();
-
         List<String> nameColomn = new ArrayList<>();
         wine us = new wine();
-
         nameColomn = us.getNameColomn();
-
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),LOGIN,ADMIN,form,form2,error,wineForm,updateform,us,searchForm));
+                ,asScalaBuffer(winList),login,admin,form,form2,error,wineForm,updateform,us,searchForm));
     }
 
     public Result upload(Integer idProduct) {
         Http.MultipartFormData<File> body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
-        System.out.println("WWOOOOORK");
         if (picture != null) {
-//            String fileName = picture.getFilename();
-//            String contentType = picture.getContentType();
             File file = picture.getFile();
             File newFile = new File(play.Play.application().path().toString() + "//public//images//wines//"+ idProduct+ ".png" );
             file.renameTo(newFile);
@@ -68,7 +56,6 @@ public class WineController extends Controller {
             return badRequest();
         }
     }
-
 
     public Result sortCatalogPage(String login,boolean isAdmin,int sortNumber){
         Form<LoginForm> form = formFactory.form(LoginForm.class);
@@ -127,7 +114,6 @@ public class WineController extends Controller {
         });
         List<String> nameColomn = new ArrayList<>();
         wine us = new wine();
-
         nameColomn = us.getNameColomn();
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
@@ -457,11 +443,9 @@ public class WineController extends Controller {
         searchList = winList;
         List<String> nameColomn = new ArrayList<>();
         wine us = new wine();
-        LOGIN = getSessionLogin();
-        ADMIN = getSessionAdmin();
         nameColomn = us.getNameColomn();
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),LOGIN,ADMIN,form,form2,error,wineForm,updateform,us,searchForm));
+                ,asScalaBuffer(winList),getSessionLogin(),getSessionAdmin(),form,form2,error,wineForm,updateform,us,searchForm));
     }
     public Result deleteWine(Integer id,String login){
         wine.find.deleteById(id);
@@ -563,11 +547,9 @@ public class WineController extends Controller {
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
         Form<search> searchForm = formFactory.form(search.class);
-        LOGIN = getSessionLogin();
-        ADMIN = getSessionAdmin();
         if(form.hasErrors() || form.hasGlobalErrors()){
             return ok(views.html.catalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                    ,asScalaBuffer(winList),LOGIN, ADMIN,form,form2,1,wineForm,updateform, Win,searchForm));
+                    ,asScalaBuffer(winList),getSessionLogin(), getSessionAdmin(),form,form2,1,wineForm,updateform, Win,searchForm));
         }
         Map<String, String> rawdata = updateform.rawData();
         Win.setName(rawdata.get("name"));
