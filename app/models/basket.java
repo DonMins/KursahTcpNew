@@ -17,6 +17,16 @@ public class basket {
     @Id
     @Column(name = "id_basket")
     private Integer idBasket;
+    private  boolean favorite;
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     public Integer getIdBasket() {
         return idBasket;
     }

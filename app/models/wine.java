@@ -80,7 +80,7 @@ public class wine implements Constraints.Validatable<String> {
                 nameColomn.add(row3.getString(s));
             }
         }
-        nameColomn.add("Рейтинг");
+     //   nameColomn.add("Рейтинг");
         return nameColomn;
     }
 
@@ -241,7 +241,26 @@ public class wine implements Constraints.Validatable<String> {
     {
         String parametrs = null;
 
-        String sql ="SELECT login FROM basket where id_product=" + idProduct+" and login='"+login+"'";
+        String sql ="SELECT login FROM basket where id_product=" + idProduct+" and login='"+login+"' and favorite =false";
+        SqlQuery averageID = Ebean.createSqlQuery(sql);
+
+        List<SqlRow> mId = averageID.findList();
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                parametrs = row2.getString(s);
+            }
+        }
+        if (parametrs == null)
+            return login; // может голосовать
+        else
+            return "";// не может голосовать
+
+    }
+    public String isAddingToFavorite(Integer idProduct,String login)
+    {
+        String parametrs = null;
+        String sql ="SELECT login FROM basket where id_product=" + idProduct+" and login='"+login+"' and favorite = true";
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = averageID.findList();

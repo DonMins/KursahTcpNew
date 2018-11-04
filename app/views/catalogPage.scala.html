@@ -243,8 +243,9 @@
 
                     <input type="submit" value="О проекте">
                     }</a></li>
-                <li><a>@helper.form(action = routes.BasketController.basketPage()) {
+                <li><a>@helper.form(action = routes.BasketController.basketPage) {
 
+                    <input type="hidden" name="numberSql" value="0">
                     <input type="submit" value="Корзина">
                     }</a></li>
                 @if(isAdmin) {
@@ -438,7 +439,17 @@
                                                 @if(item.isAddingToBasket(item.getIdProduct,login)!=login){
                                                     Товар уже добавлен в корзину.
                                                 }
-
+                                                @if(item.isAddingToFavorite(item.getIdProduct,login)==login) {
+                                                    @helper.form(action = routes.BasketController.addInFavorite(login, item.getIdProduct)) {
+                                                        <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                            height: 50px">
+                                                            <span class="glyphicon glyphicon-heart" ></span>
+                                                        </button>
+                                                    }
+                                                }
+                                                @if(item.isAddingToFavorite(item.getIdProduct,login)!=login){
+                                                    Товар уже добавлен в избранное.
+                                                }
                                             }
                                             @if(login.isEmpty){
                                                 <button type="submit" class="btn btn-default btn-sm" style="width: 50px;

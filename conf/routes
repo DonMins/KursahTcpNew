@@ -64,8 +64,8 @@ POST        /updateWine                               controllers.WineController
 
 #controller provider
 + nocsrf
-POST        /basketPage                               controllers.BasketController.basketPage
-GET        /basketPage                               controllers.BasketController.basketPage
+POST        /basketPage                            controllers.BasketController.basketPage
+GET        /basketPage                              controllers.BasketController.basketPage
 GET        /buyProduct                           controllers.BasketController.buyProducts
 
 GET       /salePage                                    controllers.SaleController.showSales
@@ -79,7 +79,9 @@ GET       /delsalePage/:idSale                                    controllers.Sa
 GET       /addSale                                 controllers.SaleController.newSale
 
 GET         /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
+GET         /basketPageAdd/:login/:id        controllers.BasketController.addInFavorite(login:String, id:Integer)
 GET         /basketDelete/:id/:login/        controllers.BasketController.deleteFromBasket(id:Integer,login:String)
+GET         /favoriteDelete/:id/:login/        controllers.BasketController.deleteFromFavorite(id:Integer,login:String)
 + nocsrf
 POST        /newWineRaring          controllers.RatingController.newRating
 

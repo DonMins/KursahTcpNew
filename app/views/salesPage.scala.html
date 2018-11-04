@@ -160,8 +160,8 @@
 
                     <input type="submit" value="О проекте">
                     }</a></li>
-                <li><a>@helper.form(action = routes.BasketController.basketPage()) {
-
+                <li><a>@helper.form(action = routes.BasketController.basketPage) {
+                    <input type="hidden" name="numberSql" value="0">
                     <input type="submit" value="Корзина">
                     }</a></li>
                 @if(isAdmin) {
