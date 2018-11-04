@@ -18,17 +18,15 @@ import static controllers.WineController.searchParametrs;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class BasketController extends Controller {
-    protected String LOGIN ;
-    protected Boolean ADMIN;
     @Inject
     FormFactory formFactory;
 
     public Result basketPage(){
-        LOGIN = mainPageController.getSessionLogin();
-        ADMIN = mainPageController.getSessionAdmin();
+        String login = mainPageController.getSessionLogin();
+        boolean admin = mainPageController.getSessionAdmin();
         String sql1 = " select distinct wine.id_product from wine, basket,user" +
                 " where wine.id_product in(select basket.id_product " +
-                "from public.basket, public.user where public.basket.login = '"+LOGIN+"');";
+                "from public.basket, public.user where public.basket.login = '"+login+"');";
 
         String wineRating = "";
         SqlQuery maxId = Ebean.createSqlQuery(sql1);
@@ -77,7 +75,7 @@ public class BasketController extends Controller {
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
 
-        return ok(views.html.basketPage.render(LOGIN,ADMIN, JavaConverters.asScalaBuffer(nameColomn)
+        return ok(views.html.basketPage.render(login,admin, JavaConverters.asScalaBuffer(nameColomn)
                 ,asScalaBuffer(winList),form,form2,0));
     }
     public Result addIn(String login, boolean isAdmin,int id){
@@ -97,7 +95,7 @@ public class BasketController extends Controller {
         Ebean.save(bask);
         return redirect(routes.WineController.catalogPage());
     }
-    public Result deleteFromBasket(Integer id,String login,boolean isAdmin){
+    public Result deleteFromBasket(Integer id,String login){
         String sql2 = "select id_basket from public.basket where id_product="+id + "and login="+ "'" + login +"'";
         SqlQuery maxId = Ebean.createSqlQuery(sql2);
         List<SqlRow> mId = maxId.findList();

@@ -20,8 +20,6 @@ import static controllers.mainPageController.getSessionLogin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class RatingController extends Controller {
-    String LOGIN;
-    Boolean ADMIN;
     public static Integer error ;
     @Inject
     FormFactory formFactory;
@@ -61,7 +59,7 @@ public class RatingController extends Controller {
                 ,asScalaBuffer(ratingList)));
     }
     public Result newRating(){
-        LOGIN=getSessionLogin();
+        String login  = getSessionLogin();
         DynamicForm form = formFactory.form().bindFromRequest();
         int idProduct= Integer.parseInt(form.get("getIdProduct"));
         int ratingNew= Integer.parseInt(form.get("rating"));
@@ -72,7 +70,7 @@ public class RatingController extends Controller {
         String parametrs= null;
         int id_user=0;
 
-        String sql = "SELECT id FROM public.user where login ='"+LOGIN+"'";
+        String sql = "SELECT id FROM public.user where login ='"+login+"'";
         SqlQuery userID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = userID.findList();

@@ -8,14 +8,10 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
-
-
 import javax.inject.Inject;
 
-
 public class mainPageController extends Controller {
-    protected static String LOGIN ;
-    protected static boolean ADMIN ;
+
     protected static Integer error ;
 
     @Inject
@@ -56,10 +52,10 @@ public class mainPageController extends Controller {
 
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
-        LOGIN = getSessionLogin();
-        ADMIN = getSessionAdmin();
+        String login = getSessionLogin();
+        boolean admin = getSessionAdmin();
         error=0;
-        return ok(indexProjectPage.render(LOGIN,ADMIN,form,form2,error));
+        return ok(indexProjectPage.render(login,admin,form,form2,error));
     }
 
     public Result projectPage2(){
@@ -71,12 +67,12 @@ public class mainPageController extends Controller {
         newContact.setAdress("г.Самара, ул. Любительская, д. 13, 1 этаж");
         newContact.setContactNumber("555-55-55");
         newContact.setEmail("DonMins@yandex.ru");
-        LOGIN = getSessionLogin();
-        ADMIN = getSessionAdmin();
+        String login = getSessionLogin();
+        boolean admin = getSessionAdmin();
 
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
-        return ok(indexContactPage.render(LOGIN,ADMIN,form,form2,error));
+        return ok(indexContactPage.render(login,admin,form,form2,error));
     }
 
 }
