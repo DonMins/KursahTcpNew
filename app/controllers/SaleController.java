@@ -51,6 +51,7 @@ public class SaleController extends Controller {
         ADMIN = getSessionAdmin();
         DynamicForm dyForm = formFactory.form().bindFromRequest();
         String text= dyForm.get("getText");
+        String head= dyForm.get("getHead");
 
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
@@ -64,6 +65,7 @@ public class SaleController extends Controller {
             return ok(views.html.salesPage.render(asScalaBuffer(saleList),LOGIN,ADMIN,form,form2,sale1,1,saleForm));
         }
         sale.setText(text);
+        sale.setHead(head);
 
 
         Ebean.update(sale);

@@ -166,6 +166,7 @@
                     }</a></li>
                 @if(isAdmin) {
                     <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
+                    <li><a href="#win3" class="button button-green" >Добавить акцию</a></li>
                 }
 
 
@@ -182,7 +183,10 @@
 
 
             <div id="main"><!— Основной раздел содержимого —>
+
                 <section id="content"><!— Основной подраздел содержимого —>
+
+
                     <div id="left">
 
                         <ul>
@@ -190,33 +194,37 @@
                             <li>
                                 <div class="img"><a href="#"><img alt="" src=@item.getLinkForProduct(item.getIdSales)></a></div>
                                 <div class="info">
-                                    <p> @item.getHead</p>
+
                                     @if(!isAdmin){
+                                        <p> @item.getHead</p>
                                         <p>@item.getText</p>
                                     }
                                     @*<div class="price">*@
-                                    @*<span class="st">Our price:</span><strong>$550.00</strong>*@
+                                    @*<span class="st">Our price:</span><strong>$550.00</strong>*
                                     @*</div>*@
 
                                     @if(isAdmin){
                                         <div class="actions">
 
-                                            @helper.form(action = routes.SaleController.changeSale(item.getIdSales)) {
-                                                <p><textarea rows="5" cols="25" name="getText" >@item.getText</textarea></p>
 
-                                                <input type="submit" class="btn btn-danger" value="Изменить" />
+                                            @helper.form(action = routes.SaleController.changeSale(item.getIdSales)) {
+                                                <p><textarea rows="1" cols="25" name="getHead" style="color: black" >@item.getHead</textarea></p>
+                                                <p><textarea rows="5" cols="25" name="getText" style="color: black" >@item.getText</textarea></p>
+
+                                                <input type="submit" class="btn btn-danger" style="" value="Изменить" />
                                             }
                                             @helper.form(action = routes.SaleController.deleteSale(item.getIdSales)) {
-                                                <input type="submit" class="btn btn-danger" value="Удалить" />
+                                                <input type="submit" class="btn btn-danger"   value="Удалить" />
                                             }
-                                            <a href="#win3" class="button button-green">Добавить акцию</a>
+
+
 
                                             @helper.form(action = routes.SaleController.upload(item.getIdSales), 'enctype -> "multipart/form-data") {
 
                                                 <input type="file" name="picture">
 
                                                 <p>
-                                                    <input type="submit">
+                                                    <input type="submit" class="btn btn-danger">
                                                 </p>
 
                                             }
@@ -231,6 +239,7 @@
                                     }
 
                                 </div>
+
                             </li>
 
                         }

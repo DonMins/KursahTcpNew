@@ -600,37 +600,6 @@ public class WineController extends Controller {
 
         return redirect(routes.WineController.catalogPage());
     }
-    public Result newRating(){
-        LOGIN=getSessionLogin();
-        DynamicForm form = formFactory.form().bindFromRequest();
-        int idProduct= Integer.parseInt(form.get("getIdProduct"));
-        int ratingNew= Integer.parseInt(form.get("rating"));
-        System.out.println("It's working");
-        rating newRating = new rating();
-        newRating.setIdProduct(idProduct);
-
-        String parametrs= null;
-        int id_user=0;
-
-        String sql = "SELECT id FROM public.user where login ='"+LOGIN+"'";
-        SqlQuery userID = Ebean.createSqlQuery(sql);
-
-        List<SqlRow> mId = userID.findList();
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                parametrs = row2.getString(s);
-
-            }
-        }
-        id_user=Integer.parseInt(parametrs);
-
-        newRating.setIdUser(id_user);
-        newRating.setRating(ratingNew);
-        Ebean.save(newRating);
-
-        return redirect(routes.WineController.catalogPage());
-    }
 
 }
 
