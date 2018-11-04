@@ -13,7 +13,7 @@ import java.util.List;
 @Constraints.Validate
 @Entity
 @Table(name = "contact", schema = "public")
-public class contact implements Constraints.Validatable<String>  {
+public class Contact implements Constraints.Validatable<String>  {
     @Id
     @Column(name = "id_contact")
     private Integer idContact;
@@ -26,7 +26,7 @@ public class contact implements Constraints.Validatable<String>  {
     @Column(name = "workHours")
     private String workHours;
 
-    public contact(Integer idContact, String phone, String adress, String email, String workHours)
+    public Contact(Integer idContact, String phone, String adress, String email, String workHours)
     {
         this.idContact=idContact;
         this.phone=phone;
@@ -34,8 +34,8 @@ public class contact implements Constraints.Validatable<String>  {
         this.email=email;
         this.workHours=workHours;
     }
-    public contact(){}
-    public static Finder<Integer, contact> find = new Finder<>(contact.class);
+    public Contact(){}
+    public static Finder<Integer, Contact> find = new Finder<>(Contact.class);
 
     public Integer getIdContact(){return idContact;}
 
@@ -76,7 +76,7 @@ public class contact implements Constraints.Validatable<String>  {
     }
     @Override
     public String validate() {
-        List<contact> sale = Ebean.find(contact.class).where().eq("id_contact", idContact).findList();
+        List<Contact> sale = Ebean.find(Contact.class).where().eq("id_contact", idContact).findList();
         if (sale.isEmpty()) {
             return null;
         }
