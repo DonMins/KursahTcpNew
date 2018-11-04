@@ -36,5 +36,6 @@ public class Contact {
 
     public String getWorkHours() {
         return workHours;
+
     }
 }
