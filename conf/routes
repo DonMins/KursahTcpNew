@@ -74,7 +74,7 @@ GET       /salePage/:idSale      controllers.SaleController.changeSale(idSale:In
 + nocsrf
 POST       /salePage/:idSale         controllers.SaleController.changeSale(idSale:Integer)
 + nocsrf
-POST         /salePage/:id                               controllers.SaleController.upload(id:Integer)
+POST         /uploadSalePage/:id                               controllers.SaleController.upload(id:Integer)
 + nocsrf
 GET       /delsalePage/:idSale                                    controllers.SaleController.deleteSale(idSale: Integer)
 GET       /addSale                                 controllers.SaleController.newSale

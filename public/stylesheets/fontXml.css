@@ -376,8 +376,8 @@ img {
     /*overflow: hidden;*/
 /*}*/
 #content #left, #content #right {
-   /* border: 1px solid #E9E9E9;*/
-    float: left;
+    /*border: 1px solid #E9E9E9;!** было закомнтированно**!*/
+    /*float: left;*/
     margin: 0 2%;
     width: 63%;
 }
@@ -528,11 +528,14 @@ img {
     /*padding: 5px;*/
     /*text-decoration: none;*/
 /*}*/
-#content #left ul li .info .actions a:first-child {
-    color: #009832;
-    float:left;
+/*#content #left ul li .info .actions a:first-child {*/
+    /*color: #009832;*/
+    /*float:left;*/
+/*}*/
+.container-buttons {
+    display: flex;
+    justify-content: space-around;
 }
-
 
 
 
