@@ -17,7 +17,7 @@ GET         /                                         controllers.mainPageContro
 
 
 + nocsrf
-POST         /catalog                                  controllers.WineController.catalogPage
+POST         /catalog                                 controllers.WineController.catalogPage
 GET         /catalog                                  controllers.WineController.catalogPage
 
 + nocsrf
@@ -25,7 +25,14 @@ POST        /catalogSort                              controllers.WineController
 + nocsrf
 POST        /catalogSearch                            controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
 + nocsrf
-POST      /contact                                  controllers.mainPageController.contactPage
+POST      /contact                                    controllers.ContactController.contactPage
+GET      /contact                                    controllers.ContactController.contactPage
+
+GET       /contact/:idContact                         controllers.ContactController.changeContact(idContact:Integer)
++ nocsrf
+POST       /contact/:idContact                        controllers.ContactController.changeContact(idContact:Integer)
+
+
 
 
 #Login page controllers

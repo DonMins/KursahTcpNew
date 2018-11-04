@@ -1,4 +1,4 @@
-@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Integer)
+@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Integer,contact:Seq[Contact])
 <html>
 
     <head>
@@ -13,6 +13,14 @@
 
     </head>
     <body>
+        @if(!(login.isEmpty)){
+            <div align="right">
+
+                Вы вошли как :@login
+
+                <br>
+            </div>
+        }
         <div align="center">
             <h2>Barton & Guestier</h2>
 
@@ -119,7 +127,7 @@
             <ul id="nav">
 
 
-                <li><a>@helper.form(action = routes.mainPageController.contactPage) {
+                <li><a>@helper.form(action = routes.ContactController.contactPage) {
                     <input type="submit" value="Контакты">
                     }</a>
                 </li>
@@ -147,20 +155,44 @@
             <br>
             <br>
 
+            <div id="main"><!— Основной раздел содержимого —>
 
-            <table class="wine">
-                <div class="card">
-                    <div class="card-body">
-                        <p>Номер телефона - 555-55-55</p>
-                        <p>E-mail - DonMins@@yandex.ru</p>
-                        <p>Адрес - г.Самара, ул. Любительская, д. 13, 1 этаж</p>
-                        <p>Часы работы - Пн.-Пт.: 9:00 - 21:00</p>
-                        <p>              Сб.-Вт.: 10:00 - 18:00</p>
-                    </div>
-                </div>
+                <section id="content"><!— Основной подраздел содержимого —>
+                    @contact.map { item =>
+                    @if(!isAdmin){
+                        <p>Номер телефона -  @item.getPhone</p>
+                        <p>E-mail - @item.getEmail</p>
+                        <p>Адрес - @item.getAdress</p>
+                        <p>Часы работы - @item.getWorkHours</p>
+                    }
+                    @if(isAdmin){
+                        @helper.form(action = routes.ContactController.changeContact(item.getIdContact)) {
+                            <p><textarea rows="1" cols="100" name="getPhone" style="color: black" >@item.getPhone</textarea></p>
+                            <p><textarea rows="1" cols="100" name="getEmail" style="color: black" >@item.getEmail</textarea></p>
+                            <p><textarea rows="1" cols="100" name="getAdress" style="color: black" >@item.getAdress</textarea></p>
+                            <p><textarea rows="1" cols="100" name="getWorkHours" style="color: black" >@item.getWorkHours</textarea></p>
+
+                            <input type="submit" class="btn btn-danger" style="" value="Изменить" />
+                        }
+
+                    }
+                    }
+
+            @*<table class="wine">*@
+                @*<div class="card">*@
+                    @*<div class="card-body">*@
+                        @*<p>Номер телефона - 555-55-55</p>*@
+                        @*<p>E-mail - DonMins@@yandex.ru</p>*@
+                        @*<p>Адрес - г.Самара, ул. Любительская, д. 13, 1 этаж</p>*@
+                        @*<p>Часы работы - Пн.-Вс.: 9:00 - 21:00</p>*@
+                        @*<p>              Сб.-Вт.: 10:00 - 18:00</p>*@
+                    @*</div>*@
+                @*</div>*@
+                </section>
+            </div>
 
 
-            </table>
+
         </div>
     </body>
 </html>

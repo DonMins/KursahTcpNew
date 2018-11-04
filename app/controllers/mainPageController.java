@@ -2,8 +2,7 @@ package controllers;
 
 import models.LoginForm;
 import models.User;
-import models.contact;
-import models.workDatabase;
+
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
@@ -70,17 +69,7 @@ public class mainPageController extends Controller {
         return redirect(routes.mainPageController.projectPage());
     }
 
-    public Result contactPage()
-    {   contact newContact = new contact();
-        newContact.setAdress("г.Самара, ул. Любительская, д. 13, 1 этаж");
-        newContact.setContactNumber("555-55-55");
-        newContact.setEmail("DonMins@yandex.ru");
-        LOGIN = getSessionLogin();
-        ADMIN = getSessionAdmin();
 
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        Form<User> form2 = formFactory.form(User.class);
-        return ok(indexContactPage.render(LOGIN,ADMIN,form,form2,error));
-    }
+
 
 }

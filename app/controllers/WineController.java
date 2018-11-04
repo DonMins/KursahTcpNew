@@ -57,8 +57,8 @@ public class WineController extends Controller {
         Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
         System.out.println("WWOOOOORK");
         if (picture != null) {
-            String fileName = picture.getFilename();
-            String contentType = picture.getContentType();
+//            String fileName = picture.getFilename();
+//            String contentType = picture.getContentType();
             File file = picture.getFile();
             File newFile = new File(play.Play.application().path().toString() + "//public//images//wines//"+ idProduct+ ".png" );
             file.renameTo(newFile);
