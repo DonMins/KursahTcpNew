@@ -3,18 +3,14 @@ package controllers;
 import models.LoginForm;
 import models.User;
 import models.contact;
-import models.workDatabase;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-import scala.collection.JavaConverters;
 import views.html.*;
 
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 
 
 public class mainPageController extends Controller {
