@@ -82,5 +82,5 @@ GET       /addSale                                 controllers.SaleController.ne
 GET         /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
 GET         /basketDelete/:id/:login/:isAdmin         controllers.BasketController.deleteFromBasket(id:Integer,login:String, isAdmin: Boolean)
 + nocsrf
-POST        /newWineRaring          controllers.WineController.newRating
+POST        /newWineRaring          controllers.RatingController.newRating
 
