@@ -23,7 +23,7 @@ public class contact implements Constraints.Validatable<String>  {
     private String adress;
     @Column(name = "email")
     private String email;
-    @Column(name = "workHours")
+    @Column(name = "workhours")
     private String workHours;
 
     public contact(Integer idContact, String phone, String adress, String email, String workHours)
