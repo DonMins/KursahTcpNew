@@ -178,11 +178,10 @@ public class BasketController extends Controller {
         String stringOrderNumber = "Оплачено "+ sumProduct+ "  рублей " +
                 "№ заказа : "+login+String.valueOf(orderNumber);
 
-        String sqlDelete = "delete from public.basket where login ="+ "'" + login +"'";
         List<String> message = new ArrayList<String>();
         List<wine> win = new ArrayList<>();
         message.add(stringOrderNumber);
-        Ebean.find(basket.class).where().eq("login" , login).delete();
+        Ebean.find(basket.class).where().eq("login" , login).eq("favorite",false).delete();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
         return ok(views.html.basketPage.render(login,mainPageController.getSessionAdmin(), JavaConverters.asScalaBuffer(message)
