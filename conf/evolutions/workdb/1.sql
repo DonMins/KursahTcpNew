@@ -3,6 +3,15 @@
 
 # --- !Ups
 
+create table public.contact (
+  id_contact                    serial not null,
+  phone                         varchar(255),
+  adress                        varchar(255),
+  email                         varchar(255),
+  workhours                     varchar(255),
+  constraint pk_contact primary key (id_contact)
+);
+
 create table public.sales (
   id_sale                       serial not null,
   head                          varchar(255),
@@ -23,8 +32,18 @@ create table public.basket (
   id_basket                     serial not null,
   id_product                    integer,
   login                         varchar(255),
+  favorite                      boolean default false not null,
   constraint pk_basket primary key (id_basket)
 );
+
+create table public.provider (
+  id_provider                   integer not null,
+  name                          varchar(255),
+  phone                         bigint,
+  address                       varchar(255),
+  constraint pk_provider primary key (id_provider)
+);
+create sequence public.provider_id_provider_seq;
 
 create table public.rating (
   id_user                       integer not null,
@@ -52,12 +71,17 @@ create table public.wine (
 
 # --- !Downs
 
+drop table if exists public.contact cascade;
+
 drop table if exists public.sales cascade;
 
 drop table if exists public.user cascade;
 drop sequence if exists public.user_id_seq;
 
 drop table if exists public.basket cascade;
+
+drop table if exists public.provider cascade;
+drop sequence if exists public.provider_id_provider_seq;
 
 drop table if exists public.rating cascade;
 drop sequence if exists public.rating_id_user_id_seq;

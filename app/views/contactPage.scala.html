@@ -155,6 +155,9 @@
             <p></p>
             <br>
             <br>
+            <br>
+
+            <table class="wine">
 
             <div id="main"><!— Основной раздел содержимого —>
 
@@ -167,11 +170,14 @@
                         <p>Часы работы - @item.getWorkHours</p>
                     }
                     @if(isAdmin){
+
+
                         @helper.form(action = routes.ContactController.changeContact(item.getIdContact)) {
-                            <p><textarea rows="1" cols="100" name="getPhone" style="color: black" >@item.getPhone</textarea></p>
-                            <p><textarea rows="1" cols="100" name="getEmail" style="color: black" >@item.getEmail</textarea></p>
-                            <p><textarea rows="1" cols="100" name="getAdress" style="color: black" >@item.getAdress</textarea></p>
-                            <p><textarea rows="1" cols="100" name="getWorkHours" style="color: black" >@item.getWorkHours</textarea></p>
+
+                            <p>Номер телефона - <textarea rows="1" cols="60" name="getPhone" style="color: black" >@item.getPhone</textarea></p>
+                            <p>E-mail - <textarea rows="1" cols="60" name="getEmail" style="color: black" >@item.getEmail</textarea></p>
+                            <p>Адрес - <textarea rows="1" cols="60" name="getAdress" style="color: black" >@item.getAdress</textarea></p>
+                            <p>Часы работы - <textarea rows="1" cols="60" name="getWorkHours" style="color: black" >@item.getWorkHours</textarea></p>
 
                             <input type="submit" class="btn btn-danger" style="" value="Изменить" />
                         }
@@ -193,7 +199,7 @@
             </div>
 
 
-
+            </table>
         </div>
     </body>
 </html>
