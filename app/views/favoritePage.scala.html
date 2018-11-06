@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
-        <title>Корзина</title>
+        <title>Избранное</title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -146,10 +146,14 @@
                 </a>
                 </li>
                 <li><a>@helper.form(action = routes.BasketController.basketPage) {
+                    <input type="hidden" name="numberSql" value="0">
+                    <input type="submit" value="Корзина">
+                    }</a></li>
+
+                <li><a>@helper.form(action = routes.BasketController.basketPage) {
                     <input type="hidden" name="numberSql" value="1">
                     <input type="submit" value="Избранное">
-                    }</a>
-                </li>
+                    }</a></li>
 
                 @if(isAdmin) {
                     @*<li><a href="@routes.WineController.renderAddWine(login)">Добавить товар </a></li>*@
