@@ -11,17 +11,18 @@ public class UpdateWine {
     @Constraints.Required
     private String colour;
     private String country;
+    @Column(name = "brand")
     private String brand;
     @Column(name = "shelf_life")
     private String shelfLife;
     private String sugar;
     @Column(name = "grape_sort")
     private String grapeSort;
-  //  @Constraints.Required
+    @Constraints.Required
     private Double price;
-    //@Constraints.Required
+    @Constraints.Required
     private Double value;
-   // @Constraints.Required
+    @Constraints.Required
     private Double degree;
 
     public UpdateWine() {
@@ -29,8 +30,8 @@ public class UpdateWine {
 
     public UpdateWine(@Constraints.Required String name, @Constraints.Required String colour,
                       String country, String brand, String shelfLife, String sugar,
-                      String grapeSort, Double price,
-                       Double value, Double degree) {
+                      String grapeSort,  @Constraints.Required  Double price,
+                      @Constraints.Required Double value,   @Constraints.Required Double degree) {
         this.name = name;
         this.colour = colour;
         this.country = country;

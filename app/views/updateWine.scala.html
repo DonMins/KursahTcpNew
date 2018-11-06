@@ -23,7 +23,6 @@
 
         @helper.form(action = routes.WineController.updateWineInfo(win.getIdProduct,login), 'id -> "slick-login"){
 
-            <>
                 <tr>
                     <td> Название:  </td> <td>@helper.inputText(form("name"),'_showConstraints ->false)</td>
                 </tr>
@@ -37,13 +36,13 @@
                     <td> Бренд:  </td> <td>@helper.inputText(form("brand"),'_showConstraints ->false)</td>
                 </tr>
                 <tr>
-                    <td> Срок годности:  </td> <td> @helper.inputText(form("shelf_life"),'_showConstraints ->false)</td>
+                    <td> Срок годности:  </td> <td> @helper.inputText(form("shelfLife"),'_showConstraints ->false)</td>
                 </tr>
                 <tr>
                     <td> Сахар: </td> <td> @helper.inputText(form("sugar"),'_showConstraints ->false)</td>
                 </tr>
                 <tr>
-                    <td> Сорт винограда: </td> <td>@helper.inputText(form("grape_sort"),'_showConstraints ->false)</td>
+                    <td> Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"),'_showConstraints ->false)</td>
                 </tr>
                 <tr>
                     <td> Цена: </td> <td> @helper.inputText(form("price"),'_showConstraints ->false)</td>

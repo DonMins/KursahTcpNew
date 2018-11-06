@@ -12,14 +12,15 @@
             }</a>
         </li>        <h1 class="g1">Регистрация товара</h1>
 
+
         @helper.form(action = routes.WineController.addingWine(login), 'id -> "slick-login"){
             @helper.inputText(form("name"),'_showConstraints ->false,'placeholder -> "Название вина")
             @helper.inputText(form("colour"),'_showConstraints ->false,'placeholder -> "Цвет")
             @helper.inputText(form("country"),'_showConstraints ->false,'placeholder -> "Страна")
             @helper.inputText(form("brand"),'_showConstraints ->false,'placeholder -> "Бренд")
-            @helper.inputText(form("shelf_life"),'_showConstraints ->false,'placeholder -> "Срок годности")
+            @helper.inputText(form("shelfLife"),'_showConstraints ->false,'placeholder -> "Срок годности")
             @helper.inputText(form("sugar"),'_showConstraints ->false,'placeholder -> "Сахар")
-            @helper.inputText(form("grape_sort"),'_showConstraints ->false,'placeholder -> "Сорт винограда")
+            @helper.inputText(form("grapeSort"),'_showConstraints ->false,'placeholder -> "Сорт винограда")
             @helper.inputText(form("price"),'_showConstraints ->false,'placeholder -> "Цена")
             @helper.inputText(form("value"),'_showConstraints ->false,'placeholder -> "Объем")
             @helper.inputText(form("degree"),'_showConstraints ->false,'placeholder -> "Крепость")

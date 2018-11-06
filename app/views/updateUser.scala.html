@@ -14,7 +14,9 @@
             cod = false;
         }
         <h1 class="g1">Обновить данные пользователя: @user.getLogin </h1>
-
+        @if(form.hasGlobalErrors){
+            <h2>@form.globalError.message</h2>
+        }
 
         @helper.form(action = routes.UsersController.updateUserInfo(user.getId,login), 'id -> "slick-login") {
             <table>

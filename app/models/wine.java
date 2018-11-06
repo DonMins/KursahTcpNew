@@ -16,8 +16,7 @@ import java.util.Set;
 @Table(name = "wine", schema = "public")
 
 public class wine implements Constraints.Validatable<String> {
-    //        @Id
-//        @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "public.wine_id_seq")
+
     @Id
     @Column(name = "id_product")
     private Integer idProduct;
@@ -33,20 +32,19 @@ public class wine implements Constraints.Validatable<String> {
     private String sugar;
     @Column(name = "grape_sort")
     private String grapeSort;
-    // @Constraints.Required
+    @Constraints.Required
     private Double price;
-    //@Constraints.Required
+    @Constraints.Required
     private Double value;
-    //@Constraints.Required
+    @Constraints.Required
     private Double degree;
 
 
     public wine() {
     }
-
     public wine(Integer idProduct, String name, String colour, String country, String brand,
-                String shelfLife, String sugar, String grapeSort, Double price,
-                Double value, Double degree) {
+                String shelfLife, String sugar, String grapeSort, @Constraints.Required Double price,
+                @Constraints.Required Double value, @Constraints.Required Double degree) {
         this.idProduct = idProduct;
         this.name = name;
         this.colour = colour;
@@ -56,6 +54,7 @@ public class wine implements Constraints.Validatable<String> {
         this.grapeSort = grapeSort;
         this.price = price;
         this.value = value;
+        this.country = country;
         this.degree = degree;
 
     }
@@ -153,7 +152,7 @@ public class wine implements Constraints.Validatable<String> {
         return grapeSort;
     }
 
-    public void setGrapeSort(String grape_sort) {
+    public void setGrapeSort(String grapeSort) {
         this.grapeSort = grapeSort;
     }
 
@@ -210,9 +209,6 @@ public class wine implements Constraints.Validatable<String> {
         else {
 
             average = Double.parseDouble(parametrs);// тут получаем рейтинг средний
-
-          //  formatedAverage = String.format("%.2f", average); //округление которое предлагаю я
-            // измени функцию чтобы возврщала Double а не String
         }
         return Math.rint(average*10)/10;// поправить тут
     }

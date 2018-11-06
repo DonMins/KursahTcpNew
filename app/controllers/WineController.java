@@ -470,6 +470,7 @@ public class WineController extends Controller {
        return parametrs;
 
     }
+
     public Result addingWine(String login){
         String sql = "select max(id_product) from public.wine";
         int id;
@@ -491,9 +492,9 @@ public class WineController extends Controller {
         Win.setColour(rawdata.get("colour"));
         Win.setCountry(rawdata.get("country"));
         Win.setBrand(rawdata.get("brand"));
-        Win.setShelfLife(rawdata.get("shelf_life"));
+        Win.setShelfLife(rawdata.get("shelfLife"));
         Win.setSugar(rawdata.get("sugar"));
-        Win.setGrapeSort(rawdata.get("grape_sort"));
+        Win.setGrapeSort(rawdata.get("grapeSort"));
         if ((rawdata.get("price").isEmpty())){
                 Win.setPrice(null);
             }
@@ -547,18 +548,23 @@ public class WineController extends Controller {
         Form<User> form2 = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
         Form<search> searchForm = formFactory.form(search.class);
-        if(form.hasErrors() || form.hasGlobalErrors()){
+
+        if(wineForm.hasErrors() || wineForm.hasGlobalErrors()){
             return ok(views.html.catalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
                     ,asScalaBuffer(winList),getSessionLogin(), getSessionAdmin(),form,form2,1,wineForm,updateform, Win,searchForm));
+        }
+        if(updateform.hasErrors() || updateform.hasGlobalErrors()){
+            return ok(views.html.updateWine.render(updateform, Win,getSessionLogin()));
+
         }
         Map<String, String> rawdata = updateform.rawData();
         Win.setName(rawdata.get("name"));
         Win.setColour(rawdata.get("colour"));
         Win.setCountry(rawdata.get("country"));
         Win.setBrand(rawdata.get("brand"));
-        Win.setShelfLife(rawdata.get("shelf_life"));
+        Win.setShelfLife(rawdata.get("shelfLife"));
         Win.setSugar(rawdata.get("sugar"));
-        Win.setGrapeSort(rawdata.get("grape_sort"));
+        Win.setGrapeSort(rawdata.get("grapeSort"));
         if ((rawdata.get("value").isEmpty())){
             Win.setValue(null);
         }

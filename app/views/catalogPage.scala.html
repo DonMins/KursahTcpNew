@@ -125,9 +125,9 @@
                     @helper.inputText(wineForm("colour"), '_showConstraints -> false, 'placeholder -> "Цвет")
                     @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна")
                     @helper.inputText(wineForm("brand"), '_showConstraints -> false, 'placeholder -> "Бренд")
-                    @helper.inputText(wineForm("shelf_life"), '_showConstraints -> false, 'placeholder -> "Срок годности")
+                    @helper.inputText(wineForm("shelfLife"), '_showConstraints -> false, 'placeholder -> "Срок годности")
                     @helper.inputText(wineForm("sugar"), '_showConstraints -> false, 'placeholder -> "Сахар")
-                    @helper.inputText(wineForm("grape_sort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда")
+                    @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда")
                     @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена")
                     @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем")
                     @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость")
@@ -176,14 +176,14 @@
                         </tr>
                         <tr>
                             <td>
-                                Срок годности:  </td> <td> @helper.inputText(form("shelf_life"), '_showConstraints -> false)</td>
+                                Срок годности:  </td> <td> @helper.inputText(form("shelfLife"), '_showConstraints -> false)</td>
                         </tr>
                         <tr>
                             <td> Сахар: </td> <td> @helper.inputText(form("sugar"), '_showConstraints -> false)</td>
                         </tr>
                         <tr>
                             <td>
-                                Сорт винограда: </td> <td>@helper.inputText(form("grape_sort"), '_showConstraints -> false)</td>
+                                Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"), '_showConstraints -> false)</td>
                         </tr>
                         <tr>
                             <td> Цена: </td> <td> @helper.inputText(form("price"), '_showConstraints -> false)</td>
@@ -348,8 +348,8 @@
                                         <p > @colomn(5):@item.getShelfLife</p>
                                         <p > @colomn(6):@item.getSugar</p>
                                         <p > @colomn(7):@item.getGrapeSort</p>
-                                        <p > @colomn(8):@item.getValue</p>
-                                        <p > @colomn(9):@item.getDegree</p>
+                                        <p > @colomn(9):@item.getValue</p>
+                                        <p > @colomn(10):@item.getDegree</p>
                                         @if(isAdmin) {
                                             <a href="@routes.WineController.renderUpdateWineInfo(item.getIdProduct, login)">
                                             Изменить</a>
@@ -366,7 +366,7 @@
                                             }
                                         }
 
-                                        <p class="product-price">@item.getPrice
+                                        <p class="product-price">@item.getPrice руб.
                                         <p class="product-price1">@item.averageRatingOfTheProduct(item.getIdProduct)/5
                                         <div class="product-rating">
                                             <div class="rating">
@@ -455,6 +455,10 @@
                                                 <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
                                                     height: 50px" disabled>
                                                     <span class="glyphicon glyphicon-shopping-cart" ></span>
+                                                </button>
+                                                <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                    height: 50px" disabled>
+                                                    <span class="glyphicon glyphicon-heart" ></span>
                                                 </button>
                                             }
                 </p>
