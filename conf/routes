@@ -17,7 +17,7 @@ GET         /                                         controllers.mainPageContro
 
 
 + nocsrf
-POST         /catalog                                 controllers.WineController.catalogPage
+POST        /catalog                                  controllers.WineController.catalogPage
 GET         /catalog                                  controllers.WineController.catalogPage
 
 + nocsrf
@@ -25,12 +25,12 @@ POST        /catalogSort                              controllers.WineController
 + nocsrf
 POST        /catalogSearch                            controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
 + nocsrf
-POST      /contact                                    controllers.ContactController.contactPage
-GET      /contact                                    controllers.ContactController.contactPage
+POST        /contact                                  controllers.ContactController.contactPage
+GET         /contact                                  controllers.ContactController.contactPage
 
-GET       /contact/:idContact                         controllers.ContactController.changeContact(idContact:Integer)
+GET         /contact/:idContact                       controllers.ContactController.changeContact(idContact:Integer)
 + nocsrf
-POST       /contact/:idContact                        controllers.ContactController.changeContact(idContact:Integer)
+POST        /contact/:idContact                       controllers.ContactController.changeContact(idContact:Integer)
 
 
 
@@ -65,30 +65,34 @@ GET         /addWinecatalog/:login                    controllers.WineController
 GET         /addWine/:login                           controllers.WineController.renderAddWine(login: String)
 GET         /updateWine                               controllers.WineController.renderUpdateWineInfo(id: Integer,login:String)
 + nocsrf
-POST         /catalog/:id                               controllers.WineController.upload(id:Integer)
+POST        /catalog/:id                              controllers.WineController.upload(id:Integer)
 + nocsrf
 POST        /updateWine                               controllers.WineController.updateWineInfo(id: Integer,login:String)
 
 #controller provider
-+ nocsrf
-POST        /basketPage                            controllers.BasketController.basketPage
-GET        /basketPage                              controllers.BasketController.basketPage
-GET        /buyProduct                           controllers.BasketController.buyProducts
 
-GET       /salePage                                    controllers.SaleController.showSales
-GET       /salePage/:idSale      controllers.SaleController.changeSale(idSale:Integer)
-+ nocsrf
-POST       /salePage/:idSale         controllers.SaleController.changeSale(idSale:Integer)
-+ nocsrf
-POST         /uploadSalePage/:id                               controllers.SaleController.upload(id:Integer)
-+ nocsrf
-GET       /delsalePage/:idSale                                    controllers.SaleController.deleteSale(idSale: Integer)
-GET       /addSale                                 controllers.SaleController.newSale
 
-GET         /basketPageAdd/:login/:isAdmin/:id        controllers.BasketController.addIn(login:String, isAdmin: Boolean, id:Integer)
-GET         /basketPageAdd/:login/:id        controllers.BasketController.addInFavorite(login:String, id:Integer)
-GET         /basketDelete/:id/:login/        controllers.BasketController.deleteFromBasket(id:Integer,login:String)
-GET         /favoriteDelete/:id/:login/        controllers.BasketController.deleteFromFavorite(id:Integer,login:String)
+GET         /salePage                                 controllers.SaleController.showSales
+GET         /salePage/:idSale                         controllers.SaleController.changeSale(idSale:Integer)
 + nocsrf
-POST        /newWineRaring          controllers.RatingController.newRating
+POST        /salePage/:idSale                         controllers.SaleController.changeSale(idSale:Integer)
++ nocsrf
+POST        /uploadSalePage/:id                       controllers.SaleController.upload(id:Integer)
++ nocsrf
+GET         /delsalePage/:idSale                      controllers.SaleController.deleteSale(idSale: Integer)
+GET         /addSale                                  controllers.SaleController.newSale
+
+#Basket and Favorite
+GET         /basketPageAdd/:id                        controllers.BasketController.addIn(id:Integer)
+GET         /favoritePageAdd/:id                      controllers.BasketController.addInFavorite(id:Integer)
+GET         /basketDelete/:id             controllers.BasketController.deleteFromBasket(id:Integer)
+GET         /favoriteDelete/:id              controllers.BasketController.deleteFromFavorite(id:Integer)
+
++ nocsrf
+POST        /basketPage                               controllers.BasketController.basketPage
+GET         /basketPage                               controllers.BasketController.basketPage
+GET         /buyProduct                               controllers.BasketController.buyProducts
+
++ nocsrf
+POST        /newWineRaring                            controllers.RatingController.newRating
 

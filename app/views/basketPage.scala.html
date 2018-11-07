@@ -1,5 +1,5 @@
 @(login: String, isAdmin: Boolean, nameColomn: Seq[String], win: Seq[wine], LoginForm: play.data.Form[LoginForm],
-        registrationForm: play.data.Form[User], error: Integer)
+        registrationForm: play.data.Form[User], error: Byte)
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -220,7 +220,7 @@
                             <th>@item.getDegree</th>
 
                             <th>
-                                <button onclick="window.location.href = '@routes.BasketController.deleteFromBasket(item.getIdProduct,login)'"
+                                <button onclick="window.location.href = '@routes.BasketController.deleteFromBasket(item.getIdProduct)'"
                                 type="submit" class="btn btn-default btn-sm">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>

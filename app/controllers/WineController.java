@@ -13,6 +13,7 @@ import play.mvc.Result;
 import scala.collection.JavaConverters;
 
 import javax.inject.Inject;
+
 import java.io.File;
 import java.util.*;
 
@@ -24,6 +25,7 @@ public class WineController extends Controller {
     public static Integer error ;
     public List<wine> searchList = null;
     @Inject
+
     FormFactory formFactory;
 
     public Result catalogPage(){
@@ -554,6 +556,7 @@ public class WineController extends Controller {
                     ,asScalaBuffer(winList),getSessionLogin(), getSessionAdmin(),form,form2,1,wineForm,updateform, Win,searchForm));
         }
         if(updateform.hasErrors() || updateform.hasGlobalErrors()){
+
             return ok(views.html.updateWine.render(updateform, Win,getSessionLogin()));
 
         }

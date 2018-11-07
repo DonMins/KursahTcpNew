@@ -3,7 +3,6 @@ package controllers;
 import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
-import javafx.print.Collation;
 import models.*;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -22,6 +21,12 @@ public class BasketController extends Controller {
     @Inject
     FormFactory formFactory;
     private int numberSql;
+    protected final byte NO_ERROR = 0;
+    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
+    protected final byte NO_BUTTON_BUY_PRODUCT = 3;
+
+
+
     public void setNumber(int numberSql){
         this.numberSql = numberSql;
     }
@@ -30,46 +35,50 @@ public class BasketController extends Controller {
     }
 
     public Result basketPage(){
+        final byte IF_BASKET = 0;
+        final byte IF_FAVORITE = 1;
         String login = mainPageController.getSessionLogin();
-        boolean admin = mainPageController.getSessionAdmin();
-        DynamicForm dyForm = formFactory.form().bindFromRequest();
-        if ((dyForm.get("numberSql"))!=null) {
-            setNumber(Integer.parseInt(dyForm.get("numberSql")));
+        boolean isAdmin = mainPageController.getSessionAdmin();
+
+        DynamicForm dynamicForm = formFactory.form().bindFromRequest();
+
+        if ((dynamicForm.get("numberSql"))!=null) {
+            setNumber(Integer.parseInt(dynamicForm.get("numberSql")));
         }
-        String sql1 ="";
-        if(numberSql ==0) {
-            sql1 = " select distinct wine.id_product from wine, basket,user" +
-                    " where wine.id_product in(select basket.id_product " +
-                    "from public.basket, public.user where public.basket.login = '" + login + "' and favorite =false);";
+
+        String sqlRequest ="";
+        if(numberSql == IF_BASKET) {
+            sqlRequest = " select distinct wine.id_product from wine, Basket,user" +
+                    " where wine.id_product in(select Basket.id_product " +
+                    "from public.Basket, public.user where public.Basket.login = '" + login + "' and favorite =false);";
         }
-        if(numberSql ==1) {
-            sql1 = " select distinct wine.id_product from wine, basket,user" +
-                    " where wine.id_product in(select basket.id_product " +
-                    "from public.basket, public.user where public.basket.login = '" + login + "' and favorite =true);";
+        if(numberSql == IF_FAVORITE) {
+            sqlRequest = " select distinct wine.id_product from wine, Basket,user" +
+                    " where wine.id_product in(select Basket.id_product " +
+                    "from public.Basket, public.user where public.Basket.login = '" + login + "' and favorite =true);";
         }
         String wineRating = "";
-        SqlQuery maxId = Ebean.createSqlQuery(sql1);
-        List<SqlRow> mId = maxId.findList();
+        SqlQuery sqlQuery = Ebean.createSqlQuery(sqlRequest);
+        List<SqlRow> sqlQueryList = sqlQuery.findList();
         List<wine> winList = null;
         List<String> nameColomn = new ArrayList<>();
         try {
             String parametrs = null;
-            for (SqlRow row2 : mId) {
-                Set<String> keyset2 = row2.keySet();
-                for (String s : keyset2) {
-                    parametrs = row2.getString(s);
+            for (SqlRow row : sqlQueryList) {
+                Set<String> keyset = row.keySet();
+                for (String s : keyset) {
+                    parametrs = row.getString(s);
                     wineRating = wineRating + parametrs + " ";
                 }
             }
-            String[] splitS = wineRating.split(" ");
+            String[] splitWineRating = wineRating.split(" ");
             List<Integer> idForBasket = new ArrayList<>();
-            for (String split : splitS) {
-                Integer tmp = Integer.parseInt(split);
+            for (String term : splitWineRating) {
+                Integer tmp = Integer.parseInt(term);
                 idForBasket.add(tmp);
             }
             winList = Ebean.find(wine.class).where().in("id_product", idForBasket).
                     setDistinct(true).findList();
-            //Collections.reverse(idForBasket);
             for (int i = 0; i < idForBasket.size(); ++i) {
                 winList.get(i).setIdProduct(idForBasket.get(i));
             }
@@ -87,90 +96,94 @@ public class BasketController extends Controller {
         catch (NullPointerException| NumberFormatException ex){
            nameColomn = null;
         }
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        Form<User> form2 = formFactory.form(User.class);
-        if (numberSql==1) {
-            return ok(views.html.favoritePage.render(login, admin, JavaConverters.asScalaBuffer(nameColomn)
-                    , asScalaBuffer(winList), form, form2, 0));
+        Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
+        Form<User> userForm = formFactory.form(User.class);
+
+        if (numberSql==IF_FAVORITE) {
+            return ok(views.html.favoritePage.render(login, isAdmin, JavaConverters.asScalaBuffer(nameColomn)
+                    , asScalaBuffer(winList), loginForm, userForm, NO_ERROR));
         }
-        return ok(views.html.basketPage.render(login, admin, JavaConverters.asScalaBuffer(nameColomn)
-                , asScalaBuffer(winList), form, form2, 0));
+        return ok(views.html.basketPage.render(login, isAdmin, JavaConverters.asScalaBuffer(nameColomn)
+                , asScalaBuffer(winList), loginForm, userForm, NO_ERROR));
     }
 
-    public Result addIn(String login, boolean isAdmin,int id){
-        String sql = "select max(id_basket) from public.basket";
-        int idBasket;
+    public Result addIn(int id){
+        String login = mainPageController.getSessionLogin();
+        String sql = "select max(id_basket) from public.Basket";
+        int maxIdBasket;
         try {
-            idBasket= Integer.parseInt(searchParametrs(sql));
+            maxIdBasket= Integer.parseInt(searchParametrs(sql));
         }
         catch (NumberFormatException e){
-            idBasket=0;
+            maxIdBasket=0;
         }
-        basket bask = new basket();
-        bask.setIdBasket((idBasket+1));
-        bask.setIdProduct(id);
-        bask.setLogin(login);
-        bask.setFavorite(false);
-        Ebean.save(bask);
+        Basket basket = new Basket();
+        basket.setIdBasket((maxIdBasket+1));
+        basket.setIdProduct(id);
+        basket.setLogin(login);
+        basket.setFavorite(false);
+        Ebean.save(basket);
         return redirect(routes.WineController.catalogPage());
     }
-    public Result addInFavorite(String login, int id){
-
-        String sql = "select max(id_basket) from public.basket";
-        int idBasket;
+    public Result addInFavorite( int id){
+        String login = mainPageController.getSessionLogin();
+        String sqlRequest = "select max(id_basket) from public.Basket";
+        int maxIdBasket;
         try {
-            idBasket= Integer.parseInt(searchParametrs(sql));
+            maxIdBasket = Integer.parseInt(searchParametrs(sqlRequest));
         }
         catch (NumberFormatException e){
-            idBasket=0;
+            maxIdBasket = 0;
         }
-        basket bask = new basket();
-        bask.setIdBasket((idBasket+1));
-        bask.setIdProduct(id);
-        bask.setLogin(login);
-        bask.setFavorite(true);
+        Basket basket = new Basket();
+        basket.setIdBasket((maxIdBasket+1));
+        basket.setIdProduct(id);
+        basket.setLogin(login);
+        basket.setFavorite(true);
+        Ebean.save(basket);
 
-        Ebean.save(bask);
         return redirect(routes.WineController.catalogPage());
     }
-    public Result deleteFromBasket(Integer id,String login){
-        String sql2 = "select id_basket from public.basket where id_product="+id + "and login="+ "'" + login +"' and favorite=false" ;
-        SqlQuery maxId = Ebean.createSqlQuery(sql2);
-        List<SqlRow> mId = maxId.findList();
+    public Result deleteFromBasket(Integer id){
+        String login = mainPageController.getSessionLogin();
+        String sqlRequest = "select id_basket from public.Basket where id_product="+id + "and login="+ "'" + login +"' and favorite=false" ;
+        SqlQuery sqlQuery = Ebean.createSqlQuery(sqlRequest);
+        List<SqlRow> sqlQueryList = sqlQuery.findList();
         int parametrs = 0;
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                parametrs = Integer.parseInt(row2.getString(s));
+        for (SqlRow row : sqlQueryList) {
+            Set<String> keyset = row.keySet();
+            for (String s : keyset) {
+                parametrs = Integer.parseInt(row.getString(s));
             }
         }
-        basket.find.deleteById(parametrs);
+        Basket.find.deleteById(parametrs);
         return redirect(routes.BasketController.basketPage());
     }
-    public Result deleteFromFavorite(Integer id,String login){
-        String sql2 = "select id_basket from public.basket where id_product="+id + "and login="+ "'" + login +"' and favorite=true" ;
-        SqlQuery maxId = Ebean.createSqlQuery(sql2);
-        List<SqlRow> mId = maxId.findList();
+    public Result deleteFromFavorite(Integer id){
+        String login = mainPageController.getSessionLogin();
+        String sqlRequest = "select id_basket from public.Basket where id_product="+id + "and login="+ "'" + login +"' and favorite=true" ;
+        SqlQuery sqlQuery = Ebean.createSqlQuery(sqlRequest);
+        List<SqlRow> sqlQueryList = sqlQuery.findList();
         int parametrs = 0;
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                parametrs = Integer.parseInt(row2.getString(s));
+        for (SqlRow row : sqlQueryList) {
+            Set<String> keyset = row.keySet();
+            for (String s : keyset) {
+                parametrs = Integer.parseInt(row.getString(s));
             }
         }
-        basket.find.deleteById(parametrs);
+        Basket.find.deleteById(parametrs);
         return redirect(routes.BasketController.basketPage());
     }
     public Result buyProducts(){
         String login = mainPageController.getSessionLogin();
-        String sql2 = "select sum(price) from public.wine where id_product in (select id_product from public.basket where login="+ "'" + login +"'"+")";
-        SqlQuery maxId = Ebean.createSqlQuery(sql2);
-        List<SqlRow> mId = maxId.findList();
+        String sqlRequest = "select sum(price) from public.wine where id_product in (select id_product from public.Basket where login="+ "'" + login +"'"+")";
+        SqlQuery sqlQuery = Ebean.createSqlQuery(sqlRequest);
+        List<SqlRow> sqlQueryList = sqlQuery.findList();
         double sumProduct  = 0;
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                sumProduct = Double.parseDouble(row2.getString(s));
+        for (SqlRow row : sqlQueryList) {
+            Set<String> keyset = row.keySet();
+            for (String s : keyset) {
+                sumProduct = Double.parseDouble(row.getString(s));
             }
         }
         Random rnd = new Random();
@@ -181,10 +194,10 @@ public class BasketController extends Controller {
         List<String> message = new ArrayList<String>();
         List<wine> win = new ArrayList<>();
         message.add(stringOrderNumber);
-        Ebean.find(basket.class).where().eq("login" , login).eq("favorite",false).delete();
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        Form<User> form2 = formFactory.form(User.class);
+        Ebean.find(Basket.class).where().eq("login" , login).eq("favorite",false).delete();
+        Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
+        Form<User> userForm = formFactory.form(User.class);
         return ok(views.html.basketPage.render(login,mainPageController.getSessionAdmin(), JavaConverters.asScalaBuffer(message)
-                ,JavaConverters.asScalaBuffer(win),form,form2,3));
+                ,JavaConverters.asScalaBuffer(win),loginForm,userForm, NO_BUTTON_BUY_PRODUCT));
     }
 }

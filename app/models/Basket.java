@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Constraints.Validate
 @Entity
 @Table(name = "basket", schema = "public")
-public class basket {
+public class Basket {
    // @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "public.basket_id_product_seq")
 
     @Column(name = "id_product")
@@ -31,13 +31,13 @@ public class basket {
         return idBasket;
     }
 
-    public  basket(){}
+    public Basket(){}
 
     public void setIdBasket(Integer idBasket) {
         this.idBasket = idBasket;
     }
 
-    public basket(Integer idProduct, String login) {
+    public Basket(Integer idProduct, String login) {
         this.idProduct = idProduct;
         this.login = login;
     }
@@ -57,5 +57,5 @@ public class basket {
     public void setLogin(String login) {
         this.login = login;
     }
-    public static Finder<Integer, basket> find = new Finder<>(basket.class);
+    public static Finder<Integer, Basket> find = new Finder<>(Basket.class);
 }

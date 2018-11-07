@@ -237,7 +237,7 @@ public class wine implements Constraints.Validatable<String> {
     {
         String parametrs = null;
 
-        String sql ="SELECT login FROM basket where id_product=" + idProduct+" and login='"+login+"' and favorite =false";
+        String sql ="SELECT login FROM Basket where id_product=" + idProduct+" and login='"+login+"' and favorite =false";
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = averageID.findList();
@@ -256,7 +256,7 @@ public class wine implements Constraints.Validatable<String> {
     public String isAddingToFavorite(Integer idProduct,String login)
     {
         String parametrs = null;
-        String sql ="SELECT login FROM basket where id_product=" + idProduct+" and login='"+login+"' and favorite = true";
+        String sql ="SELECT login FROM Basket where id_product=" + idProduct+" and login='"+login+"' and favorite = true";
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = averageID.findList();

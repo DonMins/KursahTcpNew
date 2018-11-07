@@ -4,7 +4,8 @@ import play.data.validation.Constraints;
 
 import javax.persistence.Column;
 
-public class UpdateWine {
+public class UpdateWine{
+
 
     @Constraints.Required
     private String name;
@@ -23,6 +24,7 @@ public class UpdateWine {
     @Constraints.Required
     private Double value;
     @Constraints.Required
+
     private Double degree;
 
     public UpdateWine() {
