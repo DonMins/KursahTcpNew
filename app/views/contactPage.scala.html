@@ -1,4 +1,4 @@
-@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Integer,contact:Seq[contact])
+@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Byte,contacts:Seq[Contacts])
 <html>
 
     <head>
@@ -166,7 +166,7 @@
             <div id="main"><!— Основной раздел содержимого —>
 
                 <section id="content"><!— Основной подраздел содержимого —>
-                    @contact.map { item =>
+                    @contacts.map { item =>
                     @if(!isAdmin){
                         <p>Номер телефона -  @item.getPhone</p>
                         <p>E-mail - @item.getEmail</p>
