@@ -37,8 +37,8 @@ public class BasketController extends Controller {
     public Result basketPage(){
         final byte IF_BASKET = 0;
         final byte IF_FAVORITE = 1;
-        String login = mainPageController.getSessionLogin();
-        boolean isAdmin = mainPageController.getSessionAdmin();
+        String login = AuxiliaryController.getSessionLogin();
+        boolean isAdmin = AuxiliaryController.getSessionAdmin();
 
         DynamicForm dynamicForm = formFactory.form().bindFromRequest();
 
@@ -108,7 +108,7 @@ public class BasketController extends Controller {
     }
 
     public Result addIn(int id){
-        String login = mainPageController.getSessionLogin();
+        String login = AuxiliaryController.getSessionLogin();
         String sql = "select max(id_basket) from public.Basket";
         int maxIdBasket;
         try {
@@ -126,7 +126,7 @@ public class BasketController extends Controller {
         return redirect(routes.WineController.catalogPage());
     }
     public Result addInFavorite( int id){
-        String login = mainPageController.getSessionLogin();
+        String login = AuxiliaryController.getSessionLogin();
         String sqlRequest = "select max(id_basket) from public.Basket";
         int maxIdBasket;
         try {
@@ -145,7 +145,7 @@ public class BasketController extends Controller {
         return redirect(routes.WineController.catalogPage());
     }
     public Result deleteFromBasket(Integer id){
-        String login = mainPageController.getSessionLogin();
+        String login = AuxiliaryController.getSessionLogin();
         String sqlRequest = "select id_basket from public.Basket where id_product="+id + "and login="+ "'" + login +"' and favorite=false" ;
         SqlQuery sqlQuery = Ebean.createSqlQuery(sqlRequest);
         List<SqlRow> sqlQueryList = sqlQuery.findList();
@@ -160,7 +160,7 @@ public class BasketController extends Controller {
         return redirect(routes.BasketController.basketPage());
     }
     public Result deleteFromFavorite(Integer id){
-        String login = mainPageController.getSessionLogin();
+        String login = AuxiliaryController.getSessionLogin();
         String sqlRequest = "select id_basket from public.Basket where id_product="+id + "and login="+ "'" + login +"' and favorite=true" ;
         SqlQuery sqlQuery = Ebean.createSqlQuery(sqlRequest);
         List<SqlRow> sqlQueryList = sqlQuery.findList();
@@ -175,7 +175,7 @@ public class BasketController extends Controller {
         return redirect(routes.BasketController.basketPage());
     }
     public Result buyProducts(){
-        String login = mainPageController.getSessionLogin();
+        String login = AuxiliaryController.getSessionLogin();
         String sqlRequest = "select sum(price) from public.wine where id_product in (select id_product from public.Basket where login="+ "'" + login +"'"+")";
         SqlQuery sqlQuery = Ebean.createSqlQuery(sqlRequest);
         List<SqlRow> sqlQueryList = sqlQuery.findList();
@@ -197,7 +197,7 @@ public class BasketController extends Controller {
         Ebean.find(Basket.class).where().eq("login" , login).eq("favorite",false).delete();
         Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
         Form<User> userForm = formFactory.form(User.class);
-        return ok(views.html.basketPage.render(login,mainPageController.getSessionAdmin(), JavaConverters.asScalaBuffer(message)
+        return ok(views.html.basketPage.render(login, AuxiliaryController.getSessionAdmin(), JavaConverters.asScalaBuffer(message)
                 ,JavaConverters.asScalaBuffer(win),loginForm,userForm, NO_BUTTON_BUY_PRODUCT));
     }
 }

@@ -1,4 +1,4 @@
-@(login: String, isAdmin: Boolean, nameColomn: Seq[String], win: Seq[rating])
+@(login: String, isAdmin: Boolean, nameColomn: Seq[String], win: Seq[Rating])
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -63,7 +63,7 @@
                     <input type="submit" value="Каталог">
                     }</a>
                 </li>
-                @helper.form(action = routes.mainPageController.projectPage2) {
+                @helper.form(action = routes.AuxiliaryController.projectPage2) {
 
                     <input type="submit" value="О проекте">
                 }
@@ -174,8 +174,8 @@
                                     @*</div>*@
                                     <p class="product-name">@item.getWine(item.getIdProduct)
                                 <p class="product-price">€10.00
-                                <div class="product-rating">
-                                <div class="rating">
+                                <div class="product-Rating">
+                                <div class="Rating">
 
                                     @if(item.getRating == 5) {
                                         <input type="radio" id="star5" name=@item.getIdProduct value="5" checked disabled />

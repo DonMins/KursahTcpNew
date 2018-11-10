@@ -13,9 +13,9 @@ import java.util.Set;
 
 @Constraints.Validate
 @Entity
-@Table(name = "rating", schema = "public")
+@Table(name = "Rating", schema = "public")
 
-public class rating {
+public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public.rating_id_user_id_seq")
 
@@ -35,10 +35,10 @@ public class rating {
         return nameColomn;
     }
 
-    public static Finder<Integer,rating> find = new Finder<>(rating.class);
-    public rating(){}
+    public static Finder<Integer, Rating> find = new Finder<>(Rating.class);
+    public Rating(){}
 
-    public rating(Integer idProduct,Integer idUser,  Integer rating) {
+    public Rating(Integer idProduct, Integer idUser, Integer rating) {
         this.idProduct = idProduct;
         this.idUser = idUser;
         this.rating = rating;
@@ -69,8 +69,8 @@ public class rating {
 
     public String getWine(Integer idProduct) {
         String parametrs= null;
-        String sql1 = "Select wine.name from public.wine, public.rating where" +
-                " wine.id_product=rating.id_product and rating.id_product ="+idProduct;
+        String sql1 = "Select wine.name from public.wine, public.Rating where" +
+                " wine.id_product=Rating.id_product and Rating.id_product ="+idProduct;
         SqlQuery maxId = Ebean.createSqlQuery(sql1);
 
         List<SqlRow> mId = maxId.findList();

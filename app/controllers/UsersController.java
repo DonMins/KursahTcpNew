@@ -7,13 +7,10 @@ import models.LoginForm;
 import models.User;
 import models.UpdateForm;
 import org.apache.commons.codec.digest.DigestUtils;
-import play.Logger;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Security;
 import scala.collection.JavaConverters;
 
 import javax.inject.Inject;
@@ -24,6 +21,8 @@ import static scala.collection.JavaConverters.asScalaBuffer;
 public class UsersController extends Controller {
     @Inject
     FormFactory formFactory;
+    protected final byte NO_ERROR = 0;
+    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
 
     public Result usersList(String login){
         List<User> users = User.find.all();
@@ -50,18 +49,17 @@ public class UsersController extends Controller {
     }
 
 
-
-    public Result renderAddUserForm(boolean admin,Integer error){
-        String login = mainPageController.getSessionLogin();
+    public Result renderAddUserForm(boolean admin,int error){
+        String login = AuxiliaryController.getSessionLogin();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
         Form<User> form2 = formFactory.form(User.class);
 
-        return ok(views.html.createUser.render(form2,true,error,login));
+        return ok(views.html.createUser.render(form2,true,(byte)error,login));
     }
 
     public Result addingUser(boolean admin){
         int id=0;
-        String login = mainPageController.getSessionLogin();
+        String login = AuxiliaryController.getSessionLogin();
 
         Form<User> userForm = formFactory.form(User.class).bindFromRequest();
         Form<LoginForm> form = formFactory.form(LoginForm.class);
@@ -76,11 +74,9 @@ public class UsersController extends Controller {
         }
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
             if (admin){
-                return redirect(routes.UsersController.renderAddUserForm(admin,1));
+                return redirect(routes.UsersController.renderAddUserForm(admin,(int)ERROR_LOGIN_OR_PASSWORD));
             }
-
-
-            return ok(views.html.indexProjectPage.render("",admin,form,userForm,1));
+            return ok(views.html.indexProjectPage.render("",admin,form,userForm,ERROR_LOGIN_OR_PASSWORD));
         }
         Map<String, String> rawdata = userForm.rawData();
 
@@ -98,16 +94,16 @@ public class UsersController extends Controller {
             try{
                 Ebean.save(user);
             }catch (Exception ex){
-                return redirect(routes.UsersController.renderAddUserForm(admin,0));
+                return redirect(routes.UsersController.renderAddUserForm(admin,(int)NO_ERROR));
             }
             if(admin){
                 return redirect(routes.UsersController.usersList(login));
             }
            else{
-             return redirect(routes.mainPageController.test());
+             return redirect(routes.AuxiliaryController.ifGuest());
            }
         }
-        return redirect(routes.UsersController.renderAddUserForm(admin,0));
+        return redirect(routes.UsersController.renderAddUserForm(admin,(int)NO_ERROR));
     }
     public Result renderUpdateUserInfo(Integer id,String login){
         User user = User.find.byId(id);

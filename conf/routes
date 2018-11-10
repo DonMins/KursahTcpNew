@@ -9,10 +9,10 @@ GET         /count                                    controllers.CountControlle
 # An example controller showing how to write asynchronous code
 GET         /message                                  controllers.AsyncController.message
 
-GET         /aboutProject                             controllers.mainPageController.projectPage
+GET         /aboutProject                             controllers.AuxiliaryController.projectPage
 + nocsrf
-POST        /aboutProject                             controllers.mainPageController.projectPage2
-GET         /                                         controllers.mainPageController.test()
+POST        /aboutProject                             controllers.AuxiliaryController.projectPage2
+GET         /                                         controllers.AuxiliaryController.ifGuest()
 
 
 
@@ -25,12 +25,12 @@ POST        /catalogSort                              controllers.WineController
 + nocsrf
 POST        /catalogSearch                            controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
 + nocsrf
-POST        /contact                                  controllers.ContactController.contactPage
-GET         /contact                                  controllers.ContactController.contactPage
+POST        /contacts                                  controllers.ContactController.contactPage
+GET         /contacts                                  controllers.ContactController.contactPage
 
-GET         /contact/:idContact                       controllers.ContactController.changeContact(idContact:Integer)
+GET         /contacts/:idContact                       controllers.ContactController.changeContact(idContact:Integer)
 + nocsrf
-POST        /contact/:idContact                       controllers.ContactController.changeContact(idContact:Integer)
+POST        /contacts/:idContact                       controllers.ContactController.changeContact(idContact:Integer)
 
 
 
@@ -56,7 +56,7 @@ GET         /updateuser                               controllers.UsersControlle
 + nocsrf
 POST        /updateuser                               controllers.UsersController.updateUserInfo(id: Integer,login:String)
 
-#controller rating
+#controller Rating
 GET         /seeRating                                controllers.RatingController.ratingUserPage(login:String,isAdmin: Boolean)
 #controller wine
 

@@ -10,10 +10,11 @@ import play.mvc.Result;
 import views.html.*;
 import javax.inject.Inject;
 
-public class mainPageController extends Controller {
+public class AuxiliaryController extends Controller {
 
-    protected static Integer error ;
-
+    protected static byte ERROR ;
+    protected final byte NO_ERROR = 0;
+    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
     @Inject
     FormFactory formFactory;
 
@@ -24,7 +25,6 @@ public class mainPageController extends Controller {
 
         } else {
             login = "";
-
         }
         return  login;
     }
@@ -35,18 +35,15 @@ public class mainPageController extends Controller {
 
         } else {
             isAdmin = false;
-
         }
         return  isAdmin;
     }
 
-    public Result test() {
-
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        Form<User> form2 = formFactory.form(User.class);
-        return ok(indexProjectPage.render("", false, form, form2, error));
+    public Result ifGuest() {
+        Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
+        Form<User> userForm = formFactory.form(User.class);
+        return ok(indexProjectPage.render("", false, loginForm, userForm, NO_ERROR));
     }
-
 
     public Result projectPage() {
 
@@ -54,14 +51,10 @@ public class mainPageController extends Controller {
         Form<User> form2 = formFactory.form(User.class);
         String login = getSessionLogin();
         boolean admin = getSessionAdmin();
-        error=0;
-        return ok(indexProjectPage.render(login,admin,form,form2,error));
+        return ok(indexProjectPage.render(login,admin,form,form2,NO_ERROR));
     }
 
     public Result projectPage2(){
-        return redirect(routes.mainPageController.projectPage());
+        return redirect(routes.AuxiliaryController.projectPage());
     }
-
-    
-
 }

@@ -1,4 +1,4 @@
-@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Integer)
+@(login: String, isAdmin: Boolean, bookForm: play.data.Form[LoginForm], registrationForm: play.data.Form[User], error: Byte)
 <html>
     @*0 -no error , if 1 - error*@
     <head>
@@ -132,7 +132,7 @@
                     <input type="submit" value="Каталог">
                     }</a>
                 </li>
-                <li><a>@helper.form(action = routes.mainPageController.projectPage2) {
+                <li><a>@helper.form(action = routes.AuxiliaryController.projectPage2) {
 
                     <input type="submit" value="О проекте">
                     }</a></li>

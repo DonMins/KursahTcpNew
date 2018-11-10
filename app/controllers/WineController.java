@@ -4,7 +4,6 @@ import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
 import models.*;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -17,8 +16,8 @@ import javax.inject.Inject;
 import java.io.File;
 import java.util.*;
 
-import static controllers.mainPageController.getSessionLogin;
-import static controllers.mainPageController.getSessionAdmin;
+import static controllers.AuxiliaryController.getSessionLogin;
+import static controllers.AuxiliaryController.getSessionAdmin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class WineController extends Controller {

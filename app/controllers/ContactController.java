@@ -12,8 +12,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import javax.inject.Inject;
 import java.util.List;
-import static controllers.mainPageController.getSessionAdmin;
-import static controllers.mainPageController.getSessionLogin;
+import static controllers.AuxiliaryController.getSessionAdmin;
+import static controllers.AuxiliaryController.getSessionLogin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class ContactController extends Controller {

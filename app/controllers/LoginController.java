@@ -4,60 +4,51 @@ import io.ebean.Ebean;
 import models.User;
 import models.LoginForm;
 import org.apache.commons.codec.digest.DigestUtils;
-
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-
 import javax.inject.Inject;
 import java.util.List;
-
 
 public class LoginController extends Controller {
 
     @Inject
     FormFactory formFactory;
+    protected final byte NO_ERROR = 0;
+    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
 
     public Result renderLoginForm(){
-
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        return ok(views.html.login.render(form));
+        Form<LoginForm> loginFor = formFactory.form(LoginForm.class);
+        return ok(views.html.login.render(loginFor));
     }
 
     public Result checkingLoginForm(){
-        Integer error;
-        Form<LoginForm> logForm = formFactory.form(LoginForm.class).bindFromRequest();
+        Form<LoginForm> loginForm = formFactory.form(LoginForm.class).bindFromRequest();
 
-        if(logForm.hasGlobalErrors()||logForm.hasErrors() ){
-            error = 1; // неверный логин или пароль
-
-            mainPageController.error=error;
-
-            return redirect(routes.mainPageController.test());
+        if(loginForm.hasGlobalErrors()||loginForm.hasErrors() ){
+            AuxiliaryController.ERROR = ERROR_LOGIN_OR_PASSWORD;
+            return redirect(routes.AuxiliaryController.ifGuest());
         }
-        LoginForm log = logForm.get();
-        List<User> users = Ebean.find(User.class).where().eq("login", log.getLogin()).findList();
-        String passwordHex = DigestUtils.md5Hex(log.getPassword()).toUpperCase();
-        User user = users.get(0);
+        LoginForm loginFormForm = loginForm.get();
+        List<User> userList = Ebean.find(User.class).where().eq("login", loginFormForm.getLogin()).findList();
+        String passwordHex = DigestUtils.md5Hex(loginFormForm.getPassword()).toUpperCase();
+        User user = userList.get(0);
 
         if( user.getPassword().equals(passwordHex)) {
-            error=0;
-            mainPageController.error=error; // все хорошо, ошибок нет
-            session().put("login", log.getLogin());
+            AuxiliaryController.ERROR=NO_ERROR; // все хорошо, ошибок нет
+            session().put("login", loginFormForm.getLogin());
             session().put("isAdmin", String.valueOf(user.getAdmin()));
-            return redirect(routes.mainPageController.projectPage());
+            return redirect(routes.AuxiliaryController.projectPage());
         }
-
-        error = 1; // неверный логин или пароль
-        mainPageController.error=error;
-        return redirect(routes.mainPageController.test());
+        AuxiliaryController.ERROR = ERROR_LOGIN_OR_PASSWORD;
+        return redirect(routes.AuxiliaryController.ifGuest());
     }
 
     public Result logout(){
         session().remove("login");
         session().remove("isAdmin");
-        return redirect(routes.mainPageController.projectPage());
+        return redirect(routes.AuxiliaryController.projectPage());
     }
 
 }

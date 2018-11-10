@@ -239,7 +239,7 @@
                     <input type="submit" value="Каталог">
                     }</a>
                 </li>
-                <li><a>@helper.form(action = routes.mainPageController.projectPage2) {
+                <li><a>@helper.form(action = routes.AuxiliaryController.projectPage2) {
 
                     <input type="submit" value="О проекте">
                     }</a></li>
@@ -372,8 +372,8 @@
 
                                         <p class="product-price">@item.getPrice руб.
                                         <p class="product-price1">@item.averageRatingOfTheProduct(item.getIdProduct)/5
-                                        <div class="product-rating">
-                                            <div class="rating">
+                                        <div class="product-Rating">
+                                            <div class="Rating">
                                                 <div style="display: inline-flex;margin: 0 auto;width: 500px;">
                                                     @if(!login.isEmpty) {
                                                         @*сюда добавить проверку - голосовал ли пользователь за вино*@
@@ -384,31 +384,31 @@
                                                         @if(item.isVote(item.getIdProduct,login )==login){
                                                             @helper.form(action = routes.RatingController.newRating) {
                                                                 <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                <input type="hidden" name="rating" value="1">
+                                                                <input type="hidden" name="Rating" value="1">
 
                                                                 <input type="submit" class="btn btn-danger" value="1" />
                                                             }
                                                             @helper.form(action = routes.RatingController.newRating) {
                                                                 <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                <input type="hidden" name="rating" value="2">
+                                                                <input type="hidden" name="Rating" value="2">
 
                                                                 <input type="submit" class="btn btn-danger" value="2" />
                                                             }
                                                             @helper.form(action = routes.RatingController.newRating) {
                                                                 <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                <input type="hidden" name="rating" value="3">
+                                                                <input type="hidden" name="Rating" value="3">
 
                                                                 <input type="submit" class="btn btn-danger" value="3" />
                                                             }
                                                             @helper.form(action = routes.RatingController.newRating) {
                                                                 <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                <input type="hidden" name="rating" value="4">
+                                                                <input type="hidden" name="Rating" value="4">
 
                                                                 <input type="submit" class="btn btn-danger" value="4" />
                                                             }
                                                             @helper.form(action = routes.RatingController.newRating) {
                                                                 <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                <input type="hidden" name="rating" value="5">
+                                                                <input type="hidden" name="Rating" value="5">
 
                                                                 <input type="submit" class="btn btn-danger" value="5" />
 

@@ -3,36 +3,36 @@ package controllers;
 import io.ebean.Ebean;
 import io.ebean.SqlQuery;
 import io.ebean.SqlRow;
-import models.rating;
-import models.wine;
+import models.Rating;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.collection.JavaConverters;
-
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import static controllers.mainPageController.getSessionLogin;
+import static controllers.AuxiliaryController.getSessionLogin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class RatingController extends Controller {
     public static Integer error ;
     @Inject
     FormFactory formFactory;
+
     public Result ratingUserPage(String login, boolean isAdmin){
-        String sql1 = "select rating.* from wine,public.rating," +
-                " public.user where rating.id_user=id and login = '"+login+"'" +
-                " and rating.id_product=wine.id_product";
-        List<rating> ratingList = new ArrayList<>();
+
+        String sqlRequest = "select Rating.* from wine,public.Rating," +
+                " public.user where Rating.id_user=id and login = '"+login+"'" +
+                " and Rating.id_product=wine.id_product";
+
+        List<Rating> ratingList = new ArrayList<>();
         List<String> nameColomn = new ArrayList<>();
-        rating us = new rating();
-        nameColomn = us.getNameColomn();
+        Rating ra = new Rating();
+        nameColomn = ra.getNameColomn();
         String parametrs= null;
-        SqlQuery maxId = Ebean.createSqlQuery(sql1);
+        SqlQuery maxId = Ebean.createSqlQuery(sqlRequest);
 
         String wineRating = "";
         String[] splitS = null;
@@ -49,7 +49,7 @@ public class RatingController extends Controller {
             splitS=wineRating.split(" ");
             for(int i=0; i<splitS.length;i=i+3)
             {
-                rating us1 = new rating();
+                Rating us1 = new Rating();
                 us1.setIdProduct(Integer.parseInt(splitS[i]));
                 us1.setIdUser(Integer.parseInt(splitS[i+1]));
                 us1.setRating(Integer.parseInt(splitS[i+2]));
@@ -62,9 +62,9 @@ public class RatingController extends Controller {
         String login  = getSessionLogin();
         DynamicForm form = formFactory.form().bindFromRequest();
         int idProduct= Integer.parseInt(form.get("getIdProduct"));
-        int ratingNew= Integer.parseInt(form.get("rating"));
+        int ratingNew= Integer.parseInt(form.get("Rating"));
         System.out.println("It's working");
-        rating newRating = new rating();
+        Rating newRating = new Rating();
         newRating.setIdProduct(idProduct);
 
         String parametrs= null;

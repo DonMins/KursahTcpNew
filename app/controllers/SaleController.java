@@ -1,8 +1,6 @@
 package controllers;
 
 import io.ebean.Ebean;
-import io.ebean.SqlQuery;
-import io.ebean.SqlRow;
 import models.*;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -10,19 +8,16 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import scala.collection.JavaConverters;
 
 import javax.inject.Inject;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static controllers.WineController.searchParametrs;
-import static controllers.mainPageController.getSessionAdmin;
-import static controllers.mainPageController.getSessionLogin;
+import static controllers.AuxiliaryController.getSessionAdmin;
+import static controllers.AuxiliaryController.getSessionLogin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class SaleController extends Controller {

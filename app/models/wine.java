@@ -194,7 +194,7 @@ public class wine implements Constraints.Validatable<String> {
         String parametrs = null;
         double average = 0; // а вообще результат сюда пишется
 
-        String sql = "SELECT AVG(rating) FROM rating where id_product=" + id_product;
+        String sql = "SELECT AVG(Rating) FROM Rating where id_product=" + id_product;
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = averageID.findList();
@@ -217,7 +217,7 @@ public class wine implements Constraints.Validatable<String> {
     {
         String parametrs = null;
 
-        String sql ="SELECT login FROM rating,public.user where rating.id_product=" + idProduct+" and login='"+login+"'and id=rating.id_user";
+        String sql ="SELECT login FROM Rating,public.user where Rating.id_product=" + idProduct+" and login='"+login+"'and id=Rating.id_user";
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = averageID.findList();
@@ -276,7 +276,7 @@ public class wine implements Constraints.Validatable<String> {
     {
         String parametrs = null;
 
-        String sql ="SELECT rating FROM rating,public.user where rating.id_product=" + idProduct+" and login='"+login+"'and id=rating.id_user";
+        String sql ="SELECT Rating FROM Rating,public.user where Rating.id_product=" + idProduct+" and login='"+login+"'and id=Rating.id_user";
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = averageID.findList();
