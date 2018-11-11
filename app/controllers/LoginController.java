@@ -15,8 +15,8 @@ public class LoginController extends Controller {
 
     @Inject
     FormFactory formFactory;
-    protected final byte NO_ERROR = 0;
-    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
+    protected final int NO_ERROR = 0;
+    protected final int ERROR_LOGIN_OR_PASSWORD = 1;
 
     public Result renderLoginForm(){
         Form<LoginForm> loginFor = formFactory.form(LoginForm.class);

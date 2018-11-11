@@ -21,8 +21,8 @@ import static controllers.AuxiliaryController.getSessionAdmin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class WineController extends Controller {
-    protected final byte NO_ERROR = 0;
-    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
+    protected final int NO_ERROR = 0;
+    protected final int ERROR_LOGIN_OR_PASSWORD = 1;
     public List<wine> searchList = null;
     @Inject
 

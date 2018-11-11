@@ -18,7 +18,7 @@ import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class ContactController extends Controller {
 
-    protected final byte NO_ERROR = 0;
+    protected final int NO_ERROR = 0;
     @Inject
     FormFactory formFactory;
 

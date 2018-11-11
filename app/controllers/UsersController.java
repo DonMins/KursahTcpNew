@@ -21,8 +21,8 @@ import static scala.collection.JavaConverters.asScalaBuffer;
 public class UsersController extends Controller {
     @Inject
     FormFactory formFactory;
-    protected final byte NO_ERROR = 0;
-    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
+    protected final int NO_ERROR = 0;
+    protected final int ERROR_LOGIN_OR_PASSWORD = 1;
 
     public Result usersList(){
         String login = AuxiliaryController.getSessionLogin();
@@ -51,7 +51,7 @@ public class UsersController extends Controller {
     public Result renderAddUserForm(int error){
         String login = AuxiliaryController.getSessionLogin();
         Form<User> userForm = formFactory.form(User.class);
-        return ok(views.html.createUser.render(userForm,true,(byte)error,login));
+        return ok(views.html.createUser.render(userForm,true,error,login));
     }
 
     public Result addingUser(){
@@ -71,7 +71,7 @@ public class UsersController extends Controller {
         }
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
             if (admin){
-                return redirect(routes.UsersController.renderAddUserForm((int)ERROR_LOGIN_OR_PASSWORD));
+                return redirect(routes.UsersController.renderAddUserForm(ERROR_LOGIN_OR_PASSWORD));
             }
             return ok(views.html.indexProjectPage.render("",admin,loginForm,userForm,ERROR_LOGIN_OR_PASSWORD));
         }

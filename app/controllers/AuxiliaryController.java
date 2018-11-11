@@ -12,9 +12,9 @@ import javax.inject.Inject;
 
 public class AuxiliaryController extends Controller {
 
-    protected static byte ERROR ;
-    protected final byte NO_ERROR = 0;
-    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
+    protected static int ERROR ;
+    protected final int NO_ERROR = 0;
+    protected final int ERROR_LOGIN_OR_PASSWORD = 1;
     @Inject
     FormFactory formFactory;
 
@@ -42,7 +42,7 @@ public class AuxiliaryController extends Controller {
     public Result ifGuest() {
         Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
         Form<User> userForm = formFactory.form(User.class);
-        return ok(indexProjectPage.render("", false, loginForm, userForm, NO_ERROR));
+        return ok(indexProjectPage.render("", false, loginForm, userForm, ERROR));
     }
 
     public Result projectPage() {

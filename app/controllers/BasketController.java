@@ -21,9 +21,9 @@ public class BasketController extends Controller {
     @Inject
     FormFactory formFactory;
     private int numberSql;
-    protected final byte NO_ERROR = 0;
-    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
-    protected final byte NO_BUTTON_BUY_PRODUCT = 3;
+    protected final int NO_ERROR = 0;
+    protected final int ERROR_LOGIN_OR_PASSWORD = 1;
+    protected final int NO_BUTTON_BUY_PRODUCT = 3;
 
 
 
