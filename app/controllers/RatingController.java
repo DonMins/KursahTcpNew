@@ -17,11 +17,13 @@ import static controllers.AuxiliaryController.getSessionLogin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class RatingController extends Controller {
-    public static Integer error ;
+
     @Inject
     FormFactory formFactory;
 
-    public Result ratingUserPage(String login, boolean isAdmin){
+    public Result ratingUserPage(){
+        String login = AuxiliaryController.getSessionLogin();
+        boolean isAdmin = AuxiliaryController.getSessionAdmin();
 
         String sqlRequest = "select Rating.* from wine,public.Rating," +
                 " public.user where Rating.id_user=id and login = '"+login+"'" +
@@ -29,68 +31,57 @@ public class RatingController extends Controller {
 
         List<Rating> ratingList = new ArrayList<>();
         List<String> nameColomn = new ArrayList<>();
-        Rating ra = new Rating();
-        nameColomn = ra.getNameColomn();
+        Rating rating = new Rating();
+        nameColomn = rating.getNameColomn();
         String parametrs= null;
-        SqlQuery maxId = Ebean.createSqlQuery(sqlRequest);
+        SqlQuery sqlQuery = Ebean.createSqlQuery(sqlRequest);
 
         String wineRating = "";
         String[] splitS = null;
 
        //надо сделать класс объекта со всеми нужными полями - название вина, оценка
-        List<SqlRow> mId = maxId.findList();
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                parametrs = row2.getString(s);
+        List<SqlRow> sqlQueryList = sqlQuery.findList();
+        for (SqlRow row : sqlQueryList) {
+            Set<String> keyset = row.keySet();
+            for (String s : keyset) {
+                parametrs = row.getString(s);
                 wineRating = wineRating + parametrs + " ";
             }
         }
             splitS=wineRating.split(" ");
-            for(int i=0; i<splitS.length;i=i+3)
-            {
-                Rating us1 = new Rating();
-                us1.setIdProduct(Integer.parseInt(splitS[i]));
-                us1.setIdUser(Integer.parseInt(splitS[i+1]));
-                us1.setRating(Integer.parseInt(splitS[i+2]));
-                ratingList.add(us1);
+            for(int i=0; i<splitS.length;i+=3){
+                rating.setIdProduct(Integer.parseInt(splitS[i]));
+                rating.setIdUser(Integer.parseInt(splitS[i+1]));
+                rating.setRating(Integer.parseInt(splitS[i+2]));
+                ratingList.add(rating);
             }
         return ok(views.html.usersRatingPage.render(login,isAdmin, JavaConverters.asScalaBuffer(nameColomn)
                 ,asScalaBuffer(ratingList)));
     }
     public Result newRating(){
         String login  = getSessionLogin();
-        DynamicForm form = formFactory.form().bindFromRequest();
-        int idProduct= Integer.parseInt(form.get("getIdProduct"));
-        int ratingNew= Integer.parseInt(form.get("Rating"));
-        System.out.println("It's working");
+        DynamicForm dynamicForm = formFactory.form().bindFromRequest();
+        int idProduct= Integer.parseInt(dynamicForm.get("getIdProduct"));
+        int ratingNew= Integer.parseInt(dynamicForm.get("Rating"));
         Rating newRating = new Rating();
         newRating.setIdProduct(idProduct);
-
         String parametrs= null;
         int id_user=0;
-
-        String sql = "SELECT id FROM public.user where login ='"+login+"'";
-        SqlQuery userID = Ebean.createSqlQuery(sql);
-
-        List<SqlRow> mId = userID.findList();
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                parametrs = row2.getString(s);
-
+        String sqlRequest = "SELECT id FROM public.user where login ='"+login+"'";
+        SqlQuery userID = Ebean.createSqlQuery(sqlRequest);
+        List<SqlRow> userIDList = userID.findList();
+        for (SqlRow row : userIDList) {
+            Set<String> keyset = row.keySet();
+            for (String s : keyset) {
+                parametrs = row.getString(s);
             }
         }
         id_user=Integer.parseInt(parametrs);
-
         newRating.setIdUser(id_user);
         newRating.setRating(ratingNew);
         Ebean.save(newRating);
-
         return redirect(routes.WineController.catalogPage());
     }
-
-
 }
 
 

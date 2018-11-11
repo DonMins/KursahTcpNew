@@ -3,7 +3,7 @@ package models;
 /**
  * Класс для фильтра
  */
-public class search {
+public class Search {
     private  Double minprice;
     private  Double maxprice;
     private  boolean redColour = false;
@@ -66,7 +66,7 @@ public class search {
         this.dry = dry;
     }
 
-    public search(){}
+    public Search(){}
 
     public boolean isRedColour() {
         return redColour;

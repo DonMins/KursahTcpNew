@@ -13,7 +13,7 @@
         </li>        <h1 class="g1">Регистрация товара</h1>
 
 
-        @helper.form(action = routes.WineController.addingWine(login), 'id -> "slick-login"){
+        @helper.form(action = routes.WineController.addingWine(), 'id -> "slick-login"){
             @helper.inputText(form("name"),'_showConstraints ->false,'placeholder -> "Название вина")
             @helper.inputText(form("colour"),'_showConstraints ->false,'placeholder -> "Цвет")
             @helper.inputText(form("country"),'_showConstraints ->false,'placeholder -> "Страна")

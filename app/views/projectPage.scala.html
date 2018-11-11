@@ -50,7 +50,7 @@
                     <h1 class="modal-title">Регистрация </h1>
                 </div>
 
-                @helper.form(action = routes.UsersController.addingUser(isAdmin), 'id -> "slick-login") {
+                @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
 
                     @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
 
@@ -113,7 +113,7 @@
                         }
                         @if(!(login.isEmpty)) {
                             <li><a href="@routes.LoginController.logout()">Выход</a></li>
-                            <li><a href="@routes.RatingController.ratingUserPage(login, isAdmin)">Действия</a></li>
+                            <li><a href="@routes.RatingController.ratingUserPage()">Действия</a></li>
                         }
 
                     </ul>
@@ -147,7 +147,7 @@
                     }</a></li>
 
                 @if(isAdmin) {
-                    <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
+                    <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
                 }
 
 

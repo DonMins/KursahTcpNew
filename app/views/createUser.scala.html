@@ -14,10 +14,10 @@
         <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </head>
     <body>
-        <a href="@routes.UsersController.usersList(login)" class = "link">Назад </a>
+        <a href="@routes.UsersController.usersList()" class = "link">Назад </a>
         <h1 class="g1">Регистрация</h1>
 
-        @helper.form(action = routes.UsersController.addingUser(admin), 'id -> "slick-login"){
+        @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login"){
             @helper.inputText(form("login"),'_showConstraints ->false,'placeholder -> "Логин",'required -> "required")
             @helper.inputText(form("password"),'_showConstraints ->false,'placeholder -> "Ваш сложный пароль",'required -> "required")
             @if(admin){

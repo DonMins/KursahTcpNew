@@ -54,8 +54,8 @@
                 <input type="submit" value="Избранное">
                 }</a></li>
         </li>
-        <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
-        <li><a href="@routes.UsersController.renderAddUserForm(true, 0)">Добавить пользователя </a></li>
+        <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
+        <li><a href="@routes.UsersController.renderAddUserForm(0)">Добавить пользователя </a></li>
         </ul>
         <p></p>
         <p></p>
@@ -85,8 +85,8 @@
                     <th>@item.getPassword</th>
                     <th>@item.getAdmin</th>
 
-                    <th><a href="@routes.UsersController.renderUpdateUserInfo(item.getId, login)">Редактировать</a>
-                        <a href="@routes.UsersController.deleteUser(item.getId, login)" > Удалить </a></th>
+                    <th><a href="@routes.UsersController.renderUpdateUserInfo(item.getId)">Редактировать</a>
+                        <a href="@routes.UsersController.deleteUser(item.getId)" > Удалить </a></th>
                     <tr></tr>
                 }
 

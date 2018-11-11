@@ -49,7 +49,7 @@
                     <h1 class="modal-title">Регистрация </h1>
                 </div>
 
-                @helper.form(action = routes.UsersController.addingUser(isAdmin), 'id -> "slick-login") {
+                @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
 
                     @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
 
@@ -170,7 +170,7 @@
                     <input type="submit" value="Избранное">
                     }</a></li>
                 @if(isAdmin) {
-                    <li><a href="@routes.UsersController.usersList(login)">Список пользователей </a></li>
+                    <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
                     <li><a href="#win3" class="button button-green" >Добавить акцию</a></li>
                 }
 

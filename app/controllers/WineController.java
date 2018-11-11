@@ -21,7 +21,8 @@ import static controllers.AuxiliaryController.getSessionAdmin;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class WineController extends Controller {
-    public static Integer error ;
+    protected final byte NO_ERROR = 0;
+    protected final byte ERROR_LOGIN_OR_PASSWORD = 1;
     public List<wine> searchList = null;
     @Inject
 
@@ -31,17 +32,17 @@ public class WineController extends Controller {
 
         String login = getSessionLogin();
         boolean admin = getSessionAdmin();
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        Form<User> form2 = formFactory.form(User.class);
+        Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
+        Form<User> userForm = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
-        Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
-        Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
+        Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
+        Form<UpdateWine> updateWineForm = formFactory.form(UpdateWine.class).bindFromRequest();
         List<wine> winList = wine.find.all();
         List<String> nameColomn = new ArrayList<>();
-        wine us = new wine();
-        nameColomn = us.getNameColomn();
+        wine tmp = new wine();
+        nameColomn = tmp.getNameColomn();
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),login,admin,form,form2,error,wineForm,updateform,us,searchForm));
+                ,asScalaBuffer(winList),login,admin,loginForm,userForm,NO_ERROR,wineForm,updateWineForm,tmp,searchForm));
     }
 
     public Result upload(Integer idProduct) {
@@ -58,13 +59,12 @@ public class WineController extends Controller {
         }
     }
 
-    public Result sortCatalogPage(String login,boolean isAdmin,int sortNumber){
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        Form<User> form2 = formFactory.form(User.class);
+    public Result sortCatalogPage(int sortNumber){
+        Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
+        Form<User> userForm = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
-        Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
-
-        Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
+        Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
+        Form<UpdateWine> updateWineForm = formFactory.form(UpdateWine.class).bindFromRequest();
         List<wine> winList = null;
         if (searchList!=null)
             winList = searchList;
@@ -114,37 +114,37 @@ public class WineController extends Controller {
             }
         });
         List<String> nameColomn = new ArrayList<>();
-        wine us = new wine();
-        nameColomn = us.getNameColomn();
+        wine tmp = new wine();
+        nameColomn = tmp.getNameColomn();
+        String login = getSessionLogin();
+        boolean isAdmin = getSessionAdmin();
 
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
+                ,asScalaBuffer(winList),login,isAdmin,loginForm,userForm,NO_ERROR,wineForm,updateWineForm,tmp,searchForm));
     }
 
-    public Result searchCatalogPage(String login,boolean isAdmin){
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        Form<User> form2 = formFactory.form(User.class);
-        Form<UpdateWine> updateform = formFactory.form(UpdateWine.class);
+    public Result searchCatalogPage(){
+        Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
+        Form<User> userForm = formFactory.form(User.class);
+        Form<UpdateWine> updateWineForm = formFactory.form(UpdateWine.class);
 
         Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
-        Form<search> searchForm = formFactory.form(search.class).bindFromRequest();
+        Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
         Map<String, String> rawdata = searchForm.rawData();
-
-
         List<wine> winList = null;
         if(wineForm.hasErrors() || wineForm.hasGlobalErrors()||
                 searchForm.hasErrors() || searchForm.hasGlobalErrors()){
             List<String> nameColomn = new ArrayList<>();
-            wine us = new wine();
-
-            nameColomn = us.getNameColomn();
+            wine tmp = new wine();
+            nameColomn = tmp.getNameColomn();
             winList = wine.find.all();
-
+            String login = getSessionLogin();
+            boolean isAdmin = getSessionAdmin();
             return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                    ,asScalaBuffer(winList),login,isAdmin,form,form2,error,wineForm,updateform,us,searchForm));
+                    ,asScalaBuffer(winList),login,isAdmin,loginForm,userForm,NO_ERROR,wineForm,updateWineForm,tmp,searchForm));
         }
         wine winParam= wineForm.get();
-        search searchParam = searchForm.get();
+        Search searchParam = searchForm.get();
         String colourWin ="";
         String typeWin="";
 
@@ -235,7 +235,6 @@ public class WineController extends Controller {
                 !searchParam.isSemisweet()&& !searchParam.isSweet() ){
             notSugar = true;
         }
-
 
         // если все пусто и только фильтр на тип
         if((winParam.getName().isEmpty()) && (winParam.getCountry().isEmpty()) &&
@@ -439,154 +438,154 @@ public class WineController extends Controller {
             }
         }
 
-//
-
         searchList = winList;
         List<String> nameColomn = new ArrayList<>();
-        wine us = new wine();
-        nameColomn = us.getNameColomn();
+        wine tmp = new wine();
+        nameColomn = tmp.getNameColomn();
         return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                ,asScalaBuffer(winList),getSessionLogin(),getSessionAdmin(),form,form2,error,wineForm,updateform,us,searchForm));
+                ,asScalaBuffer(winList),getSessionLogin(),getSessionAdmin(),loginForm,userForm,NO_ERROR,wineForm,updateWineForm,tmp,searchForm));
     }
-    public Result deleteWine(Integer id,String login){
+    public Result deleteWine(Integer id){
         wine.find.deleteById(id);
         return redirect(routes.WineController.catalogPage());
     }
 
-    public Result renderAddWine(String login){
+    public Result renderAddWine(){
+        String login = getSessionLogin();
         Form<wine> form = formFactory.form(wine.class);
         return ok(views.html.createWine.render(form,login));
     }
 
     public static String searchParametrs(String sql){
         String parametrs = null;
-        SqlQuery maxId = Ebean.createSqlQuery(sql);
-        List<SqlRow> mId = maxId.findList();
-        for (SqlRow row2 : mId) {
-            Set<String> keyset2 = row2.keySet();
-            for (String s : keyset2) {
-                parametrs = row2.getString(s);
+        SqlQuery sqlQuery = Ebean.createSqlQuery(sql);
+        List<SqlRow> sqlQueryList = sqlQuery.findList();
+        for (SqlRow row : sqlQueryList) {
+            Set<String> keySet = row.keySet();
+            for (String s : keySet) {
+                parametrs = row.getString(s);
             }
         }
        return parametrs;
 
     }
 
-    public Result addingWine(String login){
-        String sql = "select max(id_product) from public.wine";
+    public Result addingWine(){
+        String sqlRequest = "select max(id_product) from public.wine";
+        String login = getSessionLogin();
         int id;
         try {
-         id = Integer.parseInt(searchParametrs(sql));
+         id = Integer.parseInt(searchParametrs(sqlRequest));
         }
         catch (NumberFormatException e){
             id=0;
         }
-        Form<wine> win = formFactory.form(wine.class).bindFromRequest();
-        if(win.hasErrors() || win.hasGlobalErrors()){
-            return ok(views.html.createWine.render(win,login));
+        Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
+        if(wineForm.hasErrors() || wineForm.hasGlobalErrors()){
+            return ok(views.html.createWine.render(wineForm,login));
         }
-        Map<String, String> rawdata = win.rawData();
-        wine Win = new wine();
-
-        Win.setIdProduct((id+1));
-        Win.setName(rawdata.get("name"));
-        Win.setColour(rawdata.get("colour"));
-        Win.setCountry(rawdata.get("country"));
-        Win.setBrand(rawdata.get("brand"));
-        Win.setShelfLife(rawdata.get("shelfLife"));
-        Win.setSugar(rawdata.get("sugar"));
-        Win.setGrapeSort(rawdata.get("grapeSort"));
+        Map<String, String> rawdata = wineForm.rawData();
+        wine winTmp = new wine();
+        winTmp.setIdProduct((id+1));
+        winTmp.setName(rawdata.get("name"));
+        winTmp.setColour(rawdata.get("colour"));
+        winTmp.setCountry(rawdata.get("country"));
+        winTmp.setBrand(rawdata.get("brand"));
+        winTmp.setShelfLife(rawdata.get("shelfLife"));
+        winTmp.setSugar(rawdata.get("sugar"));
+        winTmp.setGrapeSort(rawdata.get("grapeSort"));
         if ((rawdata.get("price").isEmpty())){
-                Win.setPrice(null);
+                winTmp.setPrice(null);
             }
             else{
-                Win.setPrice(Double.valueOf(rawdata.get("price")));
+                winTmp.setPrice(Double.valueOf(rawdata.get("price")));
             }
 
         if ((rawdata.get("value").isEmpty())){
-            Win.setValue(null);
+            winTmp.setValue(null);
         }
         else{
-        Win.setValue(Double.valueOf(rawdata.get("value")));
+        winTmp.setValue(Double.valueOf(rawdata.get("value")));
         }
         if (rawdata.get("degree").isEmpty()){
-            Win.setDegree(null);
+            winTmp.setDegree(null);
         }
         else {
-            Win.setDegree(Double.valueOf(rawdata.get("degree")));
+            winTmp.setDegree(Double.valueOf(rawdata.get("degree")));
         }
 
-        List<wine> winne = Ebean.find(wine.class).where().eq("id_product", Win.getIdProduct()).findList();
-        if(winne.isEmpty()){
+        List<wine> wineList = Ebean.find(wine.class).where().eq("id_product", winTmp.getIdProduct()).findList();
+        if(wineList.isEmpty()){
             try{
-                Ebean.save(Win);
+                Ebean.save(winTmp);
             }catch (Exception ex){
-                return redirect(routes.WineController.renderAddWine(login));
+                return redirect(routes.WineController.renderAddWine());
             }
             return redirect(routes.WineController.catalogPage());
         }
-        return redirect(routes.WineController.renderAddWine(login));
+        return redirect(routes.WineController.renderAddWine());
     }
-    public Result renderUpdateWineInfo(Integer id,String login){
-        wine win = wine.find.byId(id);
-        UpdateWine update = new UpdateWine(win.getName(),win.getColour(),win.getCountry(),win.getBrand(),
-                win.getShelfLife(),win.getSugar(),win.getGrapeSort(),win.getPrice(),
-                win.getValue(),win.getDegree());
+    public Result renderUpdateWineInfo(Integer id){
+        String login = getSessionLogin();
+        wine wineFind = wine.find.byId(id);
+        UpdateWine update = new UpdateWine(wineFind.getName(),wineFind.getColour(),wineFind.getCountry(),wineFind.getBrand(),
+                wineFind.getShelfLife(),wineFind.getSugar(),wineFind.getGrapeSort(),wineFind.getPrice(),
+                wineFind.getValue(),wineFind.getDegree());
 
         Form<UpdateWine> updateForm = formFactory.form(UpdateWine.class).fill(update);
-        return ok(views.html.updateWine.render(updateForm, win,login));
+        return ok(views.html.updateWine.render(updateForm, wineFind,login));
 
     }
-    public Result updateWineInfo(Integer id,String login){
+    public Result updateWineInfo(Integer id){
 
-        wine Win = wine.find.byId(id);
+        wine wineFind = wine.find.byId(id);
         List<wine> winList = wine.find.all();
         List<String> nameColomn = new ArrayList<>();
-        wine us = new wine();
-        nameColomn = us.getNameColomn();
-        Form<UpdateWine> updateform = formFactory.form(UpdateWine.class).bindFromRequest();
-        Form<LoginForm> form = formFactory.form(LoginForm.class);
-        Form<User> form2 = formFactory.form(User.class);
+        wine tmp = new wine();
+        nameColomn = tmp.getNameColomn();
+        Form<UpdateWine> updateWineForm = formFactory.form(UpdateWine.class).bindFromRequest();
+        Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
+        Form<User> userForm = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class);
-        Form<search> searchForm = formFactory.form(search.class);
+        Form<Search> searchForm = formFactory.form(Search.class);
 
         if(wineForm.hasErrors() || wineForm.hasGlobalErrors()){
             return ok(views.html.catalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
-                    ,asScalaBuffer(winList),getSessionLogin(), getSessionAdmin(),form,form2,1,wineForm,updateform, Win,searchForm));
+                    ,asScalaBuffer(winList),getSessionLogin(), getSessionAdmin(),loginForm,userForm,ERROR_LOGIN_OR_PASSWORD,wineForm,updateWineForm, wineFind,searchForm));
         }
-        if(updateform.hasErrors() || updateform.hasGlobalErrors()){
+        if(updateWineForm.hasErrors() || updateWineForm.hasGlobalErrors()){
 
-            return ok(views.html.updateWine.render(updateform, Win,getSessionLogin()));
+            return ok(views.html.updateWine.render(updateWineForm, wineFind,getSessionLogin()));
 
         }
-        Map<String, String> rawdata = updateform.rawData();
-        Win.setName(rawdata.get("name"));
-        Win.setColour(rawdata.get("colour"));
-        Win.setCountry(rawdata.get("country"));
-        Win.setBrand(rawdata.get("brand"));
-        Win.setShelfLife(rawdata.get("shelfLife"));
-        Win.setSugar(rawdata.get("sugar"));
-        Win.setGrapeSort(rawdata.get("grapeSort"));
+        Map<String, String> rawdata = updateWineForm.rawData();
+        wineFind.setName(rawdata.get("name"));
+        wineFind.setColour(rawdata.get("colour"));
+        wineFind.setCountry(rawdata.get("country"));
+        wineFind.setBrand(rawdata.get("brand"));
+        wineFind.setShelfLife(rawdata.get("shelfLife"));
+        wineFind.setSugar(rawdata.get("sugar"));
+        wineFind.setGrapeSort(rawdata.get("grapeSort"));
         if ((rawdata.get("value").isEmpty())){
-            Win.setValue(null);
+            wineFind.setValue(null);
         }
         else{
-            Win.setValue(Double.valueOf(rawdata.get("value")));
+            wineFind.setValue(Double.valueOf(rawdata.get("value")));
         }
         if (rawdata.get("degree").isEmpty()){
-            Win.setDegree(null);
+            wineFind.setDegree(null);
         }
         else {
-            Win.setDegree(Double.valueOf(rawdata.get("degree")));
+            wineFind.setDegree(Double.valueOf(rawdata.get("degree")));
         }
 
          if ((rawdata.get("price").isEmpty())){
-                Win.setPrice(null);
+                wineFind.setPrice(null);
             }
             else{
-                Win.setPrice(Double.valueOf(rawdata.get("price")));
+                wineFind.setPrice(Double.valueOf(rawdata.get("price")));
             }
-        Ebean.update(Win);
+        Ebean.update(wineFind);
 
         return redirect(routes.WineController.catalogPage());
     }

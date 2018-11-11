@@ -18,7 +18,7 @@
             <h2>@form.globalError.message</h2>
         }
 
-        @helper.form(action = routes.UsersController.updateUserInfo(user.getId,login), 'id -> "slick-login") {
+        @helper.form(action = routes.UsersController.updateUserInfo(user.getId), 'id -> "slick-login") {
             <table>
 
                 <tr>

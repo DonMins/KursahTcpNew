@@ -21,9 +21,9 @@ POST        /catalog                                  controllers.WineController
 GET         /catalog                                  controllers.WineController.catalogPage
 
 + nocsrf
-POST        /catalogSort                              controllers.WineController.sortCatalogPage(login:String,isAdmin:Boolean,sortCatalog:Integer)
+POST        /catalogSort                              controllers.WineController.sortCatalogPage(sortCatalog:Integer)
 + nocsrf
-POST        /catalogSearch                            controllers.WineController.searchCatalogPage(login:String,isAdmin:Boolean)
+POST        /catalogSearch                            controllers.WineController.searchCatalogPage
 + nocsrf
 POST        /contacts                                  controllers.ContactController.contactPage
 GET         /contacts                                  controllers.ContactController.contactPage
@@ -45,29 +45,29 @@ GET         /logout                                   controllers.LoginControlle
 GET         /assets/*file                             controllers.Assets.versioned(path="/public", file: Asset)
 
 #controller for list of user
-GET         /users                                    controllers.UsersController.usersList(login:String)
-GET         /users/:id                                controllers.UsersController.deleteUser(id: Integer,login:String)
-GET         /adduser                                  controllers.UsersController.renderAddUserForm(admin:Boolean,error:Integer)
+GET         /users                                    controllers.UsersController.usersList()
+GET         /users/:id                                controllers.UsersController.deleteUser(id: Integer)
+GET         /adduser                                  controllers.UsersController.renderAddUserForm(error:Integer)
 + nocsrf
-POST        /adduser                                  controllers.UsersController.addingUser(admin:Boolean)
+POST        /adduser                                  controllers.UsersController.addingUser
 
 
-GET         /updateuser                               controllers.UsersController.renderUpdateUserInfo(id: Integer,login:String)
+GET         /updateuser                               controllers.UsersController.renderUpdateUserInfo(id: Integer)
 + nocsrf
-POST        /updateuser                               controllers.UsersController.updateUserInfo(id: Integer,login:String)
+POST        /updateuser                               controllers.UsersController.updateUserInfo(id: Integer)
 
 #controller Rating
-GET         /seeRating                                controllers.RatingController.ratingUserPage(login:String,isAdmin: Boolean)
+GET         /seeRating                                controllers.RatingController.ratingUserPage()
 #controller wine
 
-GET         /wine/:id                                 controllers.WineController.deleteWine(id: Integer, login: String)
-GET         /addWinecatalog/:login                    controllers.WineController.addingWine(login: String)
-GET         /addWine/:login                           controllers.WineController.renderAddWine(login: String)
-GET         /updateWine                               controllers.WineController.renderUpdateWineInfo(id: Integer,login:String)
+GET         /wine/:id                                 controllers.WineController.deleteWine(id: Integer)
+GET         /addWinecatalog/                   controllers.WineController.addingWine
+GET         /addWine/                          controllers.WineController.renderAddWine
+GET         /updateWine                               controllers.WineController.renderUpdateWineInfo(id: Integer)
 + nocsrf
 POST        /catalog/:id                              controllers.WineController.upload(id:Integer)
 + nocsrf
-POST        /updateWine                               controllers.WineController.updateWineInfo(id: Integer,login:String)
+POST        /updateWine                               controllers.WineController.updateWineInfo(id: Integer)
 
 #controller provider
 
