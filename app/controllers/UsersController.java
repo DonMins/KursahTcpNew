@@ -23,10 +23,12 @@ public class UsersController extends Controller {
     FormFactory formFactory;
     protected final int NO_ERROR = 0;
     protected final int ERROR_LOGIN_OR_PASSWORD = 1;
+    protected final int ERROR_LOGIN_IS_EXIST = 2;
 
     public Result usersList(){
         String login = AuxiliaryController.getSessionLogin();
         List<User> users = User.find.all();
+        Form<User> userForm = formFactory.form(User.class);
         users.sort(new Comparator<User>() {
             @Override
             public int compare(User o1, User o2) {
@@ -39,7 +41,7 @@ public class UsersController extends Controller {
         User tmp = new User();
         nameColomn = tmp.getNameColomn();
         return ok(views.html.users.render(JavaConverters.asScalaBuffer(nameColomn)
-                  ,asScalaBuffer(users),login));
+                  ,asScalaBuffer(users),login,NO_ERROR,userForm,true));
     }
 
     public Result deleteUser(Integer id){
@@ -51,7 +53,21 @@ public class UsersController extends Controller {
     public Result renderAddUserForm(int error){
         String login = AuxiliaryController.getSessionLogin();
         Form<User> userForm = formFactory.form(User.class);
-        return ok(views.html.createUser.render(userForm,true,error,login));
+        List<User> users = User.find.all();
+        users.sort(new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                if(o1.getId() <= o2.getId())
+                    return -1;
+                return 1;
+            }
+        });
+        List<String> nameColomn = new ArrayList<>();
+        User tmp = new User();
+        nameColomn = tmp.getNameColomn();
+
+        return ok(views.html.users.render(JavaConverters.asScalaBuffer(nameColomn)
+                ,asScalaBuffer(users),login,error,userForm,true));
     }
 
     public Result addingUser(){
@@ -71,9 +87,9 @@ public class UsersController extends Controller {
         }
         if(userForm.hasErrors() || userForm.hasGlobalErrors()){
             if (admin){
-                return redirect(routes.UsersController.renderAddUserForm(ERROR_LOGIN_OR_PASSWORD));
+                return redirect(routes.UsersController.renderAddUserForm(ERROR_LOGIN_IS_EXIST));
             }
-            return ok(views.html.indexProjectPage.render("",admin,loginForm,userForm,ERROR_LOGIN_OR_PASSWORD));
+            return ok(views.html.indexProjectPage.render("",admin,loginForm,userForm,ERROR_LOGIN_IS_EXIST));
         }
         Map<String, String> rawdata = userForm.rawData();
         Boolean isAdmin = Boolean.valueOf(String.valueOf(rawdata.get("isAdmin")));
@@ -88,7 +104,7 @@ public class UsersController extends Controller {
             try{
                 Ebean.save(user);
             }catch (Exception ex){
-                return redirect(routes.UsersController.renderAddUserForm((int)NO_ERROR));
+                return redirect(routes.UsersController.renderAddUserForm(NO_ERROR));
             }
             if(admin){
                 return redirect(routes.UsersController.usersList());
@@ -120,6 +136,9 @@ public class UsersController extends Controller {
         user.setAdmin(isAdmin);
         Ebean.update(user);
         return redirect(routes.UsersController.usersList());
+
     }
 }
+
+
 
