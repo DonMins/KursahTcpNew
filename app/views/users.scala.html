@@ -1,11 +1,82 @@
-@(nameColomn: Seq[String], users: Seq[User], login: String)
+@(nameColomn: Seq[String], users: Seq[User], login: String,error:Integer, registrationForm: play.data.Form[User],isAdmin:Boolean )
 <html>
     <title>Список пользователей</title>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/search.css")">
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
+
+        @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
+        <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </head>
     <body>
+
+        @if(error == 1 || error == 2) {
+
+
+            <div class="container">
+                    <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"></button>
+                                <h4 class="modal-title">Ошибка! </h4>
+                            </div>
+                            <div class="modal-body">
+                                @if(error == 1){
+                                    <h4> Неверный пароль или логин!</h4>
+                                }
+                                @if(error ==2){
+                                    <h4> Такой логин уже существует!</h4>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                    $(document).ready(function () {
+                        $('#myModal').modal('show');
+                    });
+            </script>
+        }
+
+        <a href="#x" class="overlay" id="win2"></a>
+        <div class="popup">
+            <div class="modal-header">
+
+                <h1 class="modal-title">Регистрация </h1>
+            </div>
+
+            @helper.form(action = routes.UsersController.addingUser, 'id -> "slick-login") {
+
+                @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
+
+                @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
+                @if(isAdmin) {
+                    Права администратора:@helper.checkbox(registrationForm("isAdmin"))
+                }
+
+                <div class="modal-footer">
+                    <input type ="submit" value="Создать">
+                </div>
+
+
+            }
+            <a class="close" title="Закрыть" href="#close"></a>
+        </div>
         <div align="center">
             @if(!(login.isEmpty)) {
                 <div align="right">
@@ -53,45 +124,45 @@
                 <input type="hidden" name="numberSql" value="1">
                 <input type="submit" value="Избранное">
                 }</a></li>
-        </li>
+
         <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
-        <li><a href="@routes.UsersController.renderAddUserForm(0)">Добавить пользователя </a></li>
+            <li><a href="#win2" class="button button-green">Добавить пользователя</a></li>
         </ul>
         <p></p>
         <p></p>
         <p></p>
 
 
-            @sizeNameColomn() = @{
-                val sizeItems = nameColomn.length
-                sizeItems
-            }
+    @sizeNameColomn() = @{
+    val sizeItems = nameColomn.length
+    sizeItems
+}
 
-            @colomn(i: Int) = @{
-                val it = nameColomn
-                it(i)
-            }
+    @colomn(i: Int) = @{
+    val it = nameColomn
+    it(i)
+}
 
-        <ul>
-            <table>
-                <tr>
-                @for(j <- 1 to sizeNameColomn) {
-                    <th>@colomn(j - 1)</th>
-                }
-                </tr>
-                @users.map { item =>
-                    <th>@item.getId</th>
-                    <th>@item.getLogin</th>
-                    <th>@item.getPassword</th>
-                    <th>@item.getAdmin</th>
+<ul>
+    <table>
+        <tr>
+        @for(j <- 1 to sizeNameColomn) {
+            <th>@colomn(j - 1)</th>
+        }
+        </tr>
+        @users.map { item =>
+            <th>@item.getId</th>
+            <th>@item.getLogin</th>
+            <th>@item.getPassword</th>
+            <th>@item.getAdmin</th>
 
-                    <th><a href="@routes.UsersController.renderUpdateUserInfo(item.getId)">Редактировать</a>
-                        <a href="@routes.UsersController.deleteUser(item.getId)" > Удалить </a></th>
-                    <tr></tr>
-                }
+            <th><a href="@routes.UsersController.renderUpdateUserInfo(item.getId)">Редактировать</a>
+                <a href="@routes.UsersController.deleteUser(item.getId)" > Удалить </a></th>
+            <tr></tr>
+        }
 
-            </table>
-        </ul>
+    </table>
+</ul>
 
-    </body>
+</body>
 </html>
