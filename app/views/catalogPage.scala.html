@@ -88,7 +88,13 @@
                                     <h4 class="modal-title">Ошибка! </h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h4> Неверный пароль или логин!</h4>
+                                    @if(error == 1){
+                                        <h4> Неверный пароль или логин!</h4>
+                                    }
+                                    @if(error ==2){
+                                        <h4> Такой логин уже существует!</h4>
+                                    }
+
                                 </div>
 
                             </div>
@@ -114,7 +120,7 @@
 
                 <div class="modal-header">
 
-                    <h1 class="modal-title">Регистрация товара</h1>
+                    <h1 class="modal-title">Добавление товара</h1>
                 </div>
 
                 <br>
@@ -128,9 +134,9 @@
                     @helper.inputText(wineForm("shelfLife"), '_showConstraints -> false, 'placeholder -> "Срок годности")
                     @helper.inputText(wineForm("sugar"), '_showConstraints -> false, 'placeholder -> "Сахар")
                     @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда")
-                    @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена")
-                    @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем")
-                    @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость")
+                    @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена",'type -> "number")
+                    @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем",'type -> "number")
+                    @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость",'type -> "number")
 
 
                     <div class="modal-footer">
@@ -138,7 +144,7 @@
                     </div>
 
 
-                    <a href="@routes.UsersController.renderAddUserForm(0)" class="slick-login2">Регистрация</a>
+
 
                 }
 
