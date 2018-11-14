@@ -277,25 +277,12 @@ button{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #slick-login label {
     display: none;
 }
 
 
-#slick-login input[type="text"],#slick-login input[type="password"] {
+#slick-login input[type="text"],#slick-login input[type="number"],#slick-login input[type="password"] {
     width: 100%;
     height: 40px;
     positon: relative;
@@ -338,7 +325,7 @@ button{
     width: 100%;
     height: 50px;
     margin-top: 7px;
-    color: #fff;
+    color: #feffff;
     font-size: 18px;
     font-weight: bold;
     text-shadow: 0px -1px 0px #5b6ddc;
