@@ -74,8 +74,6 @@
 
                 <!-- Модальное окно при загрузке -->
             @if(error == 1 || error == 2) {
-
-
                 <div class="container">
                         <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
@@ -249,6 +247,7 @@
 
                     <input type="submit" value="О проекте">
                     }</a></li>
+
                 <li><a>@helper.form(action = routes.BasketController.basketPage) {
                     <input type="hidden" name="numberSql" value="0">
                     <input type="submit" value="Корзина">

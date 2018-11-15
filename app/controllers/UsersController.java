@@ -110,10 +110,11 @@ public class UsersController extends Controller {
                 return redirect(routes.UsersController.usersList());
             }
            else{
+
              return redirect(routes.AuxiliaryController.ifGuest());
            }
         }
-        return redirect(routes.UsersController.renderAddUserForm((int)NO_ERROR));
+        return redirect(routes.UsersController.renderAddUserForm(NO_ERROR));
     }
     public Result renderUpdateUserInfo(Integer id){
         String login = AuxiliaryController.getSessionLogin();

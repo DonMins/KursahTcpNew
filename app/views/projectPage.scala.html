@@ -69,7 +69,7 @@
                 <a class="close" title="Закрыть" href="#close"></a>
             </div>
 
-            @if(error == 1) {
+            @if(error == 1 || error ==2) {
                     <!-- Модальное окно при загрузке -->
 
                 <div class="container">
@@ -84,7 +84,13 @@
                                     <h4 class="modal-title">Ошибка! </h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h4> Неверный пароль или логин!</h4>
+
+                                    @if(error == 1){
+                                        <h4> Неверный пароль или логин!</h4>
+                                    }
+                                    @if(error ==2){
+                                        <h4> Такой логин уже существует!</h4>
+                                    }
                                 </div>
 
                             </div>
