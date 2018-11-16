@@ -444,15 +444,16 @@
                         </section>
                     </div>
                 </td>
-                <td style="background: red; color:white">
+                <td style="background: #c22c25; color:white">
 
                 @*<h1>Фильтр</h1>*@
                     @*<p> <!--форма поиска --></p>*@
                     <div class="Search">
                         @helper.form(action = routes.WineController.searchCatalogPage()) {
-                             <div class = "inputNameWine">
+
                                 @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Введите название", '_label -> "")
-                             </div>
+
+
                             <div class="layer1">
                                 @helper.inputText(searchform("minprice"), '_showConstraints -> false, 'placeholder -> "Цена От ", '_label -> "",'type->"number")
                             </div>
@@ -462,10 +463,15 @@
                             <div class="clear"></div>
                             <p>Цвет</p>
                             <div class="group">
-                                Все цвета @helper.checkbox(searchform("anyColour"), '_label -> "")      Белое  @helper.checkbox(searchform("whiteColour"), '_label -> "")
-
+                                <div class="layer1">
+                                Все цвета @helper.checkbox(searchform("anyColour"), '_label -> "")
+                                Белое  @helper.checkbox(searchform("whiteColour"), '_label -> "")
+                                </div>
+                                <div class="layer2">
                                 Красное @helper.checkbox(searchform("redColour"), '_label -> "")
                                 Розовое @helper.checkbox(searchform("pinkColour"), '_label -> "")
+                                </div>
+                                <div class="clear"></div>
                             </div>
                             <script>
                                     $(".group input").on("click", function () {
@@ -476,11 +482,23 @@
 
                             <p>Сахар</p>
                             <div class="group2">
-                                Любое содержание сахара @helper.checkbox(searchform("anySugar"), '_label -> "")
-                                Полусладкое @helper.checkbox(searchform("semisweet"), '_label -> "")
+                                 <div class="layer1">
+
+
+                                     Полусухое @helper.checkbox(searchform("semidry"), '_label -> "" )
+
+
+                                     Полусладкое @helper.checkbox(searchform("semisweet"), '_label -> "")
+                                 </div>
+                                <div class="layer2">
                                 Сухое @helper.checkbox(searchform("dry"), '_label -> "")
                                 Сладкое @helper.checkbox(searchform("sweet"), '_label -> "")
-                                Полусухое @helper.checkbox(searchform("semidry"), '_label -> "") </div>
+                                </div>
+
+                                <div class="clear"></div>
+                            Любое содержание сахара @helper.checkbox(searchform("anySugar"), '_label -> "")
+                            </div>
+
 
                             <script>
                                     $(".group2 input").on("click", function () {
@@ -488,10 +506,9 @@
                                         $(this).prop("checked", true);
                                     })
                             </script>
-
-
+                            <div style="margin-top: -30px">
                             @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", '_label -> "")
-
+                        </div>
 
 
                             <button type="submit">Поиск</button>
@@ -508,46 +525,68 @@
                          3 - по крепости по возрастанию
                          4 - по крепости по убыванию-->
 
-
+                    <p>Cортировка по цене</p>
+                <div class="layer1">
                 @helper.form(action = routes.WineController.sortCatalogPage(0)) {
-                    Cортировка по цене
-                <button type="submit" class="btn btn-default btn-sm">
+
+                <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                    height: 50px">
                     <span class="glyphicon glyphicon-sort-by-attributes"></span>
                 </button>
                 }
+                </div>
+                    <div class="layer2">
                 @helper.form(action = routes.WineController.sortCatalogPage(5)) {
 
-                    <button type="submit" class="btn btn-default btn-sm">
+                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                        height: 50px">
                         <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                     </button>
                 }
-                <p></p>
+                    </div>
+                <div class="clear"></div>
+                    <p>Cортировка по названию</p>
+                    <div class="layer1">
                 @helper.form(action = routes.WineController.sortCatalogPage(1)) {
-                    Cортировка по названию
-                    <button type="submit" class="btn btn-default btn-sm">
+
+
+                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                        height: 50px">
                         <span class="glyphicon glyphicon-sort-by-attributes"></span>
                     </button>
                 }
+                    </div>
+                    <div class="layer2">
                 @helper.form(action = routes.WineController.sortCatalogPage(2)) {
 
-                    <button type="submit" class="btn btn-default btn-sm">
+                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                        height: 50px">
                         <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                     </button>
                 }
-                <p></p>
+                    </div>
+                    <div class="clear"></div>
+                <p> Сортировка по крепости</p>
+                    <div class="layer1">
+
 
                 @helper.form(action = routes.WineController.sortCatalogPage(3)) {
-                    Сортировка по крепости
-                    <button type="submit" class="btn btn-default btn-sm">
+
+                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                        height: 50px">
                         <span class="glyphicon glyphicon-sort-by-attributes"></span>
                     </button>
                 }
+                    </div>
+                    <div class="layer2">
                 @helper.form(action = routes.WineController.sortCatalogPage(4)) {
 
-                    <button type="submit" class="btn btn-default btn-sm">
+                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                        height: 50px">
                         <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                     </button>
                 }
+                    </div>
                 @*<tr colspan="2"></tr>*@
 
                 </td>
@@ -562,7 +601,3 @@
         @*</div>*@
     </body>
 </html>
-
-
-
-
