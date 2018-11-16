@@ -3,12 +3,13 @@ body{
     color: blueviolet;
 }
 TABLE {
-    margin-top: 0%;/*150*/
-    margin-left: 0%;/*-10*/
+    /*margin-top: 0%;!*150*!*/
+    /*margin-left: 0%;!*-10*!*/
 
     width: 350px; /* Ширина таблицы 600 */
     border-collapse: collapse; /* Убираем двойные линии между ячейками */
     text-align: center;
+    vertical-align: top; /* Выравнивание по верхнему краю */
 
 
 }
@@ -17,6 +18,7 @@ TD, TH {
     border: 1px solid white; /* Параметры рамки */
     text-align: center;
     color: blue;
+    vertical-align: top;
 }
 
 TH {
@@ -254,7 +256,7 @@ img {
 
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
    follow these rules. Every browser that supports :checked also supports :not(), so
-   it doesn’t make the test unnecessarily selective */
+   it doesn’t make the ifGuest unnecessarily selective */
 .rating:not(:checked) > input {
     position:absolute;
     top:-9999px;
@@ -318,7 +320,7 @@ img {
 
 
 
-/*.rating > label:active {*/
+/*.Rating > label:active {*/
     /*position:relative;*/
     /*top:2px;*/
     /*left:2px;*/
@@ -380,7 +382,39 @@ img {
     justify-content: space-around;
 }
 
+input[type="text"]{
+    border-radius:15px;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    width:200px;
+    height: 40px;
+}
+input[type="number"]{
+    border-radius:15px;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    width:100px;
+    color: #444;
+}
 
+
+.layer1 {
+    background-color: #fc0; /* Цвет фона слоя */
+    padding: 5px; /* Поля вокруг текста */
+    float: left; /* Обтекание по правому краю */
+    width: 177px; /* Ширина слоя */
+    text-align: center;
+}
+.layer2 {
+    background-color: #c0c0c0; /* Цвет фона слоя */
+    padding: 5px; /* Поля вокруг текста */
+    width: 177px; /* Ширина слоя */
+    float: left; /* Обтекание по правому краю */
+    text-align: center;
+}
+.clear {
+    clear: left; /* Отмена обтекания */
+}
 
 
 

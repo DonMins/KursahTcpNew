@@ -446,11 +446,20 @@
                 </td>
                 <td style="background: red; color:white">
 
-                <h3>Фильтр</h3>
-                    <p> <!--форма поиска --></p>
+                @*<h1>Фильтр</h1>*@
+                    @*<p> <!--форма поиска --></p>*@
                     <div class="Search">
                         @helper.form(action = routes.WineController.searchCatalogPage()) {
-                            @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Введите название", '_label -> "")
+                             <div class = "inputNameWine">
+                                @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Введите название", '_label -> "")
+                             </div>
+                            <div class="layer1">
+                                @helper.inputText(searchform("minprice"), '_showConstraints -> false, 'placeholder -> "Цена От ", '_label -> "",'type->"number")
+                            </div>
+                            <div class="layer2">
+                            @helper.inputText(searchform("maxprice"), '_showConstraints -> false, 'placeholder -> "Цена До", '_label -> "",'type->"number")
+                            </div>
+                            <div class="clear"></div>
                             <p>Цвет</p>
                             <div class="group">
                                 Все цвета @helper.checkbox(searchform("anyColour"), '_label -> "")      Белое  @helper.checkbox(searchform("whiteColour"), '_label -> "")
@@ -482,8 +491,7 @@
 
 
                             @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", '_label -> "")
-                            @helper.inputText(searchform("minprice"), '_showConstraints -> false, 'placeholder -> "Цена От ", '_label -> "")
-                            @helper.inputText(searchform("maxprice"), '_showConstraints -> false, 'placeholder -> "Цена До", '_label -> "")
+
 
 
                             <button type="submit">Поиск</button>
