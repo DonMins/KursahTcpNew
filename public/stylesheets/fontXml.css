@@ -344,7 +344,10 @@ img {
 
 }
 .btn btn-default btn-sm{
-    margin: 50px 50px 50px 0px
+    margin: 50px 50px 50px 0px;
+    width: 50px;
+    height: 10px;
+
 }
 .average{
     bottom: 15px;
@@ -404,6 +407,7 @@ input[type="number"]{
     float: left; /* Обтекание по правому краю */
     width: 177px; /* Ширина слоя */
     text-align: center;
+    margin-bottom: 5px;
 }
 .layer2 {
     background-color: #c0c0c0; /* Цвет фона слоя */
@@ -411,19 +415,22 @@ input[type="number"]{
     width: 177px; /* Ширина слоя */
     float: left; /* Обтекание по правому краю */
     text-align: center;
+    margin-bottom: 5px;
 }
 .clear {
     clear: left; /* Отмена обтекания */
 }
 
+input[type="checkbox"] {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    border-radius: 10px;
+    border-left: 4px solid #e145a3;
+    border-bottom: 4px solid #e145a3;
 
 
-
-
-
-
-
-
-
-
-
+}
