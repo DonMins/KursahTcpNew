@@ -77,6 +77,7 @@ public class RatingController extends Controller {
                 parametrs = row.getString(s);
             }
         }
+
         id_user=Integer.parseInt(parametrs);
         newRating.setIdUser(id_user);
         newRating.setRating(ratingNew);
