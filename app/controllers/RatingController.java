@@ -1,9 +1,8 @@
 package controllers;
 
-import io.ebean.Ebean;
-import io.ebean.SqlQuery;
-import io.ebean.SqlRow;
+import io.ebean.*;
 import models.Rating;
+import models.wine;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -65,8 +64,10 @@ public class RatingController extends Controller {
         int ratingNew= Integer.parseInt(dynamicForm.get("Rating"));
         Rating newRating = new Rating();
         newRating.setIdProduct(idProduct);
+
         String parametrs= null;
         int id_user=0;
+
         String sqlRequest = "SELECT id FROM public.user where login ='"+login+"'";
         SqlQuery userID = Ebean.createSqlQuery(sqlRequest);
         List<SqlRow> userIDList = userID.findList();
@@ -80,6 +81,31 @@ public class RatingController extends Controller {
         newRating.setIdUser(id_user);
         newRating.setRating(ratingNew);
         Ebean.save(newRating);
+        String sql = "SELECT AVG(rating) FROM rating where id_product=" + idProduct;
+        SqlQuery averageID = Ebean.createSqlQuery(sql);
+        Double parametr=0.;
+
+        List<SqlRow> mId = averageID.findList();
+        for (SqlRow row2 : mId) {
+            Set<String> keyset2 = row2.keySet();
+            for (String s : keyset2) {
+                System.out.println("qwqwqwwqw " + row2.getString(s));
+
+                if (row2.getString(s)==null)
+                    parametr =0.;
+                else{
+                    System.out.println("qwqwqwwqw " + row2.getString(s));
+                    parametr = Double.parseDouble(row2.getString(s));
+                }
+            }
+        }
+
+        String sql1 = "update wine set avgrating ="+parametr+" where id_product= "+idProduct;
+        final Update update = Ebean.createUpdate(wine.class, sql1);
+        update.setParameter("avgrating", parametr);
+        update.execute();
+
+
         return redirect(routes.WineController.catalogPage());
     }
 }

@@ -104,17 +104,18 @@ public class UsersController extends Controller {
             try{
                 Ebean.save(user);
             }catch (Exception ex){
-                return redirect(routes.UsersController.renderAddUserForm(NO_ERROR));
+                return redirect(routes.UsersController.renderAddUserForm(ERROR_LOGIN_OR_PASSWORD));
             }
             if(admin){
                 return redirect(routes.UsersController.usersList());
             }
            else{
+               AuxiliaryController.ERROR = NO_ERROR;
 
              return redirect(routes.AuxiliaryController.ifGuest());
            }
         }
-        return redirect(routes.UsersController.renderAddUserForm(NO_ERROR));
+        return redirect(routes.UsersController.renderAddUserForm(ERROR_LOGIN_IS_EXIST));
     }
     public Result renderUpdateUserInfo(Integer id){
         String login = AuxiliaryController.getSessionLogin();

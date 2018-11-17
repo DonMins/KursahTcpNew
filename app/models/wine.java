@@ -32,12 +32,15 @@ public class wine implements Constraints.Validatable<String> {
     private String sugar;
     @Column(name = "grape_sort")
     private String grapeSort;
+
     @Constraints.Required
     private Double price;
     @Constraints.Required
     private Double value;
     @Constraints.Required
     private Double degree;
+    @Column(name = "avgrating")
+    private  Double avgRating;
 
 
     public wine() {
@@ -180,6 +183,14 @@ public class wine implements Constraints.Validatable<String> {
         this.degree = degree;
     }
 
+    public Double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(Double avgRating) {
+        this.avgRating = avgRating;
+    }
+
     @Override
     public String validate() {
 
@@ -194,7 +205,7 @@ public class wine implements Constraints.Validatable<String> {
         String parametrs = null;
         double average = 0; // а вообще результат сюда пишется
 
-        String sql = "SELECT AVG(Rating) FROM Rating where id_product=" + id_product;
+        String sql = "SELECT AVG(rating) FROM rating where id_product=" + id_product;
         SqlQuery averageID = Ebean.createSqlQuery(sql);
 
         List<SqlRow> mId = averageID.findList();
@@ -209,7 +220,9 @@ public class wine implements Constraints.Validatable<String> {
         else {
 
             average = Double.parseDouble(parametrs);// тут получаем рейтинг средний
+
         }
+
         return Math.rint(average*10)/10;// поправить тут
     }
 

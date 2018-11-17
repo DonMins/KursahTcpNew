@@ -190,13 +190,13 @@
                                 Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"), '_showConstraints -> false)</td>
                         </tr>
                         <tr>
-                            <td> Цена: </td> <td> @helper.inputText(form("price"), '_showConstraints -> false)</td>
+                            <td> Цена: </td> <td> @helper.inputText(form("price"), '_showConstraints -> false,'required -> "required", 'type ->"number")</td>
                         </tr>
                         <tr>
-                            <td> Объем: </td> <td>  @helper.inputText(form("value"), '_showConstraints -> false)</td>
+                            <td> Объем: </td> <td>  @helper.inputText(form("value"), '_showConstraints -> false,'required -> "required", 'type ->"number")</td>
                         </tr>
                         <tr>
-                            <td> Крепость: </td> <td>  @helper.inputText(form("degree"), '_showConstraints -> false)</td>
+                            <td> Крепость: </td> <td>  @helper.inputText(form("degree"), '_showConstraints -> false,'required -> "required", 'type ->"number")</td>
                         </tr>
                     </table>
 
@@ -310,6 +310,7 @@
 
                                 <ul>
                                 @win.map { item =>
+                                        @item.setAvgRating(item.averageRatingOfTheProduct(item.getIdProduct))
                                     <li>
                                         <div class="product">
                                             <a href="#" class="product-img">
@@ -461,7 +462,9 @@
                             @helper.inputText(searchform("maxprice"), '_showConstraints -> false, 'placeholder -> "Цена До", '_label -> "",'type->"number")
                             </div>
                             <div class="clear"></div>
+                            <hr   color="white"  />
                             <p>Цвет</p>
+                            <hr   color="white"  />
                             <div class="group">
                                 <div class="layer1">
                                 Все цвета @helper.checkbox(searchform("anyColour"), '_label -> "")
@@ -480,7 +483,9 @@
                                     })
                             </script>
 
+                            <hr   color="white"  />
                             <p>Сахар</p>
+                            <hr   color="white"  />
                             <div class="group2">
                                  <div class="layer1">
 
@@ -522,8 +527,8 @@
                          1 - по названию по возрастанию
                          2 - по названию по убыванию
 
-                         3 - по крепости по возрастанию
-                         4 - по крепости по убыванию-->
+                         3 - по рейтингу по возрастанию
+                         4 - по рейтингу по убыванию-->
 
                     <p>Cортировка по цене</p>
                 <div class="layer1">
@@ -566,7 +571,7 @@
                 }
                     </div>
                     <div class="clear"></div>
-                <p> Сортировка по крепости</p>
+                <p> Сортировка по рейтингу</p>
                     <div class="layer1">
 
 

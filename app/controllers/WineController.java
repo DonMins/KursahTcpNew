@@ -60,6 +60,13 @@ public class WineController extends Controller {
     }
 
     public Result sortCatalogPage(int sortNumber){
+        final int ON_PRICE_UP=0;
+        final int ON_PRICE_DOWN=5;
+        final int ON_NAME_UP=1;
+        final int ON_NAME_DOWN=2;
+        final int ON_RATING_DOWN=4;
+        final int ON_RATING_UP=3;
+
         Form<LoginForm> loginForm = formFactory.form(LoginForm.class);
         Form<User> userForm = formFactory.form(User.class);
         Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
@@ -71,48 +78,51 @@ public class WineController extends Controller {
         else {
             winList = wine.find.all();
         }
-        winList.sort(new Comparator<wine>() {
+
+
+         winList.sort(new Comparator<wine>() {
             @Override
             public int compare(wine o1, wine o2) {
-                if(sortNumber ==0){
+                if(sortNumber ==ON_PRICE_UP){
                     if(o1.getPrice() <= o2.getPrice())
                         return -1;
                     return 1;
                 }
-                if(sortNumber ==5){
+                if(sortNumber ==ON_PRICE_DOWN){
                     if(o2.getPrice() <= o1.getPrice())
                         return -1;
                     return 1;
                 }
-                if(sortNumber ==1){
+                if(sortNumber ==ON_NAME_UP){
                     int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
                     if (res == 0) {
                         res = o1.getName().compareTo(o2.getName());
                     }
                     return res;
                 }
-                if(sortNumber ==2){
+                if(sortNumber ==ON_NAME_DOWN){
                     int res = String.CASE_INSENSITIVE_ORDER.compare(o2.getName(), o1.getName());
                     if (res == 0) {
                         res = o2.getName().compareTo(o1.getName());
                     }
                     return res;
                 }
-                if(sortNumber ==3){
-                    if(o1.getDegree() <= o2.getDegree())
-                        return -1;
-                    return 1;
-                }
-                if(sortNumber ==4) {
-                    if (o2.getDegree() <= o1.getDegree())
-                        return -1;
-                    return 1;
-                }
+                if(sortNumber == ON_RATING_DOWN) {
 
+                    if (o2.getAvgRating() <= o1.getAvgRating())
+                        return -1;
+                    return 1;
+                }
+                if(sortNumber == ON_RATING_UP) {
+
+                    if (o1.getAvgRating() <= o2.getAvgRating())
+                        return -1;
+                    return 1;
+                }
                 return -1;
-
             }
         });
+
         List<String> nameColomn = new ArrayList<>();
         wine tmp = new wine();
         nameColomn = tmp.getNameColomn();
@@ -494,6 +504,7 @@ public class WineController extends Controller {
         winTmp.setShelfLife(rawdata.get("shelfLife"));
         winTmp.setSugar(rawdata.get("sugar"));
         winTmp.setGrapeSort(rawdata.get("grapeSort"));
+        winTmp.setAvgRating(0.);
         if ((rawdata.get("price").isEmpty())){
                 winTmp.setPrice(null);
             }

@@ -402,7 +402,7 @@ input[type="number"]{
 
 
 .layer1 {
-    background-color: #fc0; /* Цвет фона слоя */
+    background-color: #c22c25; /* Цвет фона слоя */
     padding: 5px; /* Поля вокруг текста */
     float: left; /* Обтекание по правому краю */
     width: 177px; /* Ширина слоя */
@@ -410,7 +410,7 @@ input[type="number"]{
     margin-bottom: 5px;
 }
 .layer2 {
-    background-color: #c0c0c0; /* Цвет фона слоя */
+    background-color: #c22c25; /* Цвет фона слоя */
     padding: 5px; /* Поля вокруг текста */
     width: 177px; /* Ширина слоя */
     float: left; /* Обтекание по правому краю */
