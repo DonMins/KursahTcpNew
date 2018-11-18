@@ -14,10 +14,13 @@ import scala.collection.JavaConverters;
 import javax.inject.Inject;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.*;
 
 import static controllers.AuxiliaryController.getSessionLogin;
 import static controllers.AuxiliaryController.getSessionAdmin;
+import static java.nio.file.Files.deleteIfExists;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class WineController extends Controller {
@@ -48,10 +51,20 @@ public class WineController extends Controller {
     public Result upload(Integer idProduct) {
         Http.MultipartFormData<File> body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
+       
         if (picture != null) {
             File file = picture.getFile();
             File newFile = new File(play.Play.application().path().toString() + "//public//images//wines//"+ idProduct+ ".png" );
+            Path path = newFile.toPath();
+
+            try {
+                deleteIfExists(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             file.renameTo(newFile);
+            
             return redirect(routes.WineController.catalogPage());
         } else {
             flash("error", "Missing file");
