@@ -178,29 +178,38 @@ img {
     background: #feffff none repeat scroll 0 0;
     border: 2px solid #da0505;
     height: 500px;
+    width: 480px;
+
     overflow: hidden;
-    padding: 15px 10px;
+    /*padding: 15px 10px;*/
     position: relative;
-    text-align: center;
+    text-align: left;
+
+
+
+
     transition: all 0.5s ease 0s;
     /*margin-bottom: 10px;*/
 }
+
 .product:hover {
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
 }
 
 .product-img {
-    height: 1000px;
+    height: 0px;
+
     bottom: 15px;
 
     float: left;
-    margin: 50px 50px 50px 100px
+    margin: 75px -100px -100px 0px;
 
 
 
 }
 .product-title a {
     color: #000;
+    float:right;
     font-weight: 500;
     text-transform: uppercase;
 }
@@ -209,8 +218,9 @@ img {
     overflow: hidden;
 }
 .product-price {
+    float:right;
       bottom: 15px;
-      left: -70px;
+      left: 0px;
 
 
       position: absolute;
@@ -222,7 +232,7 @@ img {
 
 .product-price1 {
     bottom: 50px;
-    left: -307px;
+    left: -150px;
 
 
     position: absolute;
@@ -242,7 +252,7 @@ img {
 }
 .product-rating {
     bottom: 16px;
-    left: 60px;
+    left: 5px;
     position: absolute;
     width: 100%;
     color: #171fd5;
