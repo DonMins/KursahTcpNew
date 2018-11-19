@@ -132,9 +132,9 @@
                     @helper.inputText(wineForm("shelfLife"), '_showConstraints -> false, 'placeholder -> "Срок годности")
                     @helper.inputText(wineForm("sugar"), '_showConstraints -> false, 'placeholder -> "Сахар")
                     @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда")
-                    @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена",'type -> "number", 'step->"0.001",'min->"0")
-                    @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем",'type -> "number", 'step->"0.001",'min->"0")
-                    @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость",'type -> "number", 'step->"0.001",'min->"0")
+                    @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена",'type -> "number", 'step->"0.001", 'min->"0")
+                    @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем",'type -> "number", 'step->"0.001", 'min->"0")
+                    @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость",'type -> "number", 'step->"0.001", 'min->"0")
 
 
                     <div class="modal-footer">
@@ -316,14 +316,17 @@
                                             <a href="#" class="product-img">
                                                 <img src=@item.getLinkForProduct(item.getIdProduct) alt="" height="400" ></a>
                                             <p class="wineName">@item.getName</p>
-                                            <p > @colomn(2):@item.getColour</p>
-                                            <p > @colomn(3):@item.getCountry</p>
-                                            <p > @colomn(4):@item.getBrand</p>
-                                            <p > @colomn(5):@item.getShelfLife</p>
-                                            <p > @colomn(6):@item.getSugar</p>
-                                            <p > @colomn(7):@item.getGrapeSort</p>
-                                            <p > @colomn(9):@item.getValue</p>
-                                            <p > @colomn(10):@item.getDegree</p>
+
+
+                                            <div class="product-text">
+                                            <p > @colomn(2): @item.getColour</p>
+                                            <p > @colomn(3): @item.getCountry</p>
+                                            <p > @colomn(4): @item.getBrand</p>
+                                            <p > @colomn(5): @item.getShelfLife</p>
+                                            <p > @colomn(6): @item.getSugar</p>
+                                            <p > @colomn(7): @item.getGrapeSort</p>
+                                            <p > @colomn(9): @item.getValue л.</p>
+                                            <p > @colomn(10): @item.getDegree %</p>
                                             @if(isAdmin) {
                                                 <a href="@routes.WineController.renderUpdateWineInfo(item.getIdProduct)">
                                                 Изменить</a>
@@ -339,9 +342,10 @@
 
                                                 }
                                             }
+                                            </div>
 
-                                            <p class="product-price">@item.getPrice руб.
-                                            <p class="product-price1">@item.averageRatingOfTheProduct(item.getIdProduct)/5
+                                            <p class="product-price"><b>@item.getPrice руб.</b></p>
+                                            <p class="product-price1">@item.averageRatingOfTheProduct(item.getIdProduct)/5</p>
                                             <div class="product-Rating">
                                                 <div class="Rating">
                                                     <div style="display: inline-flex;margin: 0 auto;width: 500px;">
@@ -401,7 +405,9 @@
                                                 </div>
                                             </div>
                                             <p>
+                                                <div class="product-buttons">
                                                 @if(!(login.isEmpty)) {
+                                                    <div class="layer1-button">
                                                     @if(item.isAddingToBasket(item.getIdProduct,login)==login) {
                                                         @helper.form(action = routes.BasketController.addIn(item.getIdProduct)) {
                                                             <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
@@ -410,9 +416,11 @@
                                                             </button>
                                                         }
                                                     }
+                                                    </div>
                                                     @if(item.isAddingToBasket(item.getIdProduct,login)!=login){
-                                                        Товар уже добавлен в корзину.
+                                                        <p text-align="left">Добавлен в корзину.</p>
                                                     }
+                                                    <div class="layer2-button">
                                                     @if(item.isAddingToFavorite(item.getIdProduct,login)==login) {
                                                         @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
                                                             <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
@@ -421,8 +429,9 @@
                                                             </button>
                                                         }
                                                     }
+                                                    </div>
                                                     @if(item.isAddingToFavorite(item.getIdProduct,login)!=login){
-                                                        Товар уже добавлен в избранное.
+                                                        <p text-align="left">Добавлен в избранное.</p>
                                                     }
                                                 }
                                                 @if(login.isEmpty){
@@ -435,6 +444,7 @@
                                                         <span class="glyphicon glyphicon-heart" ></span>
                                                     </button>
                                                 }
+                                                 </div>
                                                 </p>
                                         </div>
                                     </li>

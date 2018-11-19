@@ -174,6 +174,20 @@ img {
 .content{
     margin-top: 50px;
 }
+.product-text{
+    font-family: "Comic Sans MS";
+    padding-left: 240px;
+    padding-top: 8px;
+    text-align: left;
+    color: black;
+    text-decoration: underline;
+}
+.product-buttons{
+    padding-left: 240px;
+
+    text-align: left;
+}
+
 .product {
     background: #feffff none repeat scroll 0 0;
     border: 2px solid #da0505;
@@ -181,9 +195,9 @@ img {
     width: 480px;
 
     overflow: hidden;
-    /*padding: 15px 10px;*/
+
     position: relative;
-    text-align: left;
+
 
 
 
@@ -200,6 +214,7 @@ img {
     height: 0px;
 
     bottom: 15px;
+
 
     float: left;
     margin: 75px -100px -100px 0px;
@@ -218,16 +233,16 @@ img {
     overflow: hidden;
 }
 .product-price {
-    float:right;
+      float:right;
       bottom: 15px;
       left: 0px;
-
+      padding-left: 130px ;
 
       position: absolute;
       width: 100%;
-      color: #d51e08;
-      font-size: 18px;
-      font-weight: 500;
+      color: #060100;
+      font-size: 25px;
+      font-weight: 900;
   }
 
 .product-price1 {
@@ -349,7 +364,7 @@ img {
     font-size: 30px;
     font-style: italic;
 
-    color: red;
+    color: #ae322a;
     /*text-align: center;*/
 
 }
@@ -427,6 +442,24 @@ input[type="number"]{
     text-align: center;
     margin-bottom: 5px;
 }
+.layer1-button {
+    /*background-color: #c22c25; !* Цвет фона слоя *!*/
+    padding: 1px; /* Поля вокруг текста */
+    float: left; /* Обтекание по правому краю */
+    width: 50px; /* Ширина слоя */
+    text-align: center;
+    margin-bottom: 1px;
+    margin-left: 125px;
+}
+.layer2-button {
+    /*background-color: #c22c25; !* Цвет фона слоя *!*/
+    padding: 1px; /* Поля вокруг текста */
+    width: 50px; /* Ширина слоя */
+    float: left; /* Обтекание по правому краю */
+    text-align: center;
+    margin-bottom: 1px;
+    margin-left: 0px;
+}
 .clear {
     clear: left; /* Отмена обтекания */
 }
@@ -441,6 +474,5 @@ input[type="checkbox"] {
     border-radius: 10px;
     border-left: 4px solid #e145a3;
     border-bottom: 4px solid #e145a3;
-
 
 }
