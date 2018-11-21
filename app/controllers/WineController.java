@@ -160,6 +160,8 @@ public class WineController extends Controller {
         Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
         Map<String, String> rawdata = searchForm.rawData();
         List<wine> winList = null;
+       
+
 
         if(wineForm.hasErrors() || wineForm.hasGlobalErrors()||
                 searchForm.hasErrors() || searchForm.hasGlobalErrors()){
@@ -167,6 +169,8 @@ public class WineController extends Controller {
             wine tmp = new wine();
             nameColomn = tmp.getNameColomn();
             winList = wine.find.all();
+
+
             String login = getSessionLogin();
             boolean isAdmin = getSessionAdmin();
             return ok(views.html.indexCatalogPage.render(JavaConverters.asScalaBuffer(nameColomn)
@@ -467,6 +471,7 @@ public class WineController extends Controller {
         }
 
         searchList = winList;
+      
 
         List<String> nameColomn = new ArrayList<>();
         wine tmp = new wine();
@@ -475,7 +480,8 @@ public class WineController extends Controller {
                 ,asScalaBuffer(winList),getSessionLogin(),getSessionAdmin(),loginForm,userForm,NO_ERROR,wineForm,updateWineForm,tmp,searchForm));
     }
     public Result deleteWine(Integer id){
-        wine.find.deleteById(id);
+        Ebean.find(wine.class).where().eq("id_product" , id).delete();
+
         return redirect(routes.WineController.catalogPage());
     }
 
