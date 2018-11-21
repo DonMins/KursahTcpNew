@@ -1,6 +1,7 @@
 body{
     background: url("/assets/images/font.jpg");
     color: blueviolet;
+
 }
 TABLE {
     /*margin-top: 0%;!*150*!*/
@@ -15,10 +16,20 @@ TABLE {
 }
 TD, TH {
     padding: 3px; /* Поля вокруг содержимого таблицы */
-    border: 1px solid white; /* Параметры рамки */
+    /*border: 1px solid white;*/
+
     text-align: center;
-    color: blue;
+    color: white;
     vertical-align: top;
+}
+
+.user{
+    background: black;
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    text-align: center;
+    vertical-align: top; /* Выравнивание по верхнему краю */
+    border: 1px solid white;
+
 }
 
 TH {
@@ -28,11 +39,11 @@ TH {
     font-size: 15px;
 }
 H1 {
-    font-size: 30px;
+    font-size: 40px;
     color: white;
     text-align: center;
     font-family: "Comic Sans MS";
-    font-style: italic;
+
 
 }
 .buttons{
@@ -53,7 +64,7 @@ a{
 H2{
     font-family: "Comic Sans MS";
     font-size: 70px;
-    font-style: italic;
+
 
     color: white;
     text-align: center;
@@ -61,20 +72,22 @@ H2{
 }
 
 #nav {
-    width: 32%;
-    float: right;
-    position: relative;
-    left: -2%;
-    text-align: left;
-    margin: 0 0 3em 0;
-    padding: 0;
-    list-style: none;
-    background-color: black;
+    width:80%;
+    /*float: right;*/
+    /*position: relative;*/
+    /*left: -2%;*/
+    /*text-align: left;*/
+    /*margin: 0 0 3em 0;*/
+    /*padding: 0;*/
+    /*list-style: none;*/
+    /*background-color: black;*/
+    margin-bottom: 70px;
     border-bottom: 1px solid #ccc;
    }
 #nav li {
 
     float: right;
+
 }
 #nav li a {
     display: block;
@@ -88,7 +101,10 @@ H2{
     color: #c00;
     background-color: #fff; }
 
-
+.contact-style{
+    color:white;
+    font-family: "Comic Sans MS";
+}
 
 ul {
     display: block;
@@ -157,7 +173,16 @@ table.wine1 td:nth-of-type(1) {
     width:700px;
 }
 table.wine1 td:nth-of-type(2) {
+    table-layout:fixed;
     width:250px;
+}
+table.favorite{
+    /*border: 10px solid white;*/
+    width: 100%;
+}
+
+table.favorite td:nth-of-type(1) {
+    width:1000px;
 }
 
 
@@ -166,10 +191,14 @@ table.wine1 td:nth-of-type(2) {
 
 
 
-
 img {
-    height: 320px;
+    height: 300px; /**170**/
     max-width: 100%;
+}
+
+.product-img.img{
+    max-width: 100%;
+
 }
 .content{
     margin-top: 50px;
@@ -188,6 +217,18 @@ img {
     text-align: left;
 }
 
+.product-buttons-basket{
+    padding-left: 200px;
+
+    text-align: left;
+}
+.g1{
+    font-size: 40px;
+    color: white;
+    margin-top: 50px;
+}
+
+
 .product {
     background: #feffff none repeat scroll 0 0;
     border: 2px solid #da0505;
@@ -200,11 +241,36 @@ img {
 
 
 
-
-
     transition: all 0.5s ease 0s;
     /*margin-bottom: 10px;*/
 }
+.product-sale {
+    background: #feffff none repeat scroll 0 0;
+    border: 2px solid #da0505;
+    color: black;
+    height: 450px;
+    width: 300px;
+
+    overflow: hidden;
+
+    position: relative;
+    transition: all 0.5s ease 0s;
+    /*margin-bottom: 10px;*/
+}
+.product-sale-user {
+    background: #feffff none repeat scroll 0 0;
+    border: 2px solid #da0505;
+    color: black;
+    height: 300px;
+    width: 300px;
+
+    overflow: hidden;
+
+    position: relative;
+    transition: all 0.5s ease 0s;
+    /*margin-bottom: 10px;*/
+}
+
 
 .product:hover {
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
@@ -214,12 +280,8 @@ img {
     height: 0px;
 
     bottom: 15px;
-
-
     float: left;
     margin: 75px -100px -100px 0px;
-
-
 
 }
 .product-title a {
@@ -383,6 +445,9 @@ img {
     font-weight: 500;
 
 }
+#main{
+    margin-top:-30px;
+}
 
 
 /*оформляет как раз столбцы*/
@@ -394,6 +459,24 @@ img {
     padding-bottom: 2px;
     /*padding-left: 21px;*/
     width: 48%;
+}
+
+/*оформляет как раз столбцы*/
+#content #sale ul li {
+    /*float:left;*/
+    float: left;
+
+    padding-bottom: 2px;
+    padding-left: 2px;
+    width: 33%;
+}
+#content  #sale-user ul li {
+    /*float:left;*/
+    float: left;
+
+    padding-bottom: 2px;
+    padding-left: 2px;
+    width: 33%;
 }
 
 /*нужно для фиксирования картинок*/
@@ -416,6 +499,7 @@ input[type="text"]{
     -webkit-border-radius:15px;
     width:200px;
     height: 40px;
+    text-align: center;
 }
 input[type="number"]{
     border-radius:15px;
@@ -423,6 +507,7 @@ input[type="number"]{
     -webkit-border-radius:15px;
     width:100px;
     color: #444;
+    text-align: center;
 }
 
 
@@ -442,8 +527,26 @@ input[type="number"]{
     text-align: center;
     margin-bottom: 5px;
 }
+.layer1-admin {
+
+    padding: 5px; /* Поля вокруг текста */
+    float: left; /* Обтекание по правому краю */
+    width: 50px; /* Ширина слоя */
+    text-align: center;
+    margin-bottom: 5px;
+    margin-left: 240px;
+}
+.layer2-admin {
+
+    padding: 5px; /* Поля вокруг текста */
+    width: 50px; /* Ширина слоя */
+    float: left; /* Обтекание по правому краю */
+    text-align: center;
+    margin-bottom: 5px;
+    margin-left: 0px;
+}
 .layer1-button {
-    /*background-color: #c22c25; !* Цвет фона слоя *!*/
+
     padding: 1px; /* Поля вокруг текста */
     float: left; /* Обтекание по правому краю */
     width: 50px; /* Ширина слоя */
@@ -452,7 +555,7 @@ input[type="number"]{
     margin-left: 125px;
 }
 .layer2-button {
-    /*background-color: #c22c25; !* Цвет фона слоя *!*/
+
     padding: 1px; /* Поля вокруг текста */
     width: 50px; /* Ширина слоя */
     float: left; /* Обтекание по правому краю */
@@ -475,4 +578,49 @@ input[type="checkbox"] {
     border-left: 4px solid #e145a3;
     border-bottom: 4px solid #e145a3;
 
+}
+
+
+.button_menu{
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    outline-offset: 0;
+    /* Additional styles to look like a link */
+    color: white;
+    cursor: pointer;
+    /*text-decoration: underline;*/
+
+}
+.button_menu:hover{
+    color: #c00;
+    background-color: #fff;
+
+}
+
+#content #favorite ul li {
+    /*float:left;*/
+    float: left;
+    margin-right:0px;
+    margin-left:-100px;
+    text-align: center;
+    padding-bottom: 5px;
+    padding-left: 300px;
+    width: 45%;
+}
+
+/*нужно для фиксирования картинок*/
+#content #favorite ul li .img img {
+    height:128px;
+    width:128px;
+}
+.start{
+    margin-top: 100px;
+    margin-left: 40%;
+    width: 600px;
+    background-color: black;
 }
