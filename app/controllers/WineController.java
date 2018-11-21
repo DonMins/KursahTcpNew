@@ -41,6 +41,13 @@ public class WineController extends Controller {
         Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
         Form<UpdateWine> updateWineForm = formFactory.form(UpdateWine.class).bindFromRequest();
         List<wine> winList = wine.find.all();
+        winList.sort(new Comparator<wine>() {
+            @Override
+            public int compare(wine o1, wine o2) {
+                    if(o1.getIdProduct() <= o2.getIdProduct())
+                        return -1;
+                    return 1;}});
+
         List<String> nameColomn = new ArrayList<>();
         wine tmp = new wine();
         nameColomn = tmp.getNameColomn();

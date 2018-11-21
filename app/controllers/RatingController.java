@@ -47,7 +47,7 @@ public class RatingController extends Controller {
                 wineRating = wineRating + parametrs + " ";
             }
         }
-        if(wineRating !="null") {
+        if(!(wineRating.equals(""))) {
             splitS = wineRating.split(" ");
             for (int i = 0; i < splitS.length; i += 3) {
                 System.out.println(splitS[i] + " " + i);

@@ -115,12 +115,7 @@
                 val sizeItems = nameColomn.length
                 sizeItems
             }
-                @*количество страниц*@
-            @pages = @{
 
-                sizeItems2() / (sizeItems())
-
-            }
                 @*всего записываемых элементов*@
             @sizeItems2() = @{
                 val sizeItems2 = win.length
@@ -233,7 +228,7 @@
                     </td>
             </table>
             }
-            @if(sizeItems() == 0) {
+            @if(sizeItems2() == 0) {
                 <h1>Оценок нет!</h1>
             }
 

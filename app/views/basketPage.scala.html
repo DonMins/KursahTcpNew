@@ -179,10 +179,7 @@
                 sizeItems
             }
         }
-            @*количество страниц*@
-        @pages = @{
-            sizeItems2() / sizeItems()
-        }
+
             @*всего записываемых элементов*@
         @sizeItems2() = @{
             val sizeItems2 = win.length
@@ -204,6 +201,9 @@
                                 </button>
                             </td>
                         }
+                        @if(error ==3){
+                           <h2>@colomn(0)</h2>
+                            }
                         <div id="main"><!— Основной раздел содержимого —>
 
                             <section id="content"><!— Основной подраздел содержимого —>
@@ -339,14 +339,6 @@
                                 </div>
                             </section>
                         </div>
-
-
-
-
-
-
-
-
 
             </td>
         </table>
