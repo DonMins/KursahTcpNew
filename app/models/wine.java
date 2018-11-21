@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "wine", schema = "public")
 public class wine {
-    @Id
+//    @Id
     @Column(name = "id_product")
     private Integer idProduct;
 
