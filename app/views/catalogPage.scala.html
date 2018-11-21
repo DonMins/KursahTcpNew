@@ -349,9 +349,7 @@
                                         }
                                     }
                                     </div>
-                                    @if(item.isAddingToBasket(item.getIdProduct, login) != login) {
-                                        <p text-align="left">Добавлен в корзину.</p>
-                                    }
+
                                     <div class="layer2-admin">
                                     @if(item.isAddingToFavorite(item.getIdProduct, login) == login) {
                                         @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
@@ -362,9 +360,13 @@
                                         }
                                     }
                                     </div>
+                                    <div class="clear"></div>
+                                    @if(item.isAddingToBasket(item.getIdProduct, login) != login) {
+                                        <p  style="color: blue">Добавлен в корзину.</p>
+                                    }
 
                                     @if(item.isAddingToFavorite(item.getIdProduct, login) != login) {
-                                        <p text-align="left">Добавлен в избранное.</p>
+                                        <p  style="color: blue">Добавлен в избранное.</p>
                                     }
                                 }
 
@@ -380,9 +382,7 @@
                                             }
                                         }
                                         </div>
-                                        @if(item.isAddingToBasket(item.getIdProduct, login) != login) {
-                                            <p text-align="left">Добавлен в корзину.</p>
-                                        }
+
                                         <div class="layer2-button">
                                         @if(item.isAddingToFavorite(item.getIdProduct, login) == login) {
                                             @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
@@ -393,8 +393,12 @@
                                             }
                                         }
                                         </div>
+                                        <div class="clear"></div>
+                                        @if(item.isAddingToBasket(item.getIdProduct, login) != login) {
+                                            <p text-align="left" style="color: blue">Добавлен в корзину.</p>
+                                        }
                                         @if(item.isAddingToFavorite(item.getIdProduct, login) != login) {
-                                            <p text-align="left">Добавлен в избранное.</p>
+                                            <p text-align="left" style="color: blue">Добавлен в избранное.</p>
                                         }
                                     }
                                     @if(login.isEmpty) {
