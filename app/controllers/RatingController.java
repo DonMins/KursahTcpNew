@@ -47,13 +47,20 @@ public class RatingController extends Controller {
                 wineRating = wineRating + parametrs + " ";
             }
         }
-            splitS=wineRating.split(" ");
-            for(int i=0; i<splitS.length;i+=3){
-                rating.setIdProduct(Integer.parseInt(splitS[i]));
-                rating.setIdUser(Integer.parseInt(splitS[i+1]));
-                rating.setRating(Integer.parseInt(splitS[i+2]));
-                ratingList.add(rating);
+        if(wineRating !="null") {
+            splitS = wineRating.split(" ");
+            for (int i = 0; i < splitS.length; i += 3) {
+                System.out.println(splitS[i] + " " + i);
+                System.out.println(splitS[i + 1] + " " + i);
+                System.out.println(splitS[i + 2] + " " + i);
+                Rating rating1 = new Rating();
+                rating1.setIdProduct(Integer.parseInt(splitS[i]));
+                rating1.setIdUser(Integer.parseInt(splitS[i + 1]));
+                rating1.setRating(Integer.parseInt(splitS[i + 2]));
+                ratingList.add(rating1);
             }
+        }
+
         return ok(views.html.usersRatingPage.render(login,isAdmin, JavaConverters.asScalaBuffer(nameColomn)
                 ,asScalaBuffer(ratingList)));
     }
