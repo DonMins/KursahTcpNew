@@ -9,643 +9,540 @@
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
+
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
-
         <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
-
-        @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
         <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
 
     </head>
     <body align="center">
-
         @*<div align="center">*@
-            <h2>Barton & Guestier</h2>
+    <h2>Barton & Guestier</h2>
 
-                <!-- Модальное окно №1 -->
-            <a href="#x" class="overlay" id="win1"></a>
-            <div class="popup">
-                @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login") {
-                    <div class="modal-header">
-
-                        <h1 class="modal-title">Вход в личный кабинет</h1>
-                    </div>
-
-                    <br>
-                    @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-                    @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
-
-                    <div class="modal-footer">
-                        <input type ="submit" value="Войти">
-                    </div>
-
-
-
-                }
-                <a class="close" title="Закрыть" href="#close"></a>
+        <!-- Модальное окно №1 -->
+    <a href="#x" class="overlay" id="win1"></a>
+    <div class="popup">
+        @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login") {
+            <div class="modal-header">
+                <h1 class="modal-title">Вход в личный кабинет</h1>
             </div>
-
-                <!-- Модальное окно №2 -->
-            <a href="#x" class="overlay" id="win2"></a>
-            <div class="popup">
-                <div class="modal-header">
-
-                    <h1 class="modal-title">Регистрация </h1>
-                </div>
-
-                @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
-
-                    @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-
-                    @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
-                    @if(isAdmin) {
-                        Права администратора:@helper.checkbox(registrationForm("isAdmin"))
-                    }
-
-                    <div class="modal-footer">
-                        <input type ="submit" value="Создать">
-                    </div>
-
-
-                }
-                <a class="close" title="Закрыть" href="#close"></a>
+            <br>
+            @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
+            @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
+            <div class="modal-footer">
+                <input type ="submit" value="Войти">
             </div>
+        }
+    <a class="close" title="Закрыть" href="#close"></a>
+    </div>
 
-                <!-- Модальное окно при загрузке -->
-            @if(error == 1 || error == 2) {
-                <div class="container">
-                        <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
+        <!-- Модальное окно №2 -->
+    <a href="#x" class="overlay" id="win2"></a>
+    <div class="popup">
+        <div class="modal-header">
+            <h1 class="modal-title">Регистрация </h1>
+        </div>
+        @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
+            @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
+            @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
+            @if(isAdmin) {
+                Права администратора:@helper.checkbox(registrationForm("isAdmin"))
+            }
+            <div class="modal-footer">
+                <input type ="submit" value="Создать">
+            </div>
+        }
+        <a class="close" title="Закрыть" href="#close"></a>
+    </div>
 
-                                <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"></button>
-                                    <h4 class="modal-title">Ошибка! </h4>
-                                </div>
-                                <div class="modal-body">
-                                    @if(error == 1){
-                                        <h4> Неверный пароль или логин!</h4>
-                                    }
-                                    @if(error ==2){
-                                        <h4> Такой логин уже существует!</h4>
-                                    }
-
-                                </div>
-
+        <!-- Модальное окно при загрузке -->
+        @if(error == 1 || error == 2) {
+            <div class="container">
+                    <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                            <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"></button>
+                                <h4 class="modal-title">Ошибка! </h4>
                             </div>
-
+                            <div class="modal-body">
+                                @if(error == 1) {
+                                    <h4> Неверный пароль или логин!</h4>
+                                }
+                                @if(error == 2) {
+                                    <h4> Такой логин уже существует!</h4>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <script>
-                        $(document).ready(function () {
-                            $('#myModal').modal('show');
-                        });
-                </script>
-            }
-
-                <!-- Модальное окно №3 -->
-            <a href="#x" class="overlay" id="win3" ></a>
-            <div class="popup" style="overflow-y: scroll;
-                max-height: 100%;
-                margin-top: 0;
-                margin-bottom: 50px;
-                top: 0px ">
-
-                <div class="modal-header">
-
-                    <h1 class="modal-title">Добавление товара</h1>
-                </div>
-
-                <br>
-
-
-                @helper.form(action = routes.WineController.addingWine(), 'id -> "slick-login") {
-                    @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Название вина")
-                    @helper.inputText(wineForm("colour"), '_showConstraints -> false, 'placeholder -> "Цвет")
-                    @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна")
-                    @helper.inputText(wineForm("brand"), '_showConstraints -> false, 'placeholder -> "Бренд")
-                    @helper.inputText(wineForm("shelfLife"), '_showConstraints -> false, 'placeholder -> "Срок годности")
-                    @helper.inputText(wineForm("sugar"), '_showConstraints -> false, 'placeholder -> "Сахар")
-                    @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда")
-                    @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена",'type -> "number", 'step->"0.001", 'min->"0")
-                    @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем",'type -> "number", 'step->"0.001", 'min->"0")
-                    @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость",'type -> "number", 'step->"0.001", 'min->"0")
-
-
-                    <div class="modal-footer">
-                        <input type ="submit" value="Создать">
-                    </div>
-
-
-
-
-                }
-
-                <a class="close" title="Закрыть" href="#close"></a>
             </div>
+            <script>
+                    $(document).ready(function () {
+                        $('#myModal').modal('show');
+                    });
+            </script>
+        }
 
-                <!-- Модальное окно №4 - updateForm -->
-            <a href="#x" class="overlay" id="win4"></a>
-            <div class="popup" style="overflow-y: scroll;
-                max-height: 100%;
-                margin-top: 0;
-                margin-bottom: 50px;
-                top: 0px ">
-
-                <div class="modal-header">
-
-                    <h1 class="modal-title">Редактирование товара</h1>
-                </div>
-
-                @*<br>*@
-                @helper.form(action = routes.WineController.updateWineInfo(wine.getIdProduct), 'id -> "slick-login") {
-
-                    <table>
-                        <tr>
-                            <td> Название:  </td> <td>@helper.inputText(form("name"), '_showConstraints -> false)</td>
-                        </tr>
-                        <tr>
-                            <td> Цвет:  </td> <td> @helper.inputText(form("colour"), '_showConstraints -> false)</td>
-                        </tr>
-                        <tr>
-                            <td> Страна:  </td> <td>@helper.inputText(form("country"), '_showConstraints -> false)</td>
-                        </tr>
-                        <tr>
-                            <td> Бренд:  </td> <td>@helper.inputText(form("brand"), '_showConstraints -> false)</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Срок годности:  </td> <td> @helper.inputText(form("shelfLife"), '_showConstraints -> false)</td>
-                        </tr>
-                        <tr>
-                            <td> Сахар: </td> <td> @helper.inputText(form("sugar"), '_showConstraints -> false)</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"), '_showConstraints -> false)</td>
-                        </tr>
-                        <tr>
-                            <td> Цена: </td> <td> @helper.inputText(form("price"), '_showConstraints -> false,'required -> "required", 'type ->"number", 'step->"0.001",'min->"0")</td>
-                        </tr>
-                        <tr>
-                            <td> Объем: </td> <td>  @helper.inputText(form("value"), '_showConstraints -> false,'required -> "required", 'type ->"number", 'step->"0.001",'min->"0")</td>
-                        </tr>
-                        <tr>
-                            <td> Крепость: </td> <td>  @helper.inputText(form("degree"), '_showConstraints -> false,'required -> "required", 'type ->"number", 'step->"0.001",'min->"0")</td>
-                        </tr>
-                    </table>
-
-                    <div class="modal-footer">
-                        <input type ="submit" value="Применить">
-                    </div>
-                }
-
-
-                <a class="close" title="Закрыть" href="#close"></a>
+        <!-- Модальное окно №3 -->
+    <a href="#x" class="overlay" id="win3" ></a>
+    <div class="popup" style="overflow-y: scroll;
+        max-height: 100%;
+        margin-top: 0;
+        margin-bottom: 50px;
+        top: 0px ">
+        <div class="modal-header">
+            <h1 class="modal-title">Добавление товара</h1>
+        </div>
+        <br>
+        @helper.form(action = routes.WineController.addingWine(), 'id -> "slick-login") {
+            @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Название вина", 'required -> "required")
+            @helper.inputText(wineForm("colour"), '_showConstraints -> false, 'placeholder -> "Цвет", 'required -> "required")
+            @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", 'required -> "required")
+            @helper.inputText(wineForm("brand"), '_showConstraints -> false, 'placeholder -> "Бренд", 'required -> "required")
+            @helper.inputText(wineForm("shelfLife"), '_showConstraints -> false, 'placeholder -> "Срок годности")
+            @helper.inputText(wineForm("sugar"), '_showConstraints -> false, 'placeholder -> "Сахар", 'required -> "required")
+            @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда", 'required -> "required")
+            @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
+            @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
+            @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
+            <div class="modal-footer">
+                <input type ="submit" value="Создать">
             </div>
+        }
+        <a class="close" title="Закрыть" href="#close"></a>
+    </div>
+        <!-- Модальное окно №4 - updateForm -->
+    <a href="#x" class="overlay" id="win4"></a>
+    <div class="popup" style="overflow-y: scroll;
+        max-height: 100%;
+        margin-top: 0;
+        margin-bottom: 50px;
+        top: 0px ">
+        <div class="modal-header">
+            <h1 class="modal-title">Редактирование товара</h1>
+        </div>
+        @helper.form(action = routes.WineController.updateWineInfo(wine.getIdProduct), 'id -> "slick-login") {
+            <table>
+                <tr>
+                    <td>
+                        Название:  </td> <td>@helper.inputText(form("name"), '_showConstraints -> false, 'required -> "required")</td>
+                </tr>
+                <tr>
+                    <td>
+                        Цвет:  </td> <td> @helper.inputText(form("colour"), '_showConstraints -> false, 'required -> "required")</td>
+                </tr>
+                <tr>
+                    <td>
+                        Страна:  </td> <td>@helper.inputText(form("country"), '_showConstraints -> false, 'required -> "required")</td>
+                </tr>
+                <tr>
+                    <td>
+                        Бренд:  </td> <td>@helper.inputText(form("brand"), '_showConstraints -> false, 'required -> "required")</td>
+                </tr>
+                <tr>
+                    <td>
+                        Срок годности:  </td> <td> @helper.inputText(form("shelfLife"), '_showConstraints -> false)</td>
+                </tr>
+                <tr>
+                    <td>
+                        Сахар: </td> <td> @helper.inputText(form("sugar"), '_showConstraints -> false, 'required -> "required")</td>
+                </tr>
+                <tr>
+                    <td>
+                        Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"), '_showConstraints -> false, 'required -> "required")</td>
+                </tr>
+                <tr>
+                    <td>
+                        Цена: </td> <td> @helper.inputText(form("price"), '_showConstraints -> false, 'required -> "required", 'type -> "number", 'step -> "0.001", 'min -> "0")</td>
+                </tr>
+                <tr>
+                    <td>
+                        Объем: </td> <td>  @helper.inputText(form("value"), '_showConstraints -> false, 'required -> "required", 'type -> "number", 'step -> "0.001", 'min -> "0")</td>
+                </tr>
+                <tr>
+                    <td>
+                        Крепость: </td> <td>  @helper.inputText(form("degree"), '_showConstraints -> false, 'required -> "required", 'type -> "number", 'step -> "0.001", 'min -> "0")</td>
+                </tr>
+            </table>
+            <div class="modal-footer">
+                <input type ="submit" value="Применить">
+            </div>
+        }
+        <a class="close" title="Закрыть" href="#close"></a>
+    </div>
+    <p></p>
+    <ul class="menu" >
+        <li> <a href=#>Личный кабинет </a>
+            <ul class="submenu">
+                @if(login.isEmpty) {
+                    <li><a href="#win1" class="button button-green">Вход</a></li>
+                    <li><a href="#win2" class="button button-green">Регистрация</a></li>
+                }
+                @if(!(login.isEmpty)) {
+                    <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                }
+            </ul>
+        </li>
+    </ul>
+    <ul id="nav" >
+        <li><a>@helper.form(action = routes.ContactController.contactPage) {
+            <input type="submit" value="Контакты" class="button_menu">
+            }</a>
+        </li>
+        <li><a>@helper.form(action = routes.SaleController.showSales) {
+            <input type="submit" value="Акции" class="button_menu">
+            }</a>
+        </li>
+        <li><a>@helper.form(action = routes.WineController.catalogPage) {
+            <input type="submit" value="Каталог" class="button_menu">
+            }</a>
+        </li>
+        <li><a>@helper.form(action = routes.AuxiliaryController.projectPage2) {
 
+            <input type="submit" value="О проекте" class="button_menu">
+            }</a>
+        </li>
 
+        <li><a>@helper.form(action = routes.BasketController.basketPage) {
+            <input type="hidden" name="numberSql" value="0">
+            <input type="submit" value="Корзина" class="button_menu">
+            }</a>
+        </li>
 
-        <p></p>
-        <ul class="menu" >
-            <li> <a href=#>Личный кабинет </a>
-                <ul class="submenu">
-                    @if(login.isEmpty) {
-                        <li><a href="#win1" class="button button-green">Вход</a></li>
-                        <li><a href="#win2" class="button button-green">Регистрация</a></li>
-                        @*<li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>*@
-                        @*<li><a href="@routes.UsersController.renderAddUserForm(isAdmin)">Регистрация</a></li>*@
-                    }
-                    @if(!(login.isEmpty)) {
-                        <li><a href="@routes.LoginController.logout()">Выход</a></li>
-                    }
-
-                </ul>
-            </li>
-
-        </ul>
-        <ul id="nav" >
-
-
-            <li><a>@helper.form(action = routes.ContactController.contactPage) {
-                <input type="submit" value="Контакты" class="button_menu">
-                }</a>
-            </li>
-            <li><a>@helper.form(action = routes.SaleController.showSales) {
-                <input type="submit" value="Акции" class="button_menu">
-                }</a>
-            </li>
-            <li><a>@helper.form(action = routes.WineController.catalogPage) {
-                <input type="submit" value="Каталог" class="button_menu">
-                }</a>
-            </li>
-            <li><a>@helper.form(action = routes.AuxiliaryController.projectPage2) {
-
-                <input type="submit" value="О проекте" class="button_menu">
-                }</a></li>
-
-            <li><a>@helper.form(action = routes.BasketController.basketPage) {
-                <input type="hidden" name="numberSql" value="0">
-                <input type="submit" value="Корзина" class="button_menu">
-                }</a></li>
-
-            <li><a>@helper.form(action = routes.BasketController.basketPage) {
-                <input type="hidden" name="numberSql" value="1">
-                <input type="submit" value="Избранное"  class="button_menu">
-                }</a></li>
-            @if(isAdmin) {
-                @*<li><a href="@routes.WineController.renderAddWine(login)">Добавить товар </a></li>*@
-                <li><a href="#win3" class="button button-green">Добавить товар</a></li>
-                <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
+        <li><a>@helper.form(action = routes.BasketController.basketPage) {
+            <input type="hidden" name="numberSql" value="1">
+            <input type="submit" value="Избранное" class="button_menu">
+            }</a>
+        </li>
+        @if(isAdmin) {
+            <li><a href="#win3" class="button button-green">Добавить товар</a></li>
+            <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
+        }
+    </ul>
+    <p></p>
+    <p></p>
+    <p></p>
+            @*вывод колонки*@
+        @colomn(i: Int) = @{
+            val it = nameColomn
+            it(i)
+        }
+             @*всего колонок*@
+        @sizeItems() = @{
+            val sizeItems = nameColomn.length
+            sizeItems
+        }
+       @*всего записываемых элементов*@
+        @sizeItems2() = @{
+            if (win==null) {
+            val tmp =0
+                tmp
             }
-
-
-        </ul>
-        <p></p>
-        <p></p>
-        <p></p>
-                @*вывод колонки*@
-            @colomn(i: Int) = @{
-                val it = nameColomn
-                it(i)
-            }
-                @*вывод строки*@
-            @display(i: Int) = @{
-                val it = win
-                it(i)
-            }
-                @*всего колонок*@
-            @sizeItems() = @{
-                val sizeItems = nameColomn.length
-                sizeItems
-            }
-                @*количество страниц*@
-            @pages = @{
-                sizeItems2() / (sizeItems())
-            }
-                @*всего записываемых элементов*@
-            @sizeItems2() = @{
+            else {
                 val sizeItems2 = win.length
                 sizeItems2
             }
-                @*печатает название таблиц*@
-            @printCode(i: Int) = @{
-                val cod = "wine"
-                cod(i)
-            }
-
-        <table class="wine1">
-                <td>
-                    <div id="main"><!— Основной раздел содержимого —>
-
-                        <section id="content"><!— Основной подраздел содержимого —>
+        }
 
 
-                            <div id="left">
+    <table class="wine1">
+        <td>
+            <div id="main"><!— Основной раздел содержимого —>
+                <section id="content"><!— Основной подраздел содержимого —>
+                    <div id="left">
+                        <ul>
+                        @if(sizeItems2()!=0){
+                        @win.map { item =>
+                            @item.setAvgRating(item.averageRatingOfTheProduct(item.getIdProduct))
+                        <li>
+                            <div class="product">
+                                <a href="#" class="product-img">
+                                    <img src=@item.getLinkForProduct(item.getIdProduct) alt="" style="height: 300px;
+                                        align-content: center"></a>
+                                <p class="wineName">@item.getName</p>
 
-                                <ul>
-                                @win.map { item =>
-                                        @item.setAvgRating(item.averageRatingOfTheProduct(item.getIdProduct))
-                                    <li>
-                                        <div class="product">
-                                            <a href="#" class="product-img">
-                                                <img src=@item.getLinkForProduct(item.getIdProduct) alt="" style="height: 300px;
-                                                align-content: center"></a>
-                                            <p class="wineName">@item.getName</p>
-
-
-                                            <div class="product-text">
-                                            <p > @colomn(2): @item.getColour</p>
-                                            <p > @colomn(3): @item.getCountry</p>
-                                            <p > @colomn(4): @item.getBrand</p>
-                                            <p > @colomn(5): @item.getShelfLife</p>
-                                            <p > @colomn(6): @item.getSugar</p>
-                                            <p > @colomn(7): @item.getGrapeSort</p>
-                                            <p > @colomn(9): @item.getValue л.</p>
-                                            <p > @colomn(10): @item.getDegree %</p>
-                                            @if(isAdmin) {
-                                                <a href="@routes.WineController.renderUpdateWineInfo(item.getIdProduct)">
-                                                Изменить</a>
-                                                <a href="@routes.WineController.deleteWine(item.getIdProduct)" >
-                                                Удалить </a>
-                                                @helper.form(action = routes.WineController.upload(item.getIdProduct), 'enctype -> "multipart/form-data") {
-
-                                                    <input type="file" name="picture">
-
-                                                    <p>
-                                                        <input type="submit">
-                                                    </p>
-
+                                <div class="product-text">
+                                    <p > @colomn(2): @item.getColour</p>
+                                    <p > @colomn(3): @item.getCountry</p>
+                                    <p > @colomn(4): @item.getBrand</p>
+                                    <p > @colomn(5): @item.getShelfLife</p>
+                                    <p > @colomn(6): @item.getSugar</p>
+                                    <p > @colomn(7): @item.getGrapeSort</p>
+                                    <p > @colomn(9): @item.getValue л.</p>
+                                    <p > @colomn(10): @item.getDegree %</p>
+                                    @if(isAdmin) {
+                                        <a href="@routes.WineController.renderUpdateWineInfo(item.getIdProduct)">
+                                            Изменить</a>
+                                        <a href="@routes.WineController.deleteWine(item.getIdProduct)" >
+                                            Удалить </a>
+                                        @helper.form(action = routes.WineController.upload(item.getIdProduct), 'enctype -> "multipart/form-data") {
+                                            <input type="file" name="picture">
+                                            <p>
+                                                <input type="submit">
+                                            </p>
+                                        }
+                                    }
+                                </div>
+                                <p class="product-price"><b>@item.getPrice руб.</b></p>
+                                <p class="product-price1">@item.averageRatingOfTheProduct(item.getIdProduct)/5</p>
+                                <div class="product-Rating">
+                                    <div class="Rating">
+                                        <div style="display: inline-flex;
+                                            margin: 0 auto;
+                                            width: 500px;">
+                                            @if(!login.isEmpty) {
+                                                @*сюда добавить проверку - голосовал ли пользователь за вино*@
+                                                @if(item.isVote(item.getIdProduct, login) != login) {
+                                                    Ваша оценка @item.getUsersMark(item.getIdProduct, login).
+                                                }
+                                                @if(item.isVote(item.getIdProduct, login) == login) {
+                                                    @helper.form(action = routes.RatingController.newRating) {
+                                                        <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                        <input type="hidden" name="Rating" value="1">
+                                                        <input type="submit" class="btn btn-danger" value="1" />
+                                                    }
+                                                    @helper.form(action = routes.RatingController.newRating) {
+                                                        <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                        <input type="hidden" name="Rating" value="2">
+                                                        <input type="submit" class="btn btn-danger" value="2" />
+                                                    }
+                                                    @helper.form(action = routes.RatingController.newRating) {
+                                                        <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                        <input type="hidden" name="Rating" value="3">
+                                                        <input type="submit" class="btn btn-danger" value="3" />
+                                                    }
+                                                    @helper.form(action = routes.RatingController.newRating) {
+                                                        <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                        <input type="hidden" name="Rating" value="4">
+                                                        <input type="submit" class="btn btn-danger" value="4" />
+                                                    }
+                                                    @helper.form(action = routes.RatingController.newRating) {
+                                                        <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                        <input type="hidden" name="Rating" value="5">
+                                                        <input type="submit" class="btn btn-danger" value="5" />
+                                                    }
                                                 }
                                             }
-                                            </div>
-
-                                            <p class="product-price"><b>@item.getPrice руб.</b></p>
-                                            <p class="product-price1">@item.averageRatingOfTheProduct(item.getIdProduct)/5</p>
-                                            <div class="product-Rating">
-                                                <div class="Rating">
-                                                    <div style="display: inline-flex;margin: 0 auto;width: 500px;">
-                                                        @if(!login.isEmpty) {
-                                                            @*сюда добавить проверку - голосовал ли пользователь за вино*@
-                                                            @if(item.isVote(item.getIdProduct,login ) != login){
-                                                               Ваша оценка @item.getUsersMark(item.getIdProduct,login).
-
-                                                            }
-                                                            @if(item.isVote(item.getIdProduct,login )==login){
-                                                                @helper.form(action = routes.RatingController.newRating) {
-                                                                    <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                    <input type="hidden" name="Rating" value="1">
-
-                                                                    <input type="submit" class="btn btn-danger" value="1" />
-                                                                }
-                                                                @helper.form(action = routes.RatingController.newRating) {
-                                                                    <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                    <input type="hidden" name="Rating" value="2">
-
-                                                                    <input type="submit" class="btn btn-danger" value="2" />
-                                                                }
-                                                                @helper.form(action = routes.RatingController.newRating) {
-                                                                    <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                    <input type="hidden" name="Rating" value="3">
-
-                                                                    <input type="submit" class="btn btn-danger" value="3" />
-                                                                }
-                                                                @helper.form(action = routes.RatingController.newRating) {
-                                                                    <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                    <input type="hidden" name="Rating" value="4">
-
-                                                                    <input type="submit" class="btn btn-danger" value="4" />
-                                                                }
-                                                                @helper.form(action = routes.RatingController.newRating) {
-                                                                    <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
-                                                                    <input type="hidden" name="Rating" value="5">
-
-                                                                    <input type="submit" class="btn btn-danger" value="5" />
-
-                                                            }
-
-
-
-                                                            }
-
-                                                        }
-                                                        @if(login.isEmpty) {
-                                                            <input type="submit" class="btn btn-danger" value="1" disabled />
-                                                            <input type="submit" class="btn btn-danger" value="2" disabled/>
-                                                            <input type="submit" class="btn btn-danger" value="3" disabled/>
-                                                            <input type="submit" class="btn btn-danger" value="4" disabled/>
-                                                            <input type="submit" class="btn btn-danger" value="5" disabled/>
-                                                        }
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            @if(!(login.isEmpty) && (isAdmin==false )) {
-                                                <div class="layer1-admin">
-                                                @if(item.isAddingToBasket(item.getIdProduct,login)==login) {
-                                                    @helper.form(action = routes.BasketController.addIn(item.getIdProduct)) {
-                                                        <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                                                            height: 50px">
-                                                            <span class="glyphicon glyphicon-shopping-cart" ></span>
-                                                        </button>
-                                                    }
-                                                }
-                                                </div>
-                                                @if(item.isAddingToBasket(item.getIdProduct,login)!=login){
-                                                    <p text-align="left">Добавлен в корзину.</p>
-                                                }
-                                                <div class="layer2-admin">
-                                                @if(item.isAddingToFavorite(item.getIdProduct,login)==login) {
-                                                    @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
-                                                        <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                                                            height: 50px">
-                                                            <span class="glyphicon glyphicon-heart" ></span>
-                                                        </button>
-                                                    }
-                                                }
-                                                </div>
-
-                                                @if(item.isAddingToFavorite(item.getIdProduct,login)!=login){
-                                                    <p text-align="left">Добавлен в избранное.</p>
-                                                }
+                                            @if(login.isEmpty) {
+                                                <input type="submit" class="btn btn-danger" value="1" disabled />
+                                                <input type="submit" class="btn btn-danger" value="2" disabled/>
+                                                <input type="submit" class="btn btn-danger" value="3" disabled/>
+                                                <input type="submit" class="btn btn-danger" value="4" disabled/>
+                                                <input type="submit" class="btn btn-danger" value="5" disabled/>
                                             }
-
-
-                                                <div class="product-buttons">
-                                                    @if(!(login.isEmpty) && (isAdmin ==true)) {
-                                                        <div class="layer1-button">
-                                                            @if(item.isAddingToBasket(item.getIdProduct,login)==login) {
-                                                                @helper.form(action = routes.BasketController.addIn(item.getIdProduct)) {
-                                                                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                                                                        height: 50px">
-                                                                        <span class="glyphicon glyphicon-shopping-cart" ></span>
-                                                                    </button>
-                                                                }
-                                                            }
-                                                        </div>
-                                                        @if(item.isAddingToBasket(item.getIdProduct,login)!=login){
-                                                            <p text-align="left">Добавлен в корзину.</p>
-                                                        }
-                                                        <div class="layer2-button">
-                                                            @if(item.isAddingToFavorite(item.getIdProduct,login)==login) {
-                                                                @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
-                                                                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                                                                        height: 50px">
-                                                                        <span class="glyphicon glyphicon-heart" ></span>
-                                                                    </button>
-                                                                }
-                                                            }
-                                                        </div>
-
-                                                        @if(item.isAddingToFavorite(item.getIdProduct,login)!=login){
-                                                            <p text-align="left">Добавлен в избранное.</p>
-                                                        }
-                                                    }
-                                                    @if(login.isEmpty){
-                                                        <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                                                            height: 50px" disabled>
-                                                            <span class="glyphicon glyphicon-shopping-cart" ></span>
-                                                        </button>
-                                                        <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                                                            height: 50px" disabled>
-                                                            <span class="glyphicon glyphicon-heart" ></span>
-                                                        </button>
-                                                    }
-                                                 </div>
                                         </div>
-                                    </li>
+                                    </div>
+                                </div>
+                                @if(!(login.isEmpty) && (isAdmin == false)) {
+                                    <div class="layer1-admin">
+                                    @if(item.isAddingToBasket(item.getIdProduct, login) == login) {
+                                        @helper.form(action = routes.BasketController.addIn(item.getIdProduct)) {
+                                            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                height: 50px">
+                                                <span class="glyphicon glyphicon-shopping-cart" ></span>
+                                            </button>
+                                        }
+                                    }
+                                    </div>
+                                    @if(item.isAddingToBasket(item.getIdProduct, login) != login) {
+                                        <p text-align="left">Добавлен в корзину.</p>
+                                    }
+                                    <div class="layer2-admin">
+                                    @if(item.isAddingToFavorite(item.getIdProduct, login) == login) {
+                                        @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
+                                            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                height: 50px">
+                                                <span class="glyphicon glyphicon-heart" ></span>
+                                            </button>
+                                        }
+                                    }
+                                    </div>
+
+                                    @if(item.isAddingToFavorite(item.getIdProduct, login) != login) {
+                                        <p text-align="left">Добавлен в избранное.</p>
+                                    }
                                 }
 
-                            </ul>
-                            </div>
-                        </section>
-                    </div>
-                </td>
-                <td style="background: #c22c25; color:white">
+                                <div class="product-buttons">
+                                    @if(!(login.isEmpty) && (isAdmin == true)) {
+                                        <div class="layer1-button">
+                                        @if(item.isAddingToBasket(item.getIdProduct, login) == login) {
+                                            @helper.form(action = routes.BasketController.addIn(item.getIdProduct)) {
+                                                <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                    height: 50px">
+                                                    <span class="glyphicon glyphicon-shopping-cart" ></span>
+                                                </button>
+                                            }
+                                        }
+                                        </div>
+                                        @if(item.isAddingToBasket(item.getIdProduct, login) != login) {
+                                            <p text-align="left">Добавлен в корзину.</p>
+                                        }
+                                        <div class="layer2-button">
+                                        @if(item.isAddingToFavorite(item.getIdProduct, login) == login) {
+                                            @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
+                                                <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                    height: 50px">
+                                                    <span class="glyphicon glyphicon-heart" ></span>
+                                                </button>
+                                            }
+                                        }
+                                        </div>
+                                        @if(item.isAddingToFavorite(item.getIdProduct, login) != login) {
+                                            <p text-align="left">Добавлен в избранное.</p>
+                                        }
+                                    }
+                                    @if(login.isEmpty) {
+                                        <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                            height: 50px" disabled>
+                                            <span class="glyphicon glyphicon-shopping-cart" ></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                            height: 50px" disabled>
+                                            <span class="glyphicon glyphicon-heart" ></span>
+                                        </button>
+                                    }
 
-                @*<h1>Фильтр</h1>*@
-                    @*<p> <!--форма поиска --></p>*@
-                    <div class="Search">
-                        @helper.form(action = routes.WineController.searchCatalogPage()) {
-
-                                @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Введите название", '_label -> "")
-
-
-                            <div class="layer1">
-                                @helper.inputText(searchform("minprice"), '_showConstraints -> false, 'placeholder -> "Цена От ", '_label -> "",'type->"number")
-                            </div>
-                            <div class="layer2">
-                            @helper.inputText(searchform("maxprice"), '_showConstraints -> false, 'placeholder -> "Цена До", '_label -> "",'type->"number")
-                            </div>
-                            <div class="clear"></div>
-                            <hr   color="white"  />
-                            <p>Цвет</p>
-                            <hr   color="white"  />
-                            <div class="group">
-                                <div class="layer1">
-                                Все цвета @helper.checkbox(searchform("anyColour"), '_label -> "")
-                                Белое  @helper.checkbox(searchform("whiteColour"), '_label -> "")
-                                </div>
-                                <div class="layer2">
-                                Красное @helper.checkbox(searchform("redColour"), '_label -> "")
-                                Розовое @helper.checkbox(searchform("pinkColour"), '_label -> "")
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <script>
-                                    $(".group input").on("click", function () {
-                                        $(".group input").removeAttr("checked");
-                                        $(this).prop("checked", true);
-                                    })
-                            </script>
-
-                            <hr   color="white"  />
-                            <p>Сахар</p>
-                            <hr   color="white"  />
-                            <div class="group2">
-                                 <div class="layer1">
-
-
-                                     Полусухое @helper.checkbox(searchform("semidry"), '_label -> "" )
-
-
-                                     Полусладкое @helper.checkbox(searchform("semisweet"), '_label -> "")
-                                 </div>
-                                <div class="layer2">
-                                Сухое @helper.checkbox(searchform("dry"), '_label -> "")
-                                Сладкое @helper.checkbox(searchform("sweet"), '_label -> "")
-                                </div>
-
-                                <div class="clear"></div>
-                            Любое содержание сахара @helper.checkbox(searchform("anySugar"), '_label -> "")
-                            </div>
-
-
-                            <script>
-                                    $(".group2 input").on("click", function () {
-                                        $(".group2 input").removeAttr("checked");
-                                        $(this).prop("checked", true);
-                                    })
-                            </script>
-                            <div style="margin-top: -30px">
-                            @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", '_label -> "")
                         </div>
-
-
-                            <button type="submit">Поиск</button>
+                        </div>
+                        </li>
                         }
+                        }
+                        </ul>
                     </div>
-
-
-                    <!--сортировка
+                </section>
+            </div>
+        </td>
+        <td style="background: #c22c25;
+            color: white">
+        <div class="Search">
+        @helper.form(action = routes.WineController.searchCatalogPage()) {
+            @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Введите название", '_label -> "")
+            <div class="layer1">
+            @helper.inputText(searchform("minprice"), '_showConstraints -> false, 'placeholder -> "Цена От ", '_label -> "", 'type -> "number")
+            </div>
+            <div class="layer2">
+            @helper.inputText(searchform("maxprice"), '_showConstraints -> false, 'placeholder -> "Цена До", '_label -> "", 'type -> "number")
+            </div>
+            <div class="clear"></div>
+            <hr color="white" />
+            <p>Цвет</p>
+            <hr color="white" />
+            <div class="group">
+                <div class="layer1">
+                    Все цвета @helper.checkbox(searchform("anyColour"), '_label -> "")
+                    Белое  @helper.checkbox(searchform("whiteColour"), '_label -> "")
+                </div>
+                <div class="layer2">
+                    Красное @helper.checkbox(searchform("redColour"), '_label -> "")
+                    Розовое @helper.checkbox(searchform("pinkColour"), '_label -> "")
+                </div>
+                <div class="clear"></div>
+            </div>
+            <script>
+                    $(".group input").on("click", function () {
+                        $(".group input").removeAttr("checked");
+                        $(this).prop("checked", true);
+                    })
+            </script>
+            <hr color="white" />
+            <p>Сахар</p>
+            <hr color="white" />
+            <div class="group2">
+                <div class="layer1">
+                    Полусухое @helper.checkbox(searchform("semidry"), '_label -> "")
+                    Полусладкое @helper.checkbox(searchform("semisweet"), '_label -> "")
+                </div>
+                <div class="layer2">
+                    Сухое @helper.checkbox(searchform("dry"), '_label -> "")
+                    Сладкое @helper.checkbox(searchform("sweet"), '_label -> "")
+                </div>
+                <div class="clear"></div>
+                Любое содержание сахара @helper.checkbox(searchform("anySugar"), '_label -> "")
+            </div>
+            <script>
+                    $(".group2 input").on("click", function () {
+                        $(".group2 input").removeAttr("checked");
+                        $(this).prop("checked", true);
+                    })
+            </script>
+            <div style="margin-top: -30px">
+            @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", '_label -> "")
+            </div>
+            <button type="submit">Поиск</button>
+        }
+        </div>
+            <!--сортировка
                          0- по цене по возрастанию
                          5 - по цене по убыванию
                          1 - по названию по возрастанию
                          2 - по названию по убыванию
-
                          3 - по рейтингу по возрастанию
                          4 - по рейтингу по убыванию-->
+        <p>Cортировка по цене</p>
+        <div class="layer1">
+        @helper.form(action = routes.WineController.sortCatalogPage(0)) {
+            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                height: 50px">
+                <span class="glyphicon glyphicon-sort-by-attributes"></span>
+            </button>
+        }
+        </div>
+        <div class="layer2">
+        @helper.form(action = routes.WineController.sortCatalogPage(5)) {
+            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                height: 50px">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </button>
+        }
+        </div>
+        <div class="clear"></div>
+        <p>Cортировка по названию</p>
+        <div class="layer1">
+        @helper.form(action = routes.WineController.sortCatalogPage(1)) {
+            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                height: 50px">
+                <span class="glyphicon glyphicon-sort-by-attributes"></span>
+            </button>
+        }
+        </div>
+        <div class="layer2">
+        @helper.form(action = routes.WineController.sortCatalogPage(2)) {
+            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                height: 50px">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </button>
+        }
+        </div>
+        <div class="clear"></div>
+        <p> Сортировка по рейтингу</p>
+        <div class="layer1">
+        @helper.form(action = routes.WineController.sortCatalogPage(3)) {
+            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                height: 50px">
+                <span class="glyphicon glyphicon-sort-by-attributes"></span>
+            </button>
+        }
+        </div>
+        <div class="layer2">
+        @helper.form(action = routes.WineController.sortCatalogPage(4)) {
+            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                height: 50px">
+                <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </button>
+        }
+        </div>
+        </td>
 
-                    <p>Cортировка по цене</p>
-                <div class="layer1">
-                @helper.form(action = routes.WineController.sortCatalogPage(0)) {
+        @if(sizeItems2() == 0) {
+            <h2>Ничего не найдено !</h2>
+        }
+    </table>
 
-                <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                    height: 50px">
-                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                </button>
-                }
-                </div>
-                    <div class="layer2">
-                @helper.form(action = routes.WineController.sortCatalogPage(5)) {
-
-                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                        height: 50px">
-                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                    </button>
-                }
-                    </div>
-                <div class="clear"></div>
-                    <p>Cортировка по названию</p>
-                    <div class="layer1">
-                @helper.form(action = routes.WineController.sortCatalogPage(1)) {
-
-
-                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                        height: 50px">
-                        <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                    </button>
-                }
-                    </div>
-                    <div class="layer2">
-                @helper.form(action = routes.WineController.sortCatalogPage(2)) {
-
-                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                        height: 50px">
-                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                    </button>
-                }
-                    </div>
-                    <div class="clear"></div>
-                <p> Сортировка по рейтингу</p>
-                    <div class="layer1">
-
-
-                @helper.form(action = routes.WineController.sortCatalogPage(3)) {
-
-                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                        height: 50px">
-                        <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                    </button>
-                }
-                    </div>
-                    <div class="layer2">
-                @helper.form(action = routes.WineController.sortCatalogPage(4)) {
-
-                    <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
-                        height: 50px">
-                        <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                    </button>
-                }
-                    </div>
-                @*<tr colspan="2"></tr>*@
-
-                </td>
-
-            </table>
-
-        @*</td>*@
-        @*</tr>*@
-        @*</table>*@
-        @*<br>*@
-        @*<p></p>*@
-        @*</div>*@
     </body>
 </html>

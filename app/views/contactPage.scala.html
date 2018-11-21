@@ -3,55 +3,41 @@
 
     <head>
         <meta charset="UTF-8">
-
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
         <title>Корзина</title>
-
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <       <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
         <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
-
         <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
-
     </head>
     <body>
         @if(!(login.isEmpty)){
             <div align="right">
-
                 Вы вошли как :@login
-
                 <br>
             </div>
         }
         <div align="center">
             <h2>Barton & Guestier</h2>
 
-
                 <!-- Модальное окно №1 -->
             <a href="#x" class="overlay" id="win1"></a>
             <div class="popup">
                 @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login") {
                     <div class="modal-header">
-
                         <h1 class="modal-title">Вход в личный кабинет</h1>
                     </div>
-
                     <br>
                     @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
                     @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
-
                     <div class="modal-footer">
                         <input type ="submit" value="Войти">
                     </div>
-
-
-
-
                 }
                 <a class="close" title="Закрыть" href="#close"></a>
             </div>
@@ -60,36 +46,26 @@
             <a href="#x" class="overlay" id="win2"></a>
             <div class="popup">
                 <div class="modal-header">
-
                     <h1 class="modal-title">Регистрация </h1>
                 </div>
-
                 @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
-
                     @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-
                     @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
                     @if(isAdmin) {
                         Права администратора:@helper.checkbox(registrationForm("isAdmin"))
                     }
-
                     <div class="modal-footer">
                         <input type ="submit" value="Создать">
                     </div>
-
                 }
                 <a class="close" title="Закрыть" href="#close"></a>
             </div>
-
-
             @if(error == 1 || error == 2) {
                     <!-- Модальное окно при загрузке -->
-
                 <div class="container">
                         <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
-
                                 <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -99,20 +75,16 @@
                                 <div class="modal-body">
                                     <h4> Неверный пароль или логин!</h4>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
-
                 <script>
                         $(document).ready(function () {
                             $('#myModal').modal('show');
                         });
                 </script>
             }
-
             <p></p>
             <ul class="menu" >
                 <li> <a href=#>Личный кабинет </a>
@@ -120,20 +92,14 @@
                         @if(login.isEmpty) {
                             <li><a href="#win1" class="button button-green">Вход</a></li>
                             <li><a href="#win2" class="button button-green">Регистрация</a></li>
-                            @*<li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>*@
-                            @*<li><a href="@routes.UsersController.renderAddUserForm(isAdmin)">Регистрация</a></li>*@
                         }
                         @if(!(login.isEmpty)) {
                             <li><a href="@routes.LoginController.logout()">Выход</a></li>
                         }
-
                     </ul>
                 </li>
-
             </ul>
             <ul id="nav" >
-
-
                 <li><a>@helper.form(action = routes.ContactController.contactPage) {
                     <input type="submit" value="Контакты" class="button_menu">
                     }</a>
@@ -147,15 +113,12 @@
                     }</a>
                 </li>
                 <li><a>@helper.form(action = routes.AuxiliaryController.projectPage2) {
-
                     <input type="submit" value="О проекте" class="button_menu">
                     }</a></li>
-
                 <li><a>@helper.form(action = routes.BasketController.basketPage) {
                     <input type="hidden" name="numberSql" value="0">
                     <input type="submit" value="Корзина" class="button_menu">
                     }</a></li>
-
                 <li><a>@helper.form(action = routes.BasketController.basketPage) {
                     <input type="hidden" name="numberSql" value="1">
                     <input type="submit" value="Избранное"  class="button_menu">
@@ -163,8 +126,6 @@
                 @if(isAdmin) {
                     <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
                 }
-
-
             </ul>
             <p></p>
             <p></p>
@@ -173,12 +134,9 @@
             <br>
             <br>
             <br>
-
             <table class="favorite">
                 <td>
-
                     <div id="main"><!— Основной раздел содержимого —>
-
                         <section id="content"><!— Основной подраздел содержимого —>
                             @contacts.map { item =>
                                 @if(!isAdmin){
@@ -190,25 +148,18 @@
                                     </div>
                                 }
                                 @if(isAdmin){
-
-
                                     @helper.form(action = routes.ContactController.changeContact(item.getIdContact)) {
                                         <br>
-
-
+                                        <div class = "contact-style">
                                             <p >Tелефон - <textarea rows="1" cols="60" name="getPhone" style="color: black" >@item.getPhone</textarea></p>
                                             <p>E-mail - <textarea rows="1" cols="60" name="getEmail" style="color: black" >@item.getEmail</textarea></p>
                                             <p>Адрес - <textarea rows="1" cols="60" name="getAdress" style="color: black" >@item.getAdress</textarea></p>
                                             <p>Часы работы - <textarea rows="1" cols="60" name="getWorkHours" style="color: black" >@item.getWorkHours</textarea></p>
                                         </div>
-
                                         <input type="submit" class="btn btn-danger" style="" value="Изменить" />
                                     }
-
                                 }
                             }
-
-
                         </section>
                     </div>
                 </td>

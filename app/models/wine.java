@@ -10,20 +10,15 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-@Constraints.Validate
 @Entity
 @Table(name = "wine", schema = "public")
-
-public class wine implements Constraints.Validatable<String> {
-
+public class wine {
     @Id
     @Column(name = "id_product")
     private Integer idProduct;
 
-    //  @Constraints.Required
     private String name;
-    //     @Constraints.Required
+
     private String colour;
     private String country;
     private String brand;
@@ -33,11 +28,10 @@ public class wine implements Constraints.Validatable<String> {
     @Column(name = "grape_sort")
     private String grapeSort;
 
-    @Constraints.Required
     private Double price;
-    @Constraints.Required
+
     private Double value;
-    @Constraints.Required
+
     private Double degree;
     @Column(name = "avgrating")
     private  Double avgRating;
@@ -46,8 +40,8 @@ public class wine implements Constraints.Validatable<String> {
     public wine() {
     }
     public wine(Integer idProduct, String name, String colour, String country, String brand,
-                String shelfLife, String sugar, String grapeSort, @Constraints.Required Double price,
-                @Constraints.Required Double value, @Constraints.Required Double degree) {
+                String shelfLife, String sugar, String grapeSort,  Double price,
+                 Double value,  Double degree) {
         this.idProduct = idProduct;
         this.name = name;
         this.colour = colour;
@@ -191,15 +185,6 @@ public class wine implements Constraints.Validatable<String> {
         this.avgRating = avgRating;
     }
 
-    @Override
-    public String validate() {
-
-        List<wine> win = Ebean.find(wine.class).where().eq("id_product", idProduct).findList();
-        if (win.isEmpty()) {
-            return null;
-        }
-        return "товар с таким id уже существует";
-    }
 
     public double averageRatingOfTheProduct(Integer id_product) {
         String parametrs = null;

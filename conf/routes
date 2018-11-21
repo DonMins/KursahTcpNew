@@ -62,7 +62,7 @@ GET         /seeRating                                controllers.RatingControll
 
 GET         /wine/:id                                 controllers.WineController.deleteWine(id: Integer)
 GET         /addWinecatalog/                   controllers.WineController.addingWine
-GET         /addWine/                          controllers.WineController.renderAddWine
+
 GET         /updateWine                               controllers.WineController.renderUpdateWineInfo(id: Integer)
 + nocsrf
 POST        /catalog/:id                              controllers.WineController.upload(id:Integer)

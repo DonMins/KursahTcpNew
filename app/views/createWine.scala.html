@@ -10,8 +10,8 @@
         <li><a>@helper.form(action = routes.WineController.catalogPage) {
             <input type="submit" value="Каталог">
             }</a>
-        </li>        <h1 class="g1">Регистрация товара</h1>
-
+        </li>
+        <h1 class="g1">Регистрация товара</h1>
 
         @helper.form(action = routes.WineController.addingWine(), 'id -> "slick-login"){
             @helper.inputText(form("name"),'_showConstraints ->false,'placeholder -> "Название вина")
@@ -24,7 +24,6 @@
             @helper.inputText(form("price"),'_showConstraints ->false,'placeholder -> "Цена")
             @helper.inputText(form("value"),'_showConstraints ->false,'placeholder -> "Объем")
             @helper.inputText(form("degree"),'_showConstraints ->false,'placeholder -> "Крепость")
-
             <input type ="submit" value="Создать">
             }
     </body>

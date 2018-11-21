@@ -98,8 +98,6 @@ public class WineController extends Controller {
         else {
             winList = wine.find.all();
         }
-
-
          winList.sort(new Comparator<wine>() {
             @Override
             public int compare(wine o1, wine o2) {
@@ -162,6 +160,7 @@ public class WineController extends Controller {
         Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
         Map<String, String> rawdata = searchForm.rawData();
         List<wine> winList = null;
+
         if(wineForm.hasErrors() || wineForm.hasGlobalErrors()||
                 searchForm.hasErrors() || searchForm.hasGlobalErrors()){
             List<String> nameColomn = new ArrayList<>();
@@ -216,7 +215,6 @@ public class WineController extends Controller {
         else {
             searchParam.setAnySugar(true);
         }
-
 
         if (rawdata.get("anyColour")==null){
             searchParam.setAnyColour(false);
@@ -293,6 +291,7 @@ public class WineController extends Controller {
                     between("price",searchParam.getMinprice(),searchParam.getMaxprice()).
                     eq("colour",colourWin).
                     setDistinct(true).findList();
+
             }
             if (searchParam.isAnyColour()){
                 winList = Ebean.find(wine.class).where().
@@ -414,7 +413,6 @@ public class WineController extends Controller {
             }
         }
 
-
         //если введена только страна
         if((winParam.getName().isEmpty()) && (!(winParam.getCountry().isEmpty()))){
             // если нет цвета и типа
@@ -469,6 +467,7 @@ public class WineController extends Controller {
         }
 
         searchList = winList;
+
         List<String> nameColomn = new ArrayList<>();
         wine tmp = new wine();
         nameColomn = tmp.getNameColomn();
@@ -480,11 +479,7 @@ public class WineController extends Controller {
         return redirect(routes.WineController.catalogPage());
     }
 
-    public Result renderAddWine(){
-        String login = getSessionLogin();
-        Form<wine> form = formFactory.form(wine.class);
-        return ok(views.html.createWine.render(form,login));
-    }
+
 
     public static String searchParametrs(String sql){
         String parametrs = null;
@@ -511,9 +506,6 @@ public class WineController extends Controller {
             id=0;
         }
         Form<wine> wineForm = formFactory.form(wine.class).bindFromRequest();
-        if(wineForm.hasErrors() || wineForm.hasGlobalErrors()){
-            return ok(views.html.createWine.render(wineForm,login));
-        }
         Map<String, String> rawdata = wineForm.rawData();
         wine winTmp = new wine();
         winTmp.setIdProduct((id+1));
@@ -547,14 +539,10 @@ public class WineController extends Controller {
 
         List<wine> wineList = Ebean.find(wine.class).where().eq("id_product", winTmp.getIdProduct()).findList();
         if(wineList.isEmpty()){
-            try{
-                Ebean.save(winTmp);
-            }catch (Exception ex){
-                return redirect(routes.WineController.renderAddWine());
-            }
+            Ebean.save(winTmp);
             return redirect(routes.WineController.catalogPage());
         }
-        return redirect(routes.WineController.renderAddWine());
+        return redirect(routes.WineController.catalogPage());
     }
     public Result renderUpdateWineInfo(Integer id){
         String login = getSessionLogin();
