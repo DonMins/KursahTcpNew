@@ -8,10 +8,10 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/Search.css")">
+
         <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
 
         @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
@@ -52,36 +52,44 @@
 
             </ul>
 
-            <ul id="nav">
+            <ul id="nav" >
 
 
                 <li><a>@helper.form(action = routes.ContactController.contactPage) {
-                    <input type="submit" value="Контакты">
+                    <input type="submit" value="Контакты" class="button_menu">
+                    }</a>
+                </li>
+                <li><a>@helper.form(action = routes.SaleController.showSales) {
+                    <input type="submit" value="Акции" class="button_menu">
                     }</a>
                 </li>
                 <li><a>@helper.form(action = routes.WineController.catalogPage) {
-                    <input type="submit" value="Каталог">
+                    <input type="submit" value="Каталог" class="button_menu">
                     }</a>
                 </li>
-                @helper.form(action = routes.AuxiliaryController.projectPage2) {
+                <li><a>@helper.form(action = routes.AuxiliaryController.projectPage2) {
 
-                    <input type="submit" value="О проекте">
-                }
+                    <input type="submit" value="О проекте" class="button_menu">
+                    }</a></li>
+
                 <li><a>@helper.form(action = routes.BasketController.basketPage) {
                     <input type="hidden" name="numberSql" value="0">
-                    <input type="submit" value="Корзина">
+                    <input type="submit" value="Корзина" class="button_menu">
                     }</a></li>
 
                 <li><a>@helper.form(action = routes.BasketController.basketPage) {
                     <input type="hidden" name="numberSql" value="1">
-                    <input type="submit" value="Избранное">
+                    <input type="submit" value="Избранное"  class="button_menu">
                     }</a></li>
                 @if(isAdmin) {
+
                     <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
                 }
 
-            </ul>
 
+            </ul>
+            <p></p>
+            <p></p>
             <p></p>
 
                 @*вывод колонки*@
@@ -122,144 +130,116 @@
 
             <br>
             <p></p>
+            @if(sizeItems() != 0) {
 
-            <table class="wine">
-                <tr>
+            <table class="favorite">
                     <td>
-                        <table class="wine1">
-                            <tr>
-                            @for(j <- 1 to nameColomn.length - 1) {
-                                <th>@colomn(j - 1)</th>
-                            }
-                            </tr>
-                            <tr colspan="2">
-                            @win.map { item =>
-                                <th>@item.getWine(item.getIdProduct)</th>
 
-                                <th>@item.getRating</th>
+                        <div id="main"><!— Основной раздел содержимого —>
+
+                            <section id="content"><!— Основной подраздел содержимого —>
+                                <div id="left">
 
 
-                            @if(isAdmin) {
-                                <th>
-                                    @*<li><a href="#win4" class="button button-green">Редактировать</a></li>*@
-                                    <a href="@routes.WineController.renderUpdateWineInfo(item.getIdProduct)">
-                                        Изменить</a>
-                                    <a href="@routes.WineController.deleteWine(item.getIdProduct)" >
-                                        Удалить </a></th>
-                            }
-                            <tr></tr>
-                            }
-                            @*</tr>*@
-                        </table>
-                    </td>
-                </tr>
-            </table>
+                                    <div id="favorite">
 
-            @win.map { item =>
-
-                <table>
-                    <div class="col-md-8 products">
-
-                        <div class="row">
-
-                            <div class="col-sm-4">
-
-                                <div class="product">
-
-                                    @*<div class="product-img">*@
-                                    @*<tr>*@
-
-                                    @*<a href="#"><img src="/assets/images/Casa Del Coppiere Vino Da Tavola.png" alt=""></a>*@
-                                    @*</tr>*@
-                                    @*</div>*@
-                                    <p class="product-name">@item.getWine(item.getIdProduct)
-                                <p class="product-price">€10.00
-                                <div class="product-Rating">
-                                <div class="Rating">
-
-                                    @if(item.getRating == 5) {
-                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" checked disabled />
-                                        <label for="star5" title="Rocks!">5 stars</label>
-                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" disabled />
-                                        <label for="star4" title="Pretty good">4 stars</label>
-                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" disabled/>
-                                        <label for="star3" title="Meh">3 stars</label>
-                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled />
-                                        <label for="star2" title="Kinda bad">2 stars</label>
-                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/>
-                                        <label for="star1" title="Sucks big time">1 star</label>
-
-                                    }
+                                        <ul>
+                                        @win.map { item =>
+                                        <li>
+                                            <div class="product">
+                                                <a href="#" class="product-img">
+                                                    <img src=@item.getLinkForProduct(item.getIdProduct) alt="" height="400" ></a>
+                                                <p class="wineName">@item.getWineName(item.getIdProduct)</p>
 
 
-                                    @if(item.getRating == 4) {
-                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" class="veryGrey" disabled />
-                                        <label for="star5" title="Rocks!">5 stars</label>
-                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" checked disabled />
-                                        <label for="star4" title="Pretty good">4 stars</label>
-                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" disabled/>
-                                        <label for="star3" title="Meh">3 stars</label>
-                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled />
-                                        <label for="star2" title="Kinda bad">2 stars</label>
-                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/>
-                                        <label for="star1" title="Sucks big time">1 star</label>
+                                                <div class="product-text">
+                                                    <p > @colomn(2): @item.getWineColour(item.getIdProduct)</p>
+                                                    <p > @colomn(3): @item.getWineCountry(item.getIdProduct)</p>
+                                                    <p > @colomn(4): @item.getWineBrand(item.getIdProduct)</p>
+                                                    <p > @colomn(5): @item.getWineShelfLife(item.getIdProduct)</p>
+                                                    <p > @colomn(6): @item.getWineSugar(item.getIdProduct)</p>
+                                                    <p > @colomn(7): @item.getWineGrapeSort(item.getIdProduct)</p>
+                                                    <p > @colomn(9): @item.getWineValue(item.getIdProduct) л.</p>
+                                                    <p > @colomn(10): @item.getWineDegree(item.getIdProduct) %</p>
 
-                                    }
 
-                                    @if(item.getRating == 3) {
-                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" class="veryGrey" disabled />
-                                        <label for="star5" title="Rocks!">5 stars</label>
-                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled />
-                                        <label for="star4" title="Pretty good">4 stars</label>
-                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" checked disabled/>
-                                        <label for="star3" title="Meh">3 stars</label>
-                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" disabled />
-                                        <label for="star2" title="Kinda bad">2 stars</label>
-                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/>
-                                        <label for="star1" title="Sucks big time">1 star</label>
 
-                                    }
 
-                                    @if(item.getRating == 2) {
-                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" class="veryGrey" disabled />
-                                        <label for="star5" title="Rocks!">5 stars</label>
-                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled />
-                                        <label for="star4" title="Pretty good">4 stars</label>
-                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" class="veryGrey" disabled/>
-                                        <label for="star3" title="Meh">3 stars</label>
-                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" checked disabled />
-                                        <label for="star2" title="Kinda bad">2 stars</label>
-                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" disabled/>
-                                        <label for="star1" title="Sucks big time">1 star</label>
 
-                                    }
-                                    @if(item.getRating == 1) {
-                                        <input type="radio" id="star5" name=@item.getIdProduct value="5" class="veryGrey" disabled />
-                                        <label for="star5" title="Rocks!">5 stars</label>
-                                        <input type="radio" id="star4" name=@item.getIdProduct value="4" class="veryGrey" disabled />
-                                        <label for="star4" title="Pretty good">4 stars</label>
-                                        <input type="radio" id="star3" name=@item.getIdProduct value="3" class="veryGrey" disabled/>
-                                        <label for="star3" title="Meh">3 stars</label>
-                                        <input type="radio" id="star2" name=@item.getIdProduct value="2" class="veryGrey" disabled />
-                                        <label for="star2" title="Kinda bad">2 stars</label>
-                                        <input type="radio" id="star1" name=@item.getIdProduct value="1" checked disabled/>
-                                        <label for="star1" title="Sucks big time">1 star</label>
+                                                </div>
 
-                                    }
+                                                <p class="product-price"><b>@item.getWinePrice(item.getIdProduct) руб.</b></p>
+                                                <p class="product-price1">@item.getWineAvg(item.getIdProduct)/5</p>
+                                                <div class="product-Rating">
+                                                    <div class="Rating">
+                                                        <div style="display: inline-flex;margin: 0 auto;width: 500px;">
+                                                                    Ваша оценка @item.getRating.
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+
+
+
+                                                <div class="product-buttons">
+                                                @if(!(login.isEmpty)) {
+                                                    <div class="layer1-button">
+                                                    @if(item.isAddingToBasket(item.getIdProduct,login)==login) {
+                                                        @helper.form(action = routes.BasketController.addIn(item.getIdProduct)) {
+                                                            <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                                height: 50px">
+                                                                <span class="glyphicon glyphicon-shopping-cart" ></span>
+                                                            </button>
+                                                        }
+                                                    }
+                                                    </div>
+
+                                                    <div class="layer2-button">
+                                                        @if(item.isAddingToFavorite(item.getIdProduct,login)==login) {
+                                                            @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
+                                                                <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
+                                                                    height: 50px">
+                                                                    <span class="glyphicon glyphicon-heart" ></span>
+                                                                </button>
+                                                            }
+                                                        }
+                                                    }
+                                                    </div>
+                                                    @if(!(login.isEmpty) ) {
+                                                        <br>
+                                                        @if(item.isAddingToBasket(item.getIdProduct,login)!=login){
+                                                            <p text-align="left">Добавлен в корзину.</p>
+                                                        }
+                                                        @if(item.isAddingToFavorite(item.getIdProduct,login)!=login){
+                                                            <p text-align="left" style="color: blue">Добавлен в избранное.</p>
+                                                        }
+                                                    }
+
+
+                                                }
+
+                                        </div>
+
+                                        </div>
+                                        </li>
+
+
+                                        </ul>
+                                    </div>
                                 </div>
-                                </div>
-
-                                </div>
-
-
-                            </div>
+                            </section>
                         </div>
 
-                    </div>
+                    </td>
+            </table>
+            }
+            @if(sizeItems() == 0) {
+                <h1>Оценок нет!</h1>
             }
 
-        </table>
+
+
+
 
 
         </div>
