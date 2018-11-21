@@ -6,7 +6,6 @@ body{
 H2{
     font-family: "Comic Sans MS";
     font-size: 70px;
-    font-style: italic;
 
     color: white;
     text-align: center;
@@ -17,111 +16,111 @@ H1 {
     color: white;
     text-align: center;
     font-family: "Comic Sans MS";
-    font-style: italic;
-
-}
-
-#nav {
-    width: 32%;
-    float: right;
-    position: relative;
-    left: -2%;
-    text-align: left;
-    margin: 0 0 3em 0;
-    padding: 0;
-    list-style: none;
-    background-color: black;
-    border-bottom: 1px solid #ccc;
-     }
-
-#nav li {
-
-    float: right;
 
 
 }
-#nav li a {
-    display: block;
-    padding: 8px 15px;
-    text-decoration: none;
-    font-weight: bold;
-    color: white;
-    }
-#nav li a:hover {
-    color: #c00;
-    background-color: #fff; }
-.start{
-    margin-top: 100px;
-    margin-left: 40%;
-    width: 600px;
-    background-color: black;
-}
-TH {
-    background: black; /* Цвет фона */
-    text-align: left;
-    font-weight:bold;
-    font-size:20px;
 
-}
+/*#nav {*/
+    /*width: 32%;*/
+    /*float: right;*/
+    /*position: relative;*/
+    /*left: -2%;*/
+    /*text-align: left;*/
+    /*margin: 0 0 3em 0;*/
+    /*padding: 0;*/
+    /*list-style: none;*/
+    /*background-color: black;*/
+    /*border-bottom: 1px solid #ccc;*/
+     /*}*/
+
+/*#nav li {*/
+
+    /*float: right;*/
 
 
-ul {
-    display: block;
-    float: right;
-    margin-top: -8%;
-    padding: 0;
+/*}*/
+/*#nav li a {*/
+    /*display: block;*/
+    /*padding: 8px 15px;*/
+    /*text-decoration: none;*/
+    /*font-weight: bold;*/
+    /*color: white;*/
+    /*}*/
+/*#nav li a:hover {*/
+    /*color: #c00;*/
+    /*background-color: #fff; }*/
+/*.start{*/
+    /*margin-top: 100px;*/
+    /*margin-left: 40%;*/
+    /*width: 600px;*/
+    /*background-color: black;*/
+/*}*/
+/*TH {*/
+    /*background: black; !* Цвет фона *!*/
+    /*text-align: left;*/
+    /*font-weight:bold;*/
+    /*font-size:20px;*/
 
-    list-style: none;
-}
-ul:after {
-    display: block;
-    content: ' ';
-    clear: both;
-    float: none;
-}
-ul.menu > li {
-    float: left;
-    position: relative;
-}
-ul.menu > li > a {
-    display: block;
-    padding: 10px;
-    color: white;
-    background-color: red;
-    text-decoration: none;
-}
-ul.menu > li > a:hover {
-    background-color: black;
-}
-ul.submenu {
-    display: none;
-    position: absolute;
-    width: 120px;
-    top: 37px;
-    left: 0;
-    background-color: white;
-    border: 1px solid red;
-}
-ul.submenu > li {
-    display: block;
-}
-ul.submenu > li > a {
-    display: block;
-    padding: 10px;
-    color: white;
-    background-color: red;
-    text-decoration: none;
-}
-ul.submenu > li > a:hover {
-    text-decoration: underline;
-}
+/*}*/
 
-ul.menu > li:hover > ul.submenu {
-    display: block;
-}
-button{
-    color: #e42423;
-}
+
+/*ul {*/
+    /*display: block;*/
+    /*float: right;*/
+    /*margin-top: -8%;*/
+    /*padding: 0;*/
+
+    /*list-style: none;*/
+/*}*/
+/*ul:after {*/
+    /*display: block;*/
+    /*content: ' ';*/
+    /*clear: both;*/
+    /*float: none;*/
+/*}*/
+/*ul.menu > li {*/
+    /*float: left;*/
+    /*position: relative;*/
+/*}*/
+/*ul.menu > li > a {*/
+    /*display: block;*/
+    /*padding: 10px;*/
+    /*color: white;*/
+    /*background-color: red;*/
+    /*text-decoration: none;*/
+/*}*/
+/*ul.menu > li > a:hover {*/
+    /*background-color: black;*/
+/*}*/
+/*ul.submenu {*/
+    /*display: none;*/
+    /*position: absolute;*/
+    /*width: 120px;*/
+    /*top: 37px;*/
+    /*left: 0;*/
+    /*background-color: white;*/
+    /*border: 1px solid red;*/
+/*}*/
+/*ul.submenu > li {*/
+    /*display: block;*/
+/*}*/
+/*ul.submenu > li > a {*/
+    /*display: block;*/
+    /*padding: 10px;*/
+    /*color: white;*/
+    /*background-color: red;*/
+    /*text-decoration: none;*/
+/*}*/
+/*ul.submenu > li > a:hover {*/
+    /*text-decoration: underline;*/
+/*}*/
+
+/*ul.menu > li:hover > ul.submenu {*/
+    /*display: block;*/
+/*}*/
+/*button{*/
+    /*color: #e42423;*/
+/*}*/
 
 
 
@@ -358,12 +357,12 @@ button{
 
 
 
-h1 {
-    color: white;
-    font-size: 20px;
-    text-align: center;
+/*h1 {*/
+    /*color: white;*/
+    /*font-size: 20px;*/
+    /*text-align: center;*/
 
-}
+/*}*/
 
 
 
