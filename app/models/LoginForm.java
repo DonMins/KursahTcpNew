@@ -1,13 +1,8 @@
 package models;
-
 import io.ebean.Ebean;
-import models.User;
 import org.apache.commons.codec.digest.DigestUtils;
-import play.Logger;
 import play.data.validation.Constraints;
-
 import java.util.List;
-
 @Constraints.Validate
 /**
  * The login and password class for the authorization page
@@ -45,23 +40,20 @@ public class LoginForm implements Constraints.Validatable<String> {
 
     @Override
     public String validate() {
-        System.out.println("form validate");
+
         if(login == null || password == null){
             return null;
         }
         List<User> users = Ebean.find(User.class).where().eq("login", login).findList();
 
         if(users.isEmpty()){
-            System.out.println("Неправильный логин или пароль");
-            return "Неправильный логин или пароль";
 
+            return "Неправильный логин или пароль";
         }
         User user = users.get(0);
         String passwordHex = DigestUtils.md5Hex(password).toUpperCase();
 
-        System.out.println(user.getLogin());
         if( !user.getPassword().equals(passwordHex)){
-
             return "Неправильный логин или пароль";
         }
         return null;

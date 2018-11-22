@@ -8,7 +8,6 @@ import play.data.validation.Constraints;
 public class UpdateForm {
     @Constraints.Required
     private String password;
-
     private boolean isAdmin;
 
     public UpdateForm(){}
@@ -21,6 +20,7 @@ public class UpdateForm {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -32,6 +32,4 @@ public class UpdateForm {
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
     }
-
-
 }

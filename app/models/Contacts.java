@@ -17,11 +17,8 @@ public class Contacts implements Constraints.Validatable<String>  {
     @Id
     @Column(name = "id_contact")
     private Integer idContact;
-    @Column(name = "phone")
     private String phone;
-    @Column(name = "adress")
     private String adress;
-    @Column(name = "email")
     private String email;
     @Column(name = "workhours")
     private String workHours;
@@ -80,7 +77,7 @@ public class Contacts implements Constraints.Validatable<String>  {
         if (sale.isEmpty()) {
             return null;
         }
-        return "акция с таким id уже существует";
+        return "контакст с таким id уже существует";
     }
 }
 

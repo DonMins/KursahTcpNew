@@ -207,25 +207,34 @@
                                                                 @helper.form(action = routes.RatingController.newRating) {
                                                                     <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
                                                                     <input type="hidden" name="Rating" value="1">
+                                                                    <input type="hidden" name="onBasket" value="true">
+
                                                                     <input type="submit" class="btn btn-danger" value="1" />
                                                                 }
                                                                 @helper.form(action = routes.RatingController.newRating) {
                                                                     <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                                    <input type="hidden" name="onBasket" value="true">
                                                                     <input type="hidden" name="Rating" value="2">
                                                                     <input type="submit" class="btn btn-danger" value="2" />
                                                                 }
                                                                 @helper.form(action = routes.RatingController.newRating) {
                                                                     <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+                                                                    <input type="hidden" name="onBasket" value="true">
+
                                                                     <input type="hidden" name="Rating" value="3">
                                                                     <input type="submit" class="btn btn-danger" value="3" />
                                                                 }
                                                                 @helper.form(action = routes.RatingController.newRating) {
                                                                     <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
                                                                     <input type="hidden" name="Rating" value="4">
+                                                                    <input type="hidden" name="onBasket" value="true">
+
                                                                     <input type="submit" class="btn btn-danger" value="4" />
                                                                 }
                                                                 @helper.form(action = routes.RatingController.newRating) {
                                                                     <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
+
+                                                                    <input type="hidden" name="onBasket" value="true">
                                                                     <input type="hidden" name="Rating" value="5">
                                                                     <input type="submit" class="btn btn-danger" value="5" />
                                                                 }
@@ -245,6 +254,7 @@
                                                 <div class="layer1-button">
                                                 @if(item.isAddingToFavorite(item.getIdProduct, login) == login) {
                                                     @helper.form(action = routes.BasketController.addInFavorite(item.getIdProduct)) {
+                                                        <input type="hidden" name="onBasket" value="true">
                                                         <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
                                                             height: 50px">
                                                             <span class="glyphicon glyphicon-heart" ></span>

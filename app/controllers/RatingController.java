@@ -112,7 +112,16 @@ public class RatingController extends Controller {
         final Update update = Ebean.createUpdate(wine.class, sql1);
         update.setParameter("avgrating", parametr);
         update.execute();
-
+        if (Boolean.parseBoolean(dynamicForm.get("onBasket"))) {
+            BasketController basket = new BasketController();
+            basket.setNumber(0);
+            return redirect(routes.BasketController.basketPage());
+        }
+        if (Boolean.parseBoolean(dynamicForm.get("onFavorite"))) {
+            BasketController basket = new BasketController();
+            basket.setNumber(1);
+            return redirect(routes.BasketController.basketPage());
+        }
 
         return redirect(routes.WineController.catalogPage());
     }

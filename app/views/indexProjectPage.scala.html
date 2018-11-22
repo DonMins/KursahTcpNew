@@ -9,17 +9,13 @@
     <body>
         @if(!(login.isEmpty)){
         <div align="right">
-
              Вы вошли как :@login
-
             <br>
         </div>
         }
         @main("О проекте"){
         @projectPage(login,isAdmin,bookForm,registrationForm,error)
-
     }
-
     </body>
 </html>
 

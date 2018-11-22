@@ -18,13 +18,10 @@ import java.util.Set;
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public.rating_id_user_id_seq")
-
     @Column(name = "id_user")
     private Integer idUser ;
-
     @Column(name = "id_product")
     private Integer idProduct;
-
     private Integer rating;
 
     public List<String> getNameColomn() {
@@ -47,11 +44,10 @@ public class Rating {
                 nameColomn.add(row3.getString(s));
             }
         }
-        //   nameColomn.add("Рейтинг");
         return nameColomn;
     }
-
     public static Finder<Integer, Rating> find = new Finder<>(Rating.class);
+
     public Rating(){}
 
     public Rating(Integer idProduct, Integer idUser, Integer rating) {
@@ -75,6 +71,7 @@ public class Rating {
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
+
     public Integer getRating() {
         return rating;
     }
@@ -257,10 +254,8 @@ public class Rating {
     public String isAddingToBasket(Integer idProduct,String login)
     {
         String parametrs = null;
-
         String sql ="SELECT login FROM Basket where id_product=" + idProduct+" and login='"+login+"' and favorite =false";
         SqlQuery averageID = Ebean.createSqlQuery(sql);
-
         List<SqlRow> mId = averageID.findList();
         for (SqlRow row2 : mId) {
             Set<String> keyset2 = row2.keySet();
@@ -279,7 +274,6 @@ public class Rating {
         String parametrs = null;
         String sql ="SELECT login FROM Basket where id_product=" + idProduct+" and login='"+login+"' and favorite = true";
         SqlQuery averageID = Ebean.createSqlQuery(sql);
-
         List<SqlRow> mId = averageID.findList();
         for (SqlRow row2 : mId) {
             Set<String> keyset2 = row2.keySet();
@@ -291,7 +285,6 @@ public class Rating {
             return login; // может голосовать
         else
             return "";// не может голосовать
-
     }
 
 }

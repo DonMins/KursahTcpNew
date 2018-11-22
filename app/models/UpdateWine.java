@@ -5,8 +5,6 @@ import play.data.validation.Constraints;
 import javax.persistence.Column;
 
 public class UpdateWine{
-
-
     @Constraints.Required
     private String name;
     @Constraints.Required

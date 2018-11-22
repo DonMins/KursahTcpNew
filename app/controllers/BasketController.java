@@ -27,12 +27,13 @@ public class BasketController extends Controller {
 
 
 
-    public void setNumber(int numberSql){
+    public  void setNumber(int numberSql){
         this.numberSql = numberSql;
     }
     public  int getNumberSql(){
         return  numberSql;
     }
+    public BasketController(){}
 
     public Result basketPage(){
         final byte IF_BASKET = 0;
@@ -110,6 +111,8 @@ public class BasketController extends Controller {
     public Result addIn(int id){
         String login = AuxiliaryController.getSessionLogin();
         String sql = "select max(id_basket) from public.Basket";
+        DynamicForm dynamicForm = formFactory.form().bindFromRequest();
+
         int maxIdBasket;
         try {
             maxIdBasket= Integer.parseInt(searchParametrs(sql));
@@ -123,11 +126,21 @@ public class BasketController extends Controller {
         basket.setLogin(login);
         basket.setFavorite(false);
         Ebean.save(basket);
+        if (Boolean.parseBoolean(dynamicForm.get("onHistory2"))) {
+            return redirect(routes.RatingController.ratingUserPage());
+        }
+        if (Boolean.parseBoolean(dynamicForm.get("onFavorite"))) {
+            setNumber(1);
+            return redirect(routes.BasketController.basketPage());
+        }
+
         return redirect(routes.WineController.catalogPage());
     }
     public Result addInFavorite( int id){
         String login = AuxiliaryController.getSessionLogin();
         String sqlRequest = "select max(id_basket) from public.Basket";
+        DynamicForm dynamicForm = formFactory.form().bindFromRequest();
+
         int maxIdBasket;
         try {
             maxIdBasket = Integer.parseInt(searchParametrs(sqlRequest));
@@ -142,6 +155,13 @@ public class BasketController extends Controller {
         basket.setFavorite(true);
         Ebean.save(basket);
 
+        if (Boolean.parseBoolean(dynamicForm.get("onHistory"))) {
+            return redirect(routes.RatingController.ratingUserPage());
+        }
+        if (Boolean.parseBoolean(dynamicForm.get("onBasket"))) {
+            setNumber(0);
+            return redirect(routes.BasketController.basketPage());
+        }
         return redirect(routes.WineController.catalogPage());
     }
     public Result deleteFromBasket(Integer id){

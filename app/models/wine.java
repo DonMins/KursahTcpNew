@@ -13,12 +13,9 @@ import java.util.Set;
 @Entity
 @Table(name = "wine", schema = "public")
 public class wine {
-//    @Id
     @Column(name = "id_product")
     private Integer idProduct;
-
     private String name;
-
     private String colour;
     private String country;
     private String brand;
@@ -27,15 +24,11 @@ public class wine {
     private String sugar;
     @Column(name = "grape_sort")
     private String grapeSort;
-
     private Double price;
-
     private Double value;
-
     private Double degree;
     @Column(name = "avgrating")
     private  Double avgRating;
-
 
     public wine() {
     }
@@ -290,9 +283,6 @@ public class wine {
             return Integer.parseInt(parametrs) ;// не может голосовать
 
     }
-
-
-
 }
 
 

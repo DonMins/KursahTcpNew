@@ -15,15 +15,9 @@ import java.util.Set;
 @Table(name = "sales", schema = "public")
 public class Sale implements Constraints.Validatable<String> {
     @Id
-   // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public.rating_id_user_id_seq")
-
     @Column(name = "id_sale")
     private Integer idSales;
-
-    //@Column(name = "head")
     private String  head;
-
-    //@Column(name = "text")
     private String text;
 
     public Sale(){}
@@ -33,7 +27,6 @@ public class Sale implements Constraints.Validatable<String> {
         this.idSales = idSales;
         this.text = text;
     }
-
 
     public static Finder<Integer, Sale> find = new Finder<>(Sale.class);
 

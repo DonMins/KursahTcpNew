@@ -2,15 +2,11 @@ package models;
 
 import io.ebean.Finder;
 import play.data.validation.Constraints;
-
 import javax.persistence.*;
 
-@Constraints.Validate
 @Entity
 @Table(name = "basket", schema = "public")
 public class Basket {
-   // @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "public.basket_id_product_seq")
-
     @Column(name = "id_product")
     private Integer idProduct;
     private String login;
@@ -57,5 +53,6 @@ public class Basket {
     public void setLogin(String login) {
         this.login = login;
     }
+
     public static Finder<Integer, Basket> find = new Finder<>(Basket.class);
 }

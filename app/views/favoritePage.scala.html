@@ -19,73 +19,55 @@
     <body>
         @if(!(login.isEmpty)) {
             <div align="right">
-
                 Вы вошли как :@login
-
                 <br>
             </div>
         }
 
         <div align="center">
             <h2>Barton & Guestier</h2>
-
             <p></p>
-
-
                 <!-- Модальное окно №1 -->
             <a href="#x" class="overlay" id="win1"></a>
             <div class="popup">
                 @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login") {
                     <div class="modal-header">
-
                         <h1 class="modal-title">Вход в личный кабинет</h1>
                     </div>
-
                     <br>
                     @helper.inputText(LoginForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
                     @helper.inputPassword(LoginForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
-
                     <div class="modal-footer">
                         <input type ="submit" value="Войти">
                     </div>
-
                 }
                 <a class="close" title="Закрыть" href="#close"></a>
             </div>
-
                 <!-- Модальное окно №2 -->
             <a href="#x" class="overlay" id="win2"></a>
             <div class="popup">
                 <div class="modal-header">
-
                     <h1 class="modal-title">Регистрация </h1>
                 </div>
-
                 @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
 
                     @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-
                     @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
                     @if(isAdmin) {
                         Права администратора:@helper.checkbox(registrationForm("isAdmin"))
                     }
-
                     <div class="modal-footer">
                         <input type ="submit" value="Создать">
                     </div>
-
                 }
                 <a class="close" title="Закрыть" href="#close"></a>
             </div>
-
             @if(error == 1 || error == 2) {
                     <!-- Модальное окно при загрузке -->
-
                 <div class="container">
                         <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
-
                                 <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -95,20 +77,16 @@
                                 <div class="modal-body">
                                     <h4> Неверный пароль или логин!</h4>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
-
                 <script>
                         $(document).ready(function () {
                             $('#myModal').modal('show');
                         });
                 </script>
             }
-
             <p></p>
             <ul class="menu" >
                 <li> <a href=#>Личный кабинет </a>
@@ -116,20 +94,14 @@
                         @if(login.isEmpty) {
                             <li><a href="#win1" class="button button-green">Вход</a></li>
                             <li><a href="#win2" class="button button-green">Регистрация</a></li>
-                            @*<li><a href="@routes.LoginController.renderLoginForm()">Вход</a></li>*@
-                            @*<li><a href="@routes.UsersController.renderAddUserForm(isAdmin)">Регистрация</a></li>*@
                         }
                         @if(!(login.isEmpty)) {
                             <li><a href="@routes.LoginController.logout()">Выход</a></li>
                         }
-
                     </ul>
                 </li>
-
             </ul>
             <ul id="nav" >
-
-
                 <li><a>@helper.form(action = routes.ContactController.contactPage) {
                     <input type="submit" value="Контакты" class="button_menu">
                     }</a>
@@ -160,26 +132,16 @@
 
                     <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
                 }
-
-
             </ul>
             <p></p>
             <p></p>
             <p></p>
-
                 @*вывод колонки*@
             @colomn(i: Int) = @{
                 val it = nameColomn
                 it(i)
             }
-
-                @*вывод строки*@
-            @display(i: Int) = @{
-                val it = win
-                it(i)
-            }
-
-                @*всего колонок*@
+               @*всего колонок*@
             @sizeItems() = @{
                 if(nameColomn == null) {
                     val tmp = 0
@@ -189,40 +151,19 @@
                     val sizeItems = nameColomn.length
                     sizeItems
                 }
-            }
-
-                @*количество страниц*@
-            @pages = @{
-
-                sizeItems2() / sizeItems()
-
-            }
-
+           }
                 @*всего записываемых элементов*@
             @sizeItems2() = @{
                 val sizeItems2 = win.length
                 sizeItems2
-
             }
-
-                @*печатает название таблиц*@
-            @printCode(i: Int) = @{
-                val cod = "wine"
-                cod(i)
-            }
-
-            <table class="favorite">
+                  <table class="favorite">
                 <td>
-
                     @if(sizeItems() != 0) {
                             <div id="main"><!— Основной раздел содержимого —>
-
                                 <section id="content"><!— Основной подраздел содержимого —>
                                     <div id="left">
-
-
                                     <div id="favorite">
-
                                         <ul>
                                         @win.map { item =>
                                             @item.setAvgRating(item.averageRatingOfTheProduct(item.getIdProduct))
@@ -231,8 +172,6 @@
                                                 <a href="#" class="product-img">
                                                     <img src=@item.getLinkForProduct(item.getIdProduct) alt="" height="400" ></a>
                                                 <p class="wineName">@item.getName</p>
-
-
                                                 <div class="product-text">
                                                     <p > @colomn(2): @item.getColour</p>
                                                     <p > @colomn(3): @item.getCountry</p>
@@ -242,13 +181,7 @@
                                                     <p > @colomn(7): @item.getGrapeSort</p>
                                                     <p > @colomn(9): @item.getValue л.</p>
                                                     <p > @colomn(10): @item.getDegree %</p>
-
-
-
-
-
                                                 </div>
-
                                                 <p class="product-price"><b>@item.getPrice руб.</b></p>
                                                 <p class="product-price1">@item.averageRatingOfTheProduct(item.getIdProduct)/5</p>
                                                 <div class="product-Rating">
@@ -258,43 +191,38 @@
                                                                 @*сюда добавить проверку - голосовал ли пользователь за вино*@
                                                                 @if(item.isVote(item.getIdProduct,login ) != login){
                                                                     Ваша оценка @item.getUsersMark(item.getIdProduct,login).
-
                                                                 }
                                                                 @if(item.isVote(item.getIdProduct,login )==login){
                                                                     @helper.form(action = routes.RatingController.newRating) {
                                                                         <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
                                                                         <input type="hidden" name="Rating" value="1">
-
+                                                                        <input type="hidden" name="onFavorite" value="true">
                                                                         <input type="submit" class="btn btn-danger" value="1" />
                                                                     }
                                                                     @helper.form(action = routes.RatingController.newRating) {
                                                                         <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
                                                                         <input type="hidden" name="Rating" value="2">
-
+                                                                        <input type="hidden" name="onFavorite" value="true">
                                                                         <input type="submit" class="btn btn-danger" value="2" />
                                                                     }
                                                                     @helper.form(action = routes.RatingController.newRating) {
                                                                         <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
                                                                         <input type="hidden" name="Rating" value="3">
-
+                                                                        <input type="hidden" name="onFavorite" value="true">
                                                                         <input type="submit" class="btn btn-danger" value="3" />
                                                                     }
                                                                     @helper.form(action = routes.RatingController.newRating) {
                                                                         <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
                                                                         <input type="hidden" name="Rating" value="4">
-
+                                                                        <input type="hidden" name="onFavorite" value="true">
                                                                         <input type="submit" class="btn btn-danger" value="4" />
                                                                     }
                                                                     @helper.form(action = routes.RatingController.newRating) {
                                                                         <input type="hidden" name="getIdProduct" value="@item.getIdProduct">
                                                                         <input type="hidden" name="Rating" value="5">
-
+                                                                        <input type="hidden" name="onFavorite" value="true">
                                                                         <input type="submit" class="btn btn-danger" value="5" />
-
                                                                     }
-
-
-
                                                                 }
 
                                                             }
@@ -305,19 +233,15 @@
                                                                 <input type="submit" class="btn btn-danger" value="4" disabled/>
                                                                 <input type="submit" class="btn btn-danger" value="5" disabled/>
                                                             }
-
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
-
                                                 <div class="product-buttons">
                                                     @if(!(login.isEmpty)) {
                                                         <div class="layer1-button">
                                                         @if(item.isAddingToBasket(item.getIdProduct,login)==login) {
                                                             @helper.form(action = routes.BasketController.addIn(item.getIdProduct)) {
+                                                                <input type="hidden" name="onFavorite" value="true">
                                                                 <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
                                                                     height: 50px">
                                                                     <span class="glyphicon glyphicon-shopping-cart" ></span>
@@ -325,7 +249,6 @@
                                                             }
                                                         }
                                                         </div>
-
                                                         <div class="layer2-button">
                                                         @helper.form(action = routes.BasketController.deleteFromFavorite(item.getIdProduct)) {
                                                             <button type="submit" class="btn btn-default btn-sm" style="width: 50px;
@@ -336,31 +259,21 @@
                                                         </div>
                                                         @if(!(login.isEmpty) ) {
                                                             <br>
-
                                                             @if(item.isAddingToBasket(item.getIdProduct,login)!=login){
                                                                 <p text-align="left"  style="color: blue">Добавлен в корзину.</p>
                                                             }
-
                                                         }
-
-
                                                     }
-
                                                 </div>
-
                                             </div>
                                         </li>
                                         }
-
                                         </ul>
                                     </div>
                                     </div>
                                 </section>
                             </div>
                     </td>
-
-
-
             </table>
             }
             @if(sizeItems() == 0) {

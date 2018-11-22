@@ -1,4 +1,4 @@
-@(nameColomn: Seq[String], users: Seq[User], login: String,error:Integer, registrationForm: play.data.Form[User],isAdmin:Boolean )
+@(nameColomn: Seq[String], users: Seq[User], login: String, error: Integer, registrationForm: play.data.Form[User], isAdmin: Boolean)
 <html>
     <title>Список пользователей</title>
     <head>
@@ -8,23 +8,16 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.jpg")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/fontXml.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/startPage.css")">
-
         <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("stylesheets/bootstrap.min.css")'>
-
-        @*<script src="@routes.Assets.versioned("javascripts/window.js")" type="text/javascript"></script>*@
         <script src="@routes.Assets.versioned("javascripts/jquery-2.2.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </head>
     <body>
-
         @if(error == 1 || error == 2) {
-
-
             <div class="container">
                     <!-- Modal -->
                 <div class="modal fade" id="myModal" role="dialog">
                     <div class="modal-dialog">
-
                             <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
@@ -32,140 +25,112 @@
                                 <h4 class="modal-title">Ошибка! </h4>
                             </div>
                             <div class="modal-body">
-                                @if(error == 1){
+                                @if(error == 1) {
                                     <h4> Неверный пароль или логин!</h4>
                                 }
-                                @if(error ==2){
+                                @if(error == 2) {
                                     <h4> Такой логин уже существует!</h4>
                                 }
-
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
-
             <script>
                     $(document).ready(function () {
                         $('#myModal').modal('show');
                     });
             </script>
         }
-
         <a href="#x" class="overlay" id="win2"></a>
         <div class="popup">
             <div class="modal-header">
-
                 <h1 class="modal-title">Регистрация </h1>
             </div>
-
             @helper.form(action = routes.UsersController.addingUser, 'id -> "slick-login") {
-
                 @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-
                 @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
                 @if(isAdmin) {
                     Права администратора:@helper.checkbox(registrationForm("isAdmin"))
                 }
-
                 <div class="modal-footer">
                     <input type ="submit" value="Создать">
                 </div>
-
-
             }
             <a class="close" title="Закрыть" href="#close"></a>
         </div>
         <div align="center">
             @if(!(login.isEmpty)) {
                 <div align="right">
-
                     Вы вошли как :@login
-
                     <br>
                 </div>
             }
-        <h2>Barton & Guestier</h2>
+            <h2>Barton & Guestier</h2>
+            <p></p>
+            <ul class="menu" >
+                <li> <a href=#>Личный кабинет </a>
+                    <ul class="submenu">
+                        <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul id="nav">
+                <li><a>@helper.form(action = routes.ContactController.contactPage) {
+                    <input type="submit" value="Контакты" class="button_menu">
+                    }</a>
+                </li>
+                <li><a>@helper.form(action = routes.WineController.catalogPage) {
+                    <input type="submit" value="Каталог" class="button_menu">
+                    }</a>
+                </li>
+                <li><a>@helper.form(action = routes.AuxiliaryController.projectPage2) {
+                    <input type="submit" value="О проекте" class="button_menu">
+                    }</a>
+                </li>
+                <li><a>@helper.form(action = routes.BasketController.basketPage) {
+                    <input type="hidden" name="numberSql" value="0">
+                    <input type="submit" value="Корзина" class="button_menu">
+                    }</a></li>
 
+                <li><a>@helper.form(action = routes.BasketController.basketPage) {
+                    <input type="hidden" name="numberSql" value="1">
+                    <input type="submit" value="Избранное" class="button_menu">
+                    }</a></li>
+                <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
+                <li><a href="#win2" class="button button-green">Добавить пользователя</a></li>
+            </ul>
+            <p></p>
+            <p></p>
+            <p></p>
 
-        <p></p>
-        <ul class="menu" >
-            <li> <a href=#>Личный кабинет </a>
-                <ul class="submenu">
+            @sizeNameColomn() = @{
+                val sizeItems = nameColomn.length
+                sizeItems
+            }
 
-                    <li><a href="@routes.LoginController.logout()">Выход</a></li>
+            @colomn(i: Int) = @{
+                val it = nameColomn
+                it(i)
+            }
 
-                </ul>
-            </li>
-
-        </ul>
-        <ul id="nav">
-
-            <li><a>@helper.form(action = routes.ContactController.contactPage) {
-                <input type="submit" value="Контакты" class="button_menu">
-                }</a>
-            </li>
-            <li><a>@helper.form(action = routes.WineController.catalogPage) {
-                <input type="submit" value="Каталог" class="button_menu">
-                }</a>
-            </li>
-            <li><a>@helper.form(action = routes.AuxiliaryController.projectPage2) {
-
-            <input type="submit" value="О проекте" class="button_menu">
-            }</a>
-        </li>
-            <li><a>@helper.form(action = routes.BasketController.basketPage) {
-                <input type="hidden" name="numberSql" value="0">
-                <input type="submit" value="Корзина" class="button_menu">
-                }</a></li>
-
-            <li><a>@helper.form(action = routes.BasketController.basketPage) {
-                <input type="hidden" name="numberSql" value="1">
-                <input type="submit" value="Избранное" class="button_menu">
-                }</a></li>
-
-        <li><a href="@routes.UsersController.usersList()">Список пользователей </a></li>
-            <li><a href="#win2" class="button button-green">Добавить пользователя</a></li>
-        </ul>
-        <p></p>
-        <p></p>
-        <p></p>
-
-
-    @sizeNameColomn() = @{
-    val sizeItems = nameColomn.length
-    sizeItems
-}
-
-    @colomn(i: Int) = @{
-    val it = nameColomn
-    it(i)
-}
-
-
-    <table class="user"  >
-        <tr>
-        @for(j <- 1 to sizeNameColomn) {
-            <th style="border: 1px solid white">@colomn(j - 1)</th>
-        }
-        </tr>
-        @users.map { item =>
-
-            <th style="border: 1px solid white">@item.getId</th>
-            <th style="border: 1px solid white">@item.getLogin</th>
-            <th style="border: 1px solid white">@item.getPassword</th>
-            <th style="border: 1px solid white">@item.getAdmin</th>
-
-
-            <th style="border: 1px solid white"><a href="@routes.UsersController.renderUpdateUserInfo(item.getId)">Редактировать</a>
-                <a href="@routes.UsersController.deleteUser(item.getId)" > Удалить </a></th>
-            <tr></tr>
-        }
-
-    </table>
-
+            <table class="user" >
+                <tr>
+                @for(j <- 1 to sizeNameColomn) {
+                    <th style="border: 1px solid white">@colomn(j - 1)</th>
+                }
+                </tr>
+                @users.map { item =>
+                    <th style="border: 1px solid white">@item.getId</th>
+                    <th style="border: 1px solid white">@item.getLogin</th>
+                    <th style="border: 1px solid white">@item.getPassword</th>
+                    <th style="border: 1px solid white">@item.getAdmin</th>
+                    <th style="border: 1px solid white"><a href="@routes.UsersController.renderUpdateUserInfo(item.getId)">
+                        Редактировать</a>
+                        <a href="@routes.UsersController.deleteUser(item.getId)" > Удалить </a></th>
+                    <tr></tr>
+                }
+            </table>
         </div>
-</body>
+    </body>
 </html>

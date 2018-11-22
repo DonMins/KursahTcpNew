@@ -6,7 +6,6 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/style.css")">
     </head>
     <body>
-
         @admin() = @{
             var cod = false;
             if(user.getAdmin)
@@ -15,13 +14,8 @@
         }
         <h1 class="g1">Обновить данные пользователя: @user.getLogin </h1>
         <hr   color="white"  />
-        @if(form.hasGlobalErrors){
-            <h2>@form.globalError.message</h2>
-        }
-
         @helper.form(action = routes.UsersController.updateUserInfo(user.getId), 'id -> "slick-login") {
             <table>
-
                 <tr>
                     <td> Пароль:  </td> <td>@helper.inputText(form("password"), '_showConstraints -> false)</td>
                 </tr>
@@ -29,25 +23,16 @@
                     <td> Права администратора:  </td>
                     <td>
                         @if(user.getAdmin) {
-
                             <input type="checkbox"
                             name="@form("isAdmin").name" value= true checked >
-
                             }
                         @if(!(user.getAdmin)) {
                            @helper.checkbox(form("isAdmin"), '_showConstaints -> false)
                         }
-
                     </td>
-
                 </tr>
-
             </table>
-
              <hr color="white" width="800" style="margin-left: -300px">
-
-
-
             <input type ="submit" value="Обновить">
             }
     </body>
