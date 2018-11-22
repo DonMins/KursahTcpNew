@@ -21,10 +21,11 @@ public class BasketController extends Controller {
     @Inject
     FormFactory formFactory;
     private int numberSql;
-    protected final int NO_ERROR = 0;
-    protected final int ERROR_LOGIN_OR_PASSWORD = 1;
-    protected final int NO_BUTTON_BUY_PRODUCT = 3;
-
+    private final int NO_ERROR = 0;
+    private final int ERROR_LOGIN_OR_PASSWORD = 1;
+    private final int NO_BUTTON_BUY_PRODUCT = 3;
+    private final byte IF_BASKET = 0;
+    private final byte IF_FAVORITE = 1;
 
 
     public  void setNumber(int numberSql){
@@ -36,8 +37,7 @@ public class BasketController extends Controller {
     public BasketController(){}
 
     public Result basketPage(){
-        final byte IF_BASKET = 0;
-        final byte IF_FAVORITE = 1;
+
         String login = AuxiliaryController.getSessionLogin();
         boolean isAdmin = AuxiliaryController.getSessionAdmin();
 
@@ -130,7 +130,7 @@ public class BasketController extends Controller {
             return redirect(routes.RatingController.ratingUserPage());
         }
         if (Boolean.parseBoolean(dynamicForm.get("onFavorite"))) {
-            setNumber(1);
+            setNumber(IF_FAVORITE);
             return redirect(routes.BasketController.basketPage());
         }
 
@@ -159,7 +159,7 @@ public class BasketController extends Controller {
             return redirect(routes.RatingController.ratingUserPage());
         }
         if (Boolean.parseBoolean(dynamicForm.get("onBasket"))) {
-            setNumber(0);
+            setNumber(IF_BASKET);
             return redirect(routes.BasketController.basketPage());
         }
         return redirect(routes.WineController.catalogPage());

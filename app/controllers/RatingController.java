@@ -19,6 +19,8 @@ public class RatingController extends Controller {
 
     @Inject
     FormFactory formFactory;
+    private final byte IF_BASKET = 0;
+    private final byte IF_FAVORITE = 1;
 
     public Result ratingUserPage(){
         String login = AuxiliaryController.getSessionLogin();
@@ -37,8 +39,6 @@ public class RatingController extends Controller {
 
         String wineRating = "";
         String[] splitS = null;
-
-       //надо сделать класс объекта со всеми нужными полями - название вина, оценка
         List<SqlRow> sqlQueryList = sqlQuery.findList();
         for (SqlRow row : sqlQueryList) {
             Set<String> keyset = row.keySet();
@@ -50,9 +50,6 @@ public class RatingController extends Controller {
         if(!(wineRating.equals(""))) {
             splitS = wineRating.split(" ");
             for (int i = 0; i < splitS.length; i += 3) {
-                System.out.println(splitS[i] + " " + i);
-                System.out.println(splitS[i + 1] + " " + i);
-                System.out.println(splitS[i + 2] + " " + i);
                 Rating rating1 = new Rating();
                 rating1.setIdProduct(Integer.parseInt(splitS[i]));
                 rating1.setIdUser(Integer.parseInt(splitS[i + 1]));
@@ -97,12 +94,9 @@ public class RatingController extends Controller {
         for (SqlRow row2 : mId) {
             Set<String> keyset2 = row2.keySet();
             for (String s : keyset2) {
-                System.out.println("qwqwqwwqw " + row2.getString(s));
-
                 if (row2.getString(s)==null)
                     parametr =0.;
                 else{
-                    System.out.println("qwqwqwwqw " + row2.getString(s));
                     parametr = Double.parseDouble(row2.getString(s));
                 }
             }
@@ -114,15 +108,14 @@ public class RatingController extends Controller {
         update.execute();
         if (Boolean.parseBoolean(dynamicForm.get("onBasket"))) {
             BasketController basket = new BasketController();
-            basket.setNumber(0);
+            basket.setNumber(IF_BASKET);
             return redirect(routes.BasketController.basketPage());
         }
         if (Boolean.parseBoolean(dynamicForm.get("onFavorite"))) {
             BasketController basket = new BasketController();
-            basket.setNumber(1);
+            basket.setNumber(IF_FAVORITE);
             return redirect(routes.BasketController.basketPage());
         }
-
         return redirect(routes.WineController.catalogPage());
     }
 }
