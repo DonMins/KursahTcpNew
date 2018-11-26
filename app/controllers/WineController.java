@@ -543,6 +543,7 @@ public class WineController extends Controller {
     public Result renderUpdateWineInfo(Integer id){
         String login = getSessionLogin();
         wine wineFind = wine.find.byId(id);
+
         UpdateWine update = new UpdateWine(wineFind.getName(),wineFind.getColour(),wineFind.getCountry(),wineFind.getBrand(),
                 wineFind.getShelfLife(),wineFind.getSugar(),wineFind.getGrapeSort(),wineFind.getPrice(),
                 wineFind.getValue(),wineFind.getDegree());
@@ -554,6 +555,7 @@ public class WineController extends Controller {
     public Result updateWineInfo(Integer id){
 
         wine wineFind = wine.find.byId(id);
+
         List<wine> winList = wine.find.all();
         List<String> nameColomn = new ArrayList<>();
         wine tmp = new wine();

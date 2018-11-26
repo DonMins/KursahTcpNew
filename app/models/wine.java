@@ -13,6 +13,9 @@ import java.util.Set;
 @Entity
 @Table(name = "wine", schema = "public")
 public class wine {
+    @Id
+    @Column(name = "idtmp")
+    private Integer idTmp;
     @Column(name = "id_product")
     private Integer idProduct;
     private String name;
@@ -88,6 +91,7 @@ public class wine {
 
     public void setIdProduct(Integer idProduct) {
         this.idProduct = idProduct;
+        this.idTmp = idProduct;
     }
 
     public String getName() {
