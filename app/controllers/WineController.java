@@ -93,7 +93,7 @@ public class WineController extends Controller {
         Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
         Form<UpdateWine> updateWineForm = formFactory.form(UpdateWine.class).bindFromRequest();
         List<wine> winList = null;
-        if (searchList!=null)
+       if (searchList!=null)
             winList = searchList;
         else {
             winList = wine.find.all();

@@ -106,7 +106,7 @@
             @helper.inputText(wineForm("brand"), '_showConstraints -> false, 'placeholder -> "Бренд", 'required -> "required")
             @helper.inputText(wineForm("shelfLife"), '_showConstraints -> false, 'placeholder -> "Срок годности")
             @helper.inputText(wineForm("sugar"), '_showConstraints -> false, 'placeholder -> "Сахар", 'required -> "required")
-            @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда", 'required -> "required")
+            @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда", 'required -> "required",'size->30)
             @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
             @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
             @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
@@ -185,6 +185,7 @@
                 }
                 @if(!(login.isEmpty)) {
                     <li><a href="@routes.LoginController.logout()">Выход</a></li>
+                    <li><a href="@routes.RatingController.ratingUserPage()">История оценок</a></li>
                 }
             </ul>
         </li>

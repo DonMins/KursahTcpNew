@@ -19,25 +19,25 @@
         <hr color="white" size="6px">
         @helper.form(action = routes.WineController.updateWineInfo(win.getIdProduct), 'id -> "slick-login") {
             <tr>
-                <td> Название:  </td> <td>@helper.inputText(form("name"), '_showConstraints -> false)</td>
+                <td> Название:  </td> <td>@helper.inputText(form("name"), '_showConstraints -> false,'required -> "required")</td>
             </tr>
             <tr>
-                <td> Цвет:  </td> <td> @helper.inputText(form("colour"), '_showConstraints -> false)</td>
+                <td> Цвет:  </td> <td> @helper.inputText(form("colour"), '_showConstraints -> false,'required -> "required")</td>
             </tr>
             <tr>
-                <td> Страна:  </td> <td>@helper.inputText(form("country"), '_showConstraints -> false)</td>
+                <td> Страна:  </td> <td>@helper.inputText(form("country"), '_showConstraints -> false,'required -> "required")</td>
             </tr>
             <tr>
-                <td> Бренд:  </td> <td>@helper.inputText(form("brand"), '_showConstraints -> false)</td>
+                <td> Бренд:  </td> <td>@helper.inputText(form("brand"), '_showConstraints -> false,'required -> "required")</td>
             </tr>
             <tr>
                 <td> Срок годности:  </td> <td> @helper.inputText(form("shelfLife"), '_showConstraints -> false)</td>
             </tr>
             <tr>
-                <td> Сахар: </td> <td> @helper.inputText(form("sugar"), '_showConstraints -> false)</td>
+                <td> Сахар: </td> <td> @helper.inputText(form("sugar"), '_showConstraints -> false,'required -> "required")</td>
             </tr>
             <tr>
-                <td> Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"), '_showConstraints -> false)</td>
+                <td> Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"), '_showConstraints -> false,'required -> "required",'size->30,'maxlength ->30)</td>
             </tr>
             <tr>
                 <td>

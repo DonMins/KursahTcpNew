@@ -10,11 +10,14 @@ import play.mvc.Http;
 import play.mvc.Result;
 import javax.inject.Inject;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import static controllers.WineController.searchParametrs;
 import static controllers.AuxiliaryController.getSessionAdmin;
 import static controllers.AuxiliaryController.getSessionLogin;
+import static java.nio.file.Files.deleteIfExists;
 import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class SaleController extends Controller {
@@ -78,7 +81,31 @@ public class SaleController extends Controller {
         return redirect(routes.SaleController.showSales());
     }
 
-    public Result upload(Integer idSales){
+    public Result upload(Integer idSales) {
+        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
+
+        if (picture != null) {
+            File file = picture.getFile();
+            File newFile = new File(play.Play.application().path().toString() + "//public//images//sales//"+ idSales+ ".png" );
+            Path path = newFile.toPath();
+
+            try {
+                deleteIfExists(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            file.renameTo(newFile);
+
+            return redirect(routes.SaleController.showSales());
+        } else {
+            flash("error", "Missing file");
+            return badRequest();
+        }
+    }
+
+    /*public Result upload(Integer idSales){
         Http.MultipartFormData<File> body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
         if (picture != null) {
@@ -91,6 +118,6 @@ public class SaleController extends Controller {
             return badRequest();
         }
 
-    }
+    }*/
 
 }
