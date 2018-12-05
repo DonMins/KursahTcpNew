@@ -11,14 +11,12 @@
         @helper.form(action = routes.LoginController.checkingLoginForm(), 'id -> "slick-login"){
             <h1>Вход в личный кабинет </h1>
             <br>
-            @helper.inputText(bookForm("login"),'_showConstraints ->false, 'placeholder -> "Логин")
-            @helper.inputPassword(bookForm("password"),'_showConstraints ->false, 'placeholder -> "Пароль")
+            @helper.inputText(bookForm("login"),'_showConstraints ->false, 'placeholder -> "Логин",'size->45,'maxlength ->45)
+            @helper.inputPassword(bookForm("password"),'_showConstraints ->false, 'placeholder -> "Пароль",'size->45,'maxlength ->45)
 
             <input type ="submit" value="Войти">
 
             <a href="@routes.UsersController.renderAddUserForm(0)" class="slick-login2">Регистрация</a>
-
         }
-
     </body>
 </html>

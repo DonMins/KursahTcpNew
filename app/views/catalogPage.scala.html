@@ -29,8 +29,8 @@
                 <h1 class="modal-title">Вход в личный кабинет</h1>
             </div>
             <br>
-            @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-            @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
+            @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required",'size->45,'maxlength ->45)
+            @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required",'size->45,'maxlength ->45)
             <div class="modal-footer">
                 <input type ="submit" value="Войти">
             </div>
@@ -45,8 +45,8 @@
             <h1 class="modal-title">Регистрация </h1>
         </div>
         @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
-            @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-            @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
+            @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required",'size->45,'maxlength ->45)
+            @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required",'size->45,'maxlength ->45)
             @if(isAdmin) {
                 Права администратора:@helper.checkbox(registrationForm("isAdmin"))
             }
@@ -100,13 +100,13 @@
         </div>
         <br>
         @helper.form(action = routes.WineController.addingWine(), 'id -> "slick-login") {
-            @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Название вина", 'required -> "required")
-            @helper.inputText(wineForm("colour"), '_showConstraints -> false, 'placeholder -> "Цвет", 'required -> "required")
-            @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", 'required -> "required")
-            @helper.inputText(wineForm("brand"), '_showConstraints -> false, 'placeholder -> "Бренд", 'required -> "required")
-            @helper.inputText(wineForm("shelfLife"), '_showConstraints -> false, 'placeholder -> "Срок годности")
-            @helper.inputText(wineForm("sugar"), '_showConstraints -> false, 'placeholder -> "Сахар", 'required -> "required")
-            @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда", 'required -> "required",'size->30)
+            @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Название вина", 'required -> "required",'size->95,'maxlength ->95)
+            @helper.inputText(wineForm("colour"), '_showConstraints -> false, 'placeholder -> "Цвет", 'required -> "required",'size->95,'maxlength ->95)
+            @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", 'required -> "required",'size->95,'maxlength ->95)
+            @helper.inputText(wineForm("brand"), '_showConstraints -> false, 'placeholder -> "Бренд", 'required -> "required",'size->95,'maxlength ->95)
+            @helper.inputText(wineForm("shelfLife"), '_showConstraints -> false, 'placeholder -> "Срок годности",'size->95,'maxlength ->95)
+            @helper.inputText(wineForm("sugar"), '_showConstraints -> false, 'placeholder -> "Сахар", 'required -> "required",'size->95,'maxlength ->95)
+            @helper.inputText(wineForm("grapeSort"), '_showConstraints -> false, 'placeholder -> "Сорт винограда", 'required -> "required",'size->95)
             @helper.inputText(wineForm("price"), '_showConstraints -> false, 'placeholder -> "Цена", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
             @helper.inputText(wineForm("value"), '_showConstraints -> false, 'placeholder -> "Объем", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
             @helper.inputText(wineForm("degree"), '_showConstraints -> false, 'placeholder -> "Крепость", 'type -> "number", 'step -> "0.001", 'min -> "0", 'required -> "required")
@@ -130,31 +130,31 @@
             <table>
                 <tr>
                     <td>
-                        Название:  </td> <td>@helper.inputText(form("name"), '_showConstraints -> false, 'required -> "required")</td>
+                        Название:  </td> <td>@helper.inputText(form("name"), '_showConstraints -> false, 'required -> "required",'size->95,'maxlength ->95)</td>
                 </tr>
                 <tr>
                     <td>
-                        Цвет:  </td> <td> @helper.inputText(form("colour"), '_showConstraints -> false, 'required -> "required")</td>
+                        Цвет:  </td> <td> @helper.inputText(form("colour"), '_showConstraints -> false, 'required -> "required",'size->95,'maxlength ->95)</td>
                 </tr>
                 <tr>
                     <td>
-                        Страна:  </td> <td>@helper.inputText(form("country"), '_showConstraints -> false, 'required -> "required")</td>
+                        Страна:  </td> <td>@helper.inputText(form("country"), '_showConstraints -> false, 'required -> "required",'size->95,'maxlength ->95)</td>
                 </tr>
                 <tr>
                     <td>
-                        Бренд:  </td> <td>@helper.inputText(form("brand"), '_showConstraints -> false, 'required -> "required")</td>
+                        Бренд:  </td> <td>@helper.inputText(form("brand"), '_showConstraints -> false, 'required -> "required",'size->95,'maxlength ->95)</td>
                 </tr>
                 <tr>
                     <td>
-                        Срок годности:  </td> <td> @helper.inputText(form("shelfLife"), '_showConstraints -> false)</td>
+                        Срок годности:  </td> <td> @helper.inputText(form("shelfLife"), '_showConstraints -> false,'size->95,'maxlength ->95)</td>
                 </tr>
                 <tr>
                     <td>
-                        Сахар: </td> <td> @helper.inputText(form("sugar"), '_showConstraints -> false, 'required -> "required")</td>
+                        Сахар: </td> <td> @helper.inputText(form("sugar"), '_showConstraints -> false, 'required -> "required",'size->95,'maxlength ->95)</td>
                 </tr>
                 <tr>
                     <td>
-                        Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"), '_showConstraints -> false, 'required -> "required")</td>
+                        Сорт винограда: </td> <td>@helper.inputText(form("grapeSort"), '_showConstraints -> false, 'required -> "required",'size->95,'maxlength ->95)</td>
                 </tr>
                 <tr>
                     <td>
@@ -427,7 +427,7 @@
             color: white">
         <div class="Search">
         @helper.form(action = routes.WineController.searchCatalogPage()) {
-            @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Введите название", '_label -> "")
+            @helper.inputText(wineForm("name"), '_showConstraints -> false, 'placeholder -> "Введите название", '_label -> "",'size->95,'maxlength ->95)
             <div class="layer1">
             @helper.inputText(searchform("minprice"), '_showConstraints -> false, 'placeholder -> "Цена От ", '_label -> "", 'type -> "number")
             </div>
@@ -477,7 +477,7 @@
                     })
             </script>
             <div style="margin-top: -30px">
-            @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", '_label -> "")
+            @helper.inputText(wineForm("country"), '_showConstraints -> false, 'placeholder -> "Страна", '_label -> "",'size->95,'maxlength ->95)
             </div>
             <button type="submit">Поиск</button>
         }

@@ -31,8 +31,8 @@
                         <h1 class="modal-title">Вход в личный кабинет</h1>
                     </div>
                     <br>
-                    @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-                    @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
+                    @helper.inputText(bookForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required",'size->30,'maxlength ->30)
+                    @helper.inputPassword(bookForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required",'size->30,'maxlength ->30)
                     <div class="modal-footer">
                         <input type ="submit" value="Войти">
                     </div>
@@ -46,8 +46,8 @@
                     <h1 class="modal-title">Регистрация </h1>
                 </div>
                 @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
-                    @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-                    @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
+                    @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required",'size->30,'maxlength ->30)
+                    @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required",'size->30,'maxlength ->30)
                     @if(isAdmin) {
                         Права администратора:@helper.checkbox(registrationForm("isAdmin"))
                     }
@@ -93,8 +93,8 @@
                 </div>
                 <br>
                 @helper.form(action = routes.SaleController.newSale(), 'id -> "slick-login") {
-                    @helper.inputText(saleForm("head"), '_showConstraints -> false, 'placeholder -> "Заголовок акции")
-                    @helper.inputText(saleForm("text"), '_showConstraints -> false, 'placeholder -> "Условия акции")
+                    @helper.inputText(saleForm("head"), '_showConstraints -> false, 'placeholder -> "Заголовок акции",'size->45,'maxlength ->45)
+                    @helper.inputText(saleForm("text"), '_showConstraints -> false, 'placeholder -> "Условия акции",'size->45,'maxlength ->45)
                     <div class="modal-footer">
                         <input type ="submit" value="Создать">
                     </div>

@@ -56,8 +56,8 @@
                         <h1 class="modal-title">Вход в личный кабинет</h1>
                     </div>
                     <br>
-                    @helper.inputText(LoginForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-                    @helper.inputPassword(LoginForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required")
+                    @helper.inputText(LoginForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required",'size->45,'maxlength ->45)
+                    @helper.inputPassword(LoginForm("password"), '_showConstraints -> false, 'placeholder -> "Пароль", 'required -> "required",'size->45,'maxlength ->45)
                     <div class="modal-footer">
                         <input type ="submit" value="Войти">
                     </div>
@@ -72,8 +72,8 @@
                     <h1 class="modal-title">Регистрация </h1>
                 </div>
                 @helper.form(action = routes.UsersController.addingUser, 'id -> "slick-login") {
-                    @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-                    @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
+                    @helper.inputText(registrationForm("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required",'size->45,'maxlength ->45)
+                    @helper.inputText(registrationForm("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required",'size->45,'maxlength ->45)
                     @if(isAdmin) {
                         Права администратора:@helper.checkbox(registrationForm("isAdmin"))
                     }

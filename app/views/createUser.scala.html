@@ -14,8 +14,8 @@
         <a href="@routes.UsersController.usersList()" class = "link">Назад </a>
         <h1 class="g1">Регистрация</h1>
         @helper.form(action = routes.UsersController.addingUser(), 'id -> "slick-login") {
-            @helper.inputText(form("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required")
-            @helper.inputText(form("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required")
+            @helper.inputText(form("login"), '_showConstraints -> false, 'placeholder -> "Логин", 'required -> "required",'size->45,'maxlength ->45)
+            @helper.inputText(form("password"), '_showConstraints -> false, 'placeholder -> "Ваш сложный пароль", 'required -> "required",'size->45,'maxlength ->45)
             @if(admin) {
                 Права администратора:@helper.checkbox(form("isAdmin"))
             }

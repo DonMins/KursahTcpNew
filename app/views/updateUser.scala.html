@@ -17,7 +17,7 @@
         @helper.form(action = routes.UsersController.updateUserInfo(user.getId), 'id -> "slick-login") {
             <table>
                 <tr>
-                    <td> Пароль:  </td> <td>@helper.inputText(form("password"), '_showConstraints -> false)</td>
+                    <td> Пароль:  </td> <td>@helper.inputText(form("password"), '_showConstraints -> false,'size->45,'maxlength ->45)</td>
                 </tr>
                 <tr>
                     <td> Права администратора:  </td>
