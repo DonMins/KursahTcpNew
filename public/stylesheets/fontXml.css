@@ -4,20 +4,13 @@ body{
 
 }
 TABLE {
-    /*margin-top: 0%;!*150*!*/
-    /*margin-left: 0%;!*-10*!*/
-
     width: 350px; /* Ширина таблицы 600 */
     border-collapse: collapse; /* Убираем двойные линии между ячейками */
     text-align: center;
     vertical-align: top; /* Выравнивание по верхнему краю */
-
-
 }
 TD, TH {
     padding: 3px; /* Поля вокруг содержимого таблицы */
-    /*border: 1px solid white;*/
-
     text-align: center;
     color: white;
     vertical-align: top;
@@ -29,7 +22,6 @@ TD, TH {
     text-align: center;
     vertical-align: top; /* Выравнивание по верхнему краю */
     border: 1px solid white;
-
 }
 
 TH {
@@ -43,15 +35,11 @@ H1 {
     color: white;
     text-align: center;
     font-family: "Comic Sans MS";
-
-
 }
 .buttons{
     font-size: 15px;
     text-align: center;
     border-spacing: 5px;
-
-
 }
 a{
     color: blue;
@@ -64,30 +52,17 @@ a{
 H2{
     font-family: "Comic Sans MS";
     font-size: 70px;
-
-
     color: white;
     text-align: center;
-
 }
 
 #nav {
     width:80%;
-    /*float: right;*/
-    /*position: relative;*/
-    /*left: -2%;*/
-    /*text-align: left;*/
-    /*margin: 0 0 3em 0;*/
-    /*padding: 0;*/
-    /*list-style: none;*/
-    /*background-color: black;*/
     margin-bottom: 70px;
     border-bottom: 1px solid #ccc;
-   }
+}
 #nav li {
-
     float: right;
-
 }
 #nav li a {
     display: block;
@@ -111,7 +86,6 @@ ul {
     float: right;
     margin-top: -8%;
     padding: 0;
-
     list-style: none;
 }
 ul:after {
@@ -161,9 +135,7 @@ ul.menu > li:hover > ul.submenu {
     display: block;
 }
 
-
 table.wine1 {
-    /*table-layout:fixed;*/
     width: 100%;
 }
 table.wine1 td {
@@ -187,8 +159,6 @@ table.favorite td:nth-of-type(1) {
 }
 
 table.sales{
-    /*table-layout:fixed;*/
-    /*border: 10px solid white;*/
     width: 70%;
     align-items: center;
 }
@@ -197,14 +167,8 @@ table.sales td:nth-of-type(1) {
     width:400px;
 }
 
-
-
-
-
-
-
 img {
-    height: 300px; /**170**/
+    height: 300px;
     max-width: 100%;
 }
 
@@ -246,15 +210,9 @@ img {
     border: 2px solid #da0505;
     height: 500px;
     width: 480px;
-
     overflow: hidden;
-
     position: relative;
-
-
-
     transition: all 0.5s ease 0s;
-    /*margin-bottom: 10px;*/
 }
 .product-sale {
     background: #feffff none repeat scroll 0 0;
@@ -262,15 +220,10 @@ img {
     color: black;
     height: 450px;
     width: 300px;
-
     margin-right: 50px;
-
-
     overflow: hidden;
-
     position: relative;
     transition: all 0.5s ease 0s;
-    /*margin-bottom: 10px;*/
 }
 .product-sale-user {
     background: #feffff none repeat scroll 0 0;
@@ -278,14 +231,10 @@ img {
     color: black;
     height: 300px;
     width: 300px;
-
     overflow: hidden;
-
     position: relative;
     transition: all 0.5s ease 0s;
-    /*margin-bottom: 10px;*/
 }
-
 
 .product:hover {
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
@@ -310,23 +259,21 @@ img {
     overflow: hidden;
 }
 .product-price {
-      float:right;
-      bottom: 15px;
-      left: 0px;
-      padding-left: 130px ;
+    float:right;
+    bottom: 15px;
+    left: 0px;
+    padding-left: 130px ;
 
-      position: absolute;
-      width: 100%;
-      color: #060100;
-      font-size: 25px;
-      font-weight: 900;
-  }
+    position: absolute;
+    width: 100%;
+    color: #060100;
+    font-size: 25px;
+    font-weight: 900;
+}
 
 .product-price1 {
     bottom: 50px;
     left: -150px;
-
-
     position: absolute;
     width: 100%;
     color: #171fd5;
@@ -352,97 +299,17 @@ img {
     font-weight: 500;
 }
 
-.rating {
-    float:left;
-}
-
-/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
-   follow these rules. Every browser that supports :checked also supports :not(), so
-   it doesn’t make the ifGuest unnecessarily selective */
-.rating:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-    clip:rect(0,0,0,0);
-}
-
-.rating:not(:checked) > label {
-    float:right;
-    width:1em;
-    padding:0 .1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:200%;
-    line-height:1.2;
-    color:#ddd;
-    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-.rating:not(:checked) > label:before {
-    content: '★ ';
-}
-/*звёзды уже выбранные */
-.rating > input:checked ~ label {
-    color: #f70;
-    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-
-
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-    color: gold;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-    color: #ea0;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-
-
-
-.rating:not(:checked) >  input:not(.veryGrey) ~ label:hover,
-.rating:not(:checked)  > input:disabled~ label:hover ~ label,
-.rating:not(:checked) > label:hover ~  input:disabled ~ label {
-    color: #f70;
-    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-    color:#ddd;
-    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-
-
-/*.Rating > label:active {*/
-    /*position:relative;*/
-    /*top:2px;*/
-    /*left:2px;*/
-/*}*/
-
 @media only screen and (min-width: 600px) {
     .row {
         width: 100%;
     }
 }
 
-
-
 .wineName{
     font-family: "Comic Sans MS";
     font-size: 30px;
     font-style: italic;
-
     color: #ae322a;
-    /*text-align: center;*/
 
 }
 .btn btn-default btn-sm{
@@ -464,32 +331,25 @@ img {
     margin-top:-30px;
 }
 
-
 /*оформляет как раз столбцы*/
 #content #left ul li {
-    /*float:left;*/
     float: left;
     margin-right:0px;
     margin-left:13px;
     padding-bottom: 2px;
-    /*padding-left: 21px;*/
     width: 48%;
 }
 
 /*оформляет как раз столбцы*/
 #content  #left #sale ul li {
-    /*float:left;*/
     float: left;
-
     padding-bottom: 10px;
     padding-left: 100px;
     margin-right: 30px;
     width: 33%;
 }
 #content  #sale-user ul li {
-    /*float:left;*/
     float: left;
-
     padding-bottom: 10px;
     padding-left: 100px;
     margin-right: 30px;
@@ -502,9 +362,6 @@ img {
     width:128px;
 }
 
-/*#content #left ul li .info {*/
-    /*padding: 17px 20px 0 19px;*/
-/*}*/
 .container-buttons {
     display: flex;
     justify-content: space-around;
@@ -529,7 +386,6 @@ input[type="number"]{
     text-align: center;
 }
 
-
 .layer1 {
     background-color: #c22c25; /* Цвет фона слоя */
     padding: 5px; /* Поля вокруг текста */
@@ -547,7 +403,6 @@ input[type="number"]{
     margin-bottom: 5px;
 }
 .layer1-admin {
-
     padding: 5px; /* Поля вокруг текста */
     float: left; /* Обтекание по правому краю */
     width: 50px; /* Ширина слоя */
@@ -556,7 +411,6 @@ input[type="number"]{
     margin-left: 240px;
 }
 .layer2-admin {
-
     padding: 5px; /* Поля вокруг текста */
     width: 50px; /* Ширина слоя */
     float: left; /* Обтекание по правому краю */
@@ -565,7 +419,6 @@ input[type="number"]{
     margin-left: 0px;
 }
 .layer1-button {
-
     padding: 1px; /* Поля вокруг текста */
     float: left; /* Обтекание по правому краю */
     width: 50px; /* Ширина слоя */
@@ -574,7 +427,6 @@ input[type="number"]{
     margin-left: 125px;
 }
 .layer2-button {
-
     padding: 1px; /* Поля вокруг текста */
     width: 50px; /* Ширина слоя */
     float: left; /* Обтекание по правому краю */
@@ -585,7 +437,6 @@ input[type="number"]{
 .clear {
     clear: left; /* Отмена обтекания */
 }
-
 input[type="checkbox"] {
     display:inline-block;
     width:19px;
@@ -596,9 +447,7 @@ input[type="checkbox"] {
     border-radius: 10px;
     border-left: 4px solid #e145a3;
     border-bottom: 4px solid #e145a3;
-
 }
-
 
 .button_menu{
     background: none;
@@ -609,20 +458,15 @@ input[type="checkbox"] {
     padding: 0;
     outline: none;
     outline-offset: 0;
-    /* Additional styles to look like a link */
     color: white;
     cursor: pointer;
-    /*text-decoration: underline;*/
-
 }
 .button_menu:hover{
     color: #c00;
     background-color: #fff;
-
 }
 
 #content #favorite ul li {
-    /*float:left;*/
     float: left;
     margin-right:0px;
     margin-left:-100px;
@@ -631,7 +475,6 @@ input[type="checkbox"] {
     padding-left: 300px;
     width: 45%;
 }
-
 /*нужно для фиксирования картинок*/
 #content #favorite ul li .img img {
     height:128px;
