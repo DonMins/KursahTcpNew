@@ -6,125 +6,15 @@ body{
 H2{
     font-family: "Comic Sans MS";
     font-size: 70px;
-
     color: white;
     text-align: center;
-
 }
 H1 {
     font-size: 30px;
     color: white;
     text-align: center;
     font-family: "Comic Sans MS";
-
-
 }
-
-/*#nav {*/
-    /*width: 32%;*/
-    /*float: right;*/
-    /*position: relative;*/
-    /*left: -2%;*/
-    /*text-align: left;*/
-    /*margin: 0 0 3em 0;*/
-    /*padding: 0;*/
-    /*list-style: none;*/
-    /*background-color: black;*/
-    /*border-bottom: 1px solid #ccc;*/
-     /*}*/
-
-/*#nav li {*/
-
-    /*float: right;*/
-
-
-/*}*/
-/*#nav li a {*/
-    /*display: block;*/
-    /*padding: 8px 15px;*/
-    /*text-decoration: none;*/
-    /*font-weight: bold;*/
-    /*color: white;*/
-    /*}*/
-/*#nav li a:hover {*/
-    /*color: #c00;*/
-    /*background-color: #fff; }*/
-/*.start{*/
-    /*margin-top: 100px;*/
-    /*margin-left: 40%;*/
-    /*width: 600px;*/
-    /*background-color: black;*/
-/*}*/
-/*TH {*/
-    /*background: black; !* Цвет фона *!*/
-    /*text-align: left;*/
-    /*font-weight:bold;*/
-    /*font-size:20px;*/
-
-/*}*/
-
-
-/*ul {*/
-    /*display: block;*/
-    /*float: right;*/
-    /*margin-top: -8%;*/
-    /*padding: 0;*/
-
-    /*list-style: none;*/
-/*}*/
-/*ul:after {*/
-    /*display: block;*/
-    /*content: ' ';*/
-    /*clear: both;*/
-    /*float: none;*/
-/*}*/
-/*ul.menu > li {*/
-    /*float: left;*/
-    /*position: relative;*/
-/*}*/
-/*ul.menu > li > a {*/
-    /*display: block;*/
-    /*padding: 10px;*/
-    /*color: white;*/
-    /*background-color: red;*/
-    /*text-decoration: none;*/
-/*}*/
-/*ul.menu > li > a:hover {*/
-    /*background-color: black;*/
-/*}*/
-/*ul.submenu {*/
-    /*display: none;*/
-    /*position: absolute;*/
-    /*width: 120px;*/
-    /*top: 37px;*/
-    /*left: 0;*/
-    /*background-color: white;*/
-    /*border: 1px solid red;*/
-/*}*/
-/*ul.submenu > li {*/
-    /*display: block;*/
-/*}*/
-/*ul.submenu > li > a {*/
-    /*display: block;*/
-    /*padding: 10px;*/
-    /*color: white;*/
-    /*background-color: red;*/
-    /*text-decoration: none;*/
-/*}*/
-/*ul.submenu > li > a:hover {*/
-    /*text-decoration: underline;*/
-/*}*/
-
-/*ul.menu > li:hover > ul.submenu {*/
-    /*display: block;*/
-/*}*/
-/*button{*/
-    /*color: #e42423;*/
-/*}*/
-
-
-
-
 /* Базовые стили слоя затемнения и модального окна  */
 .overlay {
     top: 0;
@@ -274,27 +164,21 @@ H1 {
 /* параграфы */
 .popup p {margin: 0; padding: 5px 0}
 
-
-
 #slick-login label {
     display: none;
 }
-
 
 #slick-login input[type="text"],#slick-login input[type="number"],#slick-login input[type="password"] {
     width: 100%;
     height: 40px;
     positon: relative;
     text-align: center;
-
     margin-top: 7px;
     font-size: 14px;
     color: #444;
     outline: none;
     border: 1px solid rgba(0, 0, 0, .49);
-
     padding-left: 20px;
-
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
@@ -315,8 +199,6 @@ H1 {
     -ms-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
 }
-
-
 
 #slick-login input:first-child {
     margin-top: 0px;
@@ -344,7 +226,6 @@ H1 {
     background-image: -o-linear-gradient(bottom, #5466da 0%, #768ee4 100%);
     background-image: -ms-linear-gradient(bottom, #5466da 0%, #768ee4 100%);
     background-image: linear-gradient(bottom, #5466da 0%, #768ee4 100%);
-
     -webkit-box-shadow: inset 0px 1px 0px #9ab1ec;
     box-shadow: inset 0px 1px 0px #000000;
 
@@ -356,20 +237,6 @@ H1 {
     -ms-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
 }
-
-
-
-/*h1 {*/
-    /*color: white;*/
-    /*font-size: 20px;*/
-    /*text-align: center;*/
-
-/*}*/
-
-
-
-
-
 
 #bg_popup{
     position: fixed;
@@ -398,9 +265,6 @@ H1 {
     color:#555;
     background:#1BA600;
     cursor:pointer;}
-
-
-
  button {
     width: 50%;
     height: 50px;
