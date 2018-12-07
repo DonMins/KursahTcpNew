@@ -232,7 +232,7 @@ public class Rating {
         return parametrs;
     }
     public String getWineAvg(Integer idProduct) {
-        String parametrs= null;
+        Double parametrs = null;
         String sql1 = "Select wine.avgrating from public.wine, public.Rating where" +
                 " wine.id_product=Rating.id_product and Rating.id_product ="+idProduct;
         SqlQuery maxId = Ebean.createSqlQuery(sql1);
@@ -241,10 +241,12 @@ public class Rating {
         for (SqlRow row2 : mId) {
             Set<String> keyset2 = row2.keySet();
             for (String s : keyset2) {
-                parametrs = row2.getString(s);
+                parametrs = Double.parseDouble(row2.getString(s));
             }
         }
-        return parametrs;
+        parametrs = (Math.rint(parametrs*10)/10);
+        String st = parametrs.toString();
+        return st;
     }
     public String getLinkForProduct(Integer idProduct)
     {

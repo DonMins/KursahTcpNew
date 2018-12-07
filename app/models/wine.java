@@ -72,11 +72,10 @@ public class wine {
                 nameColomn.add(row3.getString(s));
             }
         }
-     //   nameColomn.add("Рейтинг");
+
         return nameColomn;
     }
 
-    public static Finder<String, wine> find1 = new Finder<>(wine.class);
 
     public static Finder<Integer, wine> find = new Finder<>(wine.class);
 

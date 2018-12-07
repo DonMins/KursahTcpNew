@@ -465,6 +465,12 @@ public class WineController extends Controller {
                         setDistinct(true).findList();
             }
         }
+        winList.sort(new Comparator<wine>() {
+            @Override
+            public int compare(wine o1, wine o2) {
+                if(o1.getIdProduct() <= o2.getIdProduct())
+                    return -1;
+                return 1;}});
 
         searchList = winList;
         List<String> nameColomn = new ArrayList<>();
